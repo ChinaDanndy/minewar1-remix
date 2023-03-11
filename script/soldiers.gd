@@ -3,6 +3,7 @@ var camp#
 var kind#
 var collKind#
 var health#
+var soldiername
 
 var type = Global.Type.PEOPLE
 var other
@@ -12,7 +13,7 @@ enum State {ATTACK,STOP,DEATH,BACK,PUSH,OUTSEA,INSEA}
 var picture = load("res://assets/soldiers/steve.png")  #死亡时picture要free
 var totalPictureNumber = 11#
 var animationStart = [0,6,0,0,9,10,0,0]#
-var animationEnd = [6,10,0,0,9,10,0,0]#
+var animationEnd = [5,10,0,0,9,10,0,0]#
 var seaAniNumber#
 var currentState = State.PUSH
 var currentAni = Ani.WALK
@@ -20,7 +21,7 @@ var walkAni = Ani.WALK
 var attack1Ani = Ani.ATTACK1
 var standardState = State.PUSH
 var standardAni = walkAni
-var seaAni = seaAniNumber
+var seaAni = 0
 var currentAnimationStart = animationStart[currentAni]
 var currentAnimationEnd = animationEnd[currentAni]
 
@@ -57,9 +58,9 @@ var ifAoeHold = [false,false,false]#
 var aoeModel = [Global.AoeModel.MONSTER,Global.AoeModel.MONSTER,Global.AoeModel.MONSTER]#
 var aoeRange = [50,50,50]#
 #自身状态数据
-var nowEffect = [0,0,0,0,0,0,0]
-var effUncencal = [1,1,1,1,1,1,1,1,1]
-var nowEffGoodOrBad = [-1,-1,-1,-1,-1,-1,-1]
+var nowEffect = [0,0,0,0,0,0,0,0,0,0]
+var effUncencal = [0,0,0,0,0,0,0,0,0]
+var nowEffGoodOrBad = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
 var effDefence = [false,false,false,false,false,false,false,false,false]
 #攻击给予状态
 var attEffGoodOrBad = [-1,-1,-1,-1,-1,-1,-1]#
@@ -126,6 +127,7 @@ func firstSetting(soldierName):
 	attDefHealth = Global.SoldierData[soldierName]["attDefHealth"]
 	satDefValue = Global.SoldierData[soldierName]["satDefValue"]
 	attDefState = Global.SoldierData[soldierName]["attDefState"]
+	soldiername = soldierName
 	
 	
 	#记录攻击免疫
@@ -161,6 +163,7 @@ func firstSetting(soldierName):
 	$Sprite2D.texture = load("res://assets/soldiers/"+soldierName+".png")
 	$Sprite2D.hframes = totalPictureNumber
 	changeAnimation(standardAni,currentState)
+	pass
 
 func _physics_process(delta):#每帧执行的部分
 	#死亡判定
@@ -194,8 +197,10 @@ func _physics_process(delta):#每帧执行的部分
 		if currentState == satDefValue: attDefence = attDefState 
 		else: attDefence = attDefOrigin
 	#我方士兵控制，有开始状态的士兵处于开始状态时不能被控制
-	if camp == Global.VILLAGE: 
-		if (collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): contrl()
+
+	if camp == Global.VILLAGE&&Global.Contrl == soldiername: 
+		#if (collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
+		contrl()
 
 	#基础数据实时更改
 	damage = damageBasic+damageAdd+damageEffect
@@ -204,16 +209,14 @@ func _physics_process(delta):#每帧执行的部分
 	attRange = Vector2(attRangeEffect+attRangeBasic,0)
 	$Collision1.target_position = attRange*Vector2(camp,0)
 	$Collision2.target_position = attRange*Vector2(camp,0)
-	damageEffect = Global.effect_calu(damageBasic,Global.Effect.ATTDAMAGE,nowEffGoodOrBad,effUncencal)
-	speedEffect =  Global.effect_calu(speedBasic,Global.Effect.SPEED,nowEffGoodOrBad,effUncencal)
-	aniTimeEffect = Global.effect_calu(aniTimeBasic,Global.Effect.SPEED,nowEffGoodOrBad,effUncencal)
-	attRangeEffect = Global.effect_calu(attRangeBasic.x,Global.Effect.ATTRANGE,nowEffGoodOrBad,effUncencal)
+
 	
 	#移动控制
 	position += speed*camp*speedDirection*speedState
+	position.x = clamp(position.x,90,700)#限制移动范围
 	
 	#测试用
-	$Label.text = str(speedBasic)
+	$Label.text = str(currentState)
 	if Input.is_action_just_pressed("ui_select"):
 		
 		if camp == Global.MONSTER: 
@@ -222,10 +225,10 @@ func _physics_process(delta):#每帧执行的部分
 
 func contrl():#玩家的单位控制
 	if Input.is_action_just_pressed("ui_right")&&currentState != State.ATTACK: 
-		changeState(Ani.ATTACK1,State.PUSH)
+		changeState(Ani.WALK,State.PUSH)
 	#防止攻击时还能继续前进
 	if Input.is_action_just_pressed("ui_down"): changeState(Ani.STOP,State.STOP)
-	if Input.is_action_just_pressed("ui_left"): changeState(aniTime,State.BACK)
+	if Input.is_action_just_pressed("ui_left"): changeState(Ani.WALK,State.BACK)
 	pass
 	
 func testchangeState():
@@ -282,13 +285,15 @@ func changeState(AniName,StaName):#入海出海的动作图片在每个动画的
 				standardAni = Ani.STOP
 	match StaName:
 		State.PUSH,State.BACK:
-			if currentState != State.DEATH:
+			if currentState != State.DEATH&&currentState != StaName:
 				changeAnimation(AniName,StaName)
 				standardState = State.PUSH
 				standardAni = walkAni
+	#print(currentState)
 	pass
 	
 func changeAnimation(AniName,StaName):
+	
 	match StaName:#SpeedState
 		State.DEATH,State.ATTACK,State.STOP:
 			speedState = SpeState.STATIC
@@ -303,7 +308,7 @@ func changeAnimation(AniName,StaName):
 	currentState = StaName#记录当前切换状态
 	currentAnimationStart = animationStart[AniName]
 	currentAnimationEnd = animationEnd[AniName]
-	$Sprite2D.frame = animationStart[AniName]-seaAniNumber
+	$Sprite2D.frame = animationStart[AniName]-seaAni
 
 	$animationTimer.start(aniTime)
 	pass
@@ -332,7 +337,7 @@ func _on_animationTimer_timeout():
 		seaAni = 0
 		if is_instance_valid(other):#攻击执行
 			match currentState:
-				State.ATTACK: if is_instance_valid(other): attack()
+				State.ATTACK: if is_instance_valid(other): print("dd")#attack()
 				State.DEATH:
 					if deathEffect != null:#启动亡语效果
 						Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,aoeModel[Global.AoeSet.DEATH],aoeRange[Global.AoeSet.DEATH],ifAoeHold[Global.AoeSet.DEATH],null,null,null,deathEffect,deathEffGoodOrBad)
@@ -341,6 +346,14 @@ func _on_animationTimer_timeout():
 	pass 
 
 func attributeTimer(effName):
+	match effName:
+		Global.Effect.ATTDAMAGE:
+			damageEffect = Global.effect_calu(damageBasic,effName,nowEffGoodOrBad,effUncencal)
+		Global.Effect.SPEED:
+			speedEffect =  Global.effect_calu(speedBasic,effName,nowEffGoodOrBad,effUncencal)
+			aniTimeEffect = Global.effect_calu(aniTimeBasic,effName,nowEffGoodOrBad,effUncencal)
+		Global.Effect.ATTRANGE:
+			attRangeEffect = Global.effect_calu(attRangeBasic,effName,nowEffGoodOrBad,effUncencal)
 	await get_tree().create_timer(Global.EffTime).timeout
 	match effName:
 		Global.Effect.ATTDAMAGE:
@@ -380,6 +393,13 @@ func _on_fireTimer_timeout():
 	pass
 
 func _on_usuallyTimer_timeout():
+	print("1111")
 	if currentState != State.DEATH: Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,aoeModel[Global.AoeSet.NORMAL],aoeRange[Global.AoeSet.NORMAL],ifAoeHold[Global.AoeSet.NORMAL],null,null,null,usuallyEffect,usuallyEffGoodOrBad)
 	pass 
 
+
+
+func _on_input_event(viewport, event, shape_idx):
+	if event.is_action_pressed("ui_mouse_left"):
+		Global.Contrl = soldiername
+	pass # Replace with function body.

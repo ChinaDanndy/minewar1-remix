@@ -61,4 +61,3 @@ func _process(delta):
 	if (currentPos - startPos) >= proRange.x: queue_free()#超过射程直接自己销毁
 	pass
 
-

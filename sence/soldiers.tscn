@@ -1,33 +1,26 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://6n7nddm1gi7w"]
 
-[ext_resource path="res://script/soldiers.gd" type="Script" id=1]
-[ext_resource path="res://assets/soldiers/steve.png" type="Texture2D" id=2]
+[ext_resource type="Script" path="res://script/soldiers.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://c5vcxs0dr27st" path="res://assets/soldiers/steve.png" id="2"]
 
-[sub_resource type="RectangleShape2D" id=1]
-size = Vector2( 10, 20 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(28, 44)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-script = ExtResource( 1 )
+input_pickable = true
+script = ExtResource("1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
+texture = ExtResource("2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
+shape = SubResource("1")
 
 [node name="Collision1" type="RayCast2D" parent="."]
-target_position = Vector2( 30, 0 )
+target_position = Vector2(30, 0)
 
 [node name="Collision2" type="RayCast2D" parent="."]
-target_position = Vector2( 30, 0 )
+target_position = Vector2(30, 0)
 
 [node name="animationTimer" type="Timer" parent="."]
 
@@ -43,6 +36,7 @@ offset_top = -32.0
 offset_right = 31.0
 offset_bottom = -18.0
 
+[connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="animationTimer" to="." method="_on_animationTimer_timeout"]
 [connection signal="timeout" from="poisonTimer" to="." method="_on_poisonTimer_timeout"]
 [connection signal="timeout" from="fireTimer" to="." method="_on_fireTimer_timeout"]

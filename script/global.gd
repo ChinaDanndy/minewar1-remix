@@ -1,7 +1,10 @@
 extends Node
 
-
+var summonEnemy = preload("res://script/summonEnemy.gd")
 var SoldierData
+var Contrl
+const Money = 10 
+var NowMoney = 0
 
 enum Type {PEOPLE,TOWER,PROJECTILE,CASTLE,SKILL}
 enum Kind {LAND,SEA,SKY}
@@ -30,7 +33,9 @@ enum AoeSet {ATTACK,NORMAL,DEATH}
 func effect_calu(value,effectName,effectGoodOrBad,effectUncencal):
 	#原始值+增值*是否处于该效果*好或坏*是否同时获得好坏值中和攻击效果恢复为原值
 	if effectGoodOrBad == null: return value*EffMulti[effectName]
-	else: return value*EffMulti[effectName]*effectGoodOrBad[effectName]*effectUncencal[effectName]
+	else: 
+		print("111")
+		return value*EffMulti[effectName]*effectGoodOrBad[effectName]*effectUncencal[effectName]
 	pass
 
 func TRvalue_caluORcreate(caluType,damager,target,ifProPierce,damageMethod,proRange,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,giveEffect,giveEffGoodOrBad):
