@@ -40,12 +40,13 @@ var speedState = SpeState.MOVE
 
 var ifOnlyAttBase = false#
 var attackType = [false,false,false,false]#
+var damageMethod
 var damagerType#有伤害加成的攻击目标
 var damageBasic = 1#
 var damage = 1
 var damageAdd = 0
 var damageEffect = 0
-var damageMethod
+
 
 var ifProPierce = false#
 var attRangeBasic = 100#
@@ -63,10 +64,10 @@ var effUncencal = [0,0,0,0,0,0,0,0,0]
 var nowEffGoodOrBad = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
 var effDefence = [false,false,false,false,false,false,false,false,false]
 #攻击给予状态
-var attEffGoodOrBad = [-1,-1,-1,-1,-1,-1,-1]#
+var attEffGoodOrBad = [-1,-1,-1,-1,-1,-1,-1,-1,-1]#
 var attackEffect = [false,false,false,false,false,false,false,false,false]#
 #平时给予状态
-var usuallyEffGoodOrBad = [1,1,1,1,1,1,1]#
+var usuallyEffGoodOrBad = [1,1,1,1,1,1,1,1,1]#
 var usuallyEffect#
 #死亡给予状态
 var deathEffGoodOrBad = [1,1,1,1,1,1,1]#
@@ -78,7 +79,7 @@ var healthEffValue = 0#
 var ifDistanceEffect = false#
 
 var attDefOrigin = [false,false,false,false]#
-var attDefence
+var attDefence = attDefOrigin
 var healthDefValue = 0#
 var attDefHealth#
 var satDefValue = 0#
@@ -106,6 +107,7 @@ func firstSetting(soldierName):
 	speedBasic = Global.SoldierData[soldierName]["speedBasic"]
 	ifOnlyAttBase = Global.SoldierData[soldierName]["ifOnlyAttBase"]
 	attackType = Global.SoldierData[soldierName]["attackType"]
+	damageMethod = Global.SoldierData[soldierName]["damageMethod"]
 	damagerType = Global.SoldierData[soldierName]["damagerType"]
 	damageBasic = Global.SoldierData[soldierName]["damageBasic"]
 	attRangeBasic = Global.SoldierData[soldierName]["attRangeBasic"]
@@ -132,6 +134,7 @@ func firstSetting(soldierName):
 	
 	#记录攻击免疫
 	attDefence = attDefOrigin
+
 	#设置碰撞层
 	collision_layer = Global.LAyer[camp+1][0]
 	collision_mask = Global.MAsk[camp+1][0]
@@ -166,6 +169,7 @@ func firstSetting(soldierName):
 	pass
 
 func _physics_process(delta):#每帧执行的部分
+	queue_redraw()
 	#死亡判定
 	if health <= 0&&currentState != State.DEATH: changeState(Ani.DEATH,State.DEATH)
 	#直接给予伤害单体攻击时获得对方id
@@ -216,7 +220,7 @@ func _physics_process(delta):#每帧执行的部分
 	position.x = clamp(position.x,90,700)#限制移动范围
 	
 	#测试用
-	$Label.text = str(currentState)
+	$Label.text = str(health)
 	if Input.is_action_just_pressed("ui_select"):
 		
 		if camp == Global.MONSTER: 
@@ -317,9 +321,10 @@ func attack():
 	if attackType[Global.AttackType.IMMDAMAGE] == true||attackType[Global.AttackType.MAGIC] == true||attackType[Global.AttackType.EXPLODE] == true:
 		match damageMethod:
 			Global.DamageMethod.SINGAL:
-				Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,other,Global.TRtype.VALCALU,null,null,null,null,null,null,damagerType,attackType,damage,attackEffect,attEffGoodOrBad)
+				Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,other,Global.TRtype.VALCALU,null,null,null,null,null,null,attackType,damage,damagerType,attackEffect,attEffGoodOrBad)
+				#func TRvalue_caluORcreate(caluType,damager,target,ifProPierce,damageMethod,proRange,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,giveEffect,giveEffGoodOrBad):
 			Global.DamageMethod.AOE:
-				Global.TRvalue_caluORcreate(null,other,Global.TRtype.VALCREATE,null,null,null,aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],null,damagerType,attackType,damage,attackEffect,attEffGoodOrBad)
+				Global.TRvalue_caluORcreate(null,other,Global.TRtype.VALCREATE,null,null,null,aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],null,attackType,damage,damagerType,attackEffect,attEffGoodOrBad)
 
 	if attackType[Global.AttackType.PROJECTILE] == true:
 			var projectileNew = projectile.instantiate()
@@ -337,7 +342,8 @@ func _on_animationTimer_timeout():
 		seaAni = 0
 		if is_instance_valid(other):#攻击执行
 			match currentState:
-				State.ATTACK: if is_instance_valid(other): print("dd")#attack()
+				State.ATTACK: 
+					if is_instance_valid(other): attack()
 				State.DEATH:
 					if deathEffect != null:#启动亡语效果
 						Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,aoeModel[Global.AoeSet.DEATH],aoeRange[Global.AoeSet.DEATH],ifAoeHold[Global.AoeSet.DEATH],null,null,null,deathEffect,deathEffGoodOrBad)
@@ -393,13 +399,13 @@ func _on_fireTimer_timeout():
 	pass
 
 func _on_usuallyTimer_timeout():
-	print("1111")
 	if currentState != State.DEATH: Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,aoeModel[Global.AoeSet.NORMAL],aoeRange[Global.AoeSet.NORMAL],ifAoeHold[Global.AoeSet.NORMAL],null,null,null,usuallyEffect,usuallyEffGoodOrBad)
 	pass 
-
-
 
 func _on_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed("ui_mouse_left"):
 		Global.Contrl = soldiername
 	pass # Replace with function body.
+
+func _draw():
+	

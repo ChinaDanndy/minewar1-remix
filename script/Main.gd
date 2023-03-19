@@ -6,19 +6,21 @@ var count = 0
 
 var card = preload("res://sence/Card.tscn")
 var summonEnemy = preload("res://script/summonEnemy.gd")
+var base = preload("res://sence/Base.tscn")
 
 
 func _ready():
 	var file = FileAccess.open("res://data/soldier.json", FileAccess.READ)
 	var content = file.get_as_text()
-	file.close()
+	file.close()#读取所有士兵数据
 	var jsonValue = JSON.new()
 	jsonValue.parse(content)
 	Global.SoldierData = jsonValue.data
+	
 	var soldierDataCount = jsonValue.data["allSoldierName"].size()
 	var arrayLength
 	var allSoName = jsonValue.data["allSoldierName"]
-	for i in soldierDataCount:#把所有数值变成int
+	for i in soldierDataCount:#把所有数值变成int,数组要挨个把里面的值重新读
 		Global.SoldierData[allSoName[i]]["price"] = int(jsonValue.data[allSoName[i]]["price"])
 		Global.SoldierData[allSoName[i]]["camp"] = int(jsonValue.data[allSoName[i]]["camp"])
 		Global.SoldierData[allSoName[i]]["kind"] = int(jsonValue.data[allSoName[i]]["kind"])
@@ -34,6 +36,7 @@ func _ready():
 		for j in arrayLength:
 			Global.SoldierData[allSoName[i]]["animationEnd"][j] = int(jsonValue.data[allSoName[i]]["animationEnd"][j])
 		Global.SoldierData[allSoName[i]]["seaAniNumber"] = int(jsonValue.data[allSoName[i]]["seaAniNumber"])
+		Global.SoldierData[allSoName[i]]["damageMethod"] = int(jsonValue.data[allSoName[i]]["damageMethod"])
 		Global.SoldierData[allSoName[i]]["damageBasic"] = int(jsonValue.data[allSoName[i]]["damageBasic"])
 		Global.SoldierData[allSoName[i]]["attRangeBasic"] = int(jsonValue.data[allSoName[i]]["attRangeBasic"])
 		arrayLength = jsonValue.data[allSoName[i]]["aoeModel"].size()
@@ -59,7 +62,27 @@ func _ready():
 		Global.SoldierData[allSoName[i]]["healthDefValue"] = int(jsonValue.data[allSoName[i]]["healthDefValue"])
 		Global.SoldierData[allSoName[i]]["satDefValue"] = int(jsonValue.data[allSoName[i]]["satDefValue"])
 	
-
+	file = FileAccess.open("res://data/level.json", FileAccess.READ)
+	content = file.get_as_text()
+	file.close()
+	jsonValue = JSON.new()
+	jsonValue.parse(content)
+	Global.LevelData = jsonValue.data
+	var levelDateCount = jsonValue.data.size()
+	for i in levelDateCount:
+		var stageCount = jsonValue.data[i].size()
+		for j in stageCount:
+			var groupCount = jsonValue.data[i][j].size()
+			for k in groupCount:
+				if k == groupCount-1:
+					Global.LevelData[i][j][k]["stageCD"] = int(jsonValue.data[i][j][k]["stageCD"])
+					Global.LevelData[i][j][k]["stageCDTand"] = int(jsonValue.data[i][j][k]["stageCDTand"])
+				else:
+					Global.LevelData[i][j][k]["firstCD"] = int(jsonValue.data[i][j][k]["firstCD"])
+					Global.LevelData[i][j][k]["CDType"] = int(jsonValue.data[i][j][k]["CDType"])
+					Global.LevelData[i][j][k]["groupCD"] = int(jsonValue.data[i][j][k]["groupCD"])
+					Global.LevelData[i][j][k]["groupCDRand"] = int(jsonValue.data[i][j][k]["groupCDRand"])
+	
 
 	
 	var Card = card.instantiate()
@@ -69,8 +92,20 @@ func _ready():
 	
 	var newEnemy = summonEnemy.new()
 	add_child(newEnemy)
+	newEnemy.level = 0
 	newEnemy.firstStart()
 	
+	var BaseVill = base.instantiate()
+	add_child(BaseVill)
+	BaseVill.position = Vector2(100,270)
+	BaseVill.collision_layer = 16
+	BaseVill.picture(Global.VILLAGE)
+	
+	var BaseMon = base.instantiate()
+	add_child(BaseMon)
+	BaseMon.position = Vector2(700,270)
+	BaseMon.collision_layer = 32
+	BaseMon.picture(Global.MONSTER)
 	#friend.picture = load("res://assets/soldiers/archer.png")
 #	friend.picture = load("res://assets/soldiers/assassin.png")
 	#friend.animationStart = [0,0,0,6,10,0,6,14]

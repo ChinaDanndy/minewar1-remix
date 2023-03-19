@@ -48,7 +48,7 @@ func _process(delta):
 		other = $RayCast2D.get_collider()
 		match damageMethod:
 			Global.DamageMethod.SINGAL:#单体伤害
-				Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,other,Global.TRtype.VALCALU,null,null,null,null,null,null,attackType,damagerType,damage,giveEffect,giveEffGoodOrBad)
+				Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,other,Global.TRtype.VALCALU,null,null,null,null,null,null,attackType,damage,damagerType,giveEffect,giveEffGoodOrBad)
 			Global.DamageMethod.AOE:#AOE伤害
 				Global.TRvalue_caluORcreate(null,other,Global.TRtype.VALCREATE,ifProPierce,null,null,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,giveEffect,giveEffGoodOrBad)
 		

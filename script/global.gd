@@ -1,19 +1,23 @@
 extends Node
 
-var summonEnemy = preload("res://script/summonEnemy.gd")
+
 var SoldierData
 var Contrl
 const Money = 10 
 var NowMoney = 0
+var LevelData
 
-enum Type {PEOPLE,TOWER,PROJECTILE,CASTLE,SKILL}
+
+enum Type {PEOPLE,TOWER,PROJECTILE,BASE,SKILL}
 enum Kind {LAND,SEA,SKY}
 enum AttackType {IMMDAMAGE,MAGIC,EXPLODE,PROJECTILE}
+const AttackTypeLength = 4
 enum DamageMethod {SINGAL,AOE}
 const HealthReduceTime = 2
 const HoldEffectTimes = 2
 enum AoeModel {MONSTER,ALL,VILLAGE}
 enum Effect {ATTDAMAGE,SPEED,ATTRANGE,POISON,FIRE,DAMAGE,KNOCK1,KNOCK2,KNOCK3}
+const EffectLength = 9
 const EffTime = 2
 const EffMulti = [0.5,1,0.25,2,0,5,1,10,100,25,50]
 const ONEFFECT = 1

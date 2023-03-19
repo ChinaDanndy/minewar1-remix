@@ -14,24 +14,25 @@ var attDefence
 var giveEffect
 var giveEffGoodOrBad
 var effDefence
+
 func normalAttackCalu(damager):
-	attDefence = damager.attDefence
-	
-	for i in 4:
-		if attackType[i] == true&&attDefence[i] == false: 
-			if damager.health>0: 
-				damager.health -= damage 
-				if damager.type == damagerType: damager.health -= Global.effect_calu(damage,Global.Effect.ATTDAMAGE,null,null)
+	if damager.type == Global.Type.BASE:
+		damager.health -= damage 
+	else:
+		attDefence = damager.attDefence
+		for i in Global.AttackTypeLength:
+			if attackType[i] == true&&attDefence[i] == false: 
+				if damager.health>0: 
+					damager.health -= damage 
+					if damager.type == damagerType: damager.health -= Global.effect_calu(damage,Global.Effect.ATTDAMAGE,null,null)
 					#特定目标伤害加成
-	effectAttackCalu(damager)
+		effectAttackCalu(damager)
 	pass
 
 func effectAttackCalu(damager):
 	effDefence = damager.effDefence
 	var effectName = 0
-	#print(nowEffGoodOrBad)
-	for i in 9:
-		#effectName += 1
+	for i in Global.EffectLength:
 		if (giveEffGoodOrBad[i]==Global.EFFBAD&&giveEffect[i] == true&&effDefence[i] == false)||(giveEffGoodOrBad[i]==Global.EFFGOOD&&giveEffect[i] == true): 
 			if damager.health>0:
 				match i:

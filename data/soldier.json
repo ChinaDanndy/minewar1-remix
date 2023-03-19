@@ -1,6 +1,5 @@
 {
-    "allSoldierName":["steve",
-    "zombie"],
+    "allSoldierName":["steve","zombie"],
 
     "steve":{
         "price":1,
@@ -16,18 +15,19 @@
         "speedBasic":0.6,
         "ifOnlyAttBase":false,
         "attackType":[true,false,false,false],
+        "damageMethod":0,
         "damagerType":null,
         "damageBasic":1,
         "ifProPierce":false,
-        "attRangeBasic":50,
+        "attRangeBasic":20,
         "ifAoeHold":[false,false,false],
         "aoeModel":[0,0,0],
         "aoeRange":[0,0,0],
-        "attEffGoodOrBad":[-1,-1,-1,-1,-1,-1,-1],
+        "attEffGoodOrBad":[-1,-1,-1,-1,-1,-1,-1,-1,-1],
         "attackEffect":[false,false,false,false,false,false,false,false,false],
-        "usuallyEffGoodOrBad":[1,1,1,1,1,1,1],
+        "usuallyEffGoodOrBad":[1,1,1,1,1,1,1,1,1],
         "usuallyEffect":null,
-        "deathEffGoodOrBad":[1,1,1,1,1,1,1],
+        "deathEffGoodOrBad":[1,1,1,1,1,1,1,1,1],
         "deathEffect":null,
         "ifFirstEffect":false,
         "ifHealthEffect":false,
@@ -35,9 +35,9 @@
         "ifDistanceEffect":false,
         "attDefOrigin":[false,false,false,false],
         "healthDefValue":0,
-        "attDefHealth":[false,false,false,false],
+        "attDefHealth":null,
         "satDefValue":0,
-        "attDefState":[false,false,false,false]
+        "attDefState":null
     },
 
     "zombie":{
@@ -54,18 +54,19 @@
         "speedBasic":0.6,
         "ifOnlyAttBase":false,
         "attackType":[true,false,false,false],
+        "damageMethod":0,
         "damagerType":null,
         "damageBasic":1,
         "ifProPierce":false,
-        "attRangeBasic":50,
+        "attRangeBasic":20,
         "ifAoeHold":[false,false,false],
         "aoeModel":[0,0,0],
         "aoeRange":[0,0,0],
-        "attEffGoodOrBad":[-1,-1,-1,-1,-1,-1,-1],
+        "attEffGoodOrBad":[-1,-1,-1,-1,-1,-1,-1,-1,-1],
         "attackEffect":[false,false,false,false,false,false,false,false,false],
-        "usuallyEffGoodOrBad":[1,1,1,1,1,1,1],
+        "usuallyEffGoodOrBad":[1,1,1,1,1,1,1,1,1],
         "usuallyEffect":null,
-        "deathEffGoodOrBad":[1,1,1,1,1,1,1],
+        "deathEffGoodOrBad":[1,1,1,1,1,1,1,1,1],
         "deathEffect":null,
         "ifFirstEffect":false,
         "ifHealthEffect":false,
@@ -73,9 +74,9 @@
         "ifDistanceEffect":false,
         "attDefOrigin":[false,false,false,false],
         "healthDefValue":0,
-        "attDefHealth":[false,false,false,false],
+        "attDefHealth":null,
         "satDefValue":0,
-        "attDefState":[false,false,false,false]
+        "attDefState":null
     }
 
 

@@ -39,7 +39,7 @@ func _on_Node2D_body_entered(body):
 	if ifProPierce == null:
 		Global.TRvalue_caluORcreate(Global.Calu.EFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,null,null,null,giveEffect,giveEffGoodOrBad)
 	else:
-		Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,attackType,damagerType,damage,giveEffect,giveEffGoodOrBad)
+		Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,attackType,damage,damagerType,giveEffect,giveEffGoodOrBad)
 		Global.TRvalue_caluORcreate(Global.Calu.EFF,body,Global.TRtype.VALCALU,null,null,null,null,null,true,null,null,null,giveEffect,giveEffGoodOrBad)
 	if ifAoeHold == false: queue_free()
 	pass

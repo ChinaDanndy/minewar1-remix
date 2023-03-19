@@ -1,15 +1,18 @@
 extends Node
 var soldier = preload("res://sence/soldiers.tscn")
-
-var soldierGroup = ["zombie"]
 const soldierCD = [1.5,1,0.5]
 enum  CDtype {WIDE,MIDDLE,TIGHT}
-var cdType = CDtype.WIDE
+
+var stageTime
+var soldierGroup = ["zombie","zombie"]
+var cdType = CDtype.MIDDLE
 var firstCD = 1
 var soldierGroupCD = 5
-var soldierGroupCDrand = 2
-var soldierTest = 1
-
+var soldierGroupCDRand = 2
+var level
+var stage = 0
+var groupCount
+var soldierCount
 func _ready():
 #	add_child(enemy)
 #
@@ -31,21 +34,30 @@ func _ready():
 #	if count == 3: enemy.position = Vector2(300,297)
 #	enemy.firstSetting()
 	pass
-	
 func firstStart():
-	await get_tree().create_timer(firstCD).timeout
-	summonEnemy()
+	groupCount = Global.LevelData[level][stage].size()-1#排除掉最后一组记录阶段持续时间的
+	for i in groupCount:
+		await get_tree().create_timer(Global.LevelData[level][stage][i]["firstCD"]).timeout
+		summonEnemy(i,stage)
+		#groupCount是每个阶段最后一个组,该组别包含阶段持续时间
+	if Global.LevelData[level][stage][groupCount]["stageCD"] != 0:
+		await get_tree().create_timer(Global.LevelData[level][stage][groupCount]["stageCD"]+randi_range(
+			-Global.LevelData[level][stage][groupCount]["stageCDTand"],Global.LevelData[level][stage][groupCount]["stageCDTand"])).timeout
+		stage += 1 
+		firstStart()
 	pass
 
-func summonEnemy():
-	var soldierGroupLength = soldierGroup.size()
-	for i in soldierGroupLength:
+func summonEnemy(group,groupStage):
+	soldierCount = Global.LevelData[level][stage][group]["group"].size()
+	for j in soldierCount:
 		var enemy = soldier.instantiate()
 		add_child(enemy)
 		enemy.position = Vector2(400,297)
-		enemy.firstSetting(soldierGroup[i])
-		if soldierGroupLength>1: await get_tree().create_timer(soldierCD[cdType]).timeout
-	await get_tree().create_timer(soldierGroupCD+randi_range(-soldierGroupCDrand,soldierGroupCDrand)).timeout
-	summonEnemy()
+		enemy.firstSetting(Global.LevelData[level][stage][group]["group"][j])
+		if soldierCount>1: await get_tree().create_timer(soldierCD[Global.LevelData[level][stage][group]["CDType"]]).timeout
+	
+	await get_tree().create_timer(Global.LevelData[level][stage][group]["groupCD"]+randi_range(
+		-Global.LevelData[level][stage][group]["groupCDRand"],Global.LevelData[level][stage][group]["groupCDRand"])).timeout
+	if stage == groupStage: summonEnemy(group,groupStage)
 	pass
 

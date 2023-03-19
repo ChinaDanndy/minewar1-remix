@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5ysu8jo77fyx"]
+
+[ext_resource type="Script" path="res://script/base.gd" id="1_6mqgb"]
+[ext_resource type="Texture2D" uid="uid://cxu47kcv48qhr" path="res://assets/tower/villageBase.png" id="1_kpliq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_38reo"]
+size = Vector2(100, 100)
+
+[node name="Base" type="CharacterBody2D"]
+script = ExtResource("1_6mqgb")
+
+[node name="Label" type="Label" parent="."]
+offset_top = -80.0
+offset_right = 40.0
+offset_bottom = -57.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kpliq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_38reo")
