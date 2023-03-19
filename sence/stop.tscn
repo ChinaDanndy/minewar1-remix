@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bskb81rox622k"]
+
+[ext_resource type="Texture2D" uid="uid://dk8yspmeqggbm" path="res://assets/UI/button/stop_normal.png" id="1_vt6c8"]
+[ext_resource type="Texture2D" uid="uid://btaq2lqnicsn" path="res://assets/UI/button/stop_press.png" id="2_fdgtb"]
+[ext_resource type="Script" path="res://script/stop.gd" id="3_nxnjj"]
+
+[node name="Stop" type="TextureButton"]
+process_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("1_vt6c8")
+texture_pressed = ExtResource("2_fdgtb")
+texture_hover = ExtResource("2_fdgtb")
+script = ExtResource("3_nxnjj")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

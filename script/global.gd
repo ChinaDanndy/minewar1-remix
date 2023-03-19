@@ -30,6 +30,7 @@ const EFFBAD = -1
 @onready var root = get_node("/root/Main")
 var calu = preload("res://script/attack_calu.gd")
 var aoe = preload("res://sence/AOE.tscn")
+var OutLine = preload("res://rescourse/soldiers.tres")
 enum Calu {ATTEFF,EFF}
 enum TRtype {VALCALU,VALCREATE}
 enum AoeSet {ATTACK,NORMAL,DEATH}

@@ -103,7 +103,7 @@ func _ready():
 	
 	var BaseMon = base.instantiate()
 	add_child(BaseMon)
-	BaseMon.position = Vector2(700,270)
+	BaseMon.position = Vector2(750,270)
 	BaseMon.collision_layer = 32
 	BaseMon.picture(Global.MONSTER)
 	#friend.picture = load("res://assets/soldiers/archer.png")

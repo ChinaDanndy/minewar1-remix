@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://celhfnre1cpxa"]
+
+[ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/UI/button/spr_broad.png" id="1_2igyr"]
+[ext_resource type="Script" path="res://script/game_board.gd" id="1_jtjkw"]
+[ext_resource type="LabelSettings" uid="uid://bapxcv21f0nsf" path="res://rescourse/blackFont.tres" id="2_iidff"]
+[ext_resource type="Texture2D" uid="uid://cff6qvysicflb" path="res://assets/UI/button/smallButtonNormal.png" id="3_7rvmc"]
+[ext_resource type="Texture2D" uid="uid://5800a47dpa4q" path="res://assets/UI/button/smallButtonPress.png" id="4_7isy1"]
+
+[node name="GameBoard" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jtjkw")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 248.0
+offset_bottom = 166.0
+texture = ExtResource("1_2igyr")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 10.0
+offset_right = 140.0
+offset_bottom = 33.0
+label_settings = ExtResource("2_iidff")
+
+[node name="Button1" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 100.0
+offset_right = 154.0
+offset_bottom = 120.0
+texture_normal = ExtResource("3_7rvmc")
+texture_pressed = ExtResource("4_7isy1")
+texture_hover = ExtResource("4_7isy1")
+
+[node name="Button1Text" type="Label" parent="Button1"]
+layout_mode = 0
+offset_right = 60.0
+offset_bottom = 23.0
+label_settings = ExtResource("2_iidff")
+
+[connection signal="pressed" from="Button1" to="." method="_on_button_1_pressed"]

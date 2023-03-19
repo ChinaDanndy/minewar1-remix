@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://jt5i355jtkvd"]
+[gd_scene load_steps=4 format=3 uid="uid://jt5i355jtkvd"]
 
 [ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="1"]
 [ext_resource type="Script" path="res://script/Main.gd" id="2"]
+[ext_resource type="PackedScene" uid="uid://bskb81rox622k" path="res://sence/stop.tscn" id="3_xve18"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("2")
@@ -11,6 +12,12 @@ position = Vector2(417.5, 225)
 texture = ExtResource("1")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
+
+[node name="Stop" parent="." instance=ExtResource("3_xve18")]
+offset_left = 756.0
+offset_top = 31.0
+offset_right = 776.0
+offset_bottom = 51.0
 
 [node name="Moneytext" type="Label" parent="."]
 offset_left = 9.0
