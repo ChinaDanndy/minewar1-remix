@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://celhfnre1cpxa"]
+[gd_scene load_steps=7 format=3 uid="uid://celhfnre1cpxa"]
 
 [ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/UI/button/spr_broad.png" id="1_2igyr"]
 [ext_resource type="Script" path="res://script/game_board.gd" id="1_jtjkw"]
 [ext_resource type="LabelSettings" uid="uid://bapxcv21f0nsf" path="res://rescourse/blackFont.tres" id="2_iidff"]
 [ext_resource type="Texture2D" uid="uid://cff6qvysicflb" path="res://assets/UI/button/smallButtonNormal.png" id="3_7rvmc"]
+[ext_resource type="ButtonGroup" uid="uid://ec2gd7jjvlsa" path="res://rescourse/gameBoardButtonGroup.tres" id="3_r5pcm"]
 [ext_resource type="Texture2D" uid="uid://5800a47dpa4q" path="res://assets/UI/button/smallButtonPress.png" id="4_7isy1"]
 
 [node name="GameBoard" type="Control"]
@@ -22,6 +23,58 @@ offset_right = 248.0
 offset_bottom = 166.0
 texture = ExtResource("1_2igyr")
 
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 130.0
+offset_right = 240.0
+offset_bottom = 150.0
+theme_override_constants/separation = 20
+
+[node name="Button1" type="TextureButton" parent="HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("3_r5pcm")
+texture_normal = ExtResource("3_7rvmc")
+texture_pressed = ExtResource("4_7isy1")
+texture_hover = ExtResource("4_7isy1")
+
+[node name="Button1Text" type="Label" parent="HBoxContainer/Button1"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "again"
+label_settings = ExtResource("2_iidff")
+
+[node name="Button2" type="TextureButton" parent="HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("3_r5pcm")
+texture_normal = ExtResource("3_7rvmc")
+texture_pressed = ExtResource("4_7isy1")
+texture_hover = ExtResource("4_7isy1")
+
+[node name="Button2Text" type="Label" parent="HBoxContainer/Button2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = ExtResource("2_iidff")
+
+[node name="Button3" type="TextureButton" parent="HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("3_r5pcm")
+texture_normal = ExtResource("3_7rvmc")
+texture_pressed = ExtResource("4_7isy1")
+texture_hover = ExtResource("4_7isy1")
+
+[node name="Button3Text" type="Label" parent="HBoxContainer/Button3"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "back"
+label_settings = ExtResource("2_iidff")
+
 [node name="Title" type="Label" parent="."]
 layout_mode = 0
 offset_left = 100.0
@@ -30,20 +83,6 @@ offset_right = 140.0
 offset_bottom = 33.0
 label_settings = ExtResource("2_iidff")
 
-[node name="Button1" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = 90.0
-offset_top = 100.0
-offset_right = 154.0
-offset_bottom = 120.0
-texture_normal = ExtResource("3_7rvmc")
-texture_pressed = ExtResource("4_7isy1")
-texture_hover = ExtResource("4_7isy1")
-
-[node name="Button1Text" type="Label" parent="Button1"]
-layout_mode = 0
-offset_right = 60.0
-offset_bottom = 23.0
-label_settings = ExtResource("2_iidff")
-
-[connection signal="pressed" from="Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="HBoxContainer/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="HBoxContainer/Button3" to="." method="_on_button_3_pressed"]

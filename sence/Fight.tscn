@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://jt5i355jtkvd"]
+
+[ext_resource type="Script" path="res://script/Main.gd" id="1_71o3s"]
+[ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="2_a4234"]
+[ext_resource type="Texture2D" uid="uid://dk8yspmeqggbm" path="res://assets/UI/button/stop_normal.png" id="3_phxoo"]
+[ext_resource type="Texture2D" uid="uid://btaq2lqnicsn" path="res://assets/UI/button/stop_press.png" id="4_ork6o"]
+[ext_resource type="Script" path="res://script/stop.gd" id="5_0ftwe"]
+[ext_resource type="PackedScene" uid="uid://celhfnre1cpxa" path="res://sence/game_board.tscn" id="6_8sra2"]
+
+[node name="Fight" type="Node2D"]
+script = ExtResource("1_71o3s")
+
+[node name="Background1" type="Sprite2D" parent="."]
+position = Vector2(417.5, 225)
+texture = ExtResource("2_a4234")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Moneytext" type="Label" parent="."]
+process_mode = 1
+offset_left = 9.0
+offset_top = 351.0
+offset_right = 62.0
+offset_bottom = 377.0
+text = "Money"
+
+[node name="Moneycount" type="Label" parent="."]
+offset_left = 16.0
+offset_top = 377.0
+offset_right = 56.0
+offset_bottom = 400.0
+
+[node name="Moneytimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Stop" type="TextureButton" parent="."]
+offset_left = 767.0
+offset_top = 21.0
+offset_right = 787.0
+offset_bottom = 41.0
+texture_normal = ExtResource("3_phxoo")
+texture_pressed = ExtResource("4_ork6o")
+texture_hover = ExtResource("4_ork6o")
+script = ExtResource("5_0ftwe")
+
+[node name="GameBoard" parent="." instance=ExtResource("6_8sra2")]
+offset_left = 295.0
+offset_top = 147.0
+offset_right = 295.0
+offset_bottom = 147.0
+
+[connection signal="timeout" from="Moneytimer" to="." method="_on_moneytimer_timeout"]
+[connection signal="pressed" from="Stop" to="Stop" method="_on_pressed"]

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bc0dbya7bvgpk"]
+
+[ext_resource type="Script" path="res://script/summonEnemy.gd" id="1_168ua"]
+
+[node name="MainSummon" type="Node"]
+script = ExtResource("1_168ua")
+
+[node name="groupTimer" type="Timer" parent="."]
+
+[node name="stageTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="groupTimer" to="." method="_on_group_timer_timeout"]
+[connection signal="timeout" from="stageTimer" to="." method="_on_stage_timer_timeout"]

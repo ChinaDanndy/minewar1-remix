@@ -5,7 +5,7 @@ extends Node2D
 var count = 0
 
 var card = preload("res://sence/Card.tscn")
-var summonEnemy = preload("res://script/summonEnemy.gd")
+var summonEnemy = preload("res://sence/main_summon.tscn")
 var base = preload("res://sence/Base.tscn")
 
 
@@ -86,23 +86,22 @@ func _ready():
 
 	
 	var Card = card.instantiate()
-	add_child(Card)
+	Global.root.add_child(Card)
 	Card.position = Vector2(100,360)
 	Card.firstSetting("steve")
-	
-	var newEnemy = summonEnemy.new()
-	add_child(newEnemy)
-	newEnemy.level = 0
+
+	var newEnemy = summonEnemy.instantiate()
+	Global.root.add_child(newEnemy)
 	newEnemy.firstStart()
 	
 	var BaseVill = base.instantiate()
-	add_child(BaseVill)
+	Global.root.add_child(BaseVill)
 	BaseVill.position = Vector2(100,270)
 	BaseVill.collision_layer = 16
 	BaseVill.picture(Global.VILLAGE)
 	
 	var BaseMon = base.instantiate()
-	add_child(BaseMon)
+	Global.root.add_child(BaseMon)
 	BaseMon.position = Vector2(750,270)
 	BaseMon.collision_layer = 32
 	BaseMon.picture(Global.MONSTER)

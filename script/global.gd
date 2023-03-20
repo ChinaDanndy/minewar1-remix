@@ -6,7 +6,7 @@ var Contrl
 const Money = 10 
 var NowMoney = 0
 var LevelData
-
+var Level
 
 enum Type {PEOPLE,TOWER,PROJECTILE,BASE,SKILL}
 enum Kind {LAND,SEA,SKY}
@@ -27,13 +27,19 @@ const UNCENCAL = 1
 const EFFGOOD = 1
 const EFFBAD = -1
 
-@onready var root = get_node("/root/Main")
+@onready var root = get_tree().get_root()
+
 var calu = preload("res://script/attack_calu.gd")
 var aoe = preload("res://sence/AOE.tscn")
 var OutLine = preload("res://rescourse/soldiers.tres")
+var GameBoard = preload("res://sence/game_board.tscn")
 enum Calu {ATTEFF,EFF}
 enum TRtype {VALCALU,VALCREATE}
 enum AoeSet {ATTACK,NORMAL,DEATH}
+
+func _ready():
+	#print(root)
+	pass
 
 func effect_calu(value,effectName,effectGoodOrBad,effectUncencal):
 	#原始值+增值*是否处于该效果*好或坏*是否同时获得好坏值中和攻击效果恢复为原值

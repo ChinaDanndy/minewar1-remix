@@ -1,0 +1,167 @@
+[gd_scene load_steps=7 format=3 uid="uid://kdh286tqy3uo"]
+
+[ext_resource type="Texture2D" uid="uid://bemoh5pjkswqf" path="res://assets/backgrounds/levelBackground.png" id="1_s8srw"]
+[ext_resource type="Texture2D" uid="uid://er7rx3ey1kv6" path="res://assets/UI/button/level.png" id="2_afovk"]
+[ext_resource type="Script" path="res://script/level_button.gd" id="3_7vp4h"]
+[ext_resource type="Texture2D" uid="uid://rpyqwom4dpsa" path="res://assets/UI/button/cancel_normal.png" id="5_jrddr"]
+[ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="6_i2ms3"]
+[ext_resource type="Script" path="res://script/LevelSign.gd" id="7_bmblj"]
+
+[node name="LevelChoice" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.262745)
+
+[node name="MainMove" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 200.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 20.0
+
+[node name="SecondMove" type="Control" parent="CanvasLayer/MainMove"]
+anchors_preset = 0
+offset_top = 20.0
+offset_bottom = 20.0
+
+[node name="LevelBackground" type="TextureRect" parent="CanvasLayer/MainMove/SecondMove"]
+layout_mode = 2
+offset_right = 384.0
+offset_bottom = 384.0
+texture = ExtResource("1_s8srw")
+
+[node name="LevelContainer" type="VBoxContainer" parent="CanvasLayer/MainMove/SecondMove"]
+layout_mode = 2
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 218.0
+offset_bottom = 149.0
+theme_override_constants/separation = 5
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="CanvasLayer/MainMove/SecondMove/LevelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Level1" type="TextureButton" parent="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1"]
+layout_mode = 2
+texture_normal = ExtResource("2_afovk")
+script = ExtResource("3_7vp4h")
+level = 1
+
+[node name="text" type="Label" parent="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level1"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 40.0
+offset_right = 48.0
+offset_bottom = 63.0
+
+[node name="Level2" type="TextureButton" parent="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1"]
+layout_mode = 2
+texture_normal = ExtResource("2_afovk")
+script = ExtResource("3_7vp4h")
+level = 2
+
+[node name="text" type="Label" parent="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level2"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 40.0
+offset_right = 48.0
+offset_bottom = 63.0
+
+[node name="Level3" type="TextureButton" parent="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1"]
+layout_mode = 2
+texture_normal = ExtResource("2_afovk")
+script = ExtResource("3_7vp4h")
+level = 3
+
+[node name="text" type="Label" parent="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level3"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 40.0
+offset_right = 48.0
+offset_bottom = 63.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/MainMove/SecondMove/LevelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Level4" type="TextureButton" parent="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("2_afovk")
+script = ExtResource("3_7vp4h")
+level = 4
+
+[node name="text" type="Label" parent="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level4"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 40.0
+offset_right = 48.0
+offset_bottom = 63.0
+
+[node name="Level5" type="TextureButton" parent="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("2_afovk")
+script = ExtResource("3_7vp4h")
+level = 5
+
+[node name="text" type="Label" parent="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level5"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 40.0
+offset_right = 48.0
+offset_bottom = 63.0
+
+[node name="Level6" type="TextureButton" parent="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("2_afovk")
+script = ExtResource("3_7vp4h")
+level = 6
+
+[node name="text" type="Label" parent="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level6"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 40.0
+offset_right = 48.0
+offset_bottom = 63.0
+
+[node name="CancelButton" type="TextureButton" parent="CanvasLayer/MainMove"]
+layout_mode = 2
+offset_left = 400.0
+offset_right = 420.0
+offset_bottom = 20.0
+texture_normal = ExtResource("5_jrddr")
+texture_pressed = ExtResource("6_i2ms3")
+texture_hover = ExtResource("6_i2ms3")
+script = ExtResource("7_bmblj")
+
+[connection signal="mouse_entered" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level1" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level1" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level1" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level1" method="_on_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level1" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level1" method="_on_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level2" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level2" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level2" method="_on_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level2" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level2" method="_on_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level3" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level3" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level3" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level3" method="_on_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level3" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1/Level3" method="_on_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level4" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level4" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level4" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level4" method="_on_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level4" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level4" method="_on_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level5" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level5" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level5" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level5" method="_on_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level5" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level5" method="_on_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level6" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level6" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level6" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level6" method="_on_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level6" to="CanvasLayer/MainMove/SecondMove/LevelContainer/HBoxContainer2/Level6" method="_on_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainMove/CancelButton" to="CanvasLayer/MainMove/CancelButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/MainMove/CancelButton" to="CanvasLayer/MainMove/CancelButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/MainMove/CancelButton" to="CanvasLayer/MainMove/CancelButton" method="_on_pressed"]

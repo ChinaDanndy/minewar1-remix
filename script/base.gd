@@ -14,4 +14,12 @@ func picture(Camp):
 
 func _process(delta):
 	$Label.text = str(health)
+	if health<0: 
+		get_parent().get_node("GameBoard").visible = true
+		if camp == Global.VILLAGE: 
+			get_parent().get_node("GameBoard").text("lose")
+			get_parent().get_node("Button2").visible = false
+		if camp == Global.VILLAGE: get_parent().get_node("GameBoard").text("win")
+		get_tree().paused = true
+	
 	pass

@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0xpjlgjcyor7"]
+
+[ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="1_lm1k5"]
+[ext_resource type="Texture2D" uid="uid://blle2sr7hambv" path="res://assets/UI/button/levelSign.png" id="2_sec5j"]
+[ext_resource type="Script" path="res://script/LevelSign.gd" id="3_d57wj"]
+[ext_resource type="PackedScene" uid="uid://kdh286tqy3uo" path="res://sence/level_choice.tscn" id="4_u1ppu"]
+
+[node name="Start" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Background1" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 835.0
+offset_bottom = 450.0
+texture = ExtResource("1_lm1k5")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="LevelSign" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 183.0
+offset_top = 288.0
+offset_right = 219.0
+offset_bottom = 312.0
+texture_normal = ExtResource("2_sec5j")
+script = ExtResource("3_d57wj")
+
+[node name="LevelChoice" parent="." instance=ExtResource("4_u1ppu")]
+offset_left = 203.0
+offset_top = -43.0
+offset_right = 203.0
+offset_bottom = 341.0
+
+[connection signal="mouse_entered" from="LevelSign" to="LevelSign" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="LevelSign" to="LevelSign" method="_on_mouse_exited"]
+[connection signal="pressed" from="LevelSign" to="LevelSign" method="_on_pressed"]
