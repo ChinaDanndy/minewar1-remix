@@ -1,7 +1,7 @@
 extends CharacterBody2D
 var camp = 0
 var type = Global.Type.BASE
-var health = 100
+var health = 10
 
 
 func picture(Camp):
@@ -14,12 +14,10 @@ func picture(Camp):
 
 func _process(delta):
 	$Label.text = str(health)
-	if health<0: 
-		get_parent().get_node("GameBoard").visible = true
-		if camp == Global.VILLAGE: 
-			get_parent().get_node("GameBoard").text("lose")
-			get_parent().get_node("Button2").visible = false
-		if camp == Global.VILLAGE: get_parent().get_node("GameBoard").text("win")
+	if health<=0: 
+		Global.StopWindowLayer.visible = true
+		if camp == Global.VILLAGE: Global.StopWindow.text("lose")
+		if camp == Global.MONSTER: Global.StopWindow.text("win")
 		get_tree().paused = true
 	
 	pass

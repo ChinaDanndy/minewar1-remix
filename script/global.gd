@@ -29,15 +29,23 @@ const EFFBAD = -1
 
 @onready var root = get_tree().get_root()
 
+var LevelChoiceButton
+var LevelChoiceWindow
+
+var FightSence
+var StopButton
+var StopWindowLayer
+var StopWindow
+
 var calu = preload("res://script/attack_calu.gd")
 var aoe = preload("res://sence/AOE.tscn")
 var OutLine = preload("res://rescourse/soldiers.tres")
-var GameBoard = preload("res://sence/game_board.tscn")
 enum Calu {ATTEFF,EFF}
 enum TRtype {VALCALU,VALCREATE}
 enum AoeSet {ATTACK,NORMAL,DEATH}
 
 func _ready():
+	
 	#print(root)
 	pass
 

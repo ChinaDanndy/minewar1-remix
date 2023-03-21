@@ -8,8 +8,15 @@ var card = preload("res://sence/Card.tscn")
 var summonEnemy = preload("res://sence/main_summon.tscn")
 var base = preload("res://sence/Base.tscn")
 
+var cardId
+var summonEnemyID
+var baseVillId
+var baseMonId
+signal reloadSence
 
 func _ready():
+
+	
 	var file = FileAccess.open("res://data/soldier.json", FileAccess.READ)
 	var content = file.get_as_text()
 	file.close()#读取所有士兵数据
@@ -84,27 +91,31 @@ func _ready():
 					Global.LevelData[i][j][k]["groupCDRand"] = int(jsonValue.data[i][j][k]["groupCDRand"])
 	
 
-	
+
 	var Card = card.instantiate()
 	Global.root.add_child(Card)
 	Card.position = Vector2(100,360)
 	Card.firstSetting("steve")
+	cardId = Card
 
 	var newEnemy = summonEnemy.instantiate()
 	Global.root.add_child(newEnemy)
 	newEnemy.firstStart()
+	summonEnemyID = newEnemy
 	
 	var BaseVill = base.instantiate()
 	Global.root.add_child(BaseVill)
 	BaseVill.position = Vector2(100,270)
 	BaseVill.collision_layer = 16
 	BaseVill.picture(Global.VILLAGE)
+	baseVillId = BaseVill
 	
 	var BaseMon = base.instantiate()
 	Global.root.add_child(BaseMon)
 	BaseMon.position = Vector2(750,270)
 	BaseMon.collision_layer = 32
 	BaseMon.picture(Global.MONSTER)
+	baseMonId = BaseMon
 	#friend.picture = load("res://assets/soldiers/archer.png")
 #	friend.picture = load("res://assets/soldiers/assassin.png")
 	#friend.animationStart = [0,0,0,6,10,0,6,14]
@@ -114,7 +125,7 @@ func _ready():
 #	friend.totalPictureNumber = 19
 	#friend.totalPictureNumber = 15
 	
-func _physics_process(delta):
+func _process(delta):
 	$Moneycount.text = str(Global.NowMoney) +"/"+ str(Global.Money)
 	if Global.NowMoney != Global.Money&&$Moneytimer.one_shot == true:
 		$Moneytimer.one_shot = false
@@ -131,4 +142,19 @@ func _on_moneytimer_timeout():
 #
 	pass
 
+func _on_tree_exited():
+	cardId.queue_free()
+	summonEnemyID.queue_free()
+	baseMonId.queue_free()
+	baseVillId.queue_free()
+	Global.NowMoney = 0
+	emit_signal("reloadSence")
+	pass
 
+
+func _on_tree_entered():
+	Global.StopButton = get_tree().get_root().find_child("StopButton",true,false)
+	Global.StopWindowLayer = get_tree().get_root().find_child("StopWindowLayer",true,false)
+	Global.StopWindow = get_tree().get_root().find_child("StopWindow",true,false)
+	Global.FightSence = self
+	pass # Replace with function body.

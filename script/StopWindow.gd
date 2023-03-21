@@ -1,7 +1,7 @@
 extends Control
 var Mode
 func _ready():
-	self.visible = false
+	Global.StopWindowLayer.visible = false
 	pass
 
 func text(mode):
@@ -15,16 +15,18 @@ func text(mode):
 
 func usual():
 	get_tree().paused = false
-	visible = false
+	Global.StopWindowLayer.visible = false
 	$HBoxContainer/Button1.button_pressed = false
 	$HBoxContainer/Button2.button_pressed = false
 	$HBoxContainer/Button3.button_pressed = false
-	get_tree().get_root().find_child("Stop",true,false).visible = true
+	Global.StopButton.visible = true
 	pass
 
 func _on_button_1_pressed():
-	get_tree().reload_current_scene()
 	usual()
+	Global.root.get_tree().reload_current_scene()
+	#get_tree().reload_current_scene()
+	
 	pass
 
 
@@ -37,6 +39,6 @@ func _on_button_2_pressed():
 
 
 func _on_button_3_pressed():
-	get_tree().paused = false
+	usual()
 	get_tree().change_scene_to_file("res://sence/start.tscn")
 	pass 

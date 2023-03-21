@@ -131,6 +131,7 @@ func firstSetting(soldierName):
 	attDefState = Global.SoldierData[soldierName]["attDefState"]
 	soldiername = soldierName
 	
+	Global.FightSence.reloadSence.connect(reload)
 	
 	#记录攻击免疫
 	attDefence = attDefOrigin
@@ -409,3 +410,6 @@ func _on_input_event(viewport, event, shape_idx):
 	pass 
 
 
+func reload():
+	queue_free()
+	pass # Replace with function body.

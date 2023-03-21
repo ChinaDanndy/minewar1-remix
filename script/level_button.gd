@@ -1,6 +1,4 @@
 extends TextureButton
-
-
 @export var level:int
 
 func _ready():
