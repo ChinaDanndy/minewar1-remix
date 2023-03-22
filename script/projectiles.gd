@@ -42,7 +42,7 @@ func calu():
 #	velocity.y = -(T*G)#抛物线
 	pass
 
-func _process(delta):
+func _process(_delta):
 	$RayCast2D.force_raycast_update()
 	if $RayCast2D.is_colliding():
 		other = $RayCast2D.get_collider()

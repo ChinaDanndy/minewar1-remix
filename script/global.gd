@@ -6,7 +6,8 @@ var Contrl
 const Money = 10 
 var NowMoney = 0
 var LevelData
-var Level
+var Level = 0
+var CardId:Array
 
 enum Type {PEOPLE,TOWER,PROJECTILE,BASE,SKILL}
 enum Kind {LAND,SEA,SKY}
@@ -37,6 +38,7 @@ var StopButton
 var StopWindowLayer
 var StopWindow
 
+var Soldier = preload("res://sence/soldiers.tscn")
 var calu = preload("res://script/attack_calu.gd")
 var aoe = preload("res://sence/AOE.tscn")
 var OutLine = preload("res://rescourse/soldiers.tres")
@@ -53,7 +55,6 @@ func effect_calu(value,effectName,effectGoodOrBad,effectUncencal):
 	#原始值+增值*是否处于该效果*好或坏*是否同时获得好坏值中和攻击效果恢复为原值
 	if effectGoodOrBad == null: return value*EffMulti[effectName]
 	else: 
-		print("111")
 		return value*EffMulti[effectName]*effectGoodOrBad[effectName]*effectUncencal[effectName]
 	pass
 

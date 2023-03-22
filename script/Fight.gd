@@ -4,14 +4,10 @@ extends Node2D
 
 var count = 0
 
-var card = preload("res://sence/Card.tscn")
-var summonEnemy = preload("res://sence/main_summon.tscn")
-var base = preload("res://sence/Base.tscn")
-
-var cardId
+var summonEnemy = preload("res://script/summonEnemy.gd")
 var summonEnemyID
-var baseVillId
-var baseMonId
+var cardLength = 7
+signal cardMessage
 signal reloadSence
 
 func _ready():
@@ -68,7 +64,6 @@ func _ready():
 		Global.SoldierData[allSoName[i]]["healthEffValue"] = int(jsonValue.data[allSoName[i]]["healthEffValue"])
 		Global.SoldierData[allSoName[i]]["healthDefValue"] = int(jsonValue.data[allSoName[i]]["healthDefValue"])
 		Global.SoldierData[allSoName[i]]["satDefValue"] = int(jsonValue.data[allSoName[i]]["satDefValue"])
-	
 	file = FileAccess.open("res://data/level.json", FileAccess.READ)
 	content = file.get_as_text()
 	file.close()
@@ -77,7 +72,7 @@ func _ready():
 	Global.LevelData = jsonValue.data
 	var levelDateCount = jsonValue.data.size()
 	for i in levelDateCount:
-		var stageCount = jsonValue.data[i].size()
+		var stageCount = jsonValue.data[i].size()-1
 		for j in stageCount:
 			var groupCount = jsonValue.data[i][j].size()
 			for k in groupCount:
@@ -90,32 +85,24 @@ func _ready():
 					Global.LevelData[i][j][k]["groupCD"] = int(jsonValue.data[i][j][k]["groupCD"])
 					Global.LevelData[i][j][k]["groupCDRand"] = int(jsonValue.data[i][j][k]["groupCDRand"])
 	
+#	Global.CardId[1].soldierName = null   
+#	Global.CardId[2].soldierName = null
+#	Global.CardId[3].soldierName = null 
+#	Global.CardId[4].soldierName = null
+#	Global.CardId[5].soldierName = null 
+#	Global.CardId[6].soldierName = null
+	emit_signal("cardMessage")
+	
 
 
-	var Card = card.instantiate()
-	Global.root.add_child(Card)
-	Card.position = Vector2(100,360)
-	Card.firstSetting("steve")
-	cardId = Card
-
-	var newEnemy = summonEnemy.instantiate()
-	Global.root.add_child(newEnemy)
-	newEnemy.firstStart()
+	var newEnemy = summonEnemy.new()
+	Global.Level = 0
+	Global.root.call_deferred("add_child",newEnemy)
+	newEnemy.call_deferred("firstStart")
 	summonEnemyID = newEnemy
 	
-	var BaseVill = base.instantiate()
-	Global.root.add_child(BaseVill)
-	BaseVill.position = Vector2(100,270)
-	BaseVill.collision_layer = 16
-	BaseVill.picture(Global.VILLAGE)
-	baseVillId = BaseVill
 	
-	var BaseMon = base.instantiate()
-	Global.root.add_child(BaseMon)
-	BaseMon.position = Vector2(750,270)
-	BaseMon.collision_layer = 32
-	BaseMon.picture(Global.MONSTER)
-	baseMonId = BaseMon
+
 	#friend.picture = load("res://assets/soldiers/archer.png")
 #	friend.picture = load("res://assets/soldiers/assassin.png")
 	#friend.animationStart = [0,0,0,6,10,0,6,14]
@@ -125,7 +112,7 @@ func _ready():
 #	friend.totalPictureNumber = 19
 	#friend.totalPictureNumber = 15
 	
-func _process(delta):
+func _process(_delta):
 	$Moneycount.text = str(Global.NowMoney) +"/"+ str(Global.Money)
 	if Global.NowMoney != Global.Money&&$Moneytimer.one_shot == true:
 		$Moneytimer.one_shot = false
@@ -143,10 +130,7 @@ func _on_moneytimer_timeout():
 	pass
 
 func _on_tree_exited():
-	cardId.queue_free()
 	summonEnemyID.queue_free()
-	baseMonId.queue_free()
-	baseVillId.queue_free()
 	Global.NowMoney = 0
 	emit_signal("reloadSence")
 	pass
@@ -157,4 +141,7 @@ func _on_tree_entered():
 	Global.StopWindowLayer = get_tree().get_root().find_child("StopWindowLayer",true,false)
 	Global.StopWindow = get_tree().get_root().find_child("StopWindow",true,false)
 	Global.FightSence = self
+	for i in cardLength: 
+		Global.CardId.append(get_tree().get_root().find_child("CardButton"+str(i+1),true,false))
+
 	pass # Replace with function body.

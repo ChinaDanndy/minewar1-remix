@@ -31,7 +31,7 @@ func normalAttackCalu(damager):
 
 func effectAttackCalu(damager):
 	effDefence = damager.effDefence
-	var effectName = 0
+
 	for i in Global.EffectLength:
 		if (giveEffGoodOrBad[i]==Global.EFFBAD&&giveEffect[i] == true&&effDefence[i] == false)||(giveEffGoodOrBad[i]==Global.EFFGOOD&&giveEffect[i] == true): 
 			if damager.health>0:

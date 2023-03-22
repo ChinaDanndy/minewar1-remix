@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dr8bhhq36kihh"]
+[gd_scene load_steps=11 format=3 uid="uid://dr8bhhq36kihh"]
 
 [ext_resource type="Script" path="res://script/Fight.gd" id="1_pnjrw"]
 [ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="2_a4234"]
@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://btaq2lqnicsn" path="res://assets/UI/button/stop_press.png" id="4_ork6o"]
 [ext_resource type="Script" path="res://script/stop.gd" id="5_0ftwe"]
 [ext_resource type="PackedScene" uid="uid://duhvr7l8d3eb0" path="res://sence/StopWindow.tscn" id="6_8sra2"]
+[ext_resource type="PackedScene" uid="uid://c5ysu8jo77fyx" path="res://sence/Base.tscn" id="6_o0062"]
+[ext_resource type="Texture2D" uid="uid://cxu47kcv48qhr" path="res://assets/tower/villageBase.png" id="7_x2lvr"]
+[ext_resource type="Texture2D" uid="uid://sg8021g50ixe" path="res://assets/tower/monsterBase.png" id="8_mra32"]
+[ext_resource type="PackedScene" uid="uid://cnnifqydayh65" path="res://sence/Card.tscn" id="9_xl7fu"]
 
 [node name="Fight" type="Node2D"]
 process_mode = 1
@@ -45,6 +49,22 @@ texture_pressed = ExtResource("4_ork6o")
 texture_hover = ExtResource("4_ork6o")
 script = ExtResource("5_0ftwe")
 
+[node name="BaseVill" parent="." instance=ExtResource("6_o0062")]
+position = Vector2(101, 264)
+camp = 1
+picture = ExtResource("7_x2lvr")
+
+[node name="BaseMon" parent="." instance=ExtResource("6_o0062")]
+position = Vector2(736, 263)
+camp = -1
+picture = ExtResource("8_mra32")
+
+[node name="Card" parent="." instance=ExtResource("9_xl7fu")]
+offset_left = 99.0
+offset_top = 350.0
+offset_right = 99.0
+offset_bottom = 350.0
+
 [node name="StopWindowLayer" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="StopWindowLayer"]
@@ -54,6 +74,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.262745)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="StopWindow" parent="StopWindowLayer" instance=ExtResource("6_8sra2")]
 offset_left = 274.0

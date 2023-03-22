@@ -1,18 +1,18 @@
 extends CharacterBody2D
-var camp = 0
+
 var type = Global.Type.BASE
-var health = 10
+@export var health = 10
+@export var camp = 0
+@export var picture:Texture2D
+func _ready():
+	$Sprite2D.texture = picture
+	pass
 
 
-func picture(Camp):
-	camp = Camp
-	if camp == Global.VILLAGE: $Sprite2D.texture = load("res://assets/tower/villageBase.png")
-	if camp == Global.MONSTER: $Sprite2D.texture = load("res://assets/tower/monsterBase.png")
-	pass 
 
 
+func _process(_delta):
 
-func _process(delta):
 	$Label.text = str(health)
 	if health<=0: 
 		Global.StopWindowLayer.visible = true

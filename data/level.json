@@ -23,8 +23,10 @@
                 "CDType":1,
                 "groupCD":5,
                 "groupCDRand":1
-            },{"stageCD":0,"stageCDTand":0}
-        ]
+            }
+            ,{"stageCD":0,"stageCDTand":0}
+            
+        ],["steve","steve",null,null,null,null,null]
     ],
     [
         [
@@ -34,8 +36,9 @@
                 "CDType":2,
                 "groupCD":7,
                 "groupCDRand":1
-            },{"stageCD":0,"stageCDTand":0}
-        ]
+            }
+            ,{"stageCD":0,"stageCDTand":0}
+        ],[null,null,null,null,null,null,null]
     ]
 ]
 

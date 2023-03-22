@@ -169,7 +169,7 @@ func firstSetting(soldierName):
 	changeAnimation(standardAni,currentState)
 	pass
 
-func _process(delta):#每帧执行的部分
+func _process(_delta):#每帧执行的部分
 	#死亡判定
 	if health <= 0&&currentState != State.DEATH: changeState(Ani.DEATH,State.DEATH)
 	#直接给予伤害单体攻击时获得对方id
@@ -403,7 +403,7 @@ func _on_usuallyTimer_timeout():
 	if currentState != State.DEATH: Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,aoeModel[Global.AoeSet.NORMAL],aoeRange[Global.AoeSet.NORMAL],ifAoeHold[Global.AoeSet.NORMAL],null,null,null,usuallyEffect,usuallyEffGoodOrBad)
 	pass 
 
-func _on_input_event(viewport, event, shape_idx):
+func _on_input_event(_viewport, event, _shape_idx):
 	if event.is_action_pressed("ui_mouse_left"):
 		Global.Contrl = soldiername
 		$Sprite2D.material = Global.OutLine
@@ -411,5 +411,6 @@ func _on_input_event(viewport, event, shape_idx):
 
 
 func reload():
+
 	queue_free()
 	pass # Replace with function body.

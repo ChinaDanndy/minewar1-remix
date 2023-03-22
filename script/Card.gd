@@ -1,22 +1,29 @@
-extends Area2D
-var soldier = preload("res://sence/soldiers.tscn")
-var soldiername
+extends Control
+
+var soldierName
 var price
 
-func firstSetting(soldierName):
-	soldiername = soldierName
-	price = Global.SoldierData[soldierName]["price"]
-	$CardName.text = soldiername
-	$CardPrice.text = str(price)
 
+func _ready():
+
+	Global.FightSence.cardMessage.connect(cardMessageOut)
+	pass
+func cardMessageOut():
+	soldierName = Global.LevelData[Global.Level][-1][int(str(name))-1]
+	#print(Global.LevelData[Global.Level][-1][int(str(name))-1])
+	#print(Global.SoldierData["steve"]["price"])
+	
+	if soldierName!= null: 
+		price = Global.SoldierData[soldierName]["price"]
+		$CardPrice.text = str(price)
+		$CardName.text = soldierName
 	pass
 
 
-func _on_input_event(viewport, event, shape_idx):
-	if event.is_action_pressed("ui_mouse_left")&&Global.NowMoney >= price:
-		Global.NowMoney -= price
-		var friend = soldier.instantiate()
-		Global.root.add_child(friend)
-		friend.firstSetting(soldiername)
-		friend.position = Vector2(100,297)
+func _on_pressed():
+	#Global.NowMoney -= price
+	var friend = Global.Soldier.instantiate()
+	Global.root.add_child(friend)
+	friend.firstSetting(soldierName)
+	friend.position = Vector2(100,297)
 	pass # Replace with function body.
