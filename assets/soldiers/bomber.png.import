@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs37kxhjdld8p"
-path="res://.godot/imported/skeleton_strip15.png-e1534bdc4686530f3534cdb91fa3abd5.ctex"
+uid="uid://bmg1gclvx4ptd"
+path="res://.godot/imported/bomber.png-67b18324d5049e3696f70b562beed976.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/soldiers/skeleton_strip15.png"
-dest_files=["res://.godot/imported/skeleton_strip15.png-e1534bdc4686530f3534cdb91fa3abd5.ctex"]
+source_file="res://assets/soldiers/bomber.png"
+dest_files=["res://.godot/imported/bomber.png-67b18324d5049e3696f70b562beed976.ctex"]
 
 [params]
 

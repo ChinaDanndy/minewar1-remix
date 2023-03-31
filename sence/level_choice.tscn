@@ -397,6 +397,4 @@ script = ExtResource("9_om8ou")
 [connection signal="mouse_entered" from="LevelChoiceWindowLayer/MainMove/SecondMove/LevelContainer/HBoxContainer4/Level5" to="LevelChoiceWindowLayer/MainMove/SecondMove/LevelContainer/HBoxContainer4/Level5" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="LevelChoiceWindowLayer/MainMove/SecondMove/LevelContainer/HBoxContainer4/Level5" to="LevelChoiceWindowLayer/MainMove/SecondMove/LevelContainer/HBoxContainer4/Level5" method="_on_mouse_exited"]
 [connection signal="pressed" from="LevelChoiceWindowLayer/MainMove/SecondMove/LevelContainer/HBoxContainer4/Level5" to="LevelChoiceWindowLayer/MainMove/SecondMove/LevelContainer/HBoxContainer4/Level5" method="_on_pressed"]
-[connection signal="mouse_entered" from="LevelChoiceWindowLayer/MainMove/CancelButton" to="LevelChoiceWindowLayer/MainMove/CancelButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="LevelChoiceWindowLayer/MainMove/CancelButton" to="LevelChoiceWindowLayer/MainMove/CancelButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="LevelChoiceWindowLayer/MainMove/CancelButton" to="LevelChoiceWindowLayer/MainMove/CancelButton" method="_on_pressed"]

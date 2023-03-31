@@ -1,16 +1,18 @@
 extends Node
-var damageMethod
-var aoeModel
-var ifProPierce
+
+var projectile
+var proMode
 var proRange
-var aoeRange
+
 var ifAoeHold
+var aoeModel
+var aoeRange
 
-var damagerType
-var attackType
-var damage
+var damageMethod
+var attacks
 var attDefence
-
+var damagerType
+var damage
 var giveEffect
 var giveEffGoodOrBad
 var effDefence
@@ -21,7 +23,7 @@ func normalAttackCalu(damager):
 	else:
 		attDefence = damager.attDefence
 		for i in Global.AttackTypeLength:
-			if attackType[i] == true&&attDefence[i] == false: 
+			if attacks[i] == true&&attDefence[i] == false: 
 				if damager.health>0: 
 					damager.health -= damage 
 					if damager.type == damagerType: damager.health -= Global.effect_calu(damage,Global.Effect.ATTDAMAGE,null,null)

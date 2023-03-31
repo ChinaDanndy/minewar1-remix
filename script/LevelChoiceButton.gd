@@ -2,7 +2,6 @@ extends TextureButton
 
 func _ready():
 	if name == "LevelChoiceButton": Global.LevelChoiceWindow.visible = false
-	material = null
 	pass
 
 func _on_mouse_entered():

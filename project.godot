@@ -15,7 +15,6 @@ run/main_scene="res://sence/Fight.tscn"
 config/features=PackedStringArray("4.0")
 boot_splash/image="res://loading.png"
 boot_splash/fullsize=false
-boot_splash/use_filter=false
 config/icon="res://icon.png"
 
 [autoload]
@@ -26,7 +25,8 @@ Global="*res://script/global.gd"
 
 window/size/viewport_width=835
 window/size/viewport_height=450
-window/size/resizable=false
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [editor]
 
@@ -118,4 +118,7 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true
 environment/defaults/default_environment="res://default_env.tres"
+textures/canvas_textures/default_texture_filter=0

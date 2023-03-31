@@ -1,22 +1,20 @@
 extends Control
 
-var soldierName
+var soldier
 var price
 
 
 func _ready():
-
 	Global.FightSence.cardMessage.connect(cardMessageOut)
 	pass
 func cardMessageOut():
-	soldierName = Global.LevelData[Global.Level][-1][int(str(name))-1]
-	#print(Global.LevelData[Global.Level][-1][int(str(name))-1])
-	#print(Global.SoldierData["steve"]["price"])
-	
-	if soldierName!= null: 
-		price = Global.SoldierData[soldierName]["price"]
+	soldier = Global.LevelData[Global.Level][-1][int(str(name))-1]
+	if soldier == null: 
+		self.visible = false
+	else:
+		price = Global.SoldierData[soldier]["price"]
 		$CardPrice.text = str(price)
-		$CardName.text = soldierName
+		$CardName.text = soldier
 	pass
 
 
@@ -24,6 +22,6 @@ func _on_pressed():
 	#Global.NowMoney -= price
 	var friend = Global.Soldier.instantiate()
 	Global.root.add_child(friend)
-	friend.firstSetting(soldierName)
+	friend.firstSetting(soldier)
 	friend.position = Vector2(100,297)
 	pass # Replace with function body.

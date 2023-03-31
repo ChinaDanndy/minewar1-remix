@@ -3,16 +3,28 @@
         [
             {
                 "firstCD":1,
-                "group":["zombie"],
+                "group":["skeleton"],
                 "CDType":0,
-                "groupCD":2,
+                "groupCD":5,
+                "groupCDRand":2
+            },{"stageCD":0,"stageCDTand":0}
+        ],["steve",null,null,null,null,null,null]
+    ],
+    [
+        [
+            {
+                "firstCD":2,
+                "group":["zombie","zombie","zombie","zombie"],
+                "CDType":2,
+                "groupCD":7,
                 "groupCDRand":1
-            },{"stageCD":15,"stageCDTand":1}
+            }
+            ,{"stageCD":0,"stageCDTand":0}
         ],
         [
             {
                 "firstCD":0,
-                "group":["zombie","zombie"],
+                "group":["skeleton","skeleton"],
                 "CDType":1,
                 "groupCD":5,
                 "groupCDRand":1
@@ -26,18 +38,6 @@
             }
             ,{"stageCD":0,"stageCDTand":0}
             
-        ],["steve","steve",null,null,null,null,null]
-    ],
-    [
-        [
-            {
-                "firstCD":2,
-                "group":["zombie","zombie","zombie","zombie"],
-                "CDType":2,
-                "groupCD":7,
-                "groupCDRand":1
-            }
-            ,{"stageCD":0,"stageCDTand":0}
         ],[null,null,null,null,null,null,null]
     ]
 ]

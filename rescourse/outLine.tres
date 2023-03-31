@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://eslbs4jeusj1"]
+
+[ext_resource type="Shader" path="res://rescourse/outLine.gdshader" id="1_lnij6"]
+
+[resource]
+shader = ExtResource("1_lnij6")
+shader_parameter/u_size = 0.4
+shader_parameter/glowColor = Color(1, 1, 0, 1)

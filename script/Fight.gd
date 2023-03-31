@@ -39,8 +39,12 @@ func _ready():
 		for j in arrayLength:
 			Global.SoldierData[allSoName[i]]["animationEnd"][j] = int(jsonValue.data[allSoName[i]]["animationEnd"][j])
 		Global.SoldierData[allSoName[i]]["seaAniNumber"] = int(jsonValue.data[allSoName[i]]["seaAniNumber"])
+		Global.SoldierData[allSoName[i]]["attackType"] = int(jsonValue.data[allSoName[i]]["attackType"])
 		Global.SoldierData[allSoName[i]]["damageMethod"] = int(jsonValue.data[allSoName[i]]["damageMethod"])
 		Global.SoldierData[allSoName[i]]["damageBasic"] = int(jsonValue.data[allSoName[i]]["damageBasic"])
+		Global.SoldierData[allSoName[i]]["projectile"] = int(jsonValue.data[allSoName[i]]["projectile"])
+		Global.SoldierData[allSoName[i]]["proMode"] = int(jsonValue.data[allSoName[i]]["proMode"])
+
 		Global.SoldierData[allSoName[i]]["attRangeBasic"] = int(jsonValue.data[allSoName[i]]["attRangeBasic"])
 		arrayLength = jsonValue.data[allSoName[i]]["aoeModel"].size()
 		for j in arrayLength:
@@ -85,12 +89,6 @@ func _ready():
 					Global.LevelData[i][j][k]["groupCD"] = int(jsonValue.data[i][j][k]["groupCD"])
 					Global.LevelData[i][j][k]["groupCDRand"] = int(jsonValue.data[i][j][k]["groupCDRand"])
 	
-#	Global.CardId[1].soldierName = null   
-#	Global.CardId[2].soldierName = null
-#	Global.CardId[3].soldierName = null 
-#	Global.CardId[4].soldierName = null
-#	Global.CardId[5].soldierName = null 
-#	Global.CardId[6].soldierName = null
 	emit_signal("cardMessage")
 	
 
@@ -137,11 +135,11 @@ func _on_tree_exited():
 
 
 func _on_tree_entered():
-	Global.StopButton = get_tree().get_root().find_child("StopButton",true,false)
-	Global.StopWindowLayer = get_tree().get_root().find_child("StopWindowLayer",true,false)
-	Global.StopWindow = get_tree().get_root().find_child("StopWindow",true,false)
+	Global.StopButton = $StopButton
+	Global.StopWindowLayer = $StopWindowLayer
+	Global.StopWindow = $StopWindowLayer/StopWindow
 	Global.FightSence = self
-	for i in cardLength: 
-		Global.CardId.append(get_tree().get_root().find_child("CardButton"+str(i+1),true,false))
+	Global.FightGroundY = $ground.position.y
+
 
 	pass # Replace with function body.

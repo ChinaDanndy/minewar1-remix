@@ -12,7 +12,7 @@ anchors_preset = 0
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/separation = 10
+theme_override_constants/separation = 5
 
 [node name="CardButton1" type="TextureButton" parent="HBoxContainer"]
 layout_mode = 2

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ewgodx72tv3e"
-path="res://.godot/imported/creeper_strip27.png-b9f840e3e56a01fdbba14024c497cfe8.ctex"
+uid="uid://b447ptwjo1uac"
+path="res://.godot/imported/bomb1.png-044e1625ae1a0520c57104fb454d55b0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/soldiers/creeper_strip27.png"
-dest_files=["res://.godot/imported/creeper_strip27.png-b9f840e3e56a01fdbba14024c497cfe8.ctex"]
+source_file="res://assets/projectiles/bomb1.png"
+dest_files=["res://.godot/imported/bomb1.png-044e1625ae1a0520c57104fb454d55b0.ctex"]
 
 [params]
 
