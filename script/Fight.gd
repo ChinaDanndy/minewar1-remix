@@ -66,7 +66,8 @@ func _ready():
 		for j in arrayLength:
 			Global.SoldierData[allSoName[i]]["deathEffGoodOrBad"][j] = int(jsonValue.data[allSoName[i]]["deathEffGoodOrBad"][j])
 		Global.SoldierData[allSoName[i]]["healthEffValue"] = int(jsonValue.data[allSoName[i]]["healthEffValue"])
-		Global.SoldierData[allSoName[i]]["healthDefValue"] = int(jsonValue.data[allSoName[i]]["healthDefValue"])
+		Global.SoldierData[allSoName[i]]["shield"] = int(jsonValue.data[allSoName[i]]["shield"])
+		#Global.SoldierData[allSoName[i]]["healthDefValue"] = int(jsonValue.data[allSoName[i]]["healthDefValue"])
 		Global.SoldierData[allSoName[i]]["satDefValue"] = int(jsonValue.data[allSoName[i]]["satDefValue"])
 	file = FileAccess.open("res://data/level.json", FileAccess.READ)
 	content = file.get_as_text()

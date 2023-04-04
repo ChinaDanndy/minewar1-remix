@@ -24,14 +24,17 @@ func normalAttackCalu(damager):
 		attDefence = damager.attDefence
 		for i in Global.AttackTypeLength:
 			if attacks[i] == true&&attDefence[i] == false: 
-				if damager.health>0: 
+				if damager.health>0&&damager.shield <=0: 
 					damager.health -= damage 
 					if damager.type == damagerType: damager.health -= Global.effect_calu(damage,Global.Effect.ATTDAMAGE,null,null)
 					#特定目标伤害加成
+				if damager.shield >0: 
+					damager.shield -= damage
 		effectAttackCalu(damager)
 	pass
 
 func effectAttackCalu(damager):
+	
 	effDefence = damager.effDefence
 
 	for i in Global.EffectLength:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1ybmwr72kfq6"
-path="res://.godot/imported/steve.png-d84d2871e3e2c15e5e489d0fe78a9058.ctex"
+uid="uid://dy6n5igy74vr3"
+path="res://.godot/imported/spr_shielder.png-bfa33e0ed6152e663c76961480f0809d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/soldiers/steve.png"
-dest_files=["res://.godot/imported/steve.png-d84d2871e3e2c15e5e489d0fe78a9058.ctex"]
+source_file="res://assets/soldiers/spr_shielder.png"
+dest_files=["res://.godot/imported/spr_shielder.png-bfa33e0ed6152e663c76961480f0809d.ctex"]
 
 [params]
 

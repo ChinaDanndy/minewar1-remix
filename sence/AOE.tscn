@@ -6,7 +6,8 @@
 size = Vector2(100, 20)
 
 [node name="Node2D" type="Area2D"]
-monitoring = false
+input_pickable = false
+monitorable = false
 script = ExtResource("1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

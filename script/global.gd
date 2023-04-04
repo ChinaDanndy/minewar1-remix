@@ -17,9 +17,9 @@ enum Kind {LAND,SEA,SKY}
 enum AttackType {IMMDAMAGE,PROJECTILE}
 enum DamageMethod {SINGAL,AOE}
 var AttackTypeLength = DamageMethod.size()+AttackType.size()
+enum AoeSet {ATTACK,NORMAL,DEATH}
 const HealthReduceTime = 2
 const HoldEffectTimes = 4
-enum AoeModel {MONSTER,ALL,VILLAGE}
 enum Effect {ATTDAMAGE,SPEED,ATTRANGE,POISON,FIRE,DAMAGE,KNOCK1,KNOCK2,KNOCK3}
 var EffectLength = Effect.size()
 const EffTime = 3
@@ -33,15 +33,18 @@ const EFFBAD = -1
 
 enum ProMode {HLINE,VLINE,DBELVE,UBELVE,HTHROW,ATHROW}
 const ProModeValue = [Vector2(1,0),Vector2(0,1),Vector2(1,-1),Vector2(-1,1)]
-enum Projectile {ARROW,BOMB1}
+enum Projectile {ARROW1,BOMB1}
 enum ProType {NORMAL,PIERCE,FINAL}
 const ProTypeValue = [ProType.NORMAL,ProType.FINAL]
+const ProPos = [Vector2(0,1.5),Vector2(0,-12)]
 const ProName = ["arrow","bomb1"]
 const ProSpeed = [2,2]
 const ProPicture = [1,4]
 const ProAniTime = [0,0.5]
 const ProShape = [Vector2(26,10),Vector2(0,0)]
-
+const ProGrivaty = 0.8
+const ProHigh = 50
+var ProThrowTime = round(sqrt((2*ProHigh)/ProGrivaty))
 
 
 
@@ -62,7 +65,7 @@ var aoe = preload("res://sence/AOE.tscn")
 var OutLine = preload("res://rescourse/outLine.tres")
 enum Calu {ATTEFF,EFF}
 enum TRtype {VALCALU,VALCREATE}
-enum AoeSet {ATTACK,NORMAL,DEATH}
+
 
 func _ready():
 	
@@ -122,9 +125,9 @@ func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,if
 const VILLAGE = 1
 const MONSTER = -1
 const MIDDLE = 0
-
+#MONSTER,ALL,VILLAGE
 const LAyer = [[2,8,32],null,[1,4,16]]
-#碰撞层：敌方普通，敌方海,敌方基地,敌友全部除海，我方普通，我方海，我方基地
+#碰撞层：敌方普通，敌方海,敌方基地,敌友全部除海,全部，我方普通，我方海，我方基地
 const MAsk = [[1+16,1+4+16,16],[1+2+16+32,0],[2,2+8+32,32]]
 const deathLayer = 32
 

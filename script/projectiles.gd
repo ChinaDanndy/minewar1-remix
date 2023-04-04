@@ -22,10 +22,16 @@ var giveEffect
 var giveEffGoodOrBad
 
 
+var Hdisplacement = 0
+var Vdisplacement = 0
 var target
-var G = 0.1
+var G = 0.5
+var D = Vector2(1,-1)
+var S = 2
+var velocity = D*S
 
-
+var time = 0
+var timeAddValue = 0.1
 func _ready():
 	father = get_parent()
 	camp = father.camp
@@ -34,8 +40,11 @@ func _ready():
 	pass
 
 func firstSetting():
+	#S = round(sqrt((proRange.x*G)/abs(sin(Vector2(1,-1).angle()*cos(Vector2(1,-1).angle()))))/3)
+	#velocity = D*S
 	$Sprite2D.texture = load("res://assets/projectiles/"+str(Global.ProName[projectile])+".png")
 	if camp == Global.MONSTER: $Sprite2D.flip_h = true
+	
 	if Global.ProTypeValue[projectile] == Global.ProType.FINAL: 
 		monitoring = false
 	else:
@@ -47,45 +56,38 @@ func firstSetting():
 		$Sprite2D.hframes = Global.ProPicture[projectile]
 		$Sprite2D.frame = 0
 		$animationTimer.start(Global.ProAniTime[projectile])
+		
 	pass
-	#动画图片间隔时间
-#图片数量 碰撞框尺寸
-func calu():
-#	var D = abs(target.position.x - self.position.x)
-#	var T = round(D/(target.speedBasic.x + velocity.x))-5
-#	velocity.y = -(T*G)#抛物线
-	pass
+
 
 func _process(_delta):
-#	position += velocity
-#	velocity.y += G
-	if proMode != Global.ProMode.ATHROW&&proMode != Global.ProMode.HTHROW:
+	if	proMode == Global.ProMode.HTHROW:
+		position += velocity
+		velocity.y += G*G
+	else: 
 		position += Vector2(camp,0)*Global.ProSpeed[projectile]*Global.ProModeValue[proMode]
 	
-#func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,damageMethod,attacks,damage,damagerType,giveEffect,giveEffGoodOrBad):
-
-	currentPos = position.x
 	if monitoring == false&&position.y>Global.FightGroundY:
 		match damageMethod:
 			Global.DamageMethod.AOE:#AOE伤害
-				Global.TRvalue_caluORcreate(null,null,Global.TRtype.VALCREATE,projectile,null,null,ifAoeHold,aoeModel,aoeRange,damageMethod,attacks,damage,damagerType,giveEffect,giveEffGoodOrBad)
-		queue_free()
+				pass
+				#Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,projectile,null,null,ifAoeHold,aoeModel,aoeRange,null,attacks,null,damagerType,giveEffect,giveEffGoodOrBad)
+		#queue_free()
 		
+	currentPos = position.x
 	if (currentPos - startPos) >= proRange.x: queue_free()#超过射程直接自己销毁
 	pass
 
-
-
 func _on_body_entered(body):
+	#func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,damageMethod,attacks,damage,damagerType,giveEffect,giveEffGoodOrBad):
 	match damageMethod:
 		Global.DamageMethod.SINGAL:#单体伤害
-			Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,damageMethod,attacks,damage,damagerType,giveEffect,giveEffGoodOrBad)
+			Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,null,attacks,damage,null,giveEffect,giveEffGoodOrBad)
 		Global.DamageMethod.AOE:#AOE伤害
-			Global.TRvalue_caluORcreate(null,null,Global.TRtype.VALCREATE,projectile,null,null,ifAoeHold,aoeModel,aoeRange,damageMethod,attacks,damage,damagerType,giveEffect,giveEffGoodOrBad)
-		
-	if Global.ProTypeValue[projectile] != Global.ProType.PIERCE:  queue_free()
+			Global.TRvalue_caluORcreate(null,body,Global.TRtype.VALCREATE,projectile,null,null,ifAoeHold,aoeModel,aoeRange,null,attacks,damage,null,giveEffect,giveEffGoodOrBad)
+	if Global.ProTypeValue[projectile] != Global.ProType.PIERCE: 
+		queue_free()
 	pass 
-
 
 func _on_animation_timer_timeout():
 	$Sprite2D.frame += 1

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1ybmwr72kfq6"
-path="res://.godot/imported/steve.png-d84d2871e3e2c15e5e489d0fe78a9058.ctex"
+uid="uid://cbu1lw2j1eqvt"
+path="res://.godot/imported/spr_bottle.png-221414b6a5c6055b3a71d79724bb5775.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/soldiers/steve.png"
-dest_files=["res://.godot/imported/steve.png-d84d2871e3e2c15e5e489d0fe78a9058.ctex"]
+source_file="res://assets/tower/spr_bottle.png"
+dest_files=["res://.godot/imported/spr_bottle.png-221414b6a5c6055b3a71d79724bb5775.ctex"]
 
 [params]
 

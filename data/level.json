@@ -5,10 +5,10 @@
                 "firstCD":1,
                 "group":["skeleton"],
                 "CDType":0,
-                "groupCD":5,
-                "groupCDRand":2
+                "groupCD":1000,
+                "groupCDRand":0.5
             },{"stageCD":0,"stageCDTand":0}
-        ],["steve",null,null,null,null,null,null]
+        ],["steve","shield",null,null,null,null,null]
     ],
     [
         [
