@@ -40,8 +40,7 @@ enum SpeState {STATIC,MOVE}
 var speedState = SpeState.MOVE
 
 var ifOnlyAttBase = false#
-var attackType = Global.AttackType.IMMDAMAGE#
-var attacks = [false,false,false,false]
+var attackType = [false,false,false]#近 远 爆炸
 var damageMethod
 var damagerType#有伤害加成的攻击目标
 var damageBasic = 1#
@@ -59,30 +58,24 @@ var proMode = Global.ProMode.HLINE#
 #攻击 平时 死亡
 var ifAoeHold = [false,false,false]#
 var aoeModel = [0,0,0]#
-var aoeRange = [50,50,50]#
+var aoeRange = [0,0,0]#
 #自身状态数据
 var nowEffect = [0,0,0,0,0,0,0,0,0,0]
 var effUncencal = [0,0,0,0,0,0,0,0,0]
-var nowEffGoodOrBad = [-1,-1,-1,-1,-1,-1,-1,-1,-1]
 var effDefence = [false,false,false,false,false,false,false,false,false]
-#攻击给予状态
-var attEffGoodOrBad = [-1,-1,-1,-1,-1,-1,-1,-1,-1]#
-var attackEffect = [false,false,false,false,false,false,false,false,false]#
-#平时给予状态
-var usuallyEffGoodOrBad = [1,1,1,1,1,1,1,1,1]#
-var usuallyEffect#
-#死亡给予状态
-var deathEffGoodOrBad = [1,1,1,1,1,1,1]#
-var deathEffect#
+var attackEffect = [0,0,0,0,0,0,0,0,0,0]#攻击给予状态
+var usuallyEffect#平时给予状态
+var deathEffect#死亡给予状态
 
 var ifFirstEffect = false#
 var ifHealthEffect = false#
 var healthEffValue = 0#
 var ifDistanceEffect = false#
 
-var shield = 5#
-
-var attDefOrigin = [false,false,false,false]
+var shield = 0#
+var oriSpeed = 0.6
+var oriAniTime = 0.2
+var attDefOrigin = [false,false,false]
 var attDefence = attDefOrigin
 var attDefShield#
 var satDefValue = 0#
@@ -95,58 +88,10 @@ func _ready():
 	pass
 	
 func firstSetting(soldier):
+	for STSDatename in Global.STSData[soldier]:
+		set(STSDatename,Global.STSData[soldier][STSDatename])
 	soldierName = soldier
-	camp = Global.SoldierData[soldierName]["camp"]
-	kind = Global.SoldierData[soldierName]["kind"]
-	collKind = Global.SoldierData[soldierName]["collKind"]
-	health = Global.SoldierData[soldierName]["health"]
-	totalPictureNumber = Global.SoldierData[soldierName]["totalPictureNumber"]
-	animationStart = Global.SoldierData[soldierName]["animationStart"]
-	animationEnd = Global.SoldierData[soldierName]["animationEnd"]
-	seaAniNumber = Global.SoldierData[soldierName]["seaAniNumber"]
-	aniTimeBasic = Global.SoldierData[soldierName]["aniTimeBasic"]
-	speedBasic = Global.SoldierData[soldierName]["speedBasic"]
-	ifOnlyAttBase = Global.SoldierData[soldierName]["ifOnlyAttBase"]
-	attackType = Global.SoldierData[soldierName]["attackType"]
-	damageMethod = Global.SoldierData[soldierName]["damageMethod"]
-	damagerType = Global.SoldierData[soldierName]["damagerType"]
-	damageBasic = Global.SoldierData[soldierName]["damageBasic"]
-	projectile = Global.SoldierData[soldierName]["projectile"]
-	proMode = Global.SoldierData[soldierName]["proMode"]
-	attRangeBasic = Global.SoldierData[soldierName]["attRangeBasic"]
-	ifAoeHold = Global.SoldierData[soldierName]["ifAoeHold"]
-	aoeModel = Global.SoldierData[soldierName]["aoeModel"]
-	aoeRange = Global.SoldierData[soldierName]["aoeRange"]
-	attEffGoodOrBad = Global.SoldierData[soldierName]["attEffGoodOrBad"]
-	attackEffect = Global.SoldierData[soldierName]["attackEffect"]
-	usuallyEffGoodOrBad = Global.SoldierData[soldierName]["usuallyEffGoodOrBad"]
-	usuallyEffect = Global.SoldierData[soldierName]["usuallyEffect"]
-	deathEffGoodOrBad = Global.SoldierData[soldierName]["deathEffGoodOrBad"]
-	deathEffect = Global.SoldierData[soldierName]["deathEffect"]
-	ifFirstEffect = Global.SoldierData[soldierName]["ifFirstEffect"]
-	ifHealthEffect = Global.SoldierData[soldierName]["ifHealthEffect"]
-	healthEffValue = Global.SoldierData[soldierName]["healthEffValue"]
-	ifDistanceEffect = Global.SoldierData[soldierName]["ifDistanceEffect"]
-	#attDefOrigin = Global.SoldierData[soldierName]["attDefOrigin"]
-	#healthDefValue = Global.SoldierData[soldierName]["healthDefValue"]
-	shield = Global.SoldierData[soldierName]["shield"]
-	attDefShield = Global.SoldierData[soldierName]["attDefShield"]
-	satDefValue = Global.SoldierData[soldierName]["satDefValue"]
-	attDefState = Global.SoldierData[soldierName]["attDefState"]
-	
 	Global.FightSence.reloadSence.connect(reload)
-	
-
-	match attackType:#基础攻击类型区别
-		Global.AttackType.IMMDAMAGE:
-			match damageMethod: 
-				Global.DamageMethod.SINGAL: attacks[0] = true
-				Global.DamageMethod.AOE: attacks[1] = true
-		Global.AttackType.PROJECTILE:
-			match damageMethod: 
-				Global.DamageMethod.SINGAL: attacks[2] = true
-				Global.DamageMethod.AOE: attacks[3] = true
-
 	#设置碰撞层
 	collision_layer = Global.LAyer[camp+1][0]
 	collision_mask = Global.MAsk[camp+1][0]
@@ -183,7 +128,7 @@ func firstSetting(soldier):
 	changeAnimation(standardAni,currentState)
 	pass
 
-func _process(delta):#每帧执行的部分
+func _physics_process(_delta):#每帧执行的部分
 	#死亡判定
 	if health <= 0&&currentState != State.DEATH: 
 		changeState(Ani.DEATH,State.DEATH)
@@ -199,6 +144,7 @@ func _process(delta):#每帧执行的部分
 			attack1Ani = Ani.ATTACK1
 			standardAni = walkAni
 			ifFirstEffect = false
+	testchangeState()#状态切换检测
 	#血量低于临界攻击力提升
 	if health <= healthEffValue&&ifHealthEffect == true:
 		damageAdd = Global.effect_calu(damageBasic,Global.Effect.ATTDAMAGE,null,null)
@@ -213,6 +159,8 @@ func _process(delta):#每帧执行的部分
 		attack1Ani = Ani.AATTACK1
 		stopAni = Ani.ASTOP
 		attDefence = attDefOrigin
+		speedBasic = oriSpeed
+		aniTimeBasic = oriAniTime
 		match currentState:
 			State.ATTACK: currentAni = attack1Ani
 			State.STOP: currentAni = stopAni
@@ -338,29 +286,25 @@ func changeAnimation(AniName,StaName):
 	$animationTimer.start(aniTime)
 	pass
 
-#func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,damageMethod,attackType,damage,damagerType,giveEffect,giveEffGoodOrBad):
+#func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,attackType,damage,damagerType,giveEffect):
 
 func attack():
-	if attackType == Global.AttackType.IMMDAMAGE:
-		match damageMethod:
-			Global.DamageMethod.SINGAL:
-				Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,other,Global.TRtype.VALCALU,null,null,null,null,null,null,null,attacks,damage,null,attackEffect,attEffGoodOrBad)
-#func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,damageMethod,attacks,damage,damagerType,giveEffect,giveEffGoodOrBad):
-			Global.DamageMethod.AOE:
-				Global.TRvalue_caluORcreate(null,other,Global.TRtype.VALCREATE,null,null,null,ifAoeHold[Global.AoeSet.ATTACK],aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],null,attacks,damage,null,attackEffect,attEffGoodOrBad)
-				if soldierName == "creeper": queue_free()
-	if attackType == Global.AttackType.PROJECTILE:
+	match damageMethod:
+		Global.DamageMethod.NEARSINGLE:
+			Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,other,Global.TRtype.VALCALU,null,null,null,null,null,null,attackType,damage,null,attackEffect)
+#func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,attackType,damage,damagerType,giveEffect,):
+		Global.DamageMethod.NEARAOE:
+			Global.TRvalue_caluORcreate(null,other,Global.TRtype.VALCREATE,null,null,null,ifAoeHold[Global.AoeSet.ATTACK],aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],attackType,damage,null,attackEffect)
+			if soldierName == "creeper": queue_free()
+		Global.DamageMethod.FAR:
 			var newPro = proSence.instantiate()
-			add_child(newPro)#射程伤害阵营
+			add_child(newPro)
 			newPro.position = Global.ProPos[projectile]
-			Global.TRvalue_caluORcreate(null,null,newPro,projectile,proMode,attRange,ifAoeHold[Global.AoeSet.ATTACK],aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],damageMethod,attacks,damage,damagerType,attackEffect,attEffGoodOrBad)
+			Global.TRvalue_caluORcreate(null,null,newPro,projectile,proMode,attRange,ifAoeHold[Global.AoeSet.ATTACK],aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],attackType,damage,damagerType,attackEffect)
 			newPro.firstSetting()
-			#projectileNew.target = other
-			#projectileNew.calu(
 	pass
 
 func _on_animationTimer_timeout():
-	
 	$Sprite2D.frame += 1
 	if $Sprite2D.frame >= currentAnimationEnd:
 		$Sprite2D.frame = currentAnimationStart
@@ -370,21 +314,21 @@ func _on_animationTimer_timeout():
 				if is_instance_valid(other): attack()#攻击执行
 			State.DEATH:
 				if deathEffect != null:#启动亡语效果
-					Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,ifAoeHold[Global.AoeSet.DEATH],aoeModel[Global.AoeSet.DEATH],aoeRange[Global.AoeSet.DEATH],null,null,null,null,deathEffect,deathEffGoodOrBad)
+					Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,ifAoeHold[Global.AoeSet.DEATH],aoeModel[Global.AoeSet.DEATH],aoeRange[Global.AoeSet.DEATH],null,null,null,deathEffect)
 				queue_free()
-	testchangeState()#状态切换检测
+	
 	pass 
 
 func attributeTimer(effName):
 	match effName:
 		Global.Effect.ATTDAMAGE:
-			damageEffect = Global.effect_calu(damageBasic,effName,nowEffGoodOrBad,effUncencal)
+			damageEffect = Global.effect_calu(damageBasic,effName,nowEffect,effUncencal)
 		Global.Effect.SPEED:
-			speedEffect =  Global.effect_calu(speedBasic,effName,nowEffGoodOrBad,effUncencal)
-			aniTimeEffect = Global.effect_calu(aniTimeBasic,effName,nowEffGoodOrBad,effUncencal)
+			speedEffect =  Global.effect_calu(speedBasic,effName,nowEffect,effUncencal)
+			aniTimeEffect = Global.effect_calu(aniTimeBasic,effName,nowEffect,effUncencal)
 		Global.Effect.ATTRANGE:
-			attRangeEffect = Global.effect_calu(attRangeBasic,effName,nowEffGoodOrBad,effUncencal)
-	await get_tree().create_timer(Global.EffTime).timeout
+			attRangeEffect = Global.effect_calu(attRangeBasic,effName,nowEffect,effUncencal)
+	await get_tree().create_timer(Global.EffTime,false).timeout
 	match effName:
 		Global.Effect.ATTDAMAGE:
 			damageEffect = 0
@@ -400,19 +344,19 @@ func attributeTimer(effName):
 	
 func posionTimer(effName):
 	$poisonTimer.start(Global.HealthReduceTime)
-	await get_tree().create_timer(Global.EffTime).timeout
+	await get_tree().create_timer(Global.EffTime,false).timeout
 	$poisonTimer.stop()
 	nowEffect[effName] = Global.OFFEFFECT
 	effUncencal[effName] = Global.UNCENCAL
 	pass
 	
 func _on_poisonTimer_timeout():
-	health += Global.EffValue[Global.Effect.POISON]*nowEffGoodOrBad[Global.Effect.POISON]*effUncencal[Global.Effect.POISON]
+	health += Global.EffValue[Global.Effect.POISON]*nowEffect[Global.Effect.POISON]*effUncencal[Global.Effect.POISON]
 	pass
 
 func fireTimer(effName):
 	$fireTimer.start(Global.HealthReduceTime)
-	await get_tree().create_timer(Global.EffTime).timeout
+	await get_tree().create_timer(Global.EffTime,false).timeout
 	$fireTimer.stop()
 	nowEffect[effName] = Global.OFFEFFECT
 	effUncencal[effName] = Global.UNCENCAL
@@ -420,11 +364,11 @@ func fireTimer(effName):
 	pass
 	
 func _on_fireTimer_timeout():
-	health += Global.EffValue[Global.Effect.FIRE]*nowEffGoodOrBad[Global.Effect.FIRE]*effUncencal[Global.Effect.FIRE]
+	health += Global.EffValue[Global.Effect.FIRE]*nowEffect[Global.Effect.FIRE]*effUncencal[Global.Effect.FIRE]
 	pass
 
 func _on_usuallyTimer_timeout():
-	if currentState != State.DEATH: Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,ifAoeHold[Global.AoeSet.DEATH],aoeModel[Global.AoeSet.NORMAL],aoeRange[Global.AoeSet.NORMAL],null,null,null,null,usuallyEffect,usuallyEffGoodOrBad)
+	if currentState != State.DEATH: Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,ifAoeHold[Global.AoeSet.DEATH],aoeModel[Global.AoeSet.NORMAL],aoeRange[Global.AoeSet.NORMAL],null,null,null,usuallyEffect)
 	pass 
 
 func _on_input_event(_viewport, event, _shape_idx):

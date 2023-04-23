@@ -12,7 +12,7 @@ func cardMessageOut():
 	if soldier == null: 
 		self.visible = false
 	else:
-		price = Global.SoldierData[soldier]["price"]
+		price = Global.STSData[soldier]["price"]
 		$CardPrice.text = str(price)
 		$CardName.text = soldier
 	pass

@@ -3,7 +3,7 @@
         [
             {
                 "firstCD":1,
-                "group":["skeleton"],
+                "group":["creeper"],
                 "CDType":0,
                 "groupCD":1000,
                 "groupCDRand":0.5

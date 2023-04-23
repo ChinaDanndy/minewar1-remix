@@ -1,7 +1,14 @@
 extends Node
-
-
-var SoldierData
+var STSData:Dictionary
+enum STSType {INT,ARRAY}
+const STSDataName = {"price":STSType.INT,"camp":STSType.INT,"kind":STSType.INT,
+"collKind":STSType.INT,"health":STSType.INT,"totalPictureNumber":STSType.INT,
+"animationStart":STSType.ARRAY,"animationEnd":STSType.ARRAY,"seaAniNumber":STSType.INT,"speedBasic":null,"ifOnlyAttBase":null,
+"attackType":null,"damageMethod":STSType.INT,"damagerType":null,"damageBasic":STSType.INT,"projectile":STSType.INT,
+"proMode":STSType.INT,"attRangeBasic":STSType.INT,"ifAoeHold":null,"aoeModel":STSType.ARRAY,"aoeRange":STSType.ARRAY,
+"attEffGoodOrBad":STSType.ARRAY,"attackEffect":null,"usuallyEffGoodOrBad":STSType.ARRAY,"usuallyEffect":null,"deathEffGoodOrBad":STSType.ARRAY,
+"deathEffect":null,"ifFirstEffect":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"shield":STSType.INT,
+"attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
 var Contrl
 const Money = 10 
 var NowMoney = 0
@@ -14,9 +21,8 @@ const Coll2IfUse = [false,true,false,true,true,true]
 
 enum Type {PEOPLE,TOWER,PROJECTILE,BASE,SKILL}
 enum Kind {LAND,SEA,SKY}
-enum AttackType {IMMDAMAGE,PROJECTILE}
-enum DamageMethod {SINGAL,AOE}
-var AttackTypeLength = DamageMethod.size()+AttackType.size()
+enum DamageMethod {NEARSINGLE,NEARAOE,FAR}
+var AttackTypeLength = 3
 enum AoeSet {ATTACK,NORMAL,DEATH}
 const HealthReduceTime = 2
 const HoldEffectTimes = 4
@@ -24,11 +30,10 @@ enum Effect {ATTDAMAGE,SPEED,ATTRANGE,POISON,FIRE,DAMAGE,KNOCK1,KNOCK2,KNOCK3}
 var EffectLength = Effect.size()
 const EffTime = 3
 const EffMulti = [0.5,1,0.25,2,0,5,1,10,100,25,50]
-const ONEFFECT = 1
-const OFFEFFECT = 0
 const CENCAL = 0
 const UNCENCAL = 1
 const EFFGOOD = 1
+const OFFEFFECT = 0
 const EFFBAD = -1
 
 enum ProMode {HLINE,VLINE,DBELVE,UBELVE,HTHROW,ATHROW}
@@ -42,8 +47,10 @@ const ProSpeed = [2,2]
 const ProPicture = [1,4]
 const ProAniTime = [0,0.5]
 const ProShape = [Vector2(26,10),Vector2(0,0)]
+
 const ProGrivaty = 0.8
 const ProHigh = 50
+
 var ProThrowTime = round(sqrt((2*ProHigh)/ProGrivaty))
 
 
@@ -66,12 +73,6 @@ var OutLine = preload("res://rescourse/outLine.tres")
 enum Calu {ATTEFF,EFF}
 enum TRtype {VALCALU,VALCREATE}
 
-
-func _ready():
-	
-	#print(root)
-	pass
-
 func effect_calu(value,effectName,effectGoodOrBad,effectUncencal):
 	#原始值+增值*是否处于该效果*好或坏*是否同时获得好坏值中和攻击效果恢复为原值
 	if effectGoodOrBad == null: return value*EffMulti[effectName]
@@ -79,7 +80,7 @@ func effect_calu(value,effectName,effectGoodOrBad,effectUncencal):
 		return value*EffMulti[effectName]*effectGoodOrBad[effectName]*effectUncencal[effectName]
 	pass
 
-func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,damageMethod,attacks,damage,damagerType,giveEffect,giveEffGoodOrBad):
+func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,attackType,damage,damagerType,giveEffect):
 	var newCalu = calu.new()
 	var newAoe = aoe.instantiate()
 	match target:
@@ -98,13 +99,10 @@ func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,if
 	target.aoeModel = aoeModel
 	target.aoeRange = aoeRange
 	
-	target.damageMethod = damageMethod
-	target.attacks = attacks
+	target.attackType = attackType
 	target.damage = damage
 	target.damagerType = damagerType
 	target.giveEffect = giveEffect
-	target.giveEffGoodOrBad = giveEffGoodOrBad
-	
 	match caluType:
 		Calu.ATTEFF: newCalu.normalAttackCalu(damager)
 		Calu.EFF: newCalu.effectAttackCalu(damager)
@@ -113,13 +111,8 @@ func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,if
 		root.add_child(newAoe)
 		newAoe.position = damager.position
 		newAoe.firstsetting()
-		
 	pass
 	
-
-
-
-
 
 
 const VILLAGE = 1
@@ -128,7 +121,7 @@ const MIDDLE = 0
 #MONSTER,ALL,VILLAGE
 const LAyer = [[2,8,32],null,[1,4,16]]
 #碰撞层：敌方普通，敌方海,敌方基地,敌友全部除海,全部，我方普通，我方海，我方基地
-const MAsk = [[1+16,1+4+16,16],[1+2+16+32,0],[2,2+8+32,32]]
+const MAsk = [[1+16,1+4+16,16],[1+2+16+32],[2,2+8+32,32]]
 const deathLayer = 32
 
 

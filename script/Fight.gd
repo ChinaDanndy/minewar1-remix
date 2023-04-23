@@ -1,9 +1,5 @@
 extends Node2D
-
-
-
 var count = 0
-
 var summonEnemy = preload("res://script/summonEnemy.gd")
 var summonEnemyID
 var cardLength = 7
@@ -11,64 +7,28 @@ signal cardMessage
 signal reloadSence
 
 func _ready():
-
+	
 	
 	var file = FileAccess.open("res://data/soldier.json", FileAccess.READ)
 	var content = file.get_as_text()
 	file.close()#读取所有士兵数据
+	
 	var jsonValue = JSON.new()
 	jsonValue.parse(content)
-	Global.SoldierData = jsonValue.data
-	
-	var soldierDataCount = jsonValue.data["allSoldierName"].size()
+	Global.STSData = jsonValue.data
 	var arrayLength
-	var allSoName = jsonValue.data["allSoldierName"]
-	for i in soldierDataCount:#把所有数值变成int,数组要挨个把里面的值重新读
-		Global.SoldierData[allSoName[i]]["price"] = int(jsonValue.data[allSoName[i]]["price"])
-		Global.SoldierData[allSoName[i]]["camp"] = int(jsonValue.data[allSoName[i]]["camp"])
-		Global.SoldierData[allSoName[i]]["kind"] = int(jsonValue.data[allSoName[i]]["kind"])
-		Global.SoldierData[allSoName[i]]["collKind"] = int(jsonValue.data[allSoName[i]]["collKind"])
-		Global.SoldierData[allSoName[i]]["health"] = int(jsonValue.data[allSoName[i]]["health"])
-		Global.SoldierData[allSoName[i]]["totalPictureNumber"] = int(jsonValue.data[allSoName[i]]["totalPictureNumber"])
-		arrayLength = jsonValue.data[allSoName[i]]["animationStart"].size()
+	for STSName in jsonValue.data:#把所有数值变成int,数组要挨个把里面的值重新读
+		for STSDatename in Global.STSData[STSName]:
+			if Global.STSDataName.has(STSDatename):
+				match Global.STSDataName[STSDatename]:
+					Global.STSType.INT: Global.STSData[STSName][STSDatename] = int(jsonValue.data[STSName][STSDatename])
+					Global.STSType.ARRAY: 
+						arrayLength = Global.STSData[STSName][STSDatename].size()
+						for i in arrayLength:
+							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
+
 		
-		for j in arrayLength:
-			Global.SoldierData[allSoName[i]]["animationStart"][j] = int(jsonValue.data[allSoName[i]]["animationStart"][j])
-		
-		arrayLength = jsonValue.data[allSoName[i]]["animationEnd"].size()
-		for j in arrayLength:
-			Global.SoldierData[allSoName[i]]["animationEnd"][j] = int(jsonValue.data[allSoName[i]]["animationEnd"][j])
-		Global.SoldierData[allSoName[i]]["seaAniNumber"] = int(jsonValue.data[allSoName[i]]["seaAniNumber"])
-		Global.SoldierData[allSoName[i]]["attackType"] = int(jsonValue.data[allSoName[i]]["attackType"])
-		Global.SoldierData[allSoName[i]]["damageMethod"] = int(jsonValue.data[allSoName[i]]["damageMethod"])
-		Global.SoldierData[allSoName[i]]["damageBasic"] = int(jsonValue.data[allSoName[i]]["damageBasic"])
-		Global.SoldierData[allSoName[i]]["projectile"] = int(jsonValue.data[allSoName[i]]["projectile"])
-		Global.SoldierData[allSoName[i]]["proMode"] = int(jsonValue.data[allSoName[i]]["proMode"])
 
-		Global.SoldierData[allSoName[i]]["attRangeBasic"] = int(jsonValue.data[allSoName[i]]["attRangeBasic"])
-		arrayLength = jsonValue.data[allSoName[i]]["aoeModel"].size()
-		for j in arrayLength:
-			Global.SoldierData[allSoName[i]]["aoeModel"][j] = int(jsonValue.data[allSoName[i]]["aoeModel"][j])
-		
-		arrayLength = jsonValue.data[allSoName[i]]["aoeRange"].size()
-		for j in arrayLength:
-			Global.SoldierData[allSoName[i]]["aoeRange"][j] = int(jsonValue.data[allSoName[i]]["aoeRange"][j])
-
-		arrayLength = jsonValue.data[allSoName[i]]["attEffGoodOrBad"].size()
-		for j in arrayLength:
-			Global.SoldierData[allSoName[i]]["attEffGoodOrBad"][j] = int(jsonValue.data[allSoName[i]]["attEffGoodOrBad"][j])
-
-		arrayLength = jsonValue.data[allSoName[i]]["usuallyEffGoodOrBad"].size()
-		for j in arrayLength:
-			Global.SoldierData[allSoName[i]]["usuallyEffGoodOrBad"][j] = int(jsonValue.data[allSoName[i]]["usuallyEffGoodOrBad"][j])
-
-		arrayLength = jsonValue.data[allSoName[i]]["deathEffGoodOrBad"].size()
-		for j in arrayLength:
-			Global.SoldierData[allSoName[i]]["deathEffGoodOrBad"][j] = int(jsonValue.data[allSoName[i]]["deathEffGoodOrBad"][j])
-		Global.SoldierData[allSoName[i]]["healthEffValue"] = int(jsonValue.data[allSoName[i]]["healthEffValue"])
-		Global.SoldierData[allSoName[i]]["shield"] = int(jsonValue.data[allSoName[i]]["shield"])
-		#Global.SoldierData[allSoName[i]]["healthDefValue"] = int(jsonValue.data[allSoName[i]]["healthDefValue"])
-		Global.SoldierData[allSoName[i]]["satDefValue"] = int(jsonValue.data[allSoName[i]]["satDefValue"])
 	file = FileAccess.open("res://data/level.json", FileAccess.READ)
 	content = file.get_as_text()
 	file.close()

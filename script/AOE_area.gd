@@ -9,12 +9,10 @@ var ifAoeHold
 var aoeModel
 var aoeRange
 
-var damageMethod
-var attacks
+var attackType
 var damagerType
 var damage
 var giveEffect
-var giveEffGoodOrBad
 
 
 func _ready():
@@ -40,10 +38,10 @@ func firstsetting():
 	
 
 	pass
-#func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,damageMethod,attacks,damage,damagerType,giveEffect,giveEffGoodOrBad):
+#func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,damage,damagerType,giveEffect,giveEffGoodOrBad):
 
 func _on_Node2D_body_entered(body):
-	Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,null,attacks,damage,null,giveEffect,giveEffGoodOrBad)
+	Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,attackType,damage,null,giveEffect)
 	queue_free()
 	#if projectile == null:
 	#	Global.TRvalue_caluORcreate(Global.Calu.EFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,null,null,null,null,giveEffect,giveEffGoodOrBad)
@@ -58,5 +56,5 @@ func _on_Node2D_body_entered(body):
 
 
 func _on_hold_timer_timeout():
-	Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,false,aoeModel,aoeRange,null,null,null,null,giveEffect,giveEffGoodOrBad)
+	#Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,false,aoeModel,aoeRange,null,null,null,null,giveEffect)
 	pass
