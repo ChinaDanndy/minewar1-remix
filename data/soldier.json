@@ -2,6 +2,7 @@
     "steve":{
         "price":1,
         "camp":1,
+        "type":0,
         "kind":0,
         "collKind":0,
         "health":5,
@@ -18,6 +19,7 @@
     "shield":{
         "price":1,
         "camp":1,
+        "type":0,
         "kind":0,
         "collKind":0,
         "health":5,
@@ -32,10 +34,30 @@
         "attRangeBasic":10,
         "shield":5,
         "attDefShield":[false,true,false]
-    },   
+    }, 
+    "projector":{
+        "price":1,
+        "camp":1,
+        "type":1,
+        "kind":0,
+        "collKind":0,
+        "health":5,
+        "totalPictureNumber":1,
+        "animationStart":[0,0,0,0,0,0,0,0,0],
+        "animationEnd":[0,0,0,0,0,0,0,0,0],
+        "aniTimeBasic":0.4,
+        "speedBasic":0,
+        "attackType":[false,true,false],
+        "damageMethod":2,
+        "damageBasic":1,
+        "attRangeBasic":200,
+        "projectile":0,
+        "proMode":0
+    },
     "zombie":{
         "price":1,
         "camp":-1,
+        "type":0,
         "kind":0,
         "collKind":0,
         "health":5,
@@ -52,6 +74,7 @@
     "skeleton":{
         "price":1,
         "camp":-1,
+        "type":0,
         "kind":0,
         "collKind":3,
         "health":5,
@@ -70,6 +93,7 @@
     "creeper":{
         "price":1,
         "camp":-1,
+        "type":0,
         "kind":0,
         "collKind":0,
         "health":5,

@@ -2,7 +2,7 @@ extends Node
 var STSData:Dictionary
 enum STSType {INT,ARRAY}
 const STSDataName = {"price":STSType.INT,"camp":STSType.INT,"kind":STSType.INT,
-"collKind":STSType.INT,"health":STSType.INT,"totalPictureNumber":STSType.INT,
+"collKind":STSType.INT,"health":STSType.INT,"type":STSType.INT,"totalPictureNumber":STSType.INT,
 "animationStart":STSType.ARRAY,"animationEnd":STSType.ARRAY,"seaAniNumber":STSType.INT,"speedBasic":null,"ifOnlyAttBase":null,
 "attackType":null,"damageMethod":STSType.INT,"damagerType":null,"damageBasic":STSType.INT,"projectile":STSType.INT,
 "proMode":STSType.INT,"attRangeBasic":STSType.INT,"ifAoeHold":null,"aoeModel":STSType.ARRAY,"aoeRange":STSType.ARRAY,
@@ -43,7 +43,7 @@ enum ProType {NORMAL,PIERCE,FINAL}
 const ProTypeValue = [ProType.NORMAL,ProType.FINAL]
 const ProPos = [Vector2(0,1.5),Vector2(0,-12)]
 const ProName = ["arrow","bomb1"]
-const ProSpeed = [2,2]
+const ProSpeed = [4,2]
 const ProPicture = [1,4]
 const ProAniTime = [0,0.5]
 const ProShape = [Vector2(26,10),Vector2(0,0)]
@@ -65,11 +65,13 @@ var StopButton
 var StopWindowLayer
 var StopWindow
 var FightGroundY
+var towerArea
 
 var Soldier = preload("res://sence/soldiers.tscn")
 var calu = preload("res://script/attack_calu.gd")
 var aoe = preload("res://sence/AOE.tscn")
 var OutLine = preload("res://rescourse/outLine.tres")
+var ChoiceArea = preload("res://sence/choiceArea.tscn")
 enum Calu {ATTEFF,EFF}
 enum TRtype {VALCALU,VALCREATE}
 

@@ -3,12 +3,12 @@
         [
             {
                 "firstCD":1,
-                "group":["creeper"],
+                "group":["zombie"],
                 "CDType":0,
-                "groupCD":1000,
+                "groupCD":5,
                 "groupCDRand":0.5
             },{"stageCD":0,"stageCDTand":0}
-        ],["steve","shield",null,null,null,null,null]
+        ],["steve","shield","projector",null,null,null,null]
     ],
     [
         [

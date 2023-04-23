@@ -19,9 +19,15 @@ func cardMessageOut():
 
 
 func _on_pressed():
-	#Global.NowMoney -= price
-	var friend = Global.Soldier.instantiate()
-	Global.root.add_child(friend)
-	friend.firstSetting(soldier)
-	friend.position = Vector2(100,297)
+	Global.NowMoney -= price
+	if Global.STSData[soldier]["type"] == Global.Type.PEOPLE:
+		var friend = Global.Soldier.instantiate()
+		Global.root.add_child(friend)
+		friend.firstSetting(soldier)
+		friend.position = Vector2(100,297)
+	if Global.STSData[soldier]["type"] == Global.Type.TOWER||Global.STSData[soldier]["type"] == Global.Type.SKILL:
+		var Area = Global.ChoiceArea.instantiate()
+		Global.root.add_child(Area)
+		Area.position = Vector2(100,297)
+		Area.soldier = soldier
 	pass # Replace with function body.

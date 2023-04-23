@@ -1,11 +1,10 @@
 extends CharacterBody2D
 var camp#
+var type#
 var kind#
 var collKind#
 var health#
 var soldierName
-
-var type = Global.Type.PEOPLE
 var other
 
 enum Ani {WALK,ATTACK1,ATTACK2,ATTACK3,STOP,DEATH,AWALK,AATTACK1,ASTOP}
@@ -54,6 +53,9 @@ var attRangeEffect = 0
 var proSence = load("res://sence/projectiles.tscn")
 var projectile = Global.Projectile.ARROW1#
 var proMode = Global.ProMode.HLINE#
+var sleepTime = 3
+var proContinueTimes = 3
+var proTimes = 0
 
 #攻击 平时 死亡
 var ifAoeHold = [false,false,false]#
@@ -212,7 +214,7 @@ func testchangeState():
 	if $Collision1.is_colliding():
 		if currentAni != Ani.ATTACK1: changeState(attack1Ani,State.ATTACK)
 	else: if currentAni == Ani.ATTACK1: changeState(standardAni,standardState)
-	#第二碰撞,距离效果启用及停用,确保给距离效果是增值只赋值一次不是一直赋值
+		#第二碰撞,距离效果启用及停用,确保给距离效果是增值只赋值一次不是一直赋值
 	if $Collision2.is_colliding()&&Global.Coll2IfUse[collKind] == true:
 		if currentAni != Ani.ATTACK2&&collKind != Global.CollKind.NARESPE: 
 			changeState(Ani.ATTACK2,State.ATTACK)
@@ -264,6 +266,7 @@ func changeState(AniName,StaName):#入海出海的动作图片在每个动画的
 				changeAnimation(AniName,StaName)
 				standardState = State.PUSH
 				standardAni = walkAni
+				proTimes = 0#归零多次射击的计数,避免射击不到最高次数就冷却
 	pass
 	
 func changeAnimation(AniName,StaName):
@@ -311,7 +314,17 @@ func _on_animationTimer_timeout():
 		seaAni = 0
 		match currentState:
 			State.ATTACK: 
-				if is_instance_valid(other): attack()#攻击执行
+				if is_instance_valid(other): 
+					if soldierName != "projector": attack()
+					else: 
+						if proTimes<proContinueTimes:#脉冲箭塔持续射击一会休息一下
+							proTimes +=1
+							attack()
+						if proTimes == proContinueTimes:
+							print("aaaaa")
+							proTimes +=1
+							$proSleepTimer.start(sleepTime)
+							
 			State.DEATH:
 				if deathEffect != null:#启动亡语效果
 					Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,ifAoeHold[Global.AoeSet.DEATH],aoeModel[Global.AoeSet.DEATH],aoeRange[Global.AoeSet.DEATH],null,null,null,deathEffect)
@@ -377,7 +390,10 @@ func _on_input_event(_viewport, event, _shape_idx):
 		$Sprite2D.material = Global.OutLine
 	pass 
 
-
 func reload():
 	queue_free()
 	pass 
+
+func _on_pro_sleep_timer_timeout():
+	proTimes = 0
+	pass

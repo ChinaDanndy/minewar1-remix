@@ -101,6 +101,8 @@ func _on_tree_entered():
 	Global.StopWindow = $StopWindowLayer/StopWindow
 	Global.FightSence = self
 	Global.FightGroundY = $ground.position.y
+	Global.towerArea = $towerArea
+	Global.towerArea.visible = false
 
 
 	pass # Replace with function body.

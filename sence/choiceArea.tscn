@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://covtg7uqsqe2u"]
+
+[ext_resource type="Script" path="res://script/choiceArea.gd" id="1_p4kpv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jvmuy"]
+
+[node name="choiceArea" type="Area2D"]
+monitorable = false
+script = ExtResource("1_p4kpv")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jvmuy")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
