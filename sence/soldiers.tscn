@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b1ybmwr72kfq6" path="res://assets/soldiers/steve.png" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(28, 44)
+size = Vector2(20, 44)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 input_pickable = true

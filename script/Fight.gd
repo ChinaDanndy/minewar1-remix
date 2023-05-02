@@ -8,7 +8,6 @@ signal reloadSence
 
 func _ready():
 	
-	
 	var file = FileAccess.open("res://data/soldier.json", FileAccess.READ)
 	var content = file.get_as_text()
 	file.close()#读取所有士兵数据
@@ -17,6 +16,7 @@ func _ready():
 	jsonValue.parse(content)
 	Global.STSData = jsonValue.data
 	var arrayLength
+	var pictureGet
 	for STSName in jsonValue.data:#把所有数值变成int,数组要挨个把里面的值重新读
 		for STSDatename in Global.STSData[STSName]:
 			if Global.STSDataName.has(STSDatename):
@@ -26,6 +26,10 @@ func _ready():
 						arrayLength = Global.STSData[STSName][STSDatename].size()
 						for i in arrayLength:
 							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
+		pictureGet = load("res://assets/soldiers/"+STSName+".png")#
+		Global.STSData[STSName]["collBox"] = Vector2(0,0)
+		Global.STSData[STSName]["collBox"].x = int(round(pictureGet.get_width()/Global.STSData[STSName]["totalPictureNumber"]))
+		Global.STSData[STSName]["collBox"].y = int(pictureGet.get_height())
 
 		
 
@@ -61,7 +65,7 @@ func _ready():
 	summonEnemyID = newEnemy
 	
 	
-
+	
 	#friend.picture = load("res://assets/soldiers/archer.png")
 #	friend.picture = load("res://assets/soldiers/assassin.png")
 	#friend.animationStart = [0,0,0,6,10,0,6,14]
@@ -70,6 +74,7 @@ func _ready():
 #	friend.animationEnd = [9,0,0,18,0,0,12,19]
 #	friend.totalPictureNumber = 19
 	#friend.totalPictureNumber = 15
+	pass
 	
 func _process(_delta):
 	$Moneycount.text = str(Global.NowMoney) +"/"+ str(Global.Money)
@@ -91,6 +96,8 @@ func _on_moneytimer_timeout():
 func _on_tree_exited():
 	summonEnemyID.queue_free()
 	Global.NowMoney = 0
+	Global.CardBuy = null
+	Global.Contrl = null
 	emit_signal("reloadSence")
 	pass
 
@@ -103,6 +110,7 @@ func _on_tree_entered():
 	Global.FightGroundY = $ground.position.y
 	Global.towerArea = $towerArea
 	Global.towerArea.visible = false
-
+	Global.skillArea = $skillArea
+	Global.skillArea.visible = false
 
 	pass # Replace with function body.

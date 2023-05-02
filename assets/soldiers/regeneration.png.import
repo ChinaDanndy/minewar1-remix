@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bas1vd0sirqnb"
-path="res://.godot/imported/spr_shielder_strip21.png-c8ec4658314fabc11c25f4e934e44624.ctex"
+uid="uid://dfpesktywjfa3"
+path="res://.godot/imported/regeneration.png-d8b78b42d622821b7fb3b618857b501b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/soldiers/spr_shielder_strip21.png"
-dest_files=["res://.godot/imported/spr_shielder_strip21.png-c8ec4658314fabc11c25f4e934e44624.ctex"]
+source_file="res://assets/soldiers/regeneration.png"
+dest_files=["res://.godot/imported/regeneration.png-d8b78b42d622821b7fb3b618857b501b.ctex"]
 
 [params]
 

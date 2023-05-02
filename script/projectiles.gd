@@ -34,22 +34,24 @@ func _ready():
 	father = get_parent()
 	camp = father.camp
 	collision_mask = father.collision_mask
-	collision_layer = 0
+
 	pass
 
 func firstSetting():
 	#S = round(sqrt((proRange.x*G)/abs(sin(Vector2(1,-1).angle()*cos(Vector2(1,-1).angle()))))/3)
 	#velocity = D*S
-	
 	$Sprite2D.texture = load("res://assets/projectiles/"+str(Global.ProName[projectile])+".png")
+	var newBox = RectangleShape2D.new()#碰撞箱自适应
+	newBox.size = $Sprite2D.texture.get_size()
+	$CollisionShape2D.shape = newBox
 	if camp == Global.MONSTER: $Sprite2D.flip_h = true
 	
-	if Global.ProTypeValue[projectile] == Global.ProType.FINAL: 
-		monitoring = false
-	else:
-		var collShape = RectangleShape2D.new()#各个子弹的碰撞箱
-		collShape.size = Global.ProShape[projectile]
-		$CollisionShape2D.shape = collShape
+#	if Global.ProTypeValue[projectile] == Global.ProType.FINAL: 
+#		monitoring = false
+#	else:
+#		var collShape = RectangleShape2D.new()#各个子弹的碰撞箱
+#		collShape.size = Global.ProShape[projectile]
+#		$CollisionShape2D.shape = collShape
 		
 	if Global.ProPicture[projectile] > 1:
 		$Sprite2D.hframes = Global.ProPicture[projectile]
@@ -82,7 +84,7 @@ func _on_body_entered(body):
 	if aoeRange == 0:#单体
 		Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,attackType,damage,null,giveEffect)
 	else:#AOE
-		Global.TRvalue_caluORcreate(null,body,Global.TRtype.VALCREATE,projectile,null,null,ifAoeHold,aoeModel,aoeRange,attackType,damage,null,giveEffect)
+		Global.TRvalue_caluORcreate(null,body,Global.TRtype.VALCREATE,null,null,null,ifAoeHold,aoeModel,aoeRange,attackType,damage,null,giveEffect)
 	
 	if Global.ProTypeValue[projectile] != Global.ProType.PIERCE: queue_free()
 	pass 

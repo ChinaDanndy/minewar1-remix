@@ -26,7 +26,7 @@ func normalAttackCalu(damager):
 					damager.health -= damage 
 					#if damager.type == damagerType: damager.health -= Global.effect_calu(damage,Global.Effect.ATTDAMAGE,null,null)
 					#特定目标伤害加成
-				if damager.shield >0: 
+				if damager.shield >0:#护盾被破坏时伤害溢出
 					damager.shield -= damage
 		effectAttackCalu(damager)
 	pass
@@ -49,11 +49,11 @@ func effectAttackCalu(damager):
 							match i:
 								Global.Effect.POISON: damager.posionTimer(i)
 								Global.Effect.FIRE: damager.fireTimer(i)
-				if i == Global.Effect.DAMAGE:
-					damager.health += Global.AttEffValue[i]*giveEffect[i]
+				if i == Global.Effect.DAMAGE&&damager.health<damager.healthUp:#防止加血超过血量上限
+					damager.health += Global.EffMulti[i]*giveEffect[i]
 				match i:
 					Global.Effect.KNOCK1,Global.Effect.KNOCK2,Global.Effect.KNOCK3:
-						damager.position.x -= Global.AttEffValue[i]*damager.camp
+						damager.position.x -= Global.EffMulti[i]*damager.camp
 	queue_free()
 	pass
 	
