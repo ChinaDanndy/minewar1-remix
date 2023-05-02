@@ -2,10 +2,10 @@ extends Node
 var STSData:Dictionary
 enum STSType {INT,ARRAY}
 const STSDataName = {"price":STSType.INT,"camp":STSType.INT,"kind":STSType.INT,
-"collKind":STSType.INT,"health":STSType.INT,"type":STSType.INT,"totalPictureNumber":STSType.INT,
+"collKind":STSType.INT,"health":STSType.INT,"type":STSType.INT,"towKeepTime":STSType.INT,"soldierName":null,"totalPictureNumber":STSType.INT,
 "animationStart":STSType.ARRAY,"animationEnd":STSType.ARRAY,"othanimationStart":STSType.ARRAY,"othanimationEnd":STSType.ARRAY,"seaAniNumber":STSType.INT,"speedBasic":null,"ifOnlyAttBase":null,
 "attackType":null,"damageMethod":STSType.INT,"damagerType":null,"damageBasic":STSType.INT,"projectile":STSType.INT,
-"proMode":STSType.INT,"attRangeBasic":STSType.INT,"ifAoeHold":null,"aoeModel":STSType.ARRAY,"aoeRange":STSType.ARRAY,
+"proMode":STSType.INT,"attRangeBasic":STSType.INT,"proSleepTime":STSType.INT,"proContinueTimes":STSType.INT,"ifAoeHold":null,"aoeModel":STSType.ARRAY,"aoeRange":STSType.ARRAY,
 "attEffGoodOrBad":STSType.ARRAY,"attackEffect":null,"usuallyEffGoodOrBad":STSType.ARRAY,"usuallyEffect":null,"deathEffGoodOrBad":STSType.ARRAY,
 "deathEffect":null,"ifFirstEffect":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"shield":STSType.INT,
 "attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
@@ -17,10 +17,13 @@ var Level = 0
 
 var arrow = load("res://assets/projectiles/arrow.png")
 
+
+
+
+
 #近 靠近效果 单陆地远 仅地面地远 地空地远 空地分开空 空地同时空
 enum CollKind {NARE,NARESPE,LAND,LANDSKY,SKY,SKYLAND}
 const Coll2IfUse = [false,true,false,true,true,true]
-
 enum Type {PEOPLE,TOWER,PROJECTILE,BASE,SKILL}
 enum Kind {LAND,SEA,SKY}
 enum DamageMethod {NEARSINGLE,NEARAOE,FAR}
@@ -48,6 +51,7 @@ const ProName = ["arrow","bomb1"]
 const ProSpeed = [4,2]
 const ProPicture = [1,4]
 const ProAniTime = [0,0.5]
+
 
 const ProGrivaty = 0.8
 const ProHigh = 50

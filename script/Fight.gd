@@ -26,7 +26,7 @@ func _ready():
 						arrayLength = Global.STSData[STSName][STSDatename].size()
 						for i in arrayLength:
 							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
-		pictureGet = load("res://assets/soldiers/"+STSName+".png")#
+		pictureGet = load("res://assets/soldiers/"+STSName+".png")#提前根据图片得到单位碰撞箱尺寸
 		Global.STSData[STSName]["collBox"] = Vector2(0,0)
 		Global.STSData[STSName]["collBox"].x = int(round(pictureGet.get_width()/Global.STSData[STSName]["totalPictureNumber"]))
 		Global.STSData[STSName]["collBox"].y = int(pictureGet.get_height())

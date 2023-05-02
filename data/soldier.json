@@ -23,11 +23,10 @@
         "kind":0,
         "collKind":0,
         "health":5,
-        "totalPictureNumber":21,
-        "animationStart":[0,6,0,0,6,20],
-        "animationEnd":[6,10,0,0,6,20],
-        "othanimationStart":[10,16,0,0,19,20],
-        "othanimationEnd":[16,20,0,0,19,20],
+        "soldierName":[null,"noShield",null],
+        "totalPictureNumber":10,
+        "animationStart":[0,6,0,0,6,0],
+        "animationEnd":[6,10,0,0,6,0],
         "aniTimeBasic":0.3,
         "speedBasic":0.4,
         "attackType":[true,false,false],
@@ -37,6 +36,16 @@
         "shield":5,
         "attDefShield":[false,true,false]
     }, 
+    "noShield":
+    {
+        "totalPictureNumber":11,
+        "animationStart":[0,6,0,0,9,10],
+        "animationEnd":[6,10,0,0,9,10],
+        "aniTimeBasic":0.2,
+        "speedBasic":0.6,
+        "damageBasic":1,
+        "attRangeBasic":10
+    },
     "projector":{
         "price":1,
         "camp":1,
@@ -44,6 +53,7 @@
         "kind":0,
         "collKind":0,
         "health":5,
+        "towKeepTime":10,
         "totalPictureNumber":1,
         "aniTimeBasic":0.4,
         "speedBasic":0,
@@ -52,7 +62,9 @@
         "damageBasic":1,
         "attRangeBasic":200,
         "projectile":0,
-        "proMode":0
+        "proMode":0,
+        "proContinueTimes":3,
+        "proSleepTime":2
     },
     "regeneration":{
         "price":1,

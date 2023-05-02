@@ -5,15 +5,16 @@ var kind#
 var collKind#
 var health = 1#
 var healthUp = health
-var collBox = Vector2(0,0)#
+var towKeepTime#
+var collBox = Vector2(0,0)##不用记录根据已读入数据推算
 
-var soldierName
+var soldierName = [null,null,null]#
 var other
 var unPeopleFly = true
 
 enum Ani {WALK,ATTACK1,ATTACK2,ATTACK3,STOP,DEATH}
-enum State {ATTACK,STOP,DEATH,BACK,PUSH,OUTSEA,INSEA}
-var picture:Texture2D  #死亡时picture要free
+enum State {ATTACK,STOP,DEATH,BACK,PUSH}
+var picture:Texture2D 
 var totalPictureNumber = 1#
 var oranimationStart
 var oranimationEnd
@@ -24,11 +25,8 @@ var othanimationEnd = [0,0,0,0,0,0]#
 var seaAniNumber#
 var currentState = State.PUSH
 var currentAni = Ani.WALK
-var walkAni = Ani.WALK
-var attack1Ani = Ani.ATTACK1
-var stopAni = Ani.STOP
 var standardState = State.PUSH
-var standardAni = walkAni
+var standardAni = Ani.WALK
 var seaAni = 0
 var currentAnimationStart = animationStart[currentAni]
 var currentAnimationEnd = animationEnd[currentAni]
@@ -61,8 +59,8 @@ var attRangeEffect = 0
 var proSence = load("res://sence/projectiles.tscn")
 var projectile = Global.Projectile.ARROW1#
 var proMode = Global.ProMode.HLINE#
-var sleepTime = 3
-var proContinueTimes = 3
+var proSleepTime#
+var proContinueTimes#
 var proTimes = 0
 
 #攻击 平时 死亡
@@ -98,9 +96,8 @@ func _ready():
 	pass
 	
 func firstSetting(soldier):
-	for STSDatename in Global.STSData[soldier]:
-		set(STSDatename,Global.STSData[soldier][STSDatename])
-	soldierName = soldier
+	soldierName[0] = soldier
+	PictureAndCollBox(soldier)
 	attDefence = attDefOrigin#记录攻击免疫
 	healthUp = health#记录血量上限
 	oranimationStart = animationStart
@@ -119,10 +116,7 @@ func firstSetting(soldier):
 		collision_mask = Global.MAsk[camp+1][1]
 	#是否只攻击对方基地(限近战，碰到对方士兵和塔不停)
 	if ifOnlyAttBase == true: collision_mask = Global.LAyer[camp+1][2]
-	#填充碰撞箱
-	var newBox = RectangleShape2D.new()
-	newBox.size = collBox
-	$CollisionShape2D.shape = newBox
+
 	#把设置过的碰撞层导入射线检测的碰撞层
 	$Collision1.collision_mask = collision_mask
 	$Collision2.collision_mask = collision_mask
@@ -145,9 +139,24 @@ func firstSetting(soldier):
 	if attDefShield != null: attDefence = attDefShield
 	#动画基础数据导入并开始播放动画
 	#$Sprite2D.texture = load("res://assets/soldiers/%s.png" % [soldierName])
-	$Sprite2D.texture = load("res://assets/soldiers/"+soldierName+".png")
-	$Sprite2D.hframes = totalPictureNumber
+
 	if type != Global.Type.SKILL: changeAnimation(standardAni,currentState)
+	if type == Global.Type.TOWER: $towerTimer.start(towKeepTime)
+	pass
+	
+func PictureAndCollBox(soldier):
+	for STSDatename in Global.STSData[soldier]:
+		set(STSDatename,Global.STSData[soldier][STSDatename])
+	#填充碰撞箱
+	var newBox = RectangleShape2D.new()
+	newBox.size = collBox
+	$CollisionShape2D.shape = newBox
+	$Sprite2D.texture = load("res://assets/soldiers/"+soldier+".png")
+	$Sprite2D.hframes = totalPictureNumber
+	pass
+	
+func _on_tower_timer_timeout():
+	queue_free()
 	pass
 
 func _physics_process(_delta):#每帧执行的部分
@@ -162,6 +171,8 @@ func _physics_process(_delta):#每帧执行的部分
 				queue_free()
 	#死亡判定
 	if health <= 0&&currentState != State.DEATH: 
+		if type == Global.Type.TOWER: queue_free()#炮塔坏了直接销毁
+		#死亡特效
 		changeState(Ani.DEATH,State.DEATH)
 		$Sprite2D.material = null
 	testchangeState()#状态切换检测
@@ -187,16 +198,17 @@ func _physics_process(_delta):#每帧执行的部分
 		#aniTimeCut = Global.effect_calu(aniTimeBasic,Global.Effect.SPEED,null,null)
 	#血量低于临界攻击免疫变少
 	if shield <= 0&&attDefShield != null&&attDefence!=attDefOrigin:
-		animationStart = othanimationStart#一个士兵多个动画切换例子,偏移注意
-		animationEnd = othanimationEnd
+		PictureAndCollBox(soldierName[1])
+		#animationStart = othanimationStart#一个士兵多个动画切换例子,偏移注意
+		#animationEnd = othanimationEnd
 		attDefence = attDefOrigin
-		if soldierName == "shielder":
-			speedBasic = Global.STSData["steve"]["speedBasic"]
-			aniTimeBasic = Global.STSData["steve"]["aniTimeBasic"]
-			attRangeBasic = Global.STSData["steve"]["attRangeBasic"]
-			var newBox = RectangleShape2D.new()#碰撞箱自适应
-			newBox.size = Global.STSData["steve"]["collBox"]#有位置偏移
-			$CollisionShape2D.shape = newBox
+		#if soldierName[0] == "shielder":
+			#speedBasic = Global.STSData["steve"]["speedBasic"]
+			#aniTimeBasic = Global.STSData["steve"]["aniTimeBasic"]
+			#attRangeBasic = Global.STSData["steve"]["attRangeBasic"]
+			#var newBox = RectangleShape2D.new()#碰撞箱自适应
+			#newBox.size = Global.STSData["steve"]["collBox"]#有位置偏移
+			#$CollisionShape2D.shape = newBox
 		changeAnimation(currentAni,currentState)
 	#不同状态攻击免疫改变
 	#if attDefState != null:
@@ -204,7 +216,7 @@ func _physics_process(_delta):#每帧执行的部分
 		#else: attDefence = attDefOrigin
 	#我方士兵控制，有开始状态的士兵处于开始状态时不能被控制
 
-	if camp == Global.VILLAGE&&Global.Contrl == soldierName&&currentState != State.DEATH: 
+	if Global.Contrl == soldierName[0]&&currentState != State.DEATH: 
 		#if (collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
 		contrl()
 
@@ -242,11 +254,9 @@ func testchangeState():
 	$Collision2.force_raycast_update()#更新射线碰撞检测
 	#第一碰撞
 	if $Collision1.is_colliding():
-		if currentAni != Ani.ATTACK1: 
-			changeState(attack1Ani,State.ATTACK)
+		if currentAni != Ani.ATTACK1: changeState(Ani.ATTACK1,State.ATTACK)
 	else: 
-		if currentAni == Ani.ATTACK1: 
-			changeState(standardAni,standardState)
+		if currentAni == Ani.ATTACK1: changeState(standardAni,standardState)
 		#第二碰撞,距离效果启用及停用,确保给距离效果是增值只赋值一次不是一直赋值
 	if $Collision2.is_colliding()&&Global.Coll2IfUse[collKind] == true:
 		if currentAni != Ani.ATTACK2&&collKind != Global.CollKind.NARESPE: 
@@ -331,7 +341,7 @@ func attack():
 #func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,attackType,damage,damagerType,giveEffect,):
 		Global.DamageMethod.NEARAOE:
 			Global.TRvalue_caluORcreate(null,other,Global.TRtype.VALCREATE,null,null,null,ifAoeHold[Global.AoeSet.ATTACK],aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],attackType,damage,null,attackEffect)
-			if soldierName == "creeper": queue_free()
+			if soldierName[0] == "creeper": queue_free()
 		Global.DamageMethod.FAR:
 			var newPro = proSence.instantiate()
 			add_child(newPro)
@@ -348,21 +358,20 @@ func _on_animationTimer_timeout():
 		match currentState:
 			State.ATTACK: 
 				if is_instance_valid(other): 
-					if soldierName != "projector": attack()
+					if proContinueTimes == null: attack()
 					else: 
 						if proTimes<proContinueTimes:#脉冲箭塔持续射击一会休息一下
 							proTimes +=1
 							attack()
-						if proTimes == proContinueTimes:
-							proTimes +=1
-							$proSleepTimer.start(sleepTime)
-							
+							if proTimes == proContinueTimes:
+								await get_tree().create_timer(proSleepTime,false).timeout
+								proTimes = 0
 			State.DEATH:
 				if deathEffect != null:#启动亡语效果
 					Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,ifAoeHold[Global.AoeSet.DEATH],aoeModel[Global.AoeSet.DEATH],aoeRange[Global.AoeSet.DEATH],null,null,null,deathEffect)
 				queue_free()
-	
 	pass 
+	
 
 func attributeTimer(effName):
 	match effName:
@@ -417,8 +426,8 @@ func _on_usuallyTimer_timeout():
 	pass 
 
 func _on_input_event(_viewport, event, _shape_idx):
-	if event.is_action_pressed("ui_mouse_left"):
-		Global.Contrl = soldierName
+	if event.is_action_pressed("ui_mouse_left")&&type == Global.Type.PEOPLE&&camp == Global.VILLAGE:
+		Global.Contrl = soldierName[0]
 		$Sprite2D.material = Global.OutLine
 	pass 
 
@@ -426,6 +435,6 @@ func reload():
 	queue_free()
 	pass 
 
-func _on_pro_sleep_timer_timeout():
-	proTimes = 0
-	pass
+
+
+

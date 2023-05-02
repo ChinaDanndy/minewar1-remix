@@ -30,10 +30,9 @@ target_position = Vector2(30, 0)
 
 [node name="fireTimer" type="Timer" parent="."]
 
-[node name="proSleepTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="usuallyTimer" type="Timer" parent="."]
+
+[node name="towerTimer" type="Timer" parent="."]
 
 [node name="Label" type="Label" parent="."]
 offset_left = -5.0
@@ -45,5 +44,5 @@ offset_bottom = -18.0
 [connection signal="timeout" from="animationTimer" to="." method="_on_animationTimer_timeout"]
 [connection signal="timeout" from="poisonTimer" to="." method="_on_poisonTimer_timeout"]
 [connection signal="timeout" from="fireTimer" to="." method="_on_fireTimer_timeout"]
-[connection signal="timeout" from="proSleepTimer" to="." method="_on_pro_sleep_timer_timeout"]
 [connection signal="timeout" from="usuallyTimer" to="." method="_on_usuallyTimer_timeout"]
+[connection signal="timeout" from="towerTimer" to="." method="_on_tower_timer_timeout"]
