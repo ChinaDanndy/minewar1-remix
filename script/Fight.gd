@@ -55,7 +55,7 @@ func _ready():
 					Global.LevelData[i][j][k]["groupCDRand"] = int(jsonValue.data[i][j][k]["groupCDRand"])
 	
 	emit_signal("cardMessage")
-	
+	$Moneytimer.start(Global.MoneyTime)
 
 
 	var newEnemy = summonEnemy.new()
@@ -108,6 +108,8 @@ func _on_tree_entered():
 	Global.StopWindow = $StopWindowLayer/StopWindow
 	Global.FightSence = self
 	Global.FightGroundY = $ground.position.y
+	Global.VillagePoint = $VillagePoint
+	Global.MonsterPoint = $MonsterPoint
 	Global.towerArea = $towerArea
 	Global.towerArea.visible = false
 	Global.skillArea = $skillArea

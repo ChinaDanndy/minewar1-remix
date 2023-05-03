@@ -14,14 +14,10 @@ var unPeopleFly = true
 
 enum Ani {WALK,ATTACK1,ATTACK2,ATTACK3,STOP,DEATH}
 enum State {ATTACK,STOP,DEATH,BACK,PUSH}
-var picture:Texture2D 
 var totalPictureNumber = 1#
-var oranimationStart
-var oranimationEnd
+var frame
 var animationStart = [0,0,0,0,0,0]#
 var animationEnd = [0,0,0,0,0,0]#
-var othanimationStart = [0,0,0,0,0,0]#
-var othanimationEnd = [0,0,0,0,0,0]#
 var seaAniNumber#
 var currentState = State.PUSH
 var currentAni = Ani.WALK
@@ -100,8 +96,6 @@ func firstSetting(soldier):
 	PictureAndCollBox(soldier)
 	attDefence = attDefOrigin#记录攻击免疫
 	healthUp = health#记录血量上限
-	oranimationStart = animationStart
-	oranimationEnd = animationEnd#记录最初的动画序列
 	Global.FightSence.reloadSence.connect(reload)
 	#设置碰撞层
 	collision_mask = Global.MAsk[camp+1][0]
@@ -161,7 +155,7 @@ func _on_tower_timer_timeout():
 
 func _physics_process(_delta):#每帧执行的部分
 	if type != Global.Type.PEOPLE&&unPeopleFly == true:
-		position.y += 20 
+		position.y += Global.DropSpeed 
 		if position.y >= 297: 
 			position.y = 297
 			unPeopleFly = false
@@ -197,18 +191,9 @@ func _physics_process(_delta):#每帧执行的部分
 		#speedAdd = Global.effect_calu(speedBasic,Global.Effect.SPEED,null,null)
 		#aniTimeCut = Global.effect_calu(aniTimeBasic,Global.Effect.SPEED,null,null)
 	#血量低于临界攻击免疫变少
-	if shield <= 0&&attDefShield != null&&attDefence!=attDefOrigin:
-		PictureAndCollBox(soldierName[1])
-		#animationStart = othanimationStart#一个士兵多个动画切换例子,偏移注意
-		#animationEnd = othanimationEnd
+	if shield <= 0&&attDefShield != null&&attDefence!=attDefOrigin:#盾坏免疫丢失
 		attDefence = attDefOrigin
-		#if soldierName[0] == "shielder":
-			#speedBasic = Global.STSData["steve"]["speedBasic"]
-			#aniTimeBasic = Global.STSData["steve"]["aniTimeBasic"]
-			#attRangeBasic = Global.STSData["steve"]["attRangeBasic"]
-			#var newBox = RectangleShape2D.new()#碰撞箱自适应
-			#newBox.size = Global.STSData["steve"]["collBox"]#有位置偏移
-			#$CollisionShape2D.shape = newBox
+		PictureAndCollBox(soldierName[1])
 		changeAnimation(currentAni,currentState)
 	#不同状态攻击免疫改变
 	#if attDefState != null:
@@ -237,8 +222,8 @@ func _physics_process(_delta):#每帧执行的部分
 	$Label.text = str(health)
 	if Input.is_action_just_pressed("ui_select"):
 		if camp == Global.VILLAGE: 
-			print(standardState)
-			print(currentState)
+			print(currentAnimationEnd)
+			print(currentAnimationStart)
 	pass
 
 func contrl():#玩家的单位控制
@@ -254,7 +239,8 @@ func testchangeState():
 	$Collision2.force_raycast_update()#更新射线碰撞检测
 	#第一碰撞
 	if $Collision1.is_colliding():
-		if currentAni != Ani.ATTACK1: changeState(Ani.ATTACK1,State.ATTACK)
+		if currentAni != Ani.ATTACK1: 
+			changeState(Ani.ATTACK1,State.ATTACK)
 	else: 
 		if currentAni == Ani.ATTACK1: changeState(standardAni,standardState)
 		#第二碰撞,距离效果启用及停用,确保给距离效果是增值只赋值一次不是一直赋值
@@ -292,24 +278,21 @@ func changeState(AniName,StaName):#入海出海的动作图片在每个动画的
 	match StaName:
 		State.DEATH:#最优先状态
 			collision_layer = 0#不再能互动
+			$Collision1.collision_mask = 0
+			$Collision2.collision_mask = 0
 			#changeTime = 0.6#标准死亡等待消失时间(总共0.6s)
-			changeAnimation(AniName,StaName)
-			
-		State.ATTACK:
-			if currentState == State.PUSH||currentState == State.STOP:
-				changeAnimation(AniName,StaName)
+		#State.ATTACK:if currentState == State.PUSH||currentState == State.STOP:pass
 		State.STOP:#攻击时候停止是在攻击完后保持静止
 			if currentState != State.DEATH: 
-				changeAnimation(AniName,StaName)
 				standardState = State.STOP
 				standardAni = Ani.STOP
 	match StaName:
 		State.PUSH,State.BACK:
 			if currentState != State.DEATH&&currentState != StaName:
-				changeAnimation(AniName,StaName)
 				standardState = State.PUSH
 				standardAni = Ani.WALK
 				proTimes = 0#归零多次射击的计数,避免射击不到最高次数就冷却
+	changeAnimation(AniName,StaName)
 	pass
 	
 func changeAnimation(AniName,StaName):
@@ -327,6 +310,7 @@ func changeAnimation(AniName,StaName):
 	currentAni = AniName
 	currentState = StaName#记录当前切换状态
 	currentAnimationStart = animationStart[AniName]
+	frame = currentAnimationStart
 	currentAnimationEnd = animationEnd[AniName]
 	$Sprite2D.frame = animationStart[AniName]-seaAni
 	$animationTimer.start(aniTime)
@@ -351,10 +335,12 @@ func attack():
 	pass
 
 func _on_animationTimer_timeout():
-	$Sprite2D.frame += 1
-	if $Sprite2D.frame >= currentAnimationEnd:
+	frame+=1
+	if $Sprite2D.frame != currentAnimationEnd: $Sprite2D.frame += 1
+	if frame == currentAnimationEnd+1:
+		frame = currentAnimationStart
 		$Sprite2D.frame = currentAnimationStart
-		seaAni = 0
+		seaAni = 0#清空出入海的片段
 		match currentState:
 			State.ATTACK: 
 				if is_instance_valid(other): 
@@ -370,6 +356,7 @@ func _on_animationTimer_timeout():
 				if deathEffect != null:#启动亡语效果
 					Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,ifAoeHold[Global.AoeSet.DEATH],aoeModel[Global.AoeSet.DEATH],aoeRange[Global.AoeSet.DEATH],null,null,null,deathEffect)
 				queue_free()
+	
 	pass 
 	
 

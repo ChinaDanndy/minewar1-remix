@@ -5,12 +5,12 @@ func _ready():
 	pass
 
 func _on_mouse_entered():
-	material = Global.OutLine
+	#material = Global.OutLine
 	pass
 
 
 func _on_mouse_exited():
-	material = null
+	#material = null
 	pass
 
 
@@ -22,7 +22,7 @@ func _on_pressed():
 		Global.LevelChoiceWindow.visible = false
 		Global.LevelChoiceButton.disabled = false
 	button_pressed = false	
-	material = null
+	#material = null
 	pass 
 
 

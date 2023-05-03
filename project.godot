@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Minewar 1重置版"
-run/main_scene="res://sence/Fight.tscn"
+run/main_scene="res://sence/start.tscn"
 config/features=PackedStringArray("4.0")
 boot_splash/image="res://loading.png"
 boot_splash/fullsize=false

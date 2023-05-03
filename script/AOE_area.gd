@@ -38,8 +38,8 @@ func firstsetting():
 		queue_free()
 	else:
 		var newRange = RectangleShape2D.new()#AOE范围
-		newRange.size = Vector2(aoeRange,20)
-		if damagerType == true: newRange.size = Vector2(aoeRange,300)
+		newRange.size = Vector2(aoeRange,Global.NormalAOERangeY)
+		if damagerType == true: newRange.size = Vector2(aoeRange,Global.SkillAOERangeY)
 		$CollisionShape2D.shape = newRange
 		await get_tree().create_timer(0.1,false).timeout
 		queue_free()

@@ -26,14 +26,14 @@ func _on_pressed():
 			var friend = Global.Soldier.instantiate()
 			Global.root.add_child(friend)
 			friend.firstSetting(soldier)
-			friend.position = Vector2(150,297)#100
+			friend.position = Global.VillagePoint.position#100
 		if Global.STSData[soldier]["type"] == Global.Type.TOWER||Global.STSData[soldier]["type"] == Global.Type.SKILL:
 			match self.button_mask:
 				1:#左键
 					Global.CardBuy == soldier
 					var Area = Global.ChoiceArea.instantiate()
 					Global.root.add_child(Area)
-					Area.position = Vector2(0,297)
+					Area.position = Global.VillagePoint.position
 					Area.soldier = soldier
 					#更新选择盒子尺寸
 					match Global.STSData[soldier]["type"]:
@@ -45,8 +45,8 @@ func _on_pressed():
 							Global.towerArea.visible = true
 							Area.area = Global.towerArea
 						Global.Type.SKILL:
-							Area.colorBox.size = Vector2(Global.STSData[soldier]["aoeRange"][0],20)
-							Area.colorBox.position = Vector2(Global.STSData[soldier]["aoeRange"][0]/-2,-10)
+							Area.colorBox.size = Vector2(Global.STSData[soldier]["aoeRange"][0],Global.NormalAOERangeY)
+							Area.colorBox.position = Vector2(Global.STSData[soldier]["aoeRange"][0]/-2,Global.NormalAOERangeY/-2)
 							Area.collLine.enabled = false
 							Global.skillArea.visible = true
 							Area.area = Global.skillArea

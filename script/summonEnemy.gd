@@ -52,12 +52,12 @@ func summonEnemy(group,groupStage):
 	for j in soldierCount:
 		var enemy = soldier.instantiate()
 		Global.root.add_child(enemy)
-		enemy.position = Vector2(400,297)
+		enemy.position = Global.MonsterPoint.position#400
 		enemy.firstSetting(Global.LevelData[Global.Level][stage][group]["group"][j])
 		if soldierCount>1: await get_tree().create_timer(soldierCD[Global.LevelData[Global.Level][stage][group]["CDType"]],false).timeout
 	
 	await get_tree().create_timer(Global.LevelData[Global.Level][stage][group]["groupCD"]+randi_range(
 		-Global.LevelData[Global.Level][stage][group]["groupCDRand"],Global.LevelData[Global.Level][stage][group]["groupCDRand"]),false).timeout
-	if stage == groupStage: summonEnemy(group,groupStage)
+	if stage == groupStage: summonEnemy(group,groupStage)#处于本阶段才释放本阶段士兵
 	pass
 

@@ -17,6 +17,10 @@ var Level = 0
 
 var arrow = load("res://assets/projectiles/arrow.png")
 
+const MoneyTime = 1
+const DropSpeed = 20 
+const NormalAOERangeY = 20
+const SkillAOERangeY = 300
 
 
 
@@ -32,7 +36,7 @@ enum AoeSet {ATTACK,NORMAL,DEATH}
 enum Effect {ATTDAMAGE,SPEED,ATTRANGE,POISON,FIRE,DAMAGE,KNOCK1,KNOCK2,KNOCK3}
 var EffectLength = Effect.size()
 const HealthReduceTime = 2
-const HoldEffectTimes = 7
+const HoldEffectTimes = 5
 const EffTime = 1
 const EffMulti = [0.5,1,0.25,1,2,1,25,50,100]
 const CENCAL = 0
@@ -70,6 +74,8 @@ var StopButton
 var StopWindowLayer
 var StopWindow
 var FightGroundY
+var VillagePoint
+var MonsterPoint
 var towerArea
 var skillArea
 
@@ -84,7 +90,8 @@ enum TRtype {VALCALU,VALCREATE}
 
 func effect_calu(value,effectName,effectGoodOrBad,effectUncencal):
 	#原始值+增值*是否处于该效果*好或坏*是否同时获得好坏值中和攻击效果恢复为原值
-	if effectGoodOrBad == null: return value*EffMulti[effectName]
+	if effectGoodOrBad == null: 
+		return value*EffMulti[effectName]
 	else: 
 		return value*EffMulti[effectName]*effectGoodOrBad[effectName]*effectUncencal[effectName]
 	pass
