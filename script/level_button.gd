@@ -17,6 +17,7 @@ func _on_mouse_exited():
 
 func _on_pressed():
 	match level:
-		1,2,3,4: Global.Level = level-1
-	get_tree().change_scene_to_file("res://sence/Fight.tscn")
+		1,2,3,4: 
+			Global.Level = level-1
+			get_tree().change_scene_to_file("res://sence/Fight.tscn")
 	pass 

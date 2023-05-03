@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var type = Global.Type.BASE
 
-@export var health = 10
+@export var health = 30
 @export var camp = 0
 @export var picture:Texture2D
 func _ready():
