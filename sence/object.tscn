@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://cse6egnr810i4"]
+
+[ext_resource type="Script" path="res://script/object.gd" id="1_cj46x"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(20, 44)
+
+[node name="object" type="CharacterBody2D"]
+input_pickable = true
+script = ExtResource("1_cj46x")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1")
+
+[node name="Collision1" type="RayCast2D" parent="."]
+target_position = Vector2(30, 0)
+
+[node name="Collision2" type="RayCast2D" parent="."]
+target_position = Vector2(30, 0)
+
+[node name="animationTimer" type="Timer" parent="."]
+
+[node name="holdDamageTimer" type="Timer" parent="."]
+
+[node name="usuallyTimer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -5.0
+offset_top = -32.0
+offset_right = 31.0
+offset_bottom = -18.0
+
+[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
+[connection signal="timeout" from="animationTimer" to="." method="_on_animationTimer_timeout"]
+[connection signal="timeout" from="holdDamageTimer" to="." method="_on_hold_damage_timer_timeout"]
+[connection signal="timeout" from="usuallyTimer" to="." method="_on_usuallyTimer_timeout"]

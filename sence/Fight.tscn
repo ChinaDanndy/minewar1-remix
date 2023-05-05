@@ -87,12 +87,12 @@ offset_right = 312.0
 offset_bottom = 130.0
 
 [node name="MonsterPoint" type="Marker2D" parent="."]
-position = Vector2(680, 297)
+position = Vector2(400, 297)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="VillagePoint" type="Marker2D" parent="."]
-position = Vector2(150, 297)
+position = Vector2(160, 297)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 

@@ -1,5 +1,5 @@
 {
-    "steve":{
+    "shoveler":{
         "price":1,
         "camp":1,
         "type":0,
@@ -10,11 +10,12 @@
         "animationStart":[0,6,0,0,9,10],
         "animationEnd":[5,9,0,0,9,10],
         "aniTimeBasic":0.2,
-        "speedBasic":0.6,
+        "speedBasic":0.7,
         "attackType":[true,false,false],
         "damageMethod":0,
         "damageBasic":1,
-        "attRangeBasic":10
+        "damagerType":[1,4],
+        "attRangeBasic":15
     },  
     "shielder":{
         "price":3,
@@ -46,6 +47,29 @@
         "damageBasic":1,
         "attRangeBasic":10
     },
+    "snowman":
+    {
+        "price":1,
+        "camp":1,
+        "type":0,
+        "kind":0,
+        "collKind":3,
+        "health":5,
+        "totalPictureNumber":3,
+        "animationStart":[0,0,0,0,0,0],
+        "animationEnd":[0,2,0,0,0,0],
+        "aniTimeBasic":0.4,
+        "speedBasic":0.55,
+        "attackType":[false,true,false],
+        "damageMethod":2,
+        "damageBasic":0.75,
+        "attRangeBasic":170,
+        "projectile":"snowball",
+        "proMode":0,
+        "attackEffect":[0,-1,0,0,0,0],
+        "effValue":[0,0.5,0,0,0,0],
+        "effTime":[0,3,0,0,0,0]
+    },
     "projector":{
         "price":5,
         "camp":1,
@@ -69,17 +93,18 @@
     "regeneration":{
         "price":2,
         "camp":1,
-        "type":4,
+        "type":2,
         "totalPictureNumber":1,
         "speedBasic":0,
         "ifAoeHold":[true,false,false],
         "aoeModel":[2,0,0],
         "aoeRange":[100,0,0],
-        "attackEffect":[0,0,0,0,0,1,0,0,0,0]
+        "aoeTime":[3,0,0],
+        "aoeTimes":[5,0,0],
+        "attackEffect":[0,0,0,1,0,0]
     },
 
     "zombie":{
-        "price":1,
         "camp":-1,
         "type":0,
         "kind":0,
@@ -96,7 +121,6 @@
         "attRangeBasic":10
     },
     "skeleton":{
-        "price":1,
         "camp":-1,
         "type":0,
         "kind":0,
@@ -111,11 +135,10 @@
         "damageMethod":2,
         "damageBasic":1,
         "attRangeBasic":150,
-        "projectile":0,
+        "projectile":"arrow",
         "proMode":0
     },
     "creeper":{
-        "price":1,
         "camp":-1,
         "type":0,
         "kind":0,

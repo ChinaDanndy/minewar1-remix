@@ -19,11 +19,10 @@ func cardMessageOut():
 	pass
 
 func _on_pressed():
-	if Global.CardBuy == null:
-		
+	if Global.CardBuy == null&&Global.NowMoney>=price:
 		if Global.STSData[soldier]["type"] == Global.Type.PEOPLE:
 			Global.NowMoney -= price
-			var friend = Global.Soldier.instantiate()
+			var friend = Global.VillageSoldier.instantiate()
 			Global.root.add_child(friend)
 			friend.firstSetting(soldier)
 			friend.position = Global.VillagePoint.position#100

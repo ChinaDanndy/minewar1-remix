@@ -14,11 +14,11 @@ func _ready():
 	pass
 
 func _process(_delta):
-	#$RayCast2D.force_raycast_update()
+	$RayCast2D.force_raycast_update()
 	position.x = get_global_mouse_position().x
 	position.x = clamp(position.x,area.position.x-colorBox.position.x,area.position.x+area.size.x+colorBox.position.x)
 	if Input.is_action_just_pressed("ui_mouse_left")&&!collLine.is_colliding():
-		var friend = Global.Soldier.instantiate()
+		var friend = Global.VillageTower.instantiate()
 		Global.root.add_child(friend)
 		friend.firstSetting(soldier)
 		friend.position.x = position.x

@@ -5,14 +5,18 @@ var projectile
 var proMode
 var proRange
 
-var ifAoeHold
 var aoeModel
 var aoeRange
+var aoeTime
+var aoeTimes
 
 var attackType
 var damagerType
 var damage
 var giveEffect
+var effValue
+var effTime
+var effTimes
 
 
 func _ready():
@@ -25,16 +29,16 @@ func _process(_delta):
 
 func firstsetting():
 	collision_mask = Global.LAyer[aoeModel][0]
-	if ifAoeHold == true: 
+	if aoeTime != 0: 
 		if damagerType == true: 
 			$ColorRect.position = Vector2(aoeRange/-2,-10)
 			$ColorRect.size = Vector2(aoeRange,20)
 			$ColorRect.visible = true
-		if damage != null: Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,false,aoeModel,aoeRange,attackType,damage,null,giveEffect)
+		if damage != null: Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,aoeModel,aoeRange,0,null,attackType,damage,null,giveEffect,effValue,effTime,effTimes)
 		#攻击aoe有滞留先进行一次攻击判定其余按滞留原版流程弄
 		monitoring = false
-		$holdTimer.start(Global.EffTime)
-		await get_tree().create_timer(Global.EffTime*Global.HoldEffectTimes,false).timeout
+		$holdTimer.start(aoeTime)
+		await get_tree().create_timer(aoeTimes*aoeTime,false).timeout
 		queue_free()
 	else:
 		var newRange = RectangleShape2D.new()#AOE范围
@@ -47,14 +51,14 @@ func firstsetting():
 #func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,damage,damagerType,giveEffect,giveEffGoodOrBad):
 
 func _on_Node2D_body_entered(body):
-	if damage != null: Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,attackType,damage,null,giveEffect)
-	if damage == null: Global.TRvalue_caluORcreate(Global.Calu.EFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,null,null,null,giveEffect)
+	if damage != null: Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,null,attackType,damage,null,giveEffect,effValue,effTime,effTimes)
+	if damage == null: Global.TRvalue_caluORcreate(Global.Calu.EFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,null,null,null,null,giveEffect,effValue,effTime,effTimes)
 	queue_free()
 	pass
 
 
 func _on_hold_timer_timeout():
-	Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,false,aoeModel,aoeRange,null,null,damagerType,giveEffect)
+	Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,null,null,aoeModel,aoeRange,0,null,damagerType,giveEffect,effValue,effTime,effTimes)
 	pass
 
 func reload():

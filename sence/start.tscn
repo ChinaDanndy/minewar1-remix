@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2ago1bcbytm1"]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="1_lm1k5"]
 [ext_resource type="Texture2D" uid="uid://blle2sr7hambv" path="res://assets/UI/button/levelSign.png" id="2_sec5j"]
 [ext_resource type="Script" path="res://script/LevelChoiceButton.gd" id="3_p4ifd"]
-[ext_resource type="PackedScene" uid="uid://c6j1oqixjykw1" path="res://sence/level_choice.tscn" id="4_u1ppu"]
+[ext_resource type="PackedScene" uid="uid://c6j1oqixjykw1" path="res://level_choice.tscn" id="4_u1ppu"]
 
 [node name="Start" type="Control"]
 layout_mode = 3

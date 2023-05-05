@@ -1,53 +1,65 @@
 shader_type canvas_item;
-uniform float u_size = 0.1;
-uniform vec4 glowColor : source_color;
 
-vec4 replaceOrBlend(vec4 offsettedColor, vec4 origColor)
-{
-    if(origColor.a > 0.0)
-        return origColor;
-    else
-        return offsettedColor;
+uniform vec4 color : source_color;
+uniform float width : hint_range(0, 50);
+uniform int pattern : hint_range(0, 2);
+uniform bool inside = false;
+uniform bool add_margins = true;
+uniform bool visible = true;
+
+void vertex(){
+	if (visible){
+	    if (add_margins){
+	        VERTEX += (UV * 2.0 - 1.0) * width;
+	    }
+	}
 }
 
-vec4 replaceIfAlpha(vec4 orig, vec4 replacer)
-{
-    if(replacer.a == 0.0)
-        return vec4(0.0,0.0,0.0,0.0);
-    else
-        return vec4(replacer.rgb, orig.a);
+bool hasContraryNeighbour(vec2 uv, vec2 texture_pixel_size, sampler2D texture){
+    for (float i = -ceil(width); i <= ceil(width); i++){
+        float x = abs(i) > width ? width * sign(i) : i;
+        float offset;
+
+        if (pattern == 0){
+            offset = width - abs(x);
+        } else if (pattern == 1){
+            offset = floor(sqrt(pow(width + 0.5, 2) - x * x));
+        } else if (pattern == 2){
+            offset = width;
+        }
+
+        for (float j = -ceil(offset); j <= ceil(offset); j++){
+            float y = abs(j) > offset ? offset * sign(j) : j;
+            vec2 xy = uv + texture_pixel_size * vec2(x, y);
+            if ((xy != clamp(xy, vec2(0.0), vec2(1.0)) || texture(texture, xy).a == 0.0) == inside){
+                return true;
+            }
+        }
+
+    }
+    return false;
 }
 
-vec4 textureIfInRange(sampler2D tex, vec2 pos)
-{
-    if(pos.x >= 0.0 && pos.y >= 0.0 && pos.x <= 1.0 && pos.y <= 1.0)
-        return texture(tex,pos);
-    return vec4(0.0,0.0,0.0,0.0);
-}
+void fragment(){
+	if (visible){
+		vec2 uv = UV;
+		 if (add_margins) {
+	        vec2 texture_pixel_size = vec2(1.0) / (vec2(1.0) / TEXTURE_PIXEL_SIZE + vec2(width * 2.0));
+	        uv = (uv - texture_pixel_size * width) * TEXTURE_PIXEL_SIZE / texture_pixel_size;
+	        if (uv != clamp(uv, vec2(0.0), vec2(1.0))){
+	            COLOR.a = 0.0;
+	        } else {
+	            COLOR = texture(TEXTURE, uv);
+	        }
+	    } else {
+	        COLOR = texture(TEXTURE, uv);
+	    }
 
-void fragment() 
-{
-    float size = u_size / 100.0;
-    vec4 finalColor;
-    vec4 offsettedColor;
-    vec4 origHere = textureIfInRange(TEXTURE, UV);
-    vec4 tColor;
-    
-    
-    offsettedColor = replaceIfAlpha(textureIfInRange(TEXTURE, UV + vec2(-size,-size)), glowColor);
-    finalColor = replaceOrBlend(offsettedColor, origHere);
-    origHere = finalColor;
-
-    offsettedColor = replaceIfAlpha(textureIfInRange(TEXTURE, UV + vec2(-size,size)), glowColor);
-    finalColor = replaceOrBlend(offsettedColor, origHere);
-    origHere = finalColor;
-
-    offsettedColor = replaceIfAlpha(textureIfInRange(TEXTURE, UV + vec2(size,-size)), glowColor);
-    finalColor = replaceOrBlend(offsettedColor, origHere);
-    origHere = finalColor;
-
-    offsettedColor = replaceIfAlpha(textureIfInRange(TEXTURE, UV + vec2(size,size)), glowColor);
-    finalColor = replaceOrBlend(offsettedColor, origHere);
-    
-    COLOR = finalColor;
+	    if ((COLOR.a > 0.0) == inside && hasContraryNeighbour(uv, TEXTURE_PIXEL_SIZE, TEXTURE)){
+	        COLOR.rgb = inside ? mix(COLOR.rgb, color.rgb, color.a): color.rgb;
+	        COLOR.a += (1.0 - COLOR.a) * color.a;
+	    }
+	} else {
+		COLOR = texture(TEXTURE, UV);
+	}
 }
