@@ -99,6 +99,7 @@ func SetAnimationAndCollBox(soldier):
 	pass
 	
 func firstSetting(soldier):
+	name = soldier
 	soldierName[0] = soldier
 	attDefence = attDefOrigin#记录攻击免疫
 	healthUp = health#记录血量上限

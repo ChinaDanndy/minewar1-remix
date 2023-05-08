@@ -11,7 +11,7 @@ func _ready():
 	name = "summonEnemy"
 	pass
 func firstStart():
-	groupCount = Global.LevelData[Global.Level][object].size()#排除掉最后一组记录阶段持续时间的
+	groupCount = Global.LevelData[Global.Level][object].size()#记录有多少组人
 	for i in groupCount:
 		await get_tree().create_timer(Global.LevelData[Global.Level][object][i]["firstCD"],false).timeout
 		times.append(0)
@@ -44,7 +44,8 @@ func summonEnemy(group):
 		summonEnemy(group)
 	else: 
 		if Global.LevelData[Global.Level][object][group]["stopTime"] == -1: emit_signal("stopOver")
-		
+		if group == groupCount-1: 
+			Global.LevelOver = true
 	#if stage == groupStage: summonEnemy(group,groupStage)#处于本阶段才释放本阶段士兵
 	pass
 

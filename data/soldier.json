@@ -15,7 +15,7 @@
         "damageMethod":0,
         "damageBasic":1,
         "damagerType":[1,4],
-        "attRangeBasic":15
+        "attRangeBasic":10
     },  
     "shielder":{
         "price":3,
@@ -85,7 +85,7 @@
         "damageMethod":2,
         "damageBasic":1,
         "attRangeBasic":200,
-        "projectile":0,
+        "projectile":"arrow",
         "proMode":0,
         "proContinueTimes":3,
         "proSleepTime":2
@@ -109,7 +109,7 @@
         "type":0,
         "kind":0,
         "collKind":0,
-        "health":5,
+        "health":4,
         "totalPictureNumber":11,
         "animationStart":[0,6,0,0,9,10],
         "animationEnd":[5,9,0,0,9,10],
@@ -127,8 +127,8 @@
         "collKind":3,
         "health":5,
         "totalPictureNumber":15,
-        "animationStart":[0,6,0,0,9,14],
-        "animationEnd":[5,9,0,0,9,14],
+        "animationStart":[0,6,0,0,6,14],
+        "animationEnd":[5,9,0,0,6,14],
         "aniTimeBasic":0.35,
         "speedBasic":0.6,
         "attackType":[false,true,false],

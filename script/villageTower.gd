@@ -2,7 +2,6 @@ extends "res://script/object.gd"
 var unPeopleFly = true
 var towKeepTime#
 func firstSetting(soldier):
-	name = "villageTower"
 	camp = Global.VILLAGE
 	type = Global.Type.TOWER
 	speedBasic = 0

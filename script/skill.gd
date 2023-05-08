@@ -2,9 +2,7 @@ extends "res://script/object.gd"
 var unPeopleFly = true
 func firstSetting(soldier):
 	super.SetValue(soldier)
-	var picture = Sprite2D.new()
-	picture.texture = load("res://assets/objects/%s/stop/stop1.png"% soldier)
-	add_child(picture)
+	$Sprite2D.texture = load("res://assets/objects/%s/stop/stop1.png"% soldier)
 	pass
 	
 func _physics_process(_delta):
@@ -18,4 +16,6 @@ func _physics_process(_delta):
 			Global.damage_Calu(newAoe,Global.TRANSFER,null,null,null,attackEffect,effValue,effTime,effTimes,Global.SkillHold)
 			newAoe.firstsetting()
 			queue_free()
+	else: pass
+		#$Sprite2D.modulate -= 1
 	pass

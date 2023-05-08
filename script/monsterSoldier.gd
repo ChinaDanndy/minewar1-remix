@@ -4,7 +4,7 @@ var stopTime
 var stop = false
 
 func firstSetting(soldier):
-	name = "monsterSoldier"
+	if soldier == "creeper": add_to_group("creeper")
 	camp = Global.MONSTER
 	type = Global.Type.PEOPLE
 	super.firstSetting(soldier)

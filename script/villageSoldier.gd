@@ -1,7 +1,7 @@
 extends "res://script/soldier.gd"
 
 func firstSetting(soldier):
-	name = "villageSoldier"
+
 	camp = Global.VILLAGE
 	type = Global.Type.PEOPLE
 	super.firstSetting(soldier)

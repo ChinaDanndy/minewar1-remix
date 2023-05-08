@@ -21,6 +21,9 @@ texture = ExtResource("2_a4234")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
+[node name="Moneytimer" type="Timer" parent="."]
+wait_time = 0.5
+
 [node name="Moneytext" type="Label" parent="."]
 process_mode = 1
 offset_left = 9.0
@@ -29,14 +32,44 @@ offset_right = 62.0
 offset_bottom = 377.0
 text = "Money"
 
-[node name="Moneycount" type="Label" parent="."]
-offset_left = 16.0
-offset_top = 377.0
-offset_right = 56.0
-offset_bottom = 400.0
+[node name="Moneycount" type="Label" parent="Moneytext"]
+offset_top = 18.0
+offset_right = 40.0
+offset_bottom = 44.0
+text = "1"
 
-[node name="Moneytimer" type="Timer" parent="."]
-wait_time = 0.5
+[node name="Spacetext" type="Label" parent="."]
+visible = false
+offset_left = 11.0
+offset_top = 388.0
+offset_right = 57.0
+offset_bottom = 414.0
+text = "Space"
+
+[node name="Spacecount" type="Label" parent="Spacetext"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 22.0
+offset_right = 39.0
+offset_bottom = 48.0
+text = "1"
+
+[node name="attackTimer" type="Timer" parent="."]
+
+[node name="AttackTime" type="Label" parent="."]
+offset_left = 11.0
+offset_top = 320.0
+offset_right = 54.0
+offset_bottom = 346.0
+text = "Time:"
+
+[node name="AttackTimeValue" type="Label" parent="AttackTime"]
+layout_mode = 0
+offset_left = 60.0
+offset_right = 100.0
+offset_bottom = 26.0
+text = "1
+"
 
 [node name="StopButton" type="TextureButton" parent="."]
 offset_left = 767.0
@@ -87,7 +120,7 @@ offset_right = 312.0
 offset_bottom = 130.0
 
 [node name="MonsterPoint" type="Marker2D" parent="."]
-position = Vector2(400, 297)
+position = Vector2(680, 297)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
@@ -122,4 +155,5 @@ metadata/_edit_group_ = true
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="timeout" from="Moneytimer" to="." method="_on_moneytimer_timeout"]
+[connection signal="timeout" from="attackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="pressed" from="StopButton" to="StopButton" method="_on_pressed"]

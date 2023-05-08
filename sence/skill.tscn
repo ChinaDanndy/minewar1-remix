@@ -5,3 +5,6 @@
 
 [node name="object" instance=ExtResource("1_me8vb")]
 script = ExtResource("2_wf2hv")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="6"]
+modulate = Color(0.988235, 1, 1, 1)

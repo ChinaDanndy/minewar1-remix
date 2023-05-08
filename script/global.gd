@@ -11,10 +11,11 @@ const STSDataName = {"price":STSType.INT,"kind":STSType.INT,
 "attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
 var Contrl
 const Money = 10 
-var NowMoney = 10
+var NowMoney = 0
 var LevelData
 var Level = 0
 enum  LevelType {ATTACK,ATTDEF,DEFENCE}
+var LevelOver = false
 
 const MoneyTime = 1.5
 const DropSpeed = 20 
