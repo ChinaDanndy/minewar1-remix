@@ -11,6 +11,8 @@ func firstSetting(soldier):
 	standardState = currentState
 	standardAni = currentAni
 	aniName = ["attack","stop"]
+	super.SetValue(soldier)
+	super.SetAnimationAndCollBox(soldier)
 	super.firstSetting(soldier)
 	await get_tree().create_timer(towKeepTime,false).timeout
 	queue_free()
@@ -29,3 +31,4 @@ func _physics_process(_delta):
 	if health <= 0: queue_free()#炮塔坏了直接销毁
 	super._physics_process(_delta)
 pass
+

@@ -25,22 +25,23 @@ func _process(_delta):
 
 func firstsetting():
 	collision_mask = Global.LAyer[aoeModel][0]
+	var newRange = RectangleShape2D.new()#AOE范围
+	newRange.size = Vector2(aoeRange,Global.NormalAOERangeY)
+	if ifAoe == Global.SkillHold: newRange.size = Vector2(aoeRange,Global.SkillAOERangeY)
+	$CollisionShape2D.shape = newRange
 	if ifAoeHold == true: 
 		$ColorRect.position = Vector2(aoeRange/-2,-10)
 		$ColorRect.size = Vector2(aoeRange,20)
 		$ColorRect.visible = true
 		if damage != null:#单位攻击有范围持续的效果先判定一次攻击伤害
-			Global.damage_Calu(self,Global.TRANSFER,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,null)
-			Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false)
+			var newAoe = Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false)
+			Global.damage_Calu(newAoe,Global.TRANSFER,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,null)
+			newAoe.firstsetting()
 		if giveEffect[Global.Effect.DAMAGE] != Global.OFFEFFECT:#平常情况下的伤害类型范围持续效果
 			$holdTimer.start(effTime[Global.Effect.DAMAGE])
-			await get_tree().create_timer(effTime[Global.Effect.DAMAGE]*effTimes[Global.Effect.DAMAGE],false).timeout
+			await get_tree().create_timer(effTime[Global.Effect.DAMAGE]*effTimes[Global.DamValue.DAMAGE],false).timeout
 			queue_free()
-	else:
-		var newRange = RectangleShape2D.new()#AOE范围
-		newRange.size = Vector2(aoeRange,Global.NormalAOERangeY)
-		if ifAoe == Global.SkillHold: newRange.size = Vector2(aoeRange,Global.SkillAOERangeY)
-		$CollisionShape2D.shape = newRange
+
 	pass
 func _on_Node2D_body_entered(body):
 		#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	else:#AOE
@@ -57,8 +58,9 @@ func _on_body_exited(body):
 	pass 
 
 func _on_hold_timer_timeout():
-	Global.damage_Calu(self,Global.TRANSFER,null,null,null,giveEffect[Global.Effect.DAMAGE],effValue,null,null,null)
-	Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false)
+	var newAoe = Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false)
+	Global.damage_Calu(newAoe,Global.TRANSFER,null,null,null,giveEffect,effValue,null,null,Global.SkillHold)
+	newAoe.firstsetting()
 	pass
 
 func reload():

@@ -4,7 +4,6 @@ func firstSetting(soldier):
 	name = "villageSoldier"
 	camp = Global.VILLAGE
 	type = Global.Type.PEOPLE
-	print("aaa")
 	super.firstSetting(soldier)
 	pass
 

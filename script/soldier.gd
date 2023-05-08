@@ -2,6 +2,9 @@ extends "res://script/object.gd"
 
 func firstSetting(soldier):
 	aniName = ["walk","attack","stop","death"]
+	super.SetValue(soldier)
+	if soldierName[1] != null: aniName = ["walk","attack","stop"]
+	super.SetAnimationAndCollBox(soldier)
 	super.firstSetting(soldier)
 	pass
 

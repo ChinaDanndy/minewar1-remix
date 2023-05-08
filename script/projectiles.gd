@@ -7,7 +7,6 @@ var frame
 
 var father
 var projectile
-var proMode
 var proRange
 
 var aoeModel
@@ -34,6 +33,7 @@ var velocity = D*S
 var time = 0
 var timeAddValue = 0.1
 func _ready():
+	startPos = position.x
 	father = get_parent()
 	camp = father.camp
 	collision_mask = father.collision_mask
@@ -84,8 +84,9 @@ func _on_body_entered(body):
 		Global.damage_Calu(body,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
 		#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	
 	else:#AOE
-		Global.damage_Calu(body,Global.TRANSFER,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,null)
-		Global.aoe_create(body,Global.CREATE,aoeModel,aoeRange,ifAoeHold)
+		var newAoe = Global.aoe_create(body,Global.CREATE,aoeModel,aoeRange,ifAoeHold)
+		Global.damage_Calu(newAoe,Global.TRANSFER,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,null)
+		newAoe.firstsetting()
 	#if Global.ProTypeValue[projectile] != Global.ProType.PIERCE: 
 	queue_free()
 	pass 

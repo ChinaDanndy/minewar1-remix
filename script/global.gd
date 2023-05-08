@@ -5,8 +5,8 @@ const STSDataName = {"price":STSType.INT,"kind":STSType.INT,
 "collKind":STSType.INT,"health":STSType.INT,"type":STSType.INT,"towKeepTime":STSType.INT,"soldierName":null,
 "animation":null,"seaAniNumber":STSType.INT,"aniTimeBasic":null,"speedBasic":null,"ifOnlyAttBase":null,
 "attackType":null,"damageMethod":STSType.INT,"damagerType":STSType.ARRAY,"damageBasic":null,"projectile":null,
-"proMode":STSType.INT,"attRangeBasic":STSType.INT,"proSleepTime":STSType.INT,"proContinueTimes":STSType.INT,"aoeModel":STSType.ARRAY,"aoeRange":STSType.ARRAY,"aoeTime":STSType.ARRAY,"aoeTimes":STSType.ARRAY,
-"effValue":null,"effTime":STSType.ARRAY,"effTimes":STSType.INT,"attackEffect":null,"usuallyEffect":null,
+"proMode":STSType.INT,"attRangeBasic":STSType.INT,"proSleepTime":STSType.INT,"proContinueTimes":STSType.INT,"aoeModel":null,"aoeRange":null,"ifAoeHold":null,
+"effValue":null,"effTime":null,"effTimes":null,"attackEffect":null,"usuallyEffect":null,
 "deathEffect":null,"ifFirstEffect":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"shield":STSType.INT,
 "attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
 var Contrl
@@ -15,15 +15,11 @@ var NowMoney = 10
 var LevelData
 var Level = 0
 enum  LevelType {ATTACK,ATTDEF,DEFENCE}
-#var arrow = load("res://assets/projectiles/arrow.png")
 
 const MoneyTime = 1.5
 const DropSpeed = 20 
 const NormalAOERangeY = 20
 const SkillAOERangeY = 300
-
-
-
 
 #近 靠近效果 单陆地远 仅地面地远 地空地远 空地分开空 空地同时空
 enum CollKind {NARE,NARESPE,LAND,LANDSKY,SKY,SKYLAND}
@@ -31,19 +27,13 @@ const Coll2IfUse = [false,true,false,true,true,true]
 enum Type {PEOPLE,TOWER,SKILL,PROJECTILE,BASE}
 enum Kind {LAND,SEA,SKY}
 enum DamageMethod {NEARSINGLE,NEARAOE,FAR}
-var AttackTypeLength = 3
-enum AoeSet {ATTACK,NORMAL,DEATH}
+enum AttackType {NEAR,FAR,EXPLODE}
+var AttackTypeLength = AttackType.size()
+
 enum Effect {ATTDAMAGE,SPEED,ATTRANGE,DAMAGE,HOLDDAMAGE,KNOCK}
 enum DamValue {DAMAGE,HOLDDAMAGE,KNOCK}
 const EffValue = [0.5,0.5,0.5]
 var EffectLength = Effect.size()
-const HoldEffectTime = 3
-const HoldEffectTimes = 5
-const EffTime = 5
-const EffMulti = [0.5,1,0.25,1,2,1,25,50,100]
-const CENCAL = 0
-const UNCENCAL = 1
-
 const EFFGOOD = 3
 const OFFEFFECT = 0
 const EFFBAD = 1
@@ -62,12 +52,11 @@ const ProAniTime = {"arrow":0,"snowball":0}
 
 const ProGrivaty = 0.8
 const ProHigh = 50
-
 var ProThrowTime = round(sqrt((2*ProHigh)/ProGrivaty))
 
 
 
-@onready var root = get_tree().get_root()
+
 
 var LevelChoiceButton
 var LevelChoiceWindow
@@ -86,10 +75,13 @@ var towerArea
 var skillArea
 
 var CardBuy
+
+@onready var root = get_tree().get_root()
 var Projectile = preload("res://sence/projectiles.tscn")
 var VillageSoldier = preload("res://sence/villageSoldier.tscn")
 var VillageTower = preload("res://sence/villageTower.tscn")
 var MonsterSoldier = preload("res://sence/monsterSoldier.tscn")
+var Skill = preload("res://sence/skill.tscn")
 var calu = preload("res://script/attack_calu.gd")
 var aoe = preload("res://sence/AOE.tscn")
 var OutLine = preload("res://rescourse/outLine.tres")
@@ -119,6 +111,7 @@ func damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,
 	pass
 	
 const CREATE = 0
+enum AoeSet {ATTACK,NORMAL,DEATH}
 func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold):
 	var newAoe = aoe.instantiate()
 	var target = newAoe
@@ -126,11 +119,11 @@ func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold):
 	target.aoeModel = aoeModel
 	target.aoeRange = aoeRange
 	target.ifAoeHold = ifAoeHold
-	if damager != TRANSFER:
+	if type != TRANSFER:
 		root.add_child(newAoe)
 		newAoe.position = damager.position
-		newAoe.firstsetting()
 	else: newAoe.free()
+	return newAoe
 	pass
 
 	

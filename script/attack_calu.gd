@@ -45,7 +45,7 @@ func normalAttackCalu(damager):
 
 func effectAttackCalu(damager):	
 	effDefence = damager.effDefence
-	effBasic[0] = damager.damgeBasic
+	effBasic[0] = damager.damageBasic
 	effBasic[1] = damager.speedBasic
 	effBasic[2] = damager.attRangeBasic
 	effBasic[3] = damager.aniSpeedBasic
@@ -57,7 +57,7 @@ func effectAttackCalu(damager):
 						var this = i
 						if giveEffect[i] == Global.EFFGOOD: this = i+4
 						damager.nowEffect[this] = effBasic[i]*giveEffect[i]*Global.EffValue[i]
-						if i==Global.Effect.SPEED: damager.nowEffect[this] = effBasic[3]*giveEffect[i]*Global.EffValue[i]
+						if i==Global.Effect.SPEED: damager.nowEffect[this+2] = effBasic[3]*giveEffect[i]*Global.EffValue[i]
 						if damager.effTimerId[this] == null&&ifAoe == Global.IfAoeType.NONE:
 							damager.effectTimer(i,effTime[i],giveEffect[i])
 						else:
@@ -67,7 +67,7 @@ func effectAttackCalu(damager):
 						if ifAoe == Global.IfAoeType.OUT: damager.effectTimerTimeout(i,giveEffect[i])
 				match i:
 					Global.Effect.HOLDDAMAGE: 
-						damager.holdDamageTimer(effTime[i],effTimes,effValue[Global.DamValue.HOLDDAMAGE]*giveEffect[i])
+						damager.holdDamageTimer(effTime[i],effTimes[Global.DamValue.HOLDDAMAGE],effValue[Global.DamValue.HOLDDAMAGE]*giveEffect[i])
 					Global.Effect.DAMAGE:
 						if damager.health<damager.healthUp: damager.health += effValue[Global.DamValue.DAMAGE]*giveEffect[i]
 					Global.Effect.KNOCK: damager.position.x -= effValue[Global.DamValue.KNOCK]*damager.camp

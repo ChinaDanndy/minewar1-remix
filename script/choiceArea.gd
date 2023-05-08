@@ -1,7 +1,8 @@
 extends Node2D
 var soldier
 var card
-var area 
+var area
+var which
 @export var choiceColor:Color
 @export var warnColor:Color
 @onready var colorBox = $ColorRect
@@ -18,8 +19,10 @@ func _process(_delta):
 	position.x = get_global_mouse_position().x
 	position.x = clamp(position.x,area.position.x-colorBox.position.x,area.position.x+area.size.x+colorBox.position.x)
 	if Input.is_action_just_pressed("ui_mouse_left")&&!collLine.is_colliding():
-		var friend = Global.VillageTower.instantiate()
+		var friend = which.instantiate()
+		print(which)
 		Global.root.add_child(friend)
+		friend.camp = Global.VILLAGE
 		friend.firstSetting(soldier)
 		friend.position.x = position.x
 		friend.position.y = -10

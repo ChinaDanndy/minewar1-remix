@@ -32,8 +32,6 @@ func _on_pressed():
 					Global.CardBuy == soldier
 					var Area = Global.ChoiceArea.instantiate()
 					Global.root.add_child(Area)
-					Area.position = Global.VillagePoint.position
-					Area.soldier = soldier
 					#更新选择盒子尺寸
 					match Global.STSData[soldier]["type"]:
 						Global.Type.TOWER:
@@ -43,13 +41,18 @@ func _on_pressed():
 							Area.collLine.position = Vector2(-((Global.STSData[soldier]["collBox"].x*2)-(Global.STSData[soldier]["collBox"].x/2)),0)
 							Global.towerArea.visible = true
 							Area.area = Global.towerArea
+							Area.which = Global.VillageTower
 						Global.Type.SKILL:
-							Area.colorBox.size = Vector2(Global.STSData[soldier]["aoeRange"][0],Global.NormalAOERangeY)
-							Area.colorBox.position = Vector2(Global.STSData[soldier]["aoeRange"][0]/-2,Global.NormalAOERangeY/-2)
+							Area.colorBox.size = Vector2(Global.STSData[soldier]["aoeRange"],Global.NormalAOERangeY)
+							Area.colorBox.position = Vector2(Global.STSData[soldier]["aoeRange"]/-2,Global.NormalAOERangeY/-2)
 							Area.collLine.enabled = false
 							Global.skillArea.visible = true
 							Area.area = Global.skillArea
+							Area.which = Global.Skill
 					#放置塔堆叠放置
+					
+					Area.position = Global.VillagePoint.position
+					Area.soldier = soldier
 					Area.card = self
 					areaId = Area#传递创建的选择区域id
 					self.button_mask = 2
