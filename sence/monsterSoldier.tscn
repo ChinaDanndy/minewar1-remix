@@ -1,11 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://nhue63ud3rj8"]
 
-[ext_resource type="PackedScene" uid="uid://biu5782l2pgvr" path="res://sence/soldier.tscn" id="1_i66oe"]
+[ext_resource type="PackedScene" uid="uid://exjk3i2t1v3n" path="res://sence/soldier.tscn" id="1_i66oe"]
 [ext_resource type="Script" path="res://script/monsterSoldier.gd" id="2_13stl"]
 
 [node name="object" instance=ExtResource("1_i66oe")]
 script = ExtResource("2_13stl")
-
-[node name="towerTimer" type="Timer" parent="." index="7"]
-
-[connection signal="timeout" from="towerTimer" to="." method="_on_tower_timer_timeout" flags=18]

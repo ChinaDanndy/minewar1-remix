@@ -6,15 +6,13 @@ var currentPos
 var frame
 
 var father
-
 var projectile
 var proMode
 var proRange
 
 var aoeModel
 var aoeRange
-var aoeTime
-var aoeTimes
+var ifAoeHold
 
 var attackType
 var damagerType
@@ -23,7 +21,7 @@ var giveEffect
 var effValue
 var effTime
 var effTimes
-
+var ifAoe
 
 var Hdisplacement = 0
 var Vdisplacement = 0
@@ -39,7 +37,6 @@ func _ready():
 	father = get_parent()
 	camp = father.camp
 	collision_mask = father.collision_mask
-
 	pass
 
 func firstSetting():
@@ -77,17 +74,18 @@ func _process(_delta):
 				#pass
 				#Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,projectile,null,null,ifAoeHold,aoeModel,aoeRange,null,attacks,null,damagerType,giveEffect,giveEffGoodOrBad)
 		#queue_free()
-	position += Vector2(camp,0)*Global.ProSpeed[projectile]*Global.ProModeValue[proMode]
+	position += Vector2(camp,0)*Global.ProSpeed[projectile]*Global.ProDire[projectile]
 	currentPos = position.x
 	if (currentPos - startPos) >= proRange.x: queue_free()#超过射程直接自己销毁
 	pass
 
 func _on_body_entered(body):
-	#func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,damageMethod,attacks,damage,damagerType,giveEffect,giveEffGoodOrBad):
 	if aoeRange == 0:#单体
-		Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,null,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes)
+		Global.damage_Calu(body,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
+		#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	
 	else:#AOE
-		Global.TRvalue_caluORcreate(null,body,Global.TRtype.VALCREATE,null,null,null,aoeModel,aoeRange,aoeTime,aoeTimes,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes)
+		Global.damage_Calu(body,Global.TRANSFER,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,null)
+		Global.aoe_create(body,Global.CREATE,aoeModel,aoeRange,ifAoeHold)
 	#if Global.ProTypeValue[projectile] != Global.ProType.PIERCE: 
 	queue_free()
 	pass 

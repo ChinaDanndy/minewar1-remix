@@ -32,4 +32,5 @@ grow_vertical = 2
 color = Color(0.309804, 0.929412, 0.2, 0.392157)
 
 [connection signal="body_entered" from="." to="." method="_on_Node2D_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="timeout" from="holdTimer" to="." method="_on_hold_timer_timeout"]

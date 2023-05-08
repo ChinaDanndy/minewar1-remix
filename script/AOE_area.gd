@@ -1,14 +1,9 @@
 extends Area2D
 var kind = Global.Type.SKILL
 
-var projectile
-var proMode
-var proRange
-
 var aoeModel
 var aoeRange
-var aoeTime
-var aoeTimes
+var ifAoeHold
 
 var attackType
 var damagerType
@@ -17,6 +12,7 @@ var giveEffect
 var effValue
 var effTime
 var effTimes
+var ifAoe
 
 
 func _ready():
@@ -29,38 +25,45 @@ func _process(_delta):
 
 func firstsetting():
 	collision_mask = Global.LAyer[aoeModel][0]
-	if aoeTime != 0: 
-		if damagerType == true: 
-			$ColorRect.position = Vector2(aoeRange/-2,-10)
-			$ColorRect.size = Vector2(aoeRange,20)
-			$ColorRect.visible = true
-		if damage != null: Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,aoeModel,aoeRange,0,null,attackType,damage,null,giveEffect,effValue,effTime,effTimes)
-		#攻击aoe有滞留先进行一次攻击判定其余按滞留原版流程弄
-		monitoring = false
-		$holdTimer.start(aoeTime)
-		await get_tree().create_timer(aoeTimes*aoeTime,false).timeout
-		queue_free()
+	if ifAoeHold == true: 
+		$ColorRect.position = Vector2(aoeRange/-2,-10)
+		$ColorRect.size = Vector2(aoeRange,20)
+		$ColorRect.visible = true
+		if damage != null:#单位攻击有范围持续的效果先判定一次攻击伤害
+			Global.damage_Calu(self,Global.TRANSFER,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,null)
+			Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false)
+		if giveEffect[Global.Effect.DAMAGE] != Global.OFFEFFECT:#平常情况下的伤害类型范围持续效果
+			$holdTimer.start(effTime[Global.Effect.DAMAGE])
+			await get_tree().create_timer(effTime[Global.Effect.DAMAGE]*effTimes[Global.Effect.DAMAGE],false).timeout
+			queue_free()
 	else:
 		var newRange = RectangleShape2D.new()#AOE范围
 		newRange.size = Vector2(aoeRange,Global.NormalAOERangeY)
-		if damagerType == true: newRange.size = Vector2(aoeRange,Global.SkillAOERangeY)
+		if ifAoe == Global.SkillHold: newRange.size = Vector2(aoeRange,Global.SkillAOERangeY)
 		$CollisionShape2D.shape = newRange
-		await get_tree().create_timer(0.1,false).timeout
-		queue_free()
 	pass
-#func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,damage,damagerType,giveEffect,giveEffGoodOrBad):
-
 func _on_Node2D_body_entered(body):
-	if damage != null: Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,null,attackType,damage,null,giveEffect,effValue,effTime,effTimes)
-	if damage == null: Global.TRvalue_caluORcreate(Global.Calu.EFF,body,Global.TRtype.VALCALU,null,null,null,null,null,null,null,null,null,null,giveEffect,effValue,effTime,effTimes)
-	queue_free()
+		#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	else:#AOE
+	if ifAoeHold == false:
+		if damage == null: 
+			Global.damage_Calu(body,Global.damCaluType.EFF,null,null,null,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
+		else:
+			Global.damage_Calu(body,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
+		queue_free()
+	else: Global.damage_Calu(body,Global.damCaluType.EFF,null,null,null,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.IN)
 	pass
-
+func _on_body_exited(body):
+	if ifAoeHold == true: 	Global.damage_Calu(body,Global.damCaluType.EFF,null,null,null,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.OUT)
+	pass 
 
 func _on_hold_timer_timeout():
-	Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,null,null,aoeModel,aoeRange,0,null,damagerType,giveEffect,effValue,effTime,effTimes)
+	Global.damage_Calu(self,Global.TRANSFER,null,null,null,giveEffect[Global.Effect.DAMAGE],effValue,null,null,null)
+	Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false)
 	pass
 
 func reload():
 	queue_free()
 	pass 
+
+
+

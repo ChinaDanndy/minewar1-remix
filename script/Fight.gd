@@ -1,12 +1,10 @@
 extends Node2D
 var count = 0
 var summonEnemy = preload("res://script/summonEnemy.gd")
-var test = preload("res://sence/villageSoldier.tscn")
 var summonEnemyID
 var cardLength = 7
 signal cardMessage
 signal reloadSence
-
 func _ready():
 	var file = FileAccess.open("user://soldier.json", FileAccess.READ)#user:
 	var content = file.get_as_text()
@@ -21,16 +19,20 @@ func _ready():
 		for STSDatename in Global.STSData[STSName]:
 			if Global.STSDataName.has(STSDatename):
 				match Global.STSDataName[STSDatename]:
-					Global.STSType.INT: Global.STSData[STSName][STSDatename] = int(jsonValue.data[STSName][STSDatename])
+					Global.STSType.INT: 
+						Global.STSData[STSName][STSDatename] = int(jsonValue.data[STSName][STSDatename])
 					Global.STSType.ARRAY: 
 						arrayLength = Global.STSData[STSName][STSDatename].size()
 						for i in arrayLength:
 							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
+
+
 		#提前根据图片得到单位碰撞箱尺寸
 		var pictureGet =  load("res://assets/objects/%s/stop/stop1.png"% STSName)
 		Global.STSData[STSName]["collBox"] = pictureGet.get_size()
 
-		
+
+
 
 	file = FileAccess.open("user://level.json", FileAccess.READ)
 	content = file.get_as_text()
@@ -78,11 +80,9 @@ func _ready():
 	pass
 	
 func _process(_delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		var Test = test.instantiate()
-		Global.root.add_child(Test)
-		Test.firstSetting("shielder")
-		Test.position = Global.VillagePoint.position#100
+	if Input.is_action_just_pressed("ui_accept"):pass
+
+		
 	$Moneycount.text = str(Global.NowMoney) +"/"+ str(Global.Money)
 	if Global.NowMoney != Global.Money&&$Moneytimer.one_shot == true:
 		$Moneytimer.one_shot = false

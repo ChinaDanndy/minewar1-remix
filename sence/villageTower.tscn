@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d0odvl3tun226"]
 
 [ext_resource type="PackedScene" uid="uid://cse6egnr810i4" path="res://sence/object.tscn" id="1_gkajb"]
-[ext_resource type="Script" path="res://sence/villageTower.gd" id="2_iwxrf"]
+[ext_resource type="Script" path="res://script/villageTower.gd" id="2_yoq56"]
 
 [node name="object" instance=ExtResource("1_gkajb")]
-script = ExtResource("2_iwxrf")
+script = ExtResource("2_yoq56")

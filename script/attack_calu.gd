@@ -1,26 +1,29 @@
 extends Node
 
-var projectile
-var proMode
-var proRange
 
 var aoeModel
 var aoeRange
 var aoeTime
 var aoeTimes
 
+var ifAoe
+enum aoeHold {IN,OUT,NONE}
 
 var attackType
-var type
-var attDefence
 var damagerType
 var damage
+
+var type
+var attDefence
+
 var giveEffect
+
 var effValue
 var effTime
 var effTimes
-var effDefence
 
+var effDefence
+var effBasic = [0,0,0,0]
 func normalAttackCalu(damager):
 	type = damager.type
 	if type == Global.Type.BASE:
@@ -39,27 +42,42 @@ func normalAttackCalu(damager):
 		effectAttackCalu(damager)
 	pass
 
+
 func effectAttackCalu(damager):	
 	effDefence = damager.effDefence
+	effBasic[0] = damager.damgeBasic
+	effBasic[1] = damager.speedBasic
+	effBasic[2] = damager.attRangeBasic
+	effBasic[3] = damager.aniSpeedBasic
 	for i in Global.EffectLength:
 		if (giveEffect[i] == Global.EFFBAD&&effDefence[i] == false)||(giveEffect[i] == Global.EFFGOOD): 
 			if damager.health>0:
 				match i:
-					Global.Effect.ATTDAMAGE,Global.Effect.SPEED,Global.Effect.ATTRANGE,Global.Effect.HOLDDAMAGE:
-						if damager.nowEffect[i] != Global.OFFEFFECT:
-							if damager.nowEffect[i] != giveEffect[i]:
-								damager.effUncencal[i] = Global.CENCAL#处在同效果不同态度时效果抵消
-						else: 
-							damager.nowEffect[i] = giveEffect[i]
-							match i:
-								Global.Effect.ATTDAMAGE,Global.Effect.SPEED,Global.Effect.ATTRANGE:
-									damager.attributeTimer(i)
-							match i:
-								Global.Effect.HOLDDAMAGE: damager.posionTimer(i)
+					Global.Effect.ATTDAMAGE,Global.Effect.SPEED,Global.Effect.ATTRANGE:
+						var this = i
+						if giveEffect[i] == Global.EFFGOOD: this = i+4
+						damager.nowEffect[this] = effBasic[i]*giveEffect[i]*Global.EffValue[i]
+						if i==Global.Effect.SPEED: damager.nowEffect[this] = effBasic[3]*giveEffect[i]*Global.EffValue[i]
+						if damager.effTimerId[this] == null&&ifAoe == Global.IfAoeType.NONE:
+							damager.effectTimer(i,effTime[i],giveEffect[i])
+						else:
+							match ifAoe:					#新计时器时间是否大于旧的计时器剩余时间
+								Global.IfAoeType.NONE: if effTime[i]>damager.effTimerId[this].time_left: damager.effTimerId[this].start(effTime)
+								Global.IfAoeType.IN: damager.effTimerId[this].queue_free()
+						if ifAoe == Global.IfAoeType.OUT: damager.effectTimerTimeout(i,giveEffect[i])
 				match i:
+					Global.Effect.HOLDDAMAGE: 
+						damager.holdDamageTimer(effTime[i],effTimes,effValue[Global.DamValue.HOLDDAMAGE]*giveEffect[i])
 					Global.Effect.DAMAGE:
-						if damager.health<damager.healthUp: damager.health += Global.EffMulti[i]*giveEffect[i]
-					Global.Effect.KNOCK: damager.position.x -= Global.EffMulti[i]*damager.camp
+						if damager.health<damager.healthUp: damager.health += effValue[Global.DamValue.DAMAGE]*giveEffect[i]
+					Global.Effect.KNOCK: damager.position.x -= effValue[Global.DamValue.KNOCK]*damager.camp
+	
+	
+
+	
+	
+
+	
 	queue_free()
 	pass
 	

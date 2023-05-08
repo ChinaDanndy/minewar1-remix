@@ -5,23 +5,13 @@ var kind#
 var collKind#
 var health = 1#
 var healthUp = health
-var towKeepTime#
+
 var collBox = Vector2(0,0)##不用记录根据已读入数据推算
-
-var a = 2
-
 var soldierName = [null,null,null]#
 var other
 
-
 enum Ani {WALK,ATTACK1,ATTACK2,ATTACK3,STOP,DEATH}
 enum State {ATTACK,STOP,DEATH,BACK,PUSH}
-
-#var totalPictureNumber = 1#
-#var frame
-#var animationStart = [0,0,0,0,0,0]#
-#var animationEnd = [0,0,0,0,0,0]#
-
 var animation#
 var aniName 
 var seaAniNumber#
@@ -30,8 +20,10 @@ var currentAni = "walk"
 var standardState = State.PUSH
 var standardAni = "walk"
 var seaAni = 0
-#var currentAnimationStart = animationStart[currentAni]
-#var currentAnimationEnd = animationEnd[currentAni]
+
+var aniSpeed
+var aniSpeedBasic = 1
+var aniSpeedEffect = 1
 
 var aniTimeBasic = 0.2#标准图片切换间隔
 var aniTime = aniTimeBasic
@@ -42,11 +34,10 @@ var speedBasic = 0.6#
 var speed = Vector2(0,0)
 var speedAdd = 0
 var speedEffect = 0
+var speedEffectTime =0
 var speedDirection = Vector2.RIGHT
 enum SpeState {STATIC,MOVE}
 var speedState = SpeState.MOVE
-
-
 
 var ifOnlyAttBase = false#
 var attackType = [false,false,false]#近 远 爆炸
@@ -55,34 +46,38 @@ var damagerType=[null]#有伤害加成的攻击目标
 var damageBasic = 1#
 var damage = 1
 var damageAdd = 0
-var damageEffect = 0
+var damageEffect = 1
+
+var damageEffectValue
 
 var attRangeBasic = 100#
 var attRange = attRangeBasic
-var attRangeEffect = 0
-var proSence = load("res://sence/projectiles.tscn")
-var projectile = Global.Projectile.ARROW1#
-var proMode = Global.ProMode.HLINE#
+var attRangeEffect = 1
+var projectile#
 var proSleepTime#
 var proContinueTimes#
 var proTimes = 0
 
 #攻击 平时 死亡
-#var ifAoeHold = [false,false,false]#
 var aoeModel = [0,0,0]#
 var aoeRange = [0,0,0]#
+var ifAoeHold = [false,false,false]
 var aoeTime = [0,0,0]#
 var aoeTimes = [0,0,0]#
 #自身状态数据
+var effTimerId = [0,0,0,0,0,0]
 var nowEffect = [0,0,0,0,0,0]
-var effValue = [0,0,0,0,0,0]#
+var nowEffValue = [0,0,0]
+var effValue = [0,0]#
 var effTime = [0,0,0,0,0,0]#
-var effTimes#
-var effUncencal = [1,1,1,1,1]
+var effTimes = [0,0]#
+var ifAoe
+
 var effDefence = [false,false,false,false,false,false]
 var attackEffect = [0,0,0,0,0,0]#攻击给予状态同时表示好坏
 var usuallyEffect#平时给予状态
 var deathEffect#死亡给予状态
+
 
 var ifFirstEffect = false#
 var ifHealthEffect = false#
@@ -112,6 +107,7 @@ func firstSetting(soldier):
 	attDefence = attDefOrigin#记录攻击免疫
 	healthUp = health#记录血量上限
 	Global.FightSence.reloadSence.connect(reload)
+	#effectTimer.timeout.connect(_on_effectTimer_out)
 	if attDefShield != null: attDefence = attDefShield
 	#设置碰撞层
 	collision_mask = Global.MAsk[camp+1][0]
@@ -153,7 +149,6 @@ func firstSetting(soldier):
 func PictureAndCollBox(soldier):
 	for STSDatename in Global.STSData[soldier]:
 		set(STSDatename,Global.STSData[soldier][STSDatename])
-		
 	var spirte = SpriteFrames.new()#给动画播放器添加图片
 	for i in aniName:
 		spirte.add_animation(i)
@@ -214,12 +209,13 @@ func _physics_process(_delta):#每帧执行的部分
 
 func MainValue():
 	#基础数据实时更改
-	damage = damageBasic+damageAdd+damageEffect
-	speed = Vector2(speedBasic+speedAdd+speedEffect,0)
-	aniTime = aniTimeBasic-aniTimeCut-aniTimeEffect
-	attRange = Vector2(attRangeEffect+attRangeBasic,0)
+	damage = damageBasic+nowEffect[0]+nowEffect[4]
+	speed = Vector2(speedBasic+nowEffect[1]+nowEffect[5],0)
+	aniSpeed = aniSpeedBasic+nowEffect[3]+nowEffect[7]
+	attRange = Vector2(attRangeBasic+nowEffect[2]+nowEffect[6],0)
 	$Collision1.target_position = attRange*Vector2(camp,0)
 	$Collision2.target_position = attRange*Vector2(camp,0)
+	$AnimatedSprite2D.speed_scale = aniSpeed
 	pass
 
 func testchangeState():
@@ -296,40 +292,27 @@ func changeAnimation(AniName,StaName):
 	currentAni = AniName
 	currentState = StaName#记录当前切换状态
 	$AnimatedSprite2D.play(AniName,aniTime)
-	#currentAnimationStart = animationStart[AniName]
-	#frame = currentAnimationStart
-	#currentAnimationEnd = animationEnd[AniName]
-	#$Sprite2D.frame = animationStart[AniName]-seaAni
-	#$animationTimer.start(aniTime)
 	pass
-
-#func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,attackType,damage,damagerType,giveEffect):
 
 func attack():
 	match damageMethod:
 		Global.DamageMethod.NEARSINGLE:
-			Global.TRvalue_caluORcreate(Global.Calu.ATTEFF,other,Global.TRtype.VALCALU,null,null,null,null,null,null,null,attackType,damage,damagerType,attackEffect,effValue,effTime,effTimes)
-#func TRvalue_caluORcreate(caluType,damager,target,projectile,proMode,proRange,ifAoeHold,aoeModel,aoeRange,attackType,damage,damagerType,giveEffect,):
+			Global.damage_Calu(other,Global.damCaluType.ATTEFF,attackType,damage,damagerType,attackEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
+			#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):
 		Global.DamageMethod.NEARAOE:
-			Global.TRvalue_caluORcreate(null,other,Global.TRtype.VALCREATE,null,null,null,aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],aoeTime[Global.AoeSet.ATTACK],aoeTimes[Global.AoeSet.ATTACK],attackType,damage,damagerType,attackEffect,effValue,effTime,effTimes)
+			Global.aoe_create(other,Global.CREATE,aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],ifAoeHold[Global.AoeSet.ATTACK])
 			if soldierName[0] == "creeper": queue_free()
 		Global.DamageMethod.FAR:
-			var newPro = proSence.instantiate()
+			var newPro = Global.Projectile.instantiate()
 			add_child(newPro)
 			newPro.position = Global.ProPos[projectile]
-			Global.TRvalue_caluORcreate(null,null,newPro,projectile,proMode,attRange,aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],aoeTime[Global.AoeSet.ATTACK],aoeTimes[Global.AoeSet.ATTACK],attackType,damage,damagerType,attackEffect,effValue,effTime,effTimes)
+			newPro.projectile = projectile
+			Global.aoe_create(projectile,Global.TRANSFER,aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],ifAoeHold[Global.AoeSet.ATTACK])
+			Global.damage_Calu(projectile,Global.TRANSFER,attackType,damage,damagerType,attackEffect,effValue,effTime,effTimes,null)
 			newPro.firstSetting()
 	pass
 
-func _on_animationTimer_timeout():
-	#frame+=1
-	#if $Sprite2D.frame != currentAnimationEnd: $Sprite2D.frame += 1
-	#if frame == currentAnimationEnd+1:
-		#frame = currentAnimationStart
-		#$Sprite2D.frame = currentAnimationStart
-		#seaAni = 0#清空出入海的片段
-	pass 
-	
+
 func _on_animated_sprite_2d_animation_looped():
 	match currentState:
 		State.ATTACK: 
@@ -344,49 +327,43 @@ func _on_animated_sprite_2d_animation_looped():
 							proTimes = 0
 		State.DEATH:
 			if deathEffect != null:#启动亡语效果
-				Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,aoeModel[Global.AoeSet.DEATH],aoeRange[Global.AoeSet.DEATH],aoeTime[Global.AoeSet.DEATH],aoeTimes[Global.AoeSet.DEATH],null,null,null,deathEffect,effValue,effTime,effTimes)
+				pass
+				#Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,aoeModel[Global.AoeSet.DEATH],aoeRange[Global.AoeSet.DEATH],aoeTime[Global.AoeSet.DEATH],aoeTimes[Global.AoeSet.DEATH],null,null,null,deathEffect,effValue,effTime,effTimes)
 			queue_free()
 	pass
 
 
-func attributeTimer(effName):
-	match effName:
-		Global.Effect.ATTDAMAGE:
-			damageEffect = Global.effect_calu(damageBasic,effValue[effName],nowEffect[effName],effUncencal[effName])
-		Global.Effect.SPEED:
-			speedEffect =  Global.effect_calu(speedBasic,effValue[effName],nowEffect[effName],effUncencal[effName])
-			aniTimeEffect = Global.effect_calu(aniTimeBasic,effValue[effName],nowEffect[effName],effUncencal[effName])
-			changeAnimation(currentAni,currentState)
-		Global.Effect.ATTRANGE:
-			attRangeEffect = Global.effect_calu(attRangeBasic,effValue[effName],nowEffect[effName],effUncencal[effName])
-	await get_tree().create_timer(effTime[effName],false).timeout
-	match effName:
-		Global.Effect.ATTDAMAGE:
-			damageEffect = 0
-		Global.Effect.SPEED:
-			speedEffect = 0
-			aniTimeEffect = 0
-		Global.Effect.ATTRANGE:
-			attRangeEffect = 0
-	nowEffect[effName] = Global.OFFEFFECT
-	effUncencal[effName] = Global.UNCENCAL
+func effectTimer(effName,effKeepTime,GoodOrBad):
+	if effKeepTime!=null: 
+		var effTimer = Timer.new()
+		effTimer.timeout.connect(effectTimerTimeout.bind(effName,GoodOrBad))
+		effTimer.one_shot = true
+		effTimer.start(effKeepTime)
+		effTimerId[effName] = effTimer
 	pass
 	
-	
-func holdDamageTimer(effName):
-	$poisonTimer.start(effTime[effName]/effTimes)
-	await get_tree().create_timer(effTime[effName],false).timeout
-	$poisonTimer.stop()
-	nowEffect[effName] = Global.OFFEFFECT
-	effUncencal[effName] = Global.UNCENCAL
+func effectTimerTimeout(effName,GoodOrBad):
+	var this = effName
+	if GoodOrBad == Global.EFFGOOD: this = effName+4
+	if effName == Global.Effect.SPEED: nowEffect[this+2]=0
+	nowEffect[this] = 0
+	if effTimerId[this] == null: effTimerId[this].queue_free()
 	pass
 	
-func _on_hold_damage_timer_timeout():
-	health += Global.effect_calu(damageBasic,effValue[Global.Effect.HOLDDAMAGE],nowEffect[Global.Effect.HOLDDAMAGE],effUncencal[Global.Effect.HOLDDAMAGE])
+func holdDamageTimer(effKeepTime,effKeepTimes,effDamageValue):
+	var effTimer = Timer.new()
+	effTimer.timeout.connect(holdDamageTimerOut.bind(0,effKeepTimes,effTimer,effDamageValue))
+	effTimer.start(effKeepTime)
+	pass
+	
+func holdDamageTimerOut(Times,effKeepTimes,Id,effDamageValue):
+	health += effDamageValue
+	Times += 1
+	if Times == effKeepTimes: Id.queue_free()
 	pass
 
 func _on_usuallyTimer_timeout():
-	if currentState != State.DEATH: Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,aoeModel[Global.AoeSet.NORMAL],aoeRange[Global.AoeSet.NORMAL],aoeTime[Global.AoeSet.NORMAL],aoeTimes[Global.AoeSet.NORMAL],null,null,null,usuallyEffect,effValue,effTime,effTimes)
+	#if currentState != State.DEATH: Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,aoeModel[Global.AoeSet.NORMAL],aoeRange[Global.AoeSet.NORMAL],aoeTime[Global.AoeSet.NORMAL],aoeTimes[Global.AoeSet.NORMAL],null,null,null,usuallyEffect,effValue,effTime,effTimes)
 	pass 
 
 

@@ -34,6 +34,7 @@ func summonEnemy(group):
 			enemy.stopTime = Global.LevelData[Global.Level][object][group]["stopTime"]
 		enemy.position = Global.MonsterPoint.position#400
 		enemy.firstSetting(Global.LevelData[Global.Level][object][group]["group"][j])
+		
 		if soldierCount>1: await get_tree().create_timer(soldierCD[Global.LevelData[Global.Level][object][group]["CDType"]],false).timeout
 	
 	times[group] += 1

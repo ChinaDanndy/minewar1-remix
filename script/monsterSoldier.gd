@@ -1,4 +1,4 @@
-extends "res://sence/soldier.gd"
+extends "res://script/soldier.gd"
 var stopPos
 var stopTime
 var stop = false

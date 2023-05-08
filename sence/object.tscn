@@ -20,10 +20,6 @@ target_position = Vector2(30, 0)
 [node name="Collision2" type="RayCast2D" parent="."]
 target_position = Vector2(30, 0)
 
-[node name="animationTimer" type="Timer" parent="."]
-
-[node name="holdDamageTimer" type="Timer" parent="."]
-
 [node name="usuallyTimer" type="Timer" parent="."]
 
 [node name="Label" type="Label" parent="."]
@@ -33,6 +29,4 @@ offset_right = 31.0
 offset_bottom = -18.0
 
 [connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
-[connection signal="timeout" from="animationTimer" to="." method="_on_animationTimer_timeout"]
-[connection signal="timeout" from="holdDamageTimer" to="." method="_on_hold_damage_timer_timeout"]
 [connection signal="timeout" from="usuallyTimer" to="." method="_on_usuallyTimer_timeout"]
