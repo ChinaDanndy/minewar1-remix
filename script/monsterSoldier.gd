@@ -4,9 +4,8 @@ var stopTime
 var stop = false
 
 func firstSetting(soldier):
-	if soldier == "creeper": add_to_group("creeper")
+	if soldier == "creeper": add_to_group("creeper")#获得苦力怕id
 	camp = Global.MONSTER
-	type = Global.Type.PEOPLE
 	super.firstSetting(soldier)
 	if stopTime == 0: Global.SummonEnemy.stopOver.connect(onStopOver)
 	pass
@@ -17,7 +16,7 @@ func _physics_process(_delta):
 	if stopPos != null:#敌方的行动与暂停
 		if position.x <= stopPos&&stop == false:
 			stop = true
-			changeState(Ani.STOP,State.STOP)
+			changeState("stop",State.STOP)
 			if stopTime !=0:
 				await get_tree().create_timer(stopTime,false).timeout
 				changeState(Ani.WALK,State.PUSH)

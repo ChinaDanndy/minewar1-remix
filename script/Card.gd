@@ -20,7 +20,7 @@ func cardMessageOut():
 
 func _on_pressed():
 	if Global.CardBuy == null&&Global.NowMoney>=price:
-		if Global.STSData[soldier]["type"] == Global.Type.PEOPLE:
+		if Global.STSData[soldier]["type"] == Global.Type.SOLDIER:
 			Global.NowMoney -= price
 			var friend = Global.VillageSoldier.instantiate()
 			Global.root.add_child(friend)
@@ -41,7 +41,7 @@ func _on_pressed():
 							Area.collLine.position = Vector2(-((Global.STSData[soldier]["collBox"].x*2)-(Global.STSData[soldier]["collBox"].x/2)),0)
 							Global.towerArea.visible = true
 							Area.area = Global.towerArea
-							Area.which = Global.VillageTower
+							Area.which = Global.Tower
 						Global.Type.SKILL:
 							Area.colorBox.size = Vector2(Global.STSData[soldier]["aoeRange"],Global.NormalAOERangeY)
 							Area.colorBox.position = Vector2(Global.STSData[soldier]["aoeRange"]/-2,Global.NormalAOERangeY/-2)

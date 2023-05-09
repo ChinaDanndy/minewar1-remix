@@ -11,6 +11,7 @@ func text(mode):
 		"stop": $HBoxContainer/Button2/Button2Text.text = "continue"
 		"win": $HBoxContainer/Button2/Button2Text.text = "next"
 		"lose": $HBoxContainer/Button2.visible = false
+	Global.StopWindowLayer.visible = true
 	pass
 
 func usual():

@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="2_a4234"]
 [ext_resource type="Texture2D" uid="uid://dk8yspmeqggbm" path="res://assets/UI/button/stop_normal.png" id="3_phxoo"]
 [ext_resource type="Texture2D" uid="uid://btaq2lqnicsn" path="res://assets/UI/button/stop_press.png" id="4_ork6o"]
+[ext_resource type="Texture2D" uid="uid://c6o27yerkolvm" path="res://assets/objects/baseVillage.png" id="4_ylgqp"]
 [ext_resource type="Script" path="res://script/stop.gd" id="5_0ftwe"]
+[ext_resource type="Texture2D" uid="uid://8dirif2atd8f" path="res://assets/objects/baseMonster.png" id="5_34cw2"]
 [ext_resource type="PackedScene" uid="uid://duhvr7l8d3eb0" path="res://sence/StopWindow.tscn" id="6_8sra2"]
-[ext_resource type="PackedScene" uid="uid://c5ysu8jo77fyx" path="res://sence/Base.tscn" id="6_o0062"]
-[ext_resource type="Texture2D" uid="uid://cxu47kcv48qhr" path="res://assets/tower/villageBase.png" id="7_x2lvr"]
-[ext_resource type="Texture2D" uid="uid://sg8021g50ixe" path="res://assets/tower/monsterBase.png" id="8_mra32"]
+[ext_resource type="PackedScene" uid="uid://b0lit7egvp1gn" path="res://sence/Base.tscn" id="6_o0062"]
 [ext_resource type="PackedScene" uid="uid://cnnifqydayh65" path="res://sence/Card.tscn" id="9_xl7fu"]
 
 [node name="Fight" type="Node2D"]
@@ -21,6 +21,14 @@ texture = ExtResource("2_a4234")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
+[node name="baseVillage" parent="." instance=ExtResource("6_o0062")]
+position = Vector2(73, 259)
+texture = ExtResource("4_ylgqp")
+
+[node name="baseMonster" parent="." instance=ExtResource("6_o0062")]
+position = Vector2(788, 262)
+texture = ExtResource("5_34cw2")
+
 [node name="Moneytimer" type="Timer" parent="."]
 wait_time = 0.5
 
@@ -31,8 +39,11 @@ offset_top = 351.0
 offset_right = 62.0
 offset_bottom = 377.0
 text = "Money"
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="Moneycount" type="Label" parent="Moneytext"]
+layout_mode = 0
 offset_top = 18.0
 offset_right = 40.0
 offset_bottom = 44.0
@@ -45,6 +56,8 @@ offset_top = 388.0
 offset_right = 57.0
 offset_bottom = 414.0
 text = "Space"
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="Spacecount" type="Label" parent="Spacetext"]
 layout_mode = 0
@@ -62,6 +75,8 @@ offset_top = 320.0
 offset_right = 54.0
 offset_bottom = 346.0
 text = "Time:"
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="AttackTimeValue" type="Label" parent="AttackTime"]
 layout_mode = 0
@@ -80,20 +95,6 @@ texture_normal = ExtResource("3_phxoo")
 texture_pressed = ExtResource("4_ork6o")
 texture_hover = ExtResource("4_ork6o")
 script = ExtResource("5_0ftwe")
-
-[node name="BaseVill" parent="." instance=ExtResource("6_o0062")]
-position = Vector2(74, 264)
-collision_layer = 16
-collision_mask = 0
-camp = 1
-picture = ExtResource("7_x2lvr")
-
-[node name="BaseMon" parent="." instance=ExtResource("6_o0062")]
-position = Vector2(736, 263)
-collision_layer = 32
-collision_mask = 0
-camp = -1
-picture = ExtResource("8_mra32")
 
 [node name="Card" parent="." instance=ExtResource("9_xl7fu")]
 offset_left = 88.0
@@ -118,9 +119,11 @@ offset_left = 312.0
 offset_top = 130.0
 offset_right = 312.0
 offset_bottom = 130.0
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="MonsterPoint" type="Marker2D" parent="."]
-position = Vector2(680, 297)
+position = Vector2(400, 297)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
@@ -146,7 +149,7 @@ metadata/_edit_group_ = true
 [node name="skillArea" type="ColorRect" parent="."]
 offset_left = 148.0
 offset_top = 286.0
-offset_right = 678.0
+offset_right = 748.0
 offset_bottom = 318.0
 color = Color(0, 0, 0, 0.313726)
 metadata/_edit_lock_ = true
@@ -156,4 +159,6 @@ metadata/_edit_group_ = true
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="timeout" from="Moneytimer" to="." method="_on_moneytimer_timeout"]
 [connection signal="timeout" from="attackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="mouse_entered" from="StopButton" to="StopButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="StopButton" to="StopButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="StopButton" to="StopButton" method="_on_pressed"]

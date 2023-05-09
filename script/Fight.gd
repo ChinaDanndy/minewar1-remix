@@ -5,6 +5,7 @@ var summonEnemyID
 var cardLength = 7
 var attackTime
 var moneyTime
+var thunderTime
 signal cardMessage
 signal reloadSence
 func _ready():
@@ -31,8 +32,14 @@ func _ready():
 
 
 		#提前根据图片得到单位碰撞箱尺寸
-		var pictureGet =  load("res://assets/objects/%s/stop/stop1.png"% STSName)
+		var pictureGet
+		match Global.STSData[STSName]["type"]:
+			Global.Type.SOLDIER: pictureGet = load("res://assets/objects/soldier/%s/attack/attack1.png"% STSName)
+			Global.Type.TOWER: pictureGet = load("res://assets/objects/tower/%s/attack/attack1.png"% STSName)
+			Global.Type.SKILL: pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
+			
 		Global.STSData[STSName]["collBox"] = pictureGet.get_size()
+
 
 
 
@@ -43,50 +50,69 @@ func _ready():
 	jsonValue = JSON.new()
 	jsonValue.parse(content)
 	Global.LevelData = jsonValue.data
-	var levelDateCount = jsonValue.data.size()
-	for i in levelDateCount:
-		var stageCount = jsonValue.data[i].size()-1
-		for j in stageCount:
-			var groupCount = jsonValue.data[i][j].size()
-			for k in groupCount:
-				if k == groupCount-1:pass
+	#var levelDateCount = jsonValue.data.size()
+	#for i in levelDateCount:
+		#var stageCount = jsonValue.data[i].size()-1
+		#for j in stageCount:
+			#var groupCount = jsonValue.data[i][j].size()
+			#for k in groupCount:
+				#if k == groupCount-1:pass
 					#Global.LevelData[i][j][k]["stageCD"] = int(jsonValue.data[i][j][k]["stageCD"])
 					#Global.LevelData[i][j][k]["stageCDTand"] = int(jsonValue.data[i][j][k]["stageCDTand"])
-				else: pass
+				#else: pass
 					#Global.LevelData[i][j][k]["firstCD"] = int(jsonValue.data[i][j][k]["firstCD"])
 					#Global.LevelData[i][j][k]["CDType"] = int(jsonValue.data[i][j][k]["CDType"])
 					#Global.LevelData[i][j][k]["times"] = int(jsonValue.data[i][j][k]["times"])
 					#Global.LevelData[i][j][k]["stopPos"] = int(jsonValue.data[i][j][k]["stopPos"])	
 					#Global.LevelData[i][j][k]["groupCD"] = int(jsonValue.data[i][j][k]["groupCD"])
 					#Global.LevelData[i][j][k]["groupCDRand"] = int(jsonValue.data[i][j][k]["groupCDRand"])
-	moneyTime = Global.LevelData[Global.Level][0]["moneySpeed"]
+	
+	moneyTime = Global.LevelData[0]["moneySpeed"]
+	Global.ThunderSpeed = Global.LevelData[0]["thunderSpeed"]
+	Global.VillageBase.camp = Global.VILLAGE
+	Global.VillageBase.firstSetting("baseVillageHealth")
+	Global.MonsterBase.camp = Global.MONSTER
+	Global.MonsterBase.firstSetting("baseMonsterHealth")
+	Global.LevelData[Global.Level][0]["levelType"] = int(Global.LevelData[Global.Level][0]["levelType"])
+
+	match Global.LevelData[Global.Level][0]["levelType"]:
+		Global.LevelType.ATTACK: Global.VillageBase.collision_layer = 0
+		Global.LevelType.DEFENCE: Global.MonsterBase.collision_layer = 0
+
 	$AttackTime.visible = false
 	if Global.LevelData[Global.Level][0]["attackTime"] != 0:
 		attackTime = Global.LevelData[Global.Level][0]["attackTime"]
 		$AttackTime.visible = true
 		$attackTimer.start(1)
+		
 	emit_signal("cardMessage")#monseter 680
 	$Moneytimer.start(Global.MoneyTime)
 
-
 	var newEnemy = summonEnemy.new()
-	Global.Level = 0
+	Global.Level = 1
 	Global.root.call_deferred("add_child",newEnemy)
 	newEnemy.call_deferred("firstStart")
+	newEnemy.name = "summonEnemy"
 	Global.SummonEnemy = newEnemy
-	
 	pass
 	
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_select"):
-		print(get_tree().get_nodes_in_group("creeper"))
-
+		Global.MonsterBase.health = 0
+#		var target = get_tree().get_first_node_in_group("creeper")
+#		var newthunder = Global.Skill.instantiate()
+#		Global.root.add_child(newthunder)
+#		newthunder.camp = Global.MONSTER
+#		newthunder.firstSetting("thunder")
+#		newthunder.position.y = Global.FightGroundY-(Global.STSData["thunder"]["collBox"].y/2)
+#		newthunder.position.x = target.position.x
+		pass
 	$Moneytext/Moneycount.text = str(Global.NowMoney) +"/"+ str(Global.Money)
 	if Global.NowMoney != Global.Money&&$Moneytimer.one_shot == true:
 		$Moneytimer.start(moneyTime)
 		
 	$AttackTime/AttackTimeValue.text = str(attackTime)
-	
+	#print(Global.LevelData[Global.Level][0]["levelType"])
 
 	match Global.LevelData[Global.Level][0]["levelType"]:
 		Global.LevelType.ATTACK:
@@ -103,6 +129,7 @@ func _process(_delta):
 				Global.StopWindow.text("win")
 				get_tree().paused = true
 			if Global.VillageBase.health<=0:
+				print("aaa")
 				Global.StopWindow.text("lose")
 				get_tree().paused = true
 		Global.LevelType.DEFENCE:
@@ -149,14 +176,17 @@ func _on_tree_entered():
 	Global.FightGroundY = $ground.position.y
 	Global.VillagePoint = $VillagePoint
 	Global.MonsterPoint = $MonsterPoint
-	Global.VillageBase = $BaseVill
-	Global.MonsterBase = $BaseMon
+	Global.VillageBase = $baseVillage/CharacterBody2D
+	Global.MonsterBase = $baseMonster/CharacterBody2D
 	Global.towerArea = $towerArea
 	Global.towerArea.visible = false
 	Global.skillArea = $skillArea
 	Global.skillArea.visible = false
 
+	
 	pass # Replace with function body.
+
+
 
 
 

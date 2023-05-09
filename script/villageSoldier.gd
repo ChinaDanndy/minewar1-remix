@@ -1,9 +1,7 @@
 extends "res://script/soldier.gd"
 
 func firstSetting(soldier):
-
 	camp = Global.VILLAGE
-	type = Global.Type.PEOPLE
 	super.firstSetting(soldier)
 	pass
 

@@ -8,8 +8,8 @@ var groupCount = 0
 var soldierCount = 0
 signal stopOver
 func _ready(): 
-	name = "summonEnemy"
 	pass
+	
 func firstStart():
 	groupCount = Global.LevelData[Global.Level][object].size()#记录有多少组人
 	for i in groupCount:

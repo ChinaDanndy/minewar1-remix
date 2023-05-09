@@ -84,12 +84,11 @@ func _on_body_entered(body):
 		Global.damage_Calu(body,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
 		#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	
 	else:#AOE
-		var newAoe = Global.aoe_create(body,Global.CREATE,aoeModel,aoeRange,ifAoeHold)
-		Global.damage_Calu(newAoe,Global.TRANSFER,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,null)
-		newAoe.firstsetting()
+		Global.aoe_create(body,Global.CREATE,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes)
 	#if Global.ProTypeValue[projectile] != Global.ProType.PIERCE: 
 	queue_free()
-	pass 
+	pass
+
 
 func _on_animation_timer_timeout():
 	frame += 1 
@@ -100,4 +99,3 @@ func _on_animation_timer_timeout():
 		
 	pass 
 	
-

@@ -7,3 +7,13 @@ func _on_pressed():
 	visible=false
 	button_pressed=false
 	pass 
+
+
+func _on_mouse_entered():
+	Global.StopON = true
+	pass 
+
+
+func _on_mouse_exited():
+	Global.StopON = false
+	pass # Replace with function body.

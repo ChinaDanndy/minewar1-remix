@@ -6,16 +6,18 @@ const STSDataName = {"price":STSType.INT,"kind":STSType.INT,
 "animation":null,"seaAniNumber":STSType.INT,"aniTimeBasic":null,"speedBasic":null,"ifOnlyAttBase":null,
 "attackType":null,"damageMethod":STSType.INT,"damagerType":STSType.ARRAY,"damageBasic":null,"projectile":null,
 "proMode":STSType.INT,"attRangeBasic":STSType.INT,"proSleepTime":STSType.INT,"proContinueTimes":STSType.INT,"aoeModel":null,"aoeRange":null,"ifAoeHold":null,
-"effValue":null,"effTime":null,"effTimes":null,"attackEffect":null,"usuallyEffect":null,
-"deathEffect":null,"ifFirstEffect":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"shield":STSType.INT,
+"effValue":null,"effTime":null,"effTimes":null,"effDefence":null,"attackEffect":null,"usuallyEffect":null,
+"deathEffect":null,"ifFirstEffect":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"attDefOrigin":null,"shield":STSType.INT,
 "attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
 var Contrl
 const Money = 10 
 var NowMoney = 0
 var LevelData
-var Level = 0
+var Level = 1
 enum  LevelType {ATTACK,ATTDEF,DEFENCE}
 var LevelOver = false
+var ThunderSpeed
+var ThunderRange
 
 const MoneyTime = 1.5
 const DropSpeed = 20 
@@ -25,7 +27,7 @@ const SkillAOERangeY = 300
 #近 靠近效果 单陆地远 仅地面地远 地空地远 空地分开空 空地同时空
 enum CollKind {NARE,NARESPE,LAND,LANDSKY,SKY,SKYLAND}
 const Coll2IfUse = [false,true,false,true,true,true]
-enum Type {PEOPLE,TOWER,SKILL,PROJECTILE,BASE}
+enum Type {SOLDIER,TOWER,SKILL,PROJECTILE,BASE}
 enum Kind {LAND,SEA,SKY}
 enum DamageMethod {NEARSINGLE,NEARAOE,FAR}
 enum AttackType {NEAR,FAR,EXPLODE}
@@ -35,9 +37,9 @@ enum Effect {ATTDAMAGE,SPEED,ATTRANGE,DAMAGE,HOLDDAMAGE,KNOCK}
 enum DamValue {DAMAGE,HOLDDAMAGE,KNOCK}
 const EffValue = [0.5,0.5,0.5]
 var EffectLength = Effect.size()
-const EFFGOOD = 3
+const EFFGOOD = 1
 const OFFEFFECT = 0
-const EFFBAD = 1
+const EFFBAD = -1
 
 
 #enum Projectile {ARROW1,BOMB1,SNOWBALL}
@@ -61,6 +63,7 @@ var ProThrowTime = round(sqrt((2*ProHigh)/ProGrivaty))
 
 var LevelChoiceButton
 var LevelChoiceWindow
+var StopON = false
 
 var FightSence
 var SummonEnemy
@@ -80,7 +83,7 @@ var CardBuy
 @onready var root = get_tree().get_root()
 var Projectile = preload("res://sence/projectiles.tscn")
 var VillageSoldier = preload("res://sence/villageSoldier.tscn")
-var VillageTower = preload("res://sence/villageTower.tscn")
+var Tower = preload("res://sence/tower.tscn")
 var MonsterSoldier = preload("res://sence/monsterSoldier.tscn")
 var Skill = preload("res://sence/skill.tscn")
 var calu = preload("res://script/attack_calu.gd")
@@ -113,15 +116,23 @@ func damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,
 	
 const CREATE = 0
 enum AoeSet {ATTACK,NORMAL,DEATH}
-func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold):
+func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):
 	var newAoe = aoe.instantiate()
 	var target = newAoe
 	if type == TRANSFER: target = damager
 	target.aoeModel = aoeModel
 	target.aoeRange = aoeRange
 	target.ifAoeHold = ifAoeHold
+	target.attackType = attackType
+	target.damage = damage
+	target.damagerType = damagerType
+	target.giveEffect = giveEffect
+	target.effValue = effValue
+	target.effTime = effTime
+	target.effTimes = effTimes
 	if type != TRANSFER:
 		root.add_child(newAoe)
+		newAoe.firstsetting()
 		newAoe.position = damager.position
 	else: newAoe.free()
 	return newAoe

@@ -6,7 +6,6 @@
 size = Vector2(20, 44)
 
 [node name="object" type="CharacterBody2D"]
-input_pickable = true
 script = ExtResource("1_cj46x")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

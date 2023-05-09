@@ -1,6 +1,7 @@
 extends CharacterBody2D
 var camp#
 var type#
+var typeName
 var kind#
 var collKind#
 var health = 1#
@@ -36,7 +37,7 @@ var attackType = [false,false,false]#近 远 爆炸
 var damageMethod#
 var damagerType=[null]#有伤害加成的攻击目标
 var damageBasic = 1#
-var damage = 1
+var damage = 1#我方技能传递时此值为-1让aoe范围包括海陆空
 
 var attRangeBasic = 100#
 var attRange = attRangeBasic
@@ -56,7 +57,7 @@ var effTime = [0,0,0,0,0]#后两个为平时，攻击持续效果的间隔给予
 var effValue = [0,0,0]#平时效果保持伤害,攻击效果保持伤害,击退距离
 var effTimes = [0,0]#效果持续：平时次数，攻击次数
 var ifAoe##仅用于伤害判定给予效果时分辨效果来源
-var effDefence = [false,false,false,false,false,false]
+var effDefence = [false,false,false,false,false,false]#
 var attackEffect = [0,0,0,0,0,0]#攻击给予状态同时表示好坏
 var usuallyEffect#平时给予状态
 var deathEffect#死亡给予状态
@@ -67,7 +68,7 @@ var healthEffValue = 0#
 var ifDistanceEffect = false#
 
 var shield = 0#
-var attDefOrigin = [false,false,false]
+var attDefOrigin = [false,false,false]#
 var attDefence = attDefOrigin
 var attDefShield#
 var satDefValue = 0#
@@ -80,6 +81,7 @@ func _ready():
 	pass
 	
 func SetValue(soldier):
+	
 	for STSDatename in Global.STSData[soldier]:
 		set(STSDatename,Global.STSData[soldier][STSDatename])
 	pass
@@ -89,9 +91,10 @@ func SetAnimationAndCollBox(soldier):
 	for i in aniName:
 		spirte.add_animation(i)
 		for j in animation[i]:
-			var picture = load("res://assets/objects/%s/%s/%s%s.png"% [soldier,i,i,j+1])
+			var picture = load("res://assets/objects/%s/%s/%s/%s%s.png"% [typeName,soldier,i,i,j+1])
 			spirte.add_frame(i,picture)
 	$AnimatedSprite2D.sprite_frames = spirte
+	changeAnimation(standardAni,currentState)
 	#填充碰撞箱
 	var newBox = RectangleShape2D.new()
 	newBox.size = collBox
@@ -99,34 +102,24 @@ func SetAnimationAndCollBox(soldier):
 	pass
 	
 func firstSetting(soldier):
+	Global.FightSence.reloadSence.connect(reload)
 	name = soldier
 	soldierName[0] = soldier
+	collision_mask = Global.MAsk[camp+1][0]#设置碰撞层
 	attDefence = attDefOrigin#记录攻击免疫
 	healthUp = health#记录血量上限
-	Global.FightSence.reloadSence.connect(reload)
-	#effectTimer.timeout.connect(_on_effectTimer_out)
 	if attDefShield != null: attDefence = attDefShield
-	#设置碰撞层
-	collision_mask = Global.MAsk[camp+1][0]
-	match type:
-		Global.Type.PEOPLE: collision_layer = Global.LAyer[camp+1][0]
-		Global.Type.TOWER: collision_layer = Global.LAyer[camp+1][2]
-		Global.Type.SKILL:
-			collision_layer = 0
-			collision_mask = 0
-	if kind == Global.Kind.SEA:
-		collision_layer = Global.LAyer[camp+1][1]
-		collision_mask = Global.MAsk[camp+1][1]
-	#是否只攻击对方基地(限近战，碰到对方士兵和塔不停)
-	if ifOnlyAttBase == true: collision_mask = Global.LAyer[camp+1][2]
 	#把设置过的碰撞层导入射线检测的碰撞层
 	$Collision1.collision_mask = collision_mask
 	$Collision2.collision_mask = collision_mask
+	#是否只攻击对方基地(限近战，碰到对方士兵和塔不停)
+	#if ifOnlyAttBase == true: collision_mask = Global.LAyer[camp+1][2]
+
 	#设置各种类士兵2号射线碰撞位置(以远程地对空和空对地为主)
-	match collKind:
-		Global.CollKind.LANDSKY: $Collision2.position = Vector2(-50*camp,-50*camp)
-		Global.CollKind.SKY: $Collision2.position = Vector2(-50*camp,50*camp)
-		Global.CollKind.SKYLAND: $Collision2.position = Vector2(0,50*camp)
+	#match collKind:
+		#Global.CollKind.LANDSKY: $Collision2.position = Vector2(-50*camp,-50*camp)
+		#Global.CollKind.SKY: $Collision2.position = Vector2(-50*camp,50*camp)
+		#Global.CollKind.SKYLAND: $Collision2.position = Vector2(0,50*camp)
 	#如果有平时效果开启平时效果计时器
 	#if usuallyEffect != null: $usuallyTimer.start(Global.EffTime)
 	#有开头效果的给予(速度攻击力都提升)
@@ -137,16 +130,8 @@ func firstSetting(soldier):
 		#walkAni = Ani.AWALK#控制开始效果时使用不同的动画
 		#attack1Ani = Ani.AATTACK1
 		#standardAni = walkAni
-	#动画基础数据导入并开始播放动画
-	#$Sprite2D.texture = load("res://assets/soldiers/%s.png" % [soldierName])
-	changeAnimation(standardAni,currentState)
 	pass
 	
-
-
-
-	
-
 func _physics_process(_delta):#每帧执行的部分
 	testchangeState()#状态切换检测
 	#单体攻击时获得对方id 
@@ -171,9 +156,7 @@ func _physics_process(_delta):#每帧执行的部分
 	#血量低于临界攻击免疫变少
 	if shield <= 0&&attDefShield != null&&attDefence!=attDefOrigin:#盾坏免疫丢失
 		attDefence = attDefOrigin
-		SetValue(soldierName[1])
-		SetAnimationAndCollBox(soldierName[1])
-		changeAnimation(currentAni,currentState)
+		reSet(soldierName[1])
 	#不同状态攻击免疫改变
 	#if attDefState != null:
 		#if currentState == satDefValue: attDefence = attDefState 
@@ -196,6 +179,12 @@ func _physics_process(_delta):#每帧执行的部分
 	if Input.is_action_just_pressed("ui_select"):
 		if camp == Global.MONSTER: pass
 			#print(speedEffect)
+	pass
+
+func reSet(soldier):
+	SetValue(soldier)
+	SetAnimationAndCollBox(soldier)
+	changeAnimation(currentAni,currentState)
 	pass
 
 
@@ -282,18 +271,19 @@ func attack():
 			#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):
 		Global.DamageMethod.NEARAOE:
 			#Global.damage_Calu(body,Global.TRANSFER,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,null)
-			var newAoe = Global.aoe_create(other,Global.CREATE,aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],ifAoeHold[Global.AoeSet.ATTACK])
-			Global.damage_Calu(newAoe,Global.TRANSFER,attackType,damage,damagerType,nowEffect,effValue,effTime,effTimes,null)
-			newAoe.firstsetting()
-			if attackType[Global.AttackType.EXPLODE] == true: queue_free()#近战AOE且是爆炸伤害类型->只有自爆
+
+			if attackType[Global.AttackType.EXPLODE] == true: 
+				Global.aoe_create(self,Global.CREATE,aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],ifAoeHold[Global.AoeSet.ATTACK],attackType,damage,damagerType,attackEffect,effValue,effTime,effTimes)
+				queue_free()#近战AOE且是爆炸伤害类型->只有自爆
+			else:  Global.aoe_create(other,Global.CREATE,aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],ifAoeHold[Global.AoeSet.ATTACK],attackType,damage,damagerType,attackEffect,effValue,effTime,effTimes)
+
 		Global.DamageMethod.FAR:
 			var newPro = Global.Projectile.instantiate()
 			add_child(newPro)
 			newPro.position = Global.ProPos[projectile]
 			newPro.projectile = projectile
 			newPro.proRange = attRange
-			Global.aoe_create(newPro,Global.TRANSFER,aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],ifAoeHold[Global.AoeSet.ATTACK])
-			Global.damage_Calu(newPro,Global.TRANSFER,attackType,damage,damagerType,attackEffect,effValue,effTime,effTimes,null)
+			Global.aoe_create(newPro,Global.TRANSFER,aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],ifAoeHold[Global.AoeSet.ATTACK],attackType,damage,damagerType,attackEffect,effValue,effTime,effTimes)
 			newPro.firstSetting()
 	pass
 
@@ -319,12 +309,14 @@ func _on_animated_sprite_2d_animation_looped():
 
 
 func effectTimer(effName,effKeepTime,GoodOrBad):
+	var this = effName
+	if GoodOrBad == Global.EFFGOOD: this = effName+4
 	if effKeepTime!=null: 
 		var effTimer = Timer.new()
 		effTimer.timeout.connect(effectTimerTimeout.bind(effName,GoodOrBad))
 		effTimer.one_shot = true
 		effTimer.start(effKeepTime)
-		effTimerId[effName] = effTimer
+		effTimerId[this] = effTimer
 	pass
 	
 func effectTimerTimeout(effName,GoodOrBad):
@@ -332,7 +324,7 @@ func effectTimerTimeout(effName,GoodOrBad):
 	if GoodOrBad == Global.EFFGOOD: this = effName+4
 	if effName == Global.Effect.SPEED: nowEffect[this+2]=0
 	nowEffect[this] = 0
-	if effTimerId[this] == null: effTimerId[this].queue_free()
+	if effTimerId[this] != null: effTimerId[this].queue_free()
 	pass
 	
 func holdDamageTimer(effKeepTime,effKeepTimes,effDamageValue):
