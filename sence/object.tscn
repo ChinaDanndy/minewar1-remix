@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cse6egnr810i4"]
+[gd_scene load_steps=4 format=3 uid="uid://cse6egnr810i4"]
 
 [ext_resource type="Script" path="res://script/object.gd" id="1_cj46x"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fq6p3"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(20, 44)
@@ -9,6 +11,7 @@ size = Vector2(20, 44)
 script = ExtResource("1_cj46x")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fq6p3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")

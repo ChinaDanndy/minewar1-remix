@@ -20,6 +20,7 @@ func SetAnimationAndCollBox(soldier):
 	pass
 
 func _physics_process(_delta):
+
 	if health <= 0&&currentState != State.DEATH: #死亡判定
 		#死亡特效
 		changeState("death",State.DEATH)

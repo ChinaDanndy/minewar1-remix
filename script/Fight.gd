@@ -93,7 +93,6 @@ func _ready():
 func _on_thundertimer_timeout():
 	var targetArray = get_tree().get_nodes_in_group("creeper")
 	if !targetArray.is_empty(): 
-
 		var target = targetArray[randi_range(0,targetArray.size()-1)]
 		var newthunder = Global.Skill.instantiate()
 		Global.root.add_child(newthunder)
@@ -101,7 +100,6 @@ func _on_thundertimer_timeout():
 		newthunder.firstSetting("thunder")
 		newthunder.position.y = Global.FightGroundY-(Global.STSData["thunder"]["collBox"].y/2)
 		newthunder.position.x = target.position.x-20
-	print("aaa")
 	$Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
 	pass
 	
@@ -173,6 +171,7 @@ func _on_tree_entered():
 	Global.towerArea.visible = false
 	Global.skillArea = $skillArea
 	Global.skillArea.visible = false
+	Global.StopON = false
 	pass
 
 

@@ -33,9 +33,9 @@ enum DamageMethod {NEARSINGLE,NEARAOE,FAR}
 enum AttackType {NEAR,FAR,EXPLODE}
 var AttackTypeLength = AttackType.size()
 
-enum Effect {ATTDAMAGE,SPEED,ATTRANGE,DAMAGE,HOLDDAMAGE,KNOCK}
+enum Effect {ATTDAMAGE,SPEED,FREEZE,ATTRANGE,DAMAGE,HOLDDAMAGE,KNOCK}
 enum DamValue {DAMAGE,HOLDDAMAGE,KNOCK}
-const EffValue = [0.5,0.5,0.5]
+const EffValue = [0.5,0.5,0,0.5]
 var EffectLength = Effect.size()
 const EFFGOOD = 1
 const OFFEFFECT = 0

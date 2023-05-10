@@ -30,8 +30,6 @@ func firstsetting():
 		match damagerType[0]:
 			"skill": newRange.size = Vector2(aoeRange,Global.SkillAOERangeY)
 			"thunder": $CollisionShape2D.position.y = Global.STSData["thunder"]["collBox"].y/2-20
-
-		
 	$CollisionShape2D.shape = newRange
 	if ifAoeHold == true: 
 		$ColorRect.position = Vector2(aoeRange/-2,-10)
@@ -51,7 +49,7 @@ func _on_body_entered(body):
 		#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	else:#AOE
 	if ifAoeHold == false:
 		if damage == null: 
-			Global.damage_Calu(body,Global.damCaluType.EFF,null,null,null,giveEffect,effValue,effTime,effTimes,null)
+			Global.damage_Calu(body,Global.damCaluType.EFF,null,null,null,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
 		else:
 			Global.damage_Calu(body,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
 		

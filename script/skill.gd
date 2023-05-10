@@ -32,7 +32,7 @@ func _physics_process(_delta):
 		if position.y >= 297: 
 			position.y = 297
 			unPeopleFly = false
-			await get_tree().create_timer(0.2,false).timeout
+			await get_tree().create_timer(0.1,false).timeout
 			Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,null,null,["skill"],attackEffect,effValue,effTime,effTimes)
 			queue_free()
 	if soldierName[0] == "thunder": 

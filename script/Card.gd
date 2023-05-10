@@ -45,7 +45,7 @@ func _on_pressed():
 						Global.Type.SKILL:
 							Area.colorBox.size = Vector2(Global.STSData[soldier]["aoeRange"],Global.NormalAOERangeY)
 							Area.colorBox.position = Vector2(Global.STSData[soldier]["aoeRange"]/-2,Global.NormalAOERangeY/-2)
-							Area.collLine.enabled = false
+							Area.collLine.enabled
 							Global.skillArea.visible = true
 							Area.area = Global.skillArea
 							Area.which = Global.Skill

@@ -48,21 +48,22 @@ func effectAttackCalu(damager):
 		if (giveEffect[i] == Global.EFFBAD&&effDefence[i] == false)||(giveEffect[i] == Global.EFFGOOD): 
 			if damager.health>0:
 				match i:
-					Global.Effect.ATTDAMAGE,Global.Effect.SPEED,Global.Effect.ATTRANGE:
+					Global.Effect.ATTDAMAGE,Global.Effect.SPEED,Global.Effect.FREEZE,Global.Effect.ATTRANGE:
 						var this = i
 						if giveEffect[i] == Global.EFFGOOD: this = i+4
 						damager.nowEffect[this] = effBasic[i]*giveEffect[i]*Global.EffValue[i]
 						if i==Global.Effect.SPEED: damager.nowEffect[this+2] = effBasic[3]*giveEffect[i]*Global.EffValue[i]
 						if damager.effTimerId[this] == null:
+							
 							if ifAoe == Global.IfAoeType.NONE: damager.effectTimer(i,effTime[i],giveEffect[i])
 						else:
 							match ifAoe:					#新计时器时间是否大于旧的计时器剩余时间
-								Global.IfAoeType.NONE: if effTime[i]>damager.effTimerId[this].time_left: damager.effTimerId[this].start(effTime)
+								Global.IfAoeType.NONE: 
+									if effTime[i]>damager.effTimerId[this].time_left: damager.effTimerId[this].start(effTime[i])
 								Global.IfAoeType.IN: damager.effTimerId[this].stop()#防止处于范围持续被时间持续打断
 						if ifAoe == Global.IfAoeType.OUT: damager.effectTimerTimeout(i,giveEffect[i])
 				match i:
 					Global.Effect.HOLDDAMAGE: 
-						print("bbbbbb")
 						damager.holdDamageTimer(effTime[i],effTimes[Global.DamValue.HOLDDAMAGE],effValue[Global.DamValue.HOLDDAMAGE]*giveEffect[i])
 					Global.Effect.DAMAGE:
 						

@@ -51,14 +51,14 @@ var aoeModel = [0,0,0]#
 var aoeRange = [0,0,0]#
 var ifAoeHold = [false,false,false]#
 #自身状态数据
-var effTimerId = [0,0,0,0,0,0]
-var nowEffect = [0,0,0,0,0,0,0,0]#记录伤害，速度，射程当前的效果值，区分好坏
-var effTime = [0,0,0,0,0]#后两个为平时，攻击持续效果的间隔给予数值的时间
+var effTimerId = [null,null,null,null,null,null,null]
+var nowEffect = [0,0,1,0,0,0,0,0,0]#记录伤害，速度，射程当前的效果值，区分好坏
+var effTime = [0,0,0,0,0,0]#后两个为平时，攻击持续效果的间隔给予数值的时间
 var effValue = [0,0,0]#平时效果保持伤害,攻击效果保持伤害,击退距离
 var effTimes = [0,0]#效果持续：平时次数，攻击次数
 var ifAoe##仅用于伤害判定给予效果时分辨效果来源
-var effDefence = [false,false,false,false,false,false]#
-var attackEffect = [0,0,0,0,0,0]#攻击给予状态同时表示好坏
+var effDefence = [false,false,false,false,false,false,false]#
+var attackEffect = [0,0,0,0,0,0,0]#攻击给予状态同时表示好坏
 var usuallyEffect#平时给予状态
 var deathEffect#死亡给予状态
 
@@ -163,10 +163,11 @@ func _physics_process(_delta):#每帧执行的部分
 		#else: attDefence = attDefOrigin
 	#我方士兵控制，有开始状态的士兵处于开始状态时不能被控制
 	#基础数据实时更改
-	damage = damageBasic+nowEffect[0]+nowEffect[4]
-	speed = Vector2(speedBasic+nowEffect[1]+nowEffect[5],0)
-	aniSpeed = aniSpeedBasic+nowEffect[3]+nowEffect[7]
-	attRange = Vector2(attRangeBasic+nowEffect[2]+nowEffect[6],0)
+	damage = damageBasic+nowEffect[0]+nowEffect[5]
+	#冰冻外时间可以这样
+	speed = Vector2(speedBasic+nowEffect[1]+nowEffect[6],0)*Vector2(nowEffect[2],0)
+	aniSpeed = aniSpeedBasic+nowEffect[4]+nowEffect[8]
+	attRange = Vector2(attRangeBasic+nowEffect[3]+nowEffect[7],0)
 	$Collision1.target_position = attRange*Vector2(camp,0)
 	$Collision2.target_position = attRange*Vector2(camp,0)
 	$AnimatedSprite2D.speed_scale = aniSpeed
@@ -261,7 +262,7 @@ func changeAnimation(AniName,StaName):
 		State.BACK: speedDirection = Vector2.LEFT
 	currentAni = AniName
 	currentState = StaName#记录当前切换状态
-	$AnimatedSprite2D.play(AniName,aniTimeBasic)
+	$AnimatedSprite2D.play(AniName,aniTimeBasic) #if nowEffect[Global.Effect.FREEZE] == 1: 
 	pass
 
 func attack():
@@ -311,10 +312,15 @@ func _on_animated_sprite_2d_animation_looped():
 func effectTimer(effName,effKeepTime,GoodOrBad):
 	var this = effName
 	if GoodOrBad == Global.EFFGOOD: this = effName+4
+	if effName == Global.Effect.FREEZE:
+		$AnimatedSprite2D.pause()
+		$Collision1.enabled = false
+		pass
 	if effKeepTime!=null: 
 		var effTimer = Timer.new()
 		effTimer.timeout.connect(effectTimerTimeout.bind(effName,GoodOrBad))
 		effTimer.one_shot = true
+		add_child(effTimer)
 		effTimer.start(effKeepTime)
 		effTimerId[this] = effTimer
 	pass
@@ -324,12 +330,18 @@ func effectTimerTimeout(effName,GoodOrBad):
 	if GoodOrBad == Global.EFFGOOD: this = effName+4
 	if effName == Global.Effect.SPEED: nowEffect[this+2]=0
 	nowEffect[this] = 0
+	if effName == Global.Effect.FREEZE:
+		$AnimatedSprite2D.play()
+		$Collision1.enabled = true
+		nowEffect[this] = 1
+		pass
 	if effTimerId[this] != null: effTimerId[this].queue_free()
 	pass
 	
 func holdDamageTimer(effKeepTime,effKeepTimes,effDamageValue):
 	var effTimer = Timer.new()
 	effTimer.timeout.connect(holdDamageTimerOut.bind(0,effKeepTimes,effTimer,effDamageValue))
+	add_child(effTimer)
 	effTimer.start(effKeepTime)
 	pass
 	

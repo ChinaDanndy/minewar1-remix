@@ -6,6 +6,9 @@ func firstSetting(soldier):
 	pass
 
 func _physics_process(_delta):
+	if Input.is_action_just_pressed("ui_test"):
+		queue_free()
+		pass
 	super._physics_process(_delta)
 	if Global.Contrl == soldierName[0]&&currentState != State.DEATH: 
 		#if (collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
