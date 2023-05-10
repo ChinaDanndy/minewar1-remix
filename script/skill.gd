@@ -3,7 +3,6 @@ var unPeopleFly = true
 var thunderAphla = 0
 
 func firstSetting(soldier):
-	
 	$CollisionShape2D.queue_free()
 	$Collision1.queue_free()
 	$Collision2.queue_free()

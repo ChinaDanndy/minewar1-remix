@@ -29,6 +29,9 @@ texture = ExtResource("4_ylgqp")
 position = Vector2(788, 262)
 texture = ExtResource("5_34cw2")
 
+[node name="Thundertimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="Moneytimer" type="Timer" parent="."]
 wait_time = 0.5
 
@@ -70,6 +73,7 @@ text = "1"
 [node name="attackTimer" type="Timer" parent="."]
 
 [node name="AttackTime" type="Label" parent="."]
+visible = false
 offset_left = 11.0
 offset_top = 320.0
 offset_right = 54.0
@@ -157,6 +161,7 @@ metadata/_edit_group_ = true
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
+[connection signal="timeout" from="Thundertimer" to="." method="_on_thundertimer_timeout"]
 [connection signal="timeout" from="Moneytimer" to="." method="_on_moneytimer_timeout"]
 [connection signal="timeout" from="attackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="mouse_entered" from="StopButton" to="StopButton" method="_on_mouse_entered"]

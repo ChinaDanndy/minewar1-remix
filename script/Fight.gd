@@ -6,6 +6,7 @@ var cardLength = 7
 var attackTime
 var moneyTime
 var thunderTime
+var thunderTimeRand
 signal cardMessage
 signal reloadSence
 func _ready():
@@ -30,19 +31,13 @@ func _ready():
 						for i in arrayLength:
 							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
 
-
 		#提前根据图片得到单位碰撞箱尺寸
 		var pictureGet
 		match Global.STSData[STSName]["type"]:
 			Global.Type.SOLDIER: pictureGet = load("res://assets/objects/soldier/%s/attack/attack1.png"% STSName)
 			Global.Type.TOWER: pictureGet = load("res://assets/objects/tower/%s/attack/attack1.png"% STSName)
 			Global.Type.SKILL: pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
-			
 		Global.STSData[STSName]["collBox"] = pictureGet.get_size()
-
-
-
-
 
 	file = FileAccess.open("user://level.json", FileAccess.READ)
 	content = file.get_as_text()
@@ -69,22 +64,21 @@ func _ready():
 	
 	moneyTime = Global.LevelData[0]["moneySpeed"]
 	Global.ThunderSpeed = Global.LevelData[0]["thunderSpeed"]
+	thunderTime = Global.LevelData[Global.Level][0]["thunderTime"]
+	thunderTimeRand = Global.LevelData[Global.Level][0]["thunderTimeRand"]
 	Global.VillageBase.camp = Global.VILLAGE
 	Global.VillageBase.firstSetting("baseVillageHealth")
 	Global.MonsterBase.camp = Global.MONSTER
 	Global.MonsterBase.firstSetting("baseMonsterHealth")
 	Global.LevelData[Global.Level][0]["levelType"] = int(Global.LevelData[Global.Level][0]["levelType"])
-
 	match Global.LevelData[Global.Level][0]["levelType"]:
-		Global.LevelType.ATTACK: Global.VillageBase.collision_layer = 0
-		Global.LevelType.DEFENCE: Global.MonsterBase.collision_layer = 0
-
-	$AttackTime.visible = false
-	if Global.LevelData[Global.Level][0]["attackTime"] != 0:
-		attackTime = Global.LevelData[Global.Level][0]["attackTime"]
-		$AttackTime.visible = true
-		$attackTimer.start(1)
-		
+		Global.LevelType.ATTACK: 
+			$baseVillage/Label.visible = false 
+			attackTime = Global.LevelData[Global.Level][0]["attackTime"]
+			$AttackTime.visible = true
+			$attackTimer.start(1)
+		Global.LevelType.DEFENCE: $baseMonster/Label.visible = false 
+	if thunderTime >0: $Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
 	emit_signal("cardMessage")#monseter 680
 	$Moneytimer.start(Global.MoneyTime)
 
@@ -96,24 +90,31 @@ func _ready():
 	Global.SummonEnemy = newEnemy
 	pass
 	
+func _on_thundertimer_timeout():
+	var targetArray = get_tree().get_nodes_in_group("creeper")
+	if !targetArray.is_empty(): 
+
+		var target = targetArray[randi_range(0,targetArray.size()-1)]
+		var newthunder = Global.Skill.instantiate()
+		Global.root.add_child(newthunder)
+		newthunder.camp = Global.MONSTER
+		newthunder.firstSetting("thunder")
+		newthunder.position.y = Global.FightGroundY-(Global.STSData["thunder"]["collBox"].y/2)
+		newthunder.position.x = target.position.x-20
+	print("aaa")
+	$Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
+	pass
+	
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_select"):
 		Global.MonsterBase.health = 0
-#		var target = get_tree().get_first_node_in_group("creeper")
-#		var newthunder = Global.Skill.instantiate()
-#		Global.root.add_child(newthunder)
-#		newthunder.camp = Global.MONSTER
-#		newthunder.firstSetting("thunder")
-#		newthunder.position.y = Global.FightGroundY-(Global.STSData["thunder"]["collBox"].y/2)
-#		newthunder.position.x = target.position.x
+
 		pass
 	$Moneytext/Moneycount.text = str(Global.NowMoney) +"/"+ str(Global.Money)
 	if Global.NowMoney != Global.Money&&$Moneytimer.one_shot == true:
 		$Moneytimer.start(moneyTime)
-		
 	$AttackTime/AttackTimeValue.text = str(attackTime)
 	#print(Global.LevelData[Global.Level][0]["levelType"])
-
 	match Global.LevelData[Global.Level][0]["levelType"]:
 		Global.LevelType.ATTACK:
 			if attackTime <=0:#loss
@@ -129,7 +130,6 @@ func _process(_delta):
 				Global.StopWindow.text("win")
 				get_tree().paused = true
 			if Global.VillageBase.health<=0:
-				print("aaa")
 				Global.StopWindow.text("lose")
 				get_tree().paused = true
 		Global.LevelType.DEFENCE:
@@ -139,11 +139,6 @@ func _process(_delta):
 			if Global.LevelOver == true&&get_tree().get_nodes_in_group("monsterSoldier").is_empty():
 				Global.StopWindow.text("win")
 				get_tree().paused = true
-	#if health<=0&&Global.LevelData[Global.Level][0]["levelType"] == Global.LevelType.ATTDEF: #胜负判断
-		#Global.StopWindowLayer.visible = true
-		#if camp == Global.VILLAGE: Global.StopWindow.text("lose")
-		#if camp == Global.MONSTER: Global.StopWindow.text("win")
-		#get_tree().paused = true
 	pass
 	
 func _on_attack_timer_timeout():
@@ -156,9 +151,6 @@ func _on_moneytimer_timeout():
 	if Global.NowMoney == (Global.Money-1): $Moneytimer.one_shot = true
 	pass 
 
-#
-	pass
-
 func _on_tree_exited():
 	Global.SummonEnemy.queue_free()
 	Global.NowMoney = 0
@@ -166,8 +158,7 @@ func _on_tree_exited():
 	Global.Contrl = null
 	emit_signal("reloadSence")
 	pass
-
-
+	
 func _on_tree_entered():
 	Global.StopButton = $StopButton
 	Global.StopWindowLayer = $StopWindowLayer
@@ -182,9 +173,10 @@ func _on_tree_entered():
 	Global.towerArea.visible = false
 	Global.skillArea = $skillArea
 	Global.skillArea.visible = false
+	pass
 
-	
-	pass # Replace with function body.
+
+
 
 
 
