@@ -1,6 +1,7 @@
 extends "res://script/fight/object.gd"
 var unPeopleFly = true
 var towKeepTime#
+
 func firstSetting(soldier):
 	super.SetValue(soldier)
 	type = Global.Type.TOWER
@@ -9,7 +10,7 @@ func firstSetting(soldier):
 	currentAni = "stop"
 	standardState = currentState
 	standardAni = currentAni
-	aniName = ["attack","stop"]
+	
 	super.SetAnimationAndCollBox(soldier)
 	super.firstSetting(soldier)
 	collision_layer = Global.LAyer[camp+1][2]

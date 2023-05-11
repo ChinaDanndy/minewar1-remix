@@ -8,8 +8,9 @@ func firstSetting(soldier):
 	$AnimatedSprite2D.queue_free()
 	$Label.queue_free()
 	super.SetValue(soldier)
-	$Sprite2D.texture = load("res://assets/objects/skill/%s.png"% soldier)
 	type = Global.Type.SKILL
+	
+	$Sprite2D.texture = load("res://assets/objects/skill/%s.png"% soldier)
 	super.firstSetting(soldier)
 	collision_mask = 0
 	if camp == Global.MONSTER: unPeopleFly = false

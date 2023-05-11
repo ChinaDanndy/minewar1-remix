@@ -25,10 +25,10 @@ func _physics_process(_delta):
 			changeState("stop",State.STOP)
 			if stopTime !=0:
 				await get_tree().create_timer(stopTime,false).timeout
-				changeState(Ani.WALK,State.PUSH)
+				changeState("walk",State.PUSH)
 	pass
 	
 func onStopOver():
-	changeState(Ani.WALK,State.PUSH)
+	changeState("walk",State.PUSH)
 	pass
 

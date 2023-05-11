@@ -1,4 +1,5 @@
 extends Node
+@onready var root = get_tree().get_root()
 var STSData:Dictionary
 enum STSType {INT,ARRAY}
 const STSDataName = {"price":STSType.INT,"kind":STSType.INT,
@@ -55,33 +56,10 @@ const ProSpeed = {"arrow":4,"snowball":3}
 const ProPicture = {"arrow":1,"snowball":1}
 const ProAniTime = {"arrow":0,"snowball":0}
 
-const ProGrivaty = 0.8
-const ProHigh = 50
-var ProThrowTime = round(sqrt((2*ProHigh)/ProGrivaty))
+#const ProGrivaty = 0.8
+#const ProHigh = 50
+##var ProThrowTime = round(sqrt((2*ProHigh)/ProGrivaty))
 
-var LevelChoiceButton
-var LevelChoiceWindow
-
-var StopButton
-var StopWindowLayer
-var StopWindow
-var StopON = false
-
-var FightSence
-var FightGroundY
-var VillagePoint
-var MonsterPoint
-var VillageBase
-var MonsterBase
-var towerArea
-var skillArea
-
-@onready var root = get_tree().get_root()
-var OutLine = preload("res://rescourse/outLine.tres")
-var VillageSoldier = preload("res://sence/fight/object/soldier/villageSoldier.tscn")
-var MonsterSoldier = preload("res://sence/fight/object/soldier/monsterSoldier.tscn")
-var Tower = preload("res://sence/fight/object/tower.tscn")
-var Skill = preload("res://sence/fight/object/skill.tscn")
 var calu = preload("res://script/fight/calu/attackCalu.gd")
 enum damCaluType {ATTEFF,EFF}
 const TRANSFER = null
@@ -131,6 +109,28 @@ func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold,attackType,damage,damag
 	return newAoe
 	pass
 
+var LevelChoiceButton
+var LevelChoiceWindow
+
+var StopButton
+var StopWindowLayer
+var StopWindow
+var StopON = false
+
+var FightSence
+var FightGroundY
+var VillagePoint
+var MonsterPoint
+var VillageBase
+var MonsterBase
+var towerArea
+var skillArea
+
+var OutLine = preload("res://rescourse/outLine.tres")
+var VillageSoldier = preload("res://sence/fight/object/soldier/villageSoldier.tscn")
+var MonsterSoldier = preload("res://sence/fight/object/soldier/monsterSoldier.tscn")
+var Tower = preload("res://sence/fight/object/tower.tscn")
+var Skill = preload("res://sence/fight/object/skill.tscn")
 	
 
 

@@ -10,7 +10,7 @@ func _physics_process(_delta):
 		queue_free()
 		pass
 	super._physics_process(_delta)
-	if Global.Contrl == soldierName[0]&&currentState != State.DEATH: 
+	if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&currentAni != "sea": 
 		#if (collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
 		contrl()
 	pass

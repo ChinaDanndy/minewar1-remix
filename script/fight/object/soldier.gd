@@ -1,21 +1,17 @@
 extends "res://script/fight/object.gd"
 
 func firstSetting(soldier):
-	aniName = ["walk","attack","stop","death"]
 	super.SetValue(soldier)
-	if soldierName[1] != null&&shield>0: aniName = ["walk","attack","stop"]
 	type = Global.Type.SOLDIER
 	typeName = "soldier"
+	
 	SetAnimationAndCollBox(soldier)
 	super.firstSetting(soldier)
-	collision_layer = Global.LAyer[camp+1][0]
-	if kind == Global.Kind.SEA:
-		collision_layer = Global.LAyer[camp+1][1]
-		collision_mask = Global.MAsk[camp+1][1]
+	collision_layer = Global.LAyer[camp+1][kind]
 	pass
 	
 func SetAnimationAndCollBox(soldier):
-	if soldier=="thunderCreeper": aniName = ["walk","attack","death"]
+
 	super.SetAnimationAndCollBox(soldier)
 	pass
 

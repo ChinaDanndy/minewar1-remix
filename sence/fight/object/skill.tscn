@@ -11,10 +11,10 @@ collision_mask = 0
 input_pickable = false
 script = ExtResource("2_wf2hv")
 
-[node name="Sprite2D" type="Sprite2D" parent="." index="6"]
+[node name="Sprite2D" type="Sprite2D" parent="." index="5"]
 modulate = Color(0.988235, 1, 1, 1)
 
-[node name="thunderArea" type="Area2D" parent="." index="7"]
+[node name="thunderArea" type="Area2D" parent="." index="6"]
 monitorable = false
 
 [node name="thunderBox" type="CollisionShape2D" parent="thunderArea" index="0"]
