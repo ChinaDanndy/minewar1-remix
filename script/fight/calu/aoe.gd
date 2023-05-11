@@ -9,8 +9,7 @@ var attackType
 var damagerType
 var damage
 var giveEffect
-var noDamageEffect
-var onlyDamageEffect = [0,0,0,0,0,0,0]
+
 var effValue
 var effTime
 var effTimes
@@ -21,9 +20,6 @@ func _ready():
 	pass
 
 func firstsetting():
-	noDamageEffect = giveEffect
-	noDamageEffect[Global.Effect.DAMAGE] = 0#防止平时持续效果里给伤害时给属性效果蓄时间
-	onlyDamageEffect[Global.Effect.DAMAGE] = giveEffect[Global.Effect.DAMAGE]
 	collision_mask = Global.LAyer[aoeModel][0]
 	var newRange = RectangleShape2D.new()#AOE范围
 	newRange.size = Vector2(aoeRange,Global.NormalAOERangeY)
@@ -49,12 +45,14 @@ func firstsetting():
 	pass
 		
 func _on_area_entered(area):
+	var noDamageEffect = giveEffect.duplicate()
+	noDamageEffect[Global.Effect.DAMAGE] = 0#防止平时持续效果里给伤害时给属性效果续时间
 			#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	else:#AOE
 	if damage == null: 
 		if damagerType == null: 
-			Global.damage_Calu(area,Global.damCaluType.EFF,null,null,null,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
+			Global.damage_Calu(area,Global.damCaluType.EFF,null,null,null,noDamageEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
 	else:
-		Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
+		Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,noDamageEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
 	if ifAoeHold == false: 
 		if damagerType != null&&damagerType[0] == "skill":
 
@@ -63,6 +61,9 @@ func _on_area_entered(area):
 	pass
 	
 func _on_hold_timer_timeout():
+	var nolyDamageEffect:Array
+	for i in Global.Effect.size(): nolyDamageEffect[i] = 0
+	nolyDamageEffect[Global.Effect.DAMAGE] = giveEffect[Global.Effect.DAMAGE]#防止平时持续效果里给伤害时给属性效果续时间
 	Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false,null,null,["skill"],giveEffect,effValue,effTime,effTimes)
 	pass
 

@@ -26,7 +26,7 @@ var effDefence
 var effBasic = [0,0,0,0]
 func normalAttackCalu(damager):
 	attDefence = damager.attDefence
-	for i in Global.AttackTypeLength:
+	for i in Global.AttackType.size():
 		if attackType[i] == true&&attDefence[i] == false: 
 			if damager.health>0&&damager.shield <=0: 
 				damager.health -= damage 
@@ -44,7 +44,7 @@ func effectAttackCalu(damager):
 	effBasic[1] = damager.speedBasic
 	effBasic[2] = damager.attRangeBasic
 	effBasic[3] = damager.aniSpeedBasic
-	for i in Global.EffectLength:
+	for i in Global.Effect.size():
 		if (giveEffect[i] == Global.EFFBAD&&effDefence[i] == false)||(giveEffect[i] == Global.EFFGOOD): 
 			if damager.health>0:
 				match i:
