@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://detljadg4j24r"]
+
+[ext_resource type="PackedScene" uid="uid://3bh0vmtlyfuy" path="res://sence/fight/object.tscn" id="1_6kuqs"]
+[ext_resource type="Script" path="res://script/fight/object/tower.gd" id="2_3fwhs"]
+
+[node name="object" instance=ExtResource("1_6kuqs")]
+input_pickable = false
+script = ExtResource("2_3fwhs")

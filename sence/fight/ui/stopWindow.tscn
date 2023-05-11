@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://bkq2jinug2gf7"]
+
+[ext_resource type="Script" path="res://script/fight/ui/stopWindow.gd" id="1_vqqbi"]
+[ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/UI/button/spr_broad.png" id="2_6gjts"]
+[ext_resource type="ButtonGroup" uid="uid://ec2gd7jjvlsa" path="res://rescourse/gameBoardButtonGroup.tres" id="3_5o1dm"]
+[ext_resource type="Texture2D" uid="uid://cff6qvysicflb" path="res://assets/UI/button/smallButtonNormal.png" id="4_p7i5a"]
+[ext_resource type="Texture2D" uid="uid://5800a47dpa4q" path="res://assets/UI/button/smallButtonPress.png" id="5_ygps8"]
+[ext_resource type="LabelSettings" uid="uid://bapxcv21f0nsf" path="res://rescourse/blackFont.tres" id="6_xqf7u"]
+
+[node name="StopWindow" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_vqqbi")
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -124.0
+offset_top = -83.0
+offset_right = -124.0
+offset_bottom = -83.0
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_right = 248.0
+offset_bottom = 166.0
+texture = ExtResource("2_6gjts")
+
+[node name="Title" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 8.0
+offset_right = 140.0
+offset_bottom = 31.0
+label_settings = ExtResource("6_xqf7u")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 130.0
+offset_right = 240.0
+offset_bottom = 150.0
+theme_override_constants/separation = 20
+
+[node name="Button1" type="TextureButton" parent="Control/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("3_5o1dm")
+texture_normal = ExtResource("4_p7i5a")
+texture_pressed = ExtResource("5_ygps8")
+texture_hover = ExtResource("5_ygps8")
+
+[node name="Button1Text" type="Label" parent="Control/HBoxContainer/Button1"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "again"
+label_settings = ExtResource("6_xqf7u")
+
+[node name="Button2" type="TextureButton" parent="Control/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("3_5o1dm")
+texture_normal = ExtResource("4_p7i5a")
+texture_pressed = ExtResource("5_ygps8")
+texture_hover = ExtResource("5_ygps8")
+
+[node name="Button2Text" type="Label" parent="Control/HBoxContainer/Button2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+label_settings = ExtResource("6_xqf7u")
+
+[node name="Button3" type="TextureButton" parent="Control/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = ExtResource("3_5o1dm")
+texture_normal = ExtResource("4_p7i5a")
+texture_pressed = ExtResource("5_ygps8")
+texture_hover = ExtResource("5_ygps8")
+
+[node name="Button3Text" type="Label" parent="Control/HBoxContainer/Button3"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "back"
+label_settings = ExtResource("6_xqf7u")
+
+[connection signal="pressed" from="Control/HBoxContainer/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Control/HBoxContainer/Button3" to="." method="_on_button_3_pressed"]

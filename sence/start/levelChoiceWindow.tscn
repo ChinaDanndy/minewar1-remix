@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://byp0sfn4apxll"]
+
+[ext_resource type="Texture2D" uid="uid://bemoh5pjkswqf" path="res://assets/backgrounds/levelBackground.png" id="1_ru38w"]
+[ext_resource type="PackedScene" uid="uid://cluf3870eyfa3" path="res://sence/start/levelButton.tscn" id="2_uk15b"]
+[ext_resource type="Texture2D" uid="uid://rpyqwom4dpsa" path="res://assets/UI/button/cancel_normal.png" id="3_w51yo"]
+[ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="4_pk3dp"]
+[ext_resource type="Script" path="res://script/start/cancelButton.gd" id="5_nhy6r"]
+
+[node name="levelChoiceWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="LevelChoiceWindowLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="LevelChoiceWindowLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.262745)
+
+[node name="MainMove" type="Control" parent="LevelChoiceWindowLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 200.0
+offset_top = 20.0
+offset_right = 200.0
+offset_bottom = 20.0
+
+[node name="SecondMove" type="Control" parent="LevelChoiceWindowLayer/MainMove"]
+anchors_preset = 0
+offset_top = 20.0
+offset_bottom = 20.0
+
+[node name="LevelBackground" type="TextureRect" parent="LevelChoiceWindowLayer/MainMove/SecondMove"]
+layout_mode = 2
+offset_right = 384.0
+offset_bottom = 384.0
+texture = ExtResource("1_ru38w")
+
+[node name="LevelContainer" type="VBoxContainer" parent="LevelChoiceWindowLayer/MainMove/SecondMove"]
+layout_mode = 2
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 364.0
+offset_bottom = 352.0
+theme_override_constants/separation = 24
+
+[node name="HBoxContainer1" type="HBoxContainer" parent="LevelChoiceWindowLayer/MainMove/SecondMove/LevelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Level1" parent="LevelChoiceWindowLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1" instance=ExtResource("2_uk15b")]
+layout_mode = 2
+
+[node name="Level2" parent="LevelChoiceWindowLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1" instance=ExtResource("2_uk15b")]
+layout_mode = 2
+level = 2
+
+[node name="Level3" parent="LevelChoiceWindowLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1" instance=ExtResource("2_uk15b")]
+layout_mode = 2
+level = 3
+
+[node name="Level4" parent="LevelChoiceWindowLayer/MainMove/SecondMove/LevelContainer/HBoxContainer1" instance=ExtResource("2_uk15b")]
+layout_mode = 2
+level = 4
+
+[node name="CancelButton" type="TextureButton" parent="LevelChoiceWindowLayer/MainMove"]
+layout_mode = 2
+offset_left = 400.0
+offset_right = 420.0
+offset_bottom = 20.0
+texture_normal = ExtResource("3_w51yo")
+texture_pressed = ExtResource("4_pk3dp")
+texture_hover = ExtResource("4_pk3dp")
+script = ExtResource("5_nhy6r")
+
+[connection signal="pressed" from="LevelChoiceWindowLayer/MainMove/CancelButton" to="LevelChoiceWindowLayer/MainMove/CancelButton" method="_on_pressed"]

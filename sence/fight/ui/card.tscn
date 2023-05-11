@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnnifqydayh65"]
+
+[ext_resource type="PackedScene" uid="uid://cqu0trx4tn07j" path="res://sence/fight/ui/cardButton.tscn" id="1_v5vvb"]
+
+[node name="card" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 8
+
+[node name="CardButton1" parent="HBoxContainer" instance=ExtResource("1_v5vvb")]
+layout_mode = 2
+
+[node name="CardButton2" parent="HBoxContainer" instance=ExtResource("1_v5vvb")]
+layout_mode = 2
+
+[node name="CardButton3" parent="HBoxContainer" instance=ExtResource("1_v5vvb")]
+layout_mode = 2
+
+[node name="CardButton4" parent="HBoxContainer" instance=ExtResource("1_v5vvb")]
+layout_mode = 2
+
+[node name="CardButton5" parent="HBoxContainer" instance=ExtResource("1_v5vvb")]
+layout_mode = 2
+
+[node name="CardButton6" parent="HBoxContainer" instance=ExtResource("1_v5vvb")]
+layout_mode = 2
+
+[node name="CardButton7" parent="HBoxContainer" instance=ExtResource("1_v5vvb")]
+layout_mode = 2

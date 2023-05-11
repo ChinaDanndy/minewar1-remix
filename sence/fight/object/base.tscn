@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://sw52nar1no4d"]
+
+[ext_resource type="Script" path="res://script/fight/object/base.gd" id="1_cefax"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(20, 44)
+
+[node name="object" type="Sprite2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -5.0
+offset_top = -32.0
+offset_right = 31.0
+offset_bottom = -18.0
+
+[node name="collBox" type="Area2D" parent="."]
+collision_mask = 0
+script = ExtResource("1_cefax")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collBox"]
+shape = SubResource("1")

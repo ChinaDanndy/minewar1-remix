@@ -9,21 +9,29 @@ const STSDataName = {"price":STSType.INT,"kind":STSType.INT,
 "effValue":null,"effTime":null,"effTimes":null,"effDefence":null,"attackEffect":null,"usuallyEffect":null,
 "deathEffect":null,"ifFirstEffect":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"attDefOrigin":null,"shield":STSType.INT,
 "attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
-var Contrl
+var ThunderSpeed
 const Money = 10 
 var NowMoney = 0
+var CardBuy = null
+var Contrl = null
+
 var LevelData
 var Level = 1
 enum  LevelType {ATTACK,ATTDEF,DEFENCE}
 var LevelOver = false
-var ThunderSpeed
-var ThunderRange
 
-const MoneyTime = 1.5
 const DropSpeed = 20 
 const NormalAOERangeY = 20
 const SkillAOERangeY = 300
 
+const VILLAGE = 1
+const MONSTER = -1
+const MIDDLE = 0
+#MONSTER,ALL,VILLAGE
+const LAyer = [[2,8,32],[1+2+16+32],[1,4,16]]
+#碰撞层：敌方普通，敌方海,敌方基地,敌友全部除海,全部，我方普通，我方海，我方基地
+const MAsk = [[1+16,1+4+16,16],[1+2+16+32],[2+32,2+8+32,32]]
+const deathLayer = 32
 #近 靠近效果 单陆地远 仅地面地远 地空地远 空地分开空 空地同时空
 enum CollKind {NARE,NARESPE,LAND,LANDSKY,SKY,SKYLAND}
 const Coll2IfUse = [false,true,false,true,true,true]
@@ -41,35 +49,25 @@ const EFFGOOD = 1
 const OFFEFFECT = 0
 const EFFBAD = -1
 
-
-#enum Projectile {ARROW1,BOMB1,SNOWBALL}
-#enum ProType {NORMAL,PIERCE,FINAL}
-#const ProTypeValue = [ProType.NORMAL,ProType.FINAL]
-#const ProName = ["arrow","snowball"]
 const ProPos = {"arrow":Vector2(0,1.5),"snowball":Vector2(0,2)}
 const ProDire = {"arrow":Vector2(1,0),"snowball":Vector2(1,0)}
 const ProSpeed = {"arrow":4,"snowball":3}
 const ProPicture = {"arrow":1,"snowball":1}
 const ProAniTime = {"arrow":0,"snowball":0}
 
-
 const ProGrivaty = 0.8
 const ProHigh = 50
 var ProThrowTime = round(sqrt((2*ProHigh)/ProGrivaty))
 
-
-
-
-
 var LevelChoiceButton
 var LevelChoiceWindow
-var StopON = false
 
-var FightSence
-var SummonEnemy
 var StopButton
 var StopWindowLayer
 var StopWindow
+var StopON = false
+
+var FightSence
 var FightGroundY
 var VillagePoint
 var MonsterPoint
@@ -78,19 +76,13 @@ var MonsterBase
 var towerArea
 var skillArea
 
-var CardBuy
-
 @onready var root = get_tree().get_root()
-var Projectile = preload("res://sence/projectiles.tscn")
-var VillageSoldier = preload("res://sence/villageSoldier.tscn")
-var Tower = preload("res://sence/tower.tscn")
-var MonsterSoldier = preload("res://sence/monsterSoldier.tscn")
-var Skill = preload("res://sence/skill.tscn")
-var calu = preload("res://script/attack_calu.gd")
-var aoe = preload("res://sence/AOE.tscn")
 var OutLine = preload("res://rescourse/outLine.tres")
-var ChoiceArea = preload("res://sence/choiceArea.tscn")
-
+var VillageSoldier = preload("res://sence/fight/object/soldier/villageSoldier.tscn")
+var MonsterSoldier = preload("res://sence/fight/object/soldier/monsterSoldier.tscn")
+var Tower = preload("res://sence/fight/object/tower.tscn")
+var Skill = preload("res://sence/fight/object/skill.tscn")
+var calu = preload("res://script/fight/calu/attackCalu.gd")
 enum damCaluType {ATTEFF,EFF}
 const TRANSFER = null
 enum IfAoeType {IN,OUT,NONE}
@@ -114,6 +106,7 @@ func damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,
 	else: newCalu.free()
 	pass
 	
+var aoe = preload("res://sence/fight/calu/aoe.tscn")
 const CREATE = 0
 enum AoeSet {ATTACK,NORMAL,DEATH}
 func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):
@@ -139,13 +132,6 @@ func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold,attackType,damage,damag
 	pass
 
 	
-const VILLAGE = 1
-const MONSTER = -1
-const MIDDLE = 0
-#MONSTER,ALL,VILLAGE
-const LAyer = [[2,8,32],[1+2+16+32],[1,4,16]]
-#碰撞层：敌方普通，敌方海,敌方基地,敌友全部除海,全部，我方普通，我方海，我方基地
-const MAsk = [[1+16,1+4+16,16],[1+2+16+32],[2+32,2+8+32,32]]
-const deathLayer = 32
+
 
 

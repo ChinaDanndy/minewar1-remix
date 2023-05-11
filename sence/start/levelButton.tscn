@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cluf3870eyfa3"]
+
+[ext_resource type="Texture2D" uid="uid://pm0miyqpmw3t" path="res://assets/UI/button/level1.png" id="1_r58b2"]
+[ext_resource type="Script" path="res://script/start/levelButton.gd" id="2_2ip6f"]
+
+[node name="Level1" type="TextureButton"]
+texture_normal = ExtResource("1_r58b2")
+script = ExtResource("2_2ip6f")
+level = 1
+
+[node name="text" type="Label" parent="."]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 40.0
+offset_right = 48.0
+offset_bottom = 63.0
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]
