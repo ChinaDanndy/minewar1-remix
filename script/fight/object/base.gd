@@ -1,7 +1,6 @@
 extends Area2D
 var camp
 var type = Global.Type.BASE
-var Name
 var health
 var healthUp
 var collBox:Vector2

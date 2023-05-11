@@ -25,7 +25,6 @@ func contrl():#玩家的单位控制
 
 func _on_input_event(_viewport, event, _shape_idx):
 	if event.is_action_pressed("ui_mouse_left"):
-		print("aaa")
 		Global.Contrl = soldierName[0]
 		$AnimatedSprite2D.material = Global.OutLine
 	pass 

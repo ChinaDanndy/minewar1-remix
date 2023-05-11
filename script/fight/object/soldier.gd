@@ -9,11 +9,6 @@ func firstSetting(soldier):
 	super.firstSetting(soldier)
 	collision_layer = Global.LAyer[camp+1][kind]
 	pass
-	
-func SetAnimationAndCollBox(soldier):
-
-	super.SetAnimationAndCollBox(soldier)
-	pass
 
 func _physics_process(_delta):
 	#移动控制
@@ -23,7 +18,6 @@ func _physics_process(_delta):
 	if shield <= 0&&attDefShield != null&&attDefence!=attDefOrigin:#盾坏免疫丢失
 		attDefence = attDefOrigin
 		reSet(soldierName[1])
-
 	if health <= 0&&currentState != State.DEATH: #死亡判定
 		#死亡特效
 		changeState("death",State.DEATH)

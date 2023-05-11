@@ -20,4 +20,4 @@ monitorable = false
 [node name="thunderBox" type="CollisionShape2D" parent="thunderArea" index="0"]
 shape = SubResource("RectangleShape2D_d8lve")
 
-[connection signal="body_entered" from="thunderArea" to="." method="_on_thunder_area_body_entered"]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -10,7 +10,6 @@ func firstSetting(soldier):
 	currentAni = "stop"
 	standardState = currentState
 	standardAni = currentAni
-	
 	super.SetAnimationAndCollBox(soldier)
 	super.firstSetting(soldier)
 	collision_layer = Global.LAyer[camp+1][2]

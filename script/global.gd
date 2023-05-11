@@ -4,7 +4,7 @@ var STSData:Dictionary
 enum STSType {INT,ARRAY}
 const STSDataName = {"price":STSType.INT,"kind":STSType.INT,
 "collKind":STSType.INT,"health":STSType.INT,"type":STSType.INT,"towKeepTime":STSType.INT,"soldierName":null,
-"animation":null,"seaAniNumber":STSType.INT,"aniTimeBasic":null,"speedBasic":null,"ifOnlyAttBase":null,
+"animation":null,"seaAniNumber":STSType.INT,"aniSpeedBasic":null,"speedBasic":null,"ifOnlyAttBase":null,
 "attackType":null,"damageMethod":STSType.INT,"damagerType":STSType.ARRAY,"damageBasic":null,"projectile":null,
 "proMode":STSType.INT,"attRangeBasic":STSType.INT,"proSleepTime":STSType.INT,"proContinueTimes":STSType.INT,"aoeModel":null,"aoeRange":null,"ifAoeHold":null,
 "effValue":null,"effTime":null,"effTimes":null,"effDefence":null,"attackEffect":null,"usuallyEffect":null,
@@ -104,7 +104,8 @@ func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold,attackType,damage,damag
 	if type != TRANSFER:
 		root.add_child(newAoe)
 		newAoe.firstsetting()
-		newAoe.position = damager.position
+		newAoe.position.x = damager.position.x
+		newAoe.position.y = FightGroundY
 	else: newAoe.free()
 	return newAoe
 	pass

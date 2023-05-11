@@ -32,5 +32,4 @@ grow_vertical = 2
 color = Color(0.309804, 0.929412, 0.2, 0.392157)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="timeout" from="holdTimer" to="." method="_on_hold_timer_timeout"]

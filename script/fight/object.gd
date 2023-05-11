@@ -203,13 +203,12 @@ func changeAnimation(AniName,StaName):
 		State.BACK: speedDirection = Vector2.LEFT
 	currentAni = AniName
 	currentState = StaName#记录当前切换状态
-	$AnimatedSprite2D.play(AniName,aniTimeBasic) #if nowEffect[Global.Effect.FREEZE] == 1: 
+	$AnimatedSprite2D.play(AniName) #if nowEffect[Global.Effect.FREEZE] == 1: 
 	if StaName == State.OUTSEA: $AnimatedSprite2D.play_backwards(AniName)
 	pass
 
 func _on_animated_sprite_2d_animation_looped():
 	if currentAni == "sea": changeState(seaAni,seaState)
-
 	match currentState:
 		State.ATTACK: 
 			if is_instance_valid(other): 

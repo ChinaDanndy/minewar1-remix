@@ -77,10 +77,6 @@ func _process(_delta):
 	if (currentPos - startPos) >= proRange.x: queue_free()#超过射程直接自己销毁
 	pass
 
-func _on_body_entered(body):
-
-	pass
-
 func _on_area_entered(area):
 	if aoeRange == 0:#单体
 		Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)

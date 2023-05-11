@@ -16,13 +16,13 @@ func firstSetting(soldier):
 	if camp == Global.MONSTER: unPeopleFly = false
 	if soldier == "thunder": 
 		$Sprite2D.modulate.a = 0
-		$CollisionShape2D.collision_mask = 2
+		collision_mask = 2
 		var newBox = RectangleShape2D.new()
 		newBox.size.x = aoeRange
 		newBox.size.y = 20
-		$thunderArea/thunderBox.shape = newBox
-		$thunderArea.position.x = position.x
-		$thunderArea.position.y = 0
+		$CollisionShape2D.shape = newBox
+		$CollisionShape2D.position.x = position.x
+		$CollisionShape2D.position.y = 0
 		pass
 	pass
 	
@@ -38,17 +38,16 @@ func _physics_process(_delta):
 	if soldierName[0] == "thunder": 
 		if thunderAphla == 0: $Sprite2D.modulate.a += Global.ThunderSpeed
 		if $Sprite2D.modulate.a >= 1&&thunderAphla == 0:
-			$thunderArea.position.y = collBox.y/2-10
-			await get_tree().create_timer(0.05,false).timeout  
-			Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false,null,null,["thunder"],attackEffect,effValue,effTime,effTimes)
 			thunderAphla += 1
+			Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false,null,null,["thunder"],attackEffect,effValue,effTime,effTimes)
+			$CollisionShape2D.position.y = collBox.y/2-10
+			await get_tree().create_timer(0.05,false).timeout  
 		if thunderAphla > 0:
-			$thunderArea.position.y = 0
+			$CollisionShape2D.position.y = 0
 			$Sprite2D.modulate.a -= Global.ThunderSpeed
 			if $Sprite2D.modulate.a <= 0: queue_free()
 	pass
 
-
-func _on_thunder_area_body_entered(body):
-	if body.soldierName[0] == "creeper": body.reSet(body.soldierName[1])
-	pass 
+func _on_area_entered(area):
+	if area.soldierName[0] == "creeper": area.reSet(area.soldierName[1])
+	pass # Replace with function body.

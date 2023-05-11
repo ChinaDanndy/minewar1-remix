@@ -15,7 +15,6 @@ func firstSetting(soldier):
 func _physics_process(_delta):
 	#if effTimerId[1] != null: print(effTimerId[1].time_left)
 	if Input.is_action_just_pressed("ui_test"): 
-		print("aaaa")
 		$AnimatedSprite2D.pause()
 		pass
 	super._physics_process(_delta)

@@ -107,7 +107,7 @@ metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="ground" type="Marker2D" parent="."]
-position = Vector2(0, 318)
+position = Vector2(0, 314)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
