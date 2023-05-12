@@ -1,6 +1,8 @@
 extends "res://script/fight/object/soldier.gd"
 
 func firstSetting(soldier):
+	position = Global.VillagePoint
+	if soldier == "skyer": position.y = Global.FightSkyY
 	camp = Global.VILLAGE
 	super.firstSetting(soldier)
 	pass
@@ -9,6 +11,7 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
 		queue_free()
 		pass
+	position.x = clamp(position.x,Global.VillagePoint.x-16,Global.MonsterPoint.x+16)#限制移动范围
 	super._physics_process(_delta)
 	if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&currentAni != "sea": 
 		#if (collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 

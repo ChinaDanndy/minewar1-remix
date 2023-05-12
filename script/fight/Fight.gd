@@ -135,8 +135,9 @@ func _on_tree_entered():
 	Global.StopWindow = $StopWindowLayer/StopWindow
 	Global.FightSence = self
 	Global.FightGroundY = $ground.position.y
-	Global.VillagePoint = $VillagePoint
-	Global.MonsterPoint = $MonsterPoint#740
+	Global.FightSkyY = $sky.position.y
+	Global.VillagePoint = $VillagePoint.position
+	Global.MonsterPoint = $MonsterPoint.position#740
 	
 	Global.VillageBase = $baseVillage/collBox
 	Global.MonsterBase = $baseMonster/collBox

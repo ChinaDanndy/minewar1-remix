@@ -25,7 +25,7 @@ func _on_pressed():
 			var friend = Global.VillageSoldier.instantiate()
 			Global.root.add_child(friend)
 			friend.firstSetting(soldier)
-			friend.position = Global.VillagePoint.position#100
+
 			
 		if Global.STSData[soldier]["type"] == Global.Type.TOWER||Global.STSData[soldier]["type"] == Global.Type.SKILL:
 			match self.button_mask:
@@ -51,7 +51,7 @@ func _on_pressed():
 							Area.area = Global.skillArea
 							Area.which = Global.Skill
 					#防止塔堆叠放置
-					Area.position = Global.VillagePoint.position
+					Area.position = Global.VillagePoint
 					Area.soldier = soldier
 					Area.card = self
 					areaId = Area#传递创建的选择区域id

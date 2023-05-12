@@ -5,8 +5,8 @@ enum STSType {INT,ARRAY}
 const STSDataName = {"price":STSType.INT,"kind":STSType.INT,
 "collKind":STSType.INT,"health":STSType.INT,"type":STSType.INT,"towKeepTime":STSType.INT,"soldierName":null,
 "animation":null,"seaAniNumber":STSType.INT,"aniSpeedBasic":null,"speedBasic":null,"ifOnlyAttBase":null,
-"attackType":null,"damageMethod":STSType.INT,"damagerType":STSType.ARRAY,"damageBasic":null,"projectile":null,
-"proMode":STSType.INT,"attRangeBasic":STSType.INT,"proSleepTime":STSType.INT,"proContinueTimes":STSType.INT,"aoeModel":null,"aoeRange":null,"ifAoeHold":null,
+"attackType":null,"damageMethod":null,"damagerType":STSType.ARRAY,"damageBasic":null,"projectile":null,
+"proSpeed":null,"ifPriece":null,"attRangeBasic":null,"proSleepTime":STSType.INT,"proContinueTimes":STSType.INT,"aoeModel":null,"aoeRange":null,"ifAoeHold":null,
 "effValue":null,"effTime":null,"effTimes":null,"effDefence":null,"attackEffect":null,"usuallyEffect":null,
 "deathEffect":null,"ifFirstEffect":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"attDefOrigin":null,"shield":STSType.INT,
 "attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
@@ -42,7 +42,8 @@ enum DamageMethod {NEARSINGLE,NEARAOE,FAR}
 enum AttackType {NEAR,FAR,EXPLODE}
 var AttackTypeLength = AttackType.size()
 
-enum Effect {ATTDAMAGE,SPEED,FREEZE,ATTRANGE,DAMAGE,HOLDDAMAGE,KNOCK}
+const AddDamage = 1.5
+enum Effect {ATTDAMAGE,ATTRANGE,FREEZE,SPEED,DAMAGE,HOLDDAMAGE,KNOCK}
 enum DamValue {DAMAGE,HOLDDAMAGE,KNOCK}
 const EffValue = [0.5,0.5,0,0.5]
 var EffectLength = Effect.size()
@@ -50,11 +51,12 @@ const EFFGOOD = 1
 const OFFEFFECT = 0
 const EFFBAD = -1
 
-const ProPos = {"arrow":Vector2(0,1.5),"snowball":Vector2(0,2)}
-const ProDire = {"arrow":Vector2(1,0),"snowball":Vector2(1,0)}
-const ProSpeed = {"arrow":4,"snowball":3}
-const ProPicture = {"arrow":1,"snowball":1}
-const ProAniTime = {"arrow":0,"snowball":0}
+const ProPos = {"arrow":Vector2(0,1.5),"arrowUp":Vector2(0,1.5),"snowball":Vector2(0,2)}
+const ProDire = {"arrow":Vector2(1,0),"arrowUp":Vector2(1,-1),"snowball":Vector2(1,0)}
+const ProPicture = {"arrow":1,"arrowUp":1,"snowball":1}
+const ProAniTime = {"arrow":0,"arrowUp":0,"snowball":0}
+#const ProSpeed = {"arrow":4,"snowball":3}
+
 
 #const ProGrivaty = 0.8
 #const ProHigh = 50
@@ -120,6 +122,7 @@ var StopON = false
 
 var FightSence
 var FightGroundY
+var FightSkyY
 var VillagePoint
 var MonsterPoint
 var VillageBase

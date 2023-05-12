@@ -4,11 +4,13 @@ var stopTime
 var stop = false
 
 func firstSetting(soldier):
+	position = Global.MonsterPoint
 	if soldier == "creeper": add_to_group("creeper")#获得苦力怕id
-	
 	camp = Global.MONSTER
 	super.firstSetting(soldier)
 	if stopTime == 0: Global.SummonEnemy.stopOver.connect(onStopOver)
+	if soldier == "skeleton": 
+		$Collision2.position.y = -(position.y-Global.FightSkyY)
 	pass
 	
 

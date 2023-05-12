@@ -21,6 +21,7 @@ target_position = Vector2(30, 0)
 collide_with_areas = true
 
 [node name="Collision2" type="RayCast2D" parent="."]
+position = Vector2(0, 20)
 target_position = Vector2(30, 0)
 
 [node name="Label" type="Label" parent="."]

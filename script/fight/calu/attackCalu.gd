@@ -23,14 +23,14 @@ var effTime
 var effTimes
 
 var effDefence
-var effBasic = [0,0,0,0]
+var effBasic = [0,0,0,0,0]
 func normalAttackCalu(damager):
 	attDefence = damager.attDefence
 	for i in Global.AttackType.size():
 		if attackType[i] == true&&attDefence[i] == false: 
 			if damager.health>0&&damager.shield <=0: 
 				damager.health -= damage 
-				if damagerType.find(damager.type) != -1: damager.health -= damage*1.5
+				if damagerType.find(damager.type) != -1: damager.health -= damage*Global.AddDamage
 					#特定目标伤害加成
 			if damager.shield >0:#护盾被破坏时伤害溢出
 				damager.shield -= damage
@@ -40,19 +40,16 @@ func normalAttackCalu(damager):
 
 func effectAttackCalu(damager):	
 	effDefence = damager.effDefence
-	effBasic[0] = damager.damageBasic
-	effBasic[1] = damager.speedBasic
-	effBasic[2] = damager.attRangeBasic
-	effBasic[3] = damager.aniSpeedBasic
 	for i in Global.Effect.size():
 		if (giveEffect[i] == Global.EFFBAD&&effDefence[i] == false)||(giveEffect[i] == Global.EFFGOOD): 
 			if damager.health>0:
 				match i:
 					Global.Effect.ATTDAMAGE,Global.Effect.SPEED,Global.Effect.FREEZE,Global.Effect.ATTRANGE:
 						var this = i
-						if giveEffect[i] == Global.EFFGOOD: this = i+4
-						damager.nowEffect[this] = effBasic[i]*giveEffect[i]*Global.EffValue[i]
-						if i==Global.Effect.SPEED: damager.nowEffect[this+2] = effBasic[3]*giveEffect[i]*Global.EffValue[i]
+						if giveEffect[i] == Global.EFFGOOD: this = i+Global.Effect.DAMAGE
+						damager.nowEffect[this] = Global.EffValue[i]
+						if i==Global.Effect.SPEED: damager.nowEffect[this+1] = Global.EffValue[i]
+						
 						if damager.effTimerId[this] == null:
 							damager.effectTimer(i,effTime[i],giveEffect[i])
 						else:	if effTime[i]>damager.effTimerId[this].time_left: damager.effTimerId[this].start(effTime[i])
@@ -61,7 +58,6 @@ func effectAttackCalu(damager):
 					Global.Effect.HOLDDAMAGE: 
 						damager.holdDamageTimer(effTime[i],effTimes[Global.DamValue.HOLDDAMAGE],effValue[Global.DamValue.HOLDDAMAGE]*giveEffect[i])
 					Global.Effect.DAMAGE:
-						print("aaaaa")
 						if (damager.health+effValue[Global.DamValue.DAMAGE]*giveEffect[i])<=damager.healthUp: 
 							damager.health += effValue[Global.DamValue.DAMAGE]*giveEffect[i]
 						else: damager.health = damager.healthUp

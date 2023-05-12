@@ -32,7 +32,6 @@ func summonEnemy(group):
 		if Global.LevelData[Global.Level][object][group]["stopPos"] != null:
 			enemy.stopPos = Global.LevelData[Global.Level][object][group]["stopPos"]
 			enemy.stopTime = Global.LevelData[Global.Level][object][group]["stopTime"]
-		enemy.position = Global.MonsterPoint.position#400
 		enemy.firstSetting(Global.LevelData[Global.Level][object][group]["soldier"][j])
 		
 		if soldierCount>1: 

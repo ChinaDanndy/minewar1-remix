@@ -5,9 +5,12 @@ var startPos = position.x
 var currentPos
 var frame
 
-var father
-var projectile
-var proRange
+var father 
+var projectile = "arrow"
+var proRange = Vector2(0,0)
+var proSpeed = 0
+var ifPriece = false
+
 
 var aoeModel
 var aoeRange
@@ -20,18 +23,16 @@ var giveEffect
 var effValue
 var effTime
 var effTimes
-var ifAoe
 
-var Hdisplacement = 0
-var Vdisplacement = 0
-var target
-var G = 0.5
-var D = Vector2(1,-1)
-var S = 2
-var velocity = D*S
-
-var time = 0
-var timeAddValue = 0.1
+#var Hdisplacement = 0
+#var Vdisplacement = 0
+#var target
+#var G = 0.5
+#var D = Vector2(1,-1)
+#var S = 2
+#var velocity = D*S
+#var time = 0
+#var timeAddValue = 0.1
 func _ready():
 	startPos = position.x
 	father = get_parent()
@@ -72,7 +73,7 @@ func _process(_delta):
 				#pass
 				#Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,projectile,null,null,ifAoeHold,aoeModel,aoeRange,null,attacks,null,damagerType,giveEffect,giveEffGoodOrBad)
 		#queue_free()
-	position += Vector2(camp,0)*Global.ProSpeed[projectile]*Global.ProDire[projectile]
+	position += Vector2(camp,1)*Global.ProDire[projectile]*proSpeed
 	currentPos = position.x
 	if (currentPos - startPos) >= proRange.x: queue_free()#超过射程直接自己销毁
 	pass
@@ -84,7 +85,7 @@ func _on_area_entered(area):
 	else:#AOE
 		Global.aoe_create(area,Global.CREATE,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes)
 	#if Global.ProTypeValue[projectile] != Global.ProType.PIERCE: 
-	queue_free()
+	if ifPriece == false: queue_free()
 	pass 
 
 func _on_animation_timer_timeout():

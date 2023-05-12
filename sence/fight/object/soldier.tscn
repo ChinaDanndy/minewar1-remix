@@ -5,3 +5,6 @@
 
 [node name="object" instance=ExtResource("1_p63ko")]
 script = ExtResource("2_sxvfl")
+
+[node name="Collision2" parent="." index="3"]
+collide_with_areas = true
