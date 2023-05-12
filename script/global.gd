@@ -3,9 +3,9 @@ extends Node
 var STSData:Dictionary
 enum STSType {INT,ARRAY}
 const STSDataName = {"price":STSType.INT,"kind":STSType.INT,
-"collKind":STSType.INT,"health":STSType.INT,"type":STSType.INT,"towKeepTime":STSType.INT,"soldierName":null,
-"animation":null,"seaAniNumber":STSType.INT,"aniSpeedBasic":null,"speedBasic":null,"ifOnlyAttBase":null,
-"attackType":null,"damageMethod":null,"damagerType":STSType.ARRAY,"damageBasic":null,"projectile":null,
+"coll2Pos":null,"health":STSType.INT,"type":STSType.INT,"towKeepTime":STSType.INT,"soldierName":null,
+"animation":null,"aniSpeedBasic":null,"speedBasic":null,"ifOnlyAttBase":null,
+"attackType":null,"damageMethod":null,"damagerType":null,"damageBasic":null,"projectile":null,
 "proSpeed":null,"ifPriece":null,"attRangeBasic":null,"proSleepTime":STSType.INT,"proContinueTimes":STSType.INT,"aoeModel":null,"aoeRange":null,"ifAoeHold":null,
 "effValue":null,"effTime":null,"effTimes":null,"effDefence":null,"attackEffect":null,"usuallyEffect":null,
 "deathEffect":null,"ifFirstEffect":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"attDefOrigin":null,"shield":STSType.INT,
@@ -32,29 +32,29 @@ const MIDDLE = 0
 const LAyer = [[2,8,32],[1+2+16+32],[1,4,16]]
 #碰撞层：敌方普通，敌方海,敌方基地,敌友全部除海,全部，我方普通，我方海，我方基地
 const MAsk = [[1+16,1+4+16,16],[1+2+16+32],[2+32,2+8+32,32]]
-const deathLayer = 32
+#const deathLayer = 32
 #近 靠近效果 单陆地远 仅地面地远 地空地远 空地分开空 空地同时空
 enum CollKind {NARE,NARESPE,LAND,LANDSKY,SKY,SKYLAND}
 const Coll2IfUse = [false,true,false,true,true,true]
 enum Type {SOLDIER,TOWER,SKILL,PROJECTILE,BASE}
-enum Kind {LAND,SEA,SKY}
+
 enum DamageMethod {NEARSINGLE,NEARAOE,FAR}
 enum AttackType {NEAR,FAR,EXPLODE}
-var AttackTypeLength = AttackType.size()
 
 const AddDamage = 1.5
 enum Effect {ATTDAMAGE,ATTRANGE,FREEZE,SPEED,DAMAGE,HOLDDAMAGE,KNOCK}
 enum DamValue {DAMAGE,HOLDDAMAGE,KNOCK}
 const EffValue = [0.5,0.5,0,0.5]
-var EffectLength = Effect.size()
 const EFFGOOD = 1
 const OFFEFFECT = 0
 const EFFBAD = -1
 
-const ProPos = {"arrow":Vector2(0,1.5),"arrowUp":Vector2(0,1.5),"snowball":Vector2(0,2)}
-const ProDire = {"arrow":Vector2(1,0),"arrowUp":Vector2(1,-1),"snowball":Vector2(1,0)}
-const ProPicture = {"arrow":1,"arrowUp":1,"snowball":1}
-const ProAniTime = {"arrow":0,"arrowUp":0,"snowball":0}
+const ProPos = {"arrow":Vector2(0,1.5),"arrowUp":Vector2(0,1.5),"tnt":Vector2(0,4),"fireBall":Vector2(0,0),"fireBallDown":Vector2(0,0)}
+const ProDire = {"arrow":Vector2(1,0),"arrowUp":Vector2(1,-1),"tnt":Vector2(0,1),"fireBall":Vector2(1,0),"fireBallDown":Vector2(1,1)}
+const ProPicture = {"arrow":1,"arrowUp":1,"tnt":1,"fireBall":1,"fireBallDown":1}
+const ProAniTime = {"arrow":0,"arrowUp":0,"tnt":0,"fireBall":0,"fireBallDown":0}
+
+
 #const ProSpeed = {"arrow":4,"snowball":3}
 
 
@@ -104,10 +104,10 @@ func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold,attackType,damage,damag
 	target.effTime = effTime
 	target.effTimes = effTimes
 	if type != TRANSFER:
-		root.add_child(newAoe)
+		root.call_deferred("add_child",newAoe)
+		newAoe.position = damager.position
 		newAoe.firstsetting()
-		newAoe.position.x = damager.position.x
-		newAoe.position.y = FightGroundY
+		#newAoe.position.y = FightGroundY
 	else: newAoe.free()
 	return newAoe
 	pass

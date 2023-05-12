@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhfcespxl2sn3"
-path="res://.godot/imported/snowball.png-a2b98a96f141327f5bf5b15dafe3ecea.ctex"
+uid="uid://cfymwtktq15t7"
+path="res://.godot/imported/attack4.png-552c05769d8721e7c593de2e44a08add.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/projectiles/snowball.png"
-dest_files=["res://.godot/imported/snowball.png-a2b98a96f141327f5bf5b15dafe3ecea.ctex"]
+source_file="res://assets/objects/soldier/zombieShield2/attack/attack4.png"
+dest_files=["res://.godot/imported/attack4.png-552c05769d8721e7c593de2e44a08add.ctex"]
 
 [params]
 

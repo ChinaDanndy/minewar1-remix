@@ -5,7 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rfhmw"]
 size = Vector2(26, 10)
 
-[node name="Area2D" type="Area2D"]
+[node name="projectiles" type="Area2D"]
 collision_layer = 0
 script = ExtResource("2")
 

@@ -34,10 +34,7 @@ var effTimes
 #var time = 0
 #var timeAddValue = 0.1
 func _ready():
-	startPos = position.x
-	father = get_parent()
-	camp = father.camp
-	collision_mask = father.collision_mask
+	
 	pass
 
 func firstSetting():
@@ -49,7 +46,8 @@ func firstSetting():
 #		var collShape = RectangleShape2D.new()#各个子弹的碰撞箱
 #		collShape.size = Global.ProShape[projectile]
 #		$CollisionShape2D.shape = collShape
-	$Sprite2D.texture = load("res://assets/projectiles/"+projectile+".png")
+	startPos = position.x
+	$Sprite2D.texture = load("res://assets/objects/projectiles/"+projectile+".png")
 	var newBox = RectangleShape2D.new()#碰撞箱自适应
 	newBox.size = $Sprite2D.texture.get_size()
 	$CollisionShape2D.shape = newBox
@@ -83,7 +81,7 @@ func _on_area_entered(area):
 		Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
 		#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	
 	else:#AOE
-		Global.aoe_create(area,Global.CREATE,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes)
+		Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes)
 	#if Global.ProTypeValue[projectile] != Global.ProType.PIERCE: 
 	if ifPriece == false: queue_free()
 	pass 

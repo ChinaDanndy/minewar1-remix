@@ -11,9 +11,6 @@ script = ExtResource("2_uwk61")
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_s87tp")
 
-[node name="Collision2" parent="." index="3"]
-position = Vector2(0, 0)
-
 [node name="usuallyTimer" type="Timer" parent="." index="4"]
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b447ptwjo1uac"
-path="res://.godot/imported/bomb1.png-044e1625ae1a0520c57104fb454d55b0.ctex"
+uid="uid://c3kvg2a3cdf7a"
+path="res://.godot/imported/attack3.png-c673916feb96c5e27044f18c58085890.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/projectiles/bomb1.png"
-dest_files=["res://.godot/imported/bomb1.png-044e1625ae1a0520c57104fb454d55b0.ctex"]
+source_file="res://assets/objects/soldier/skeletonAttack/attack/attack3.png"
+dest_files=["res://.godot/imported/attack3.png-c673916feb96c5e27044f18c58085890.ctex"]
 
 [params]
 

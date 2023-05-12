@@ -17,6 +17,9 @@ var effTimes
 func _ready():
 	$ColorRect.visible = false
 	Global.FightSence.reloadSence.connect(reload)
+	if ifAoeHold == false: 
+		await get_tree().create_timer(0.04,false).timeout
+		queue_free()
 	pass
 
 func firstsetting():
@@ -27,9 +30,10 @@ func firstsetting():
 		match damagerType[0]:
 			"skill": newRange.size = Vector2(aoeRange,Global.SkillAOERangeY)#换范围
 			#"thunder": $CollisionShape2D.position.y = Global.STSData["thunder"]["collBox"].y/2-20#换位置
+	
+	
 	$CollisionShape2D.shape = newRange
 	if ifAoeHold == true: 
-		name = "Hold"
 		$ColorRect.position = Vector2(aoeRange/-2,-10)
 		$ColorRect.size = Vector2(aoeRange,20)
 		$ColorRect.visible = true
@@ -39,9 +43,6 @@ func firstsetting():
 			$holdTimer.start(effTime[Global.Effect.DAMAGE])
 			await get_tree().create_timer(effTime[Global.Effect.DAMAGE]*effTimes[Global.DamValue.DAMAGE],false).timeout
 			queue_free()
-	else: pass
-		#await get_tree().create_timer(0.04,false).timeout
-		#queue_free()
 	pass
 		
 func _on_area_entered(area):

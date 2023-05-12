@@ -2,8 +2,10 @@ extends Area2D
 var camp = 1#
 var type = Global.Type.SOLDIER#
 var typeName = "soldier"
-var kind = 0#
-var collKind#
+enum Kind {LAND,SEA,SKY}
+var kind = Kind.LAND#
+
+var coll2Pos#
 var health = 1#
 var healthUp = health
 
@@ -33,33 +35,33 @@ var speedState = SpeState.MOVE
 var ifOnlyAttBase = false#
 var attackType = [false,false,false]#近 远 爆炸
 #var damageMethod#
-var damagerType=[null]#有伤害加成的攻击目标
+var damagerType=[[null],[null]]#有伤害加成的攻击目标
 var damageBasic = [0,0]#
 var damage= [0,0]#我方技能传递时此值为-1让aoe范围包括海陆空
 
 var Projectile = preload("res://sence/fight/object/projectiles.tscn")
 var attRangeBasic = [0,0]#
 var attRange = [0,0]
-var proSpeed = [4,2]
-var ifPriece = [false,false]
+var proSpeed = [0,0]#
+var ifPriece = [false,false]#
 var projectile#
 var proSleepTime#
 var proContinueTimes#
 var proTimes = 0
 
 #攻击 平时 死亡
-var aoeModel = [0,0,0]#
-var aoeRange = [0,0,0]#
-var ifAoeHold = [false,false,false]#
+var aoeModel = [0,0]#
+var aoeRange = [0,0]#
+var ifAoeHold = [false,false]#
 #自身状态数据
 var effTimerId = [null,null,null,null,null,null,null]
 var nowEffect = [0,0,0,0,0,0,0,0,0]#记录伤害，速度，射程当前的效果值，区分好坏
-var effTime = [0,0,0,0,0,0]#后两个为平时，攻击持续效果的间隔给予数值的时间
-var effValue = [0,0,0]#平时效果保持伤害,攻击效果保持伤害,击退距离
-var effTimes = [0,0]#效果持续：平时次数，攻击次数
+var effTime = [[0,0,0,0,0,0],[0,0,0,0,0,0]]#后两个为平时，攻击持续效果的间隔给予数值的时间
+var effValue = [[0,0,0],[0,0,0]]#平时效果保持伤害,攻击效果保持伤害,击退距离
+var effTimes = [[0,0],[0,0]]#效果持续：平时次数，攻击次数
 var ifAoe##仅用于伤害判定给予效果时分辨效果来源
 var effDefence = [false,false,false,false,false,false,false]#
-var attackEffect = [0,0,0,0,0,0,0]#攻击给予状态同时表示好坏
+var attackEffect = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]]#攻击给予状态同时表示好坏
 var usuallyEffect#平时给予状态
 var deathEffect#死亡给予状态
 
@@ -106,7 +108,7 @@ func firstSetting(soldier):
 	name = soldier
 	soldierName[0] = soldier
 	nowEffect[Global.Effect.FREEZE] = SpeState.MOVE
-	collision_mask = Global.MAsk[camp+1][kind]#设置碰撞的笼罩层
+	collision_mask = Global.MAsk[camp+1][0]#设置碰撞的笼罩层
 	attDefence = attDefOrigin#记录攻击免疫
 	healthUp = health#记录血量上限
 	if attDefShield != null: attDefence = attDefShield
@@ -130,7 +132,6 @@ func _physics_process(_delta):#每帧执行的部分
 		attRange[i] = Vector2(attRangeBasic[i]-(attRangeBasic[i]*nowEffect[Global.Effect.ATTRANGE])+(attRangeBasic[i]*nowEffect[Global.Effect.ATTRANGE+Global.Effect.DAMAGE]),0)
 	speed = Vector2(speedBasic-(speedBasic*nowEffect[Global.Effect.SPEED])+(speedBasic*nowEffect[Global.Effect.SPEED+Global.Effect.DAMAGE]),0)*Vector2(nowEffect[Global.Effect.FREEZE],0)
 	aniSpeed = (aniSpeedBasic-(aniSpeedBasic*nowEffect[Global.Effect.SPEED+1])+(aniSpeedBasic*nowEffect[Global.Effect.SPEED+1+Global.Effect.DAMAGE]))*nowEffect[Global.Effect.FREEZE]
-	
 	$Collision1.target_position = attRange[0]*Vector2(camp,0)
 	$Collision2.target_position = attRange[1]*Vector2(camp,0)
 	$AnimatedSprite2D.speed_scale = aniSpeed
@@ -144,7 +145,7 @@ func testchangeState():
 	$Collision1.force_raycast_update()
 	$Collision2.force_raycast_update()#更新射线碰撞检测
 	
-	if $Collision1.is_colliding()&&$Collision2.is_colliding():#两个攻击范围同时碰到同时进攻,限远程
+	if $Collision1.is_colliding()&&$Collision2.is_colliding()&&animation.has("attackThr")==true:#两个攻击范围同时碰到同时进攻,限远程
 		if currentAni != "attackThr": changeState("attackThr",State.ATTACK)
 	else: if currentAni == "attackThr": changeState(standardAni,standardState)
 	pass
@@ -164,7 +165,7 @@ func testchangeState():
 	pass
 	
 func changeState(AniName,StaName):#入海出海的动作图片在每个动画的前面放
-	if kind == Global.Kind.SEA:
+	if kind == Kind.SEA:
 		seaAni = AniName
 		seaState = StaName
 		if StaName == State.ATTACK&&currentState == State.PUSH: 
@@ -243,11 +244,11 @@ func attack():
 	var attackAni = currentAni
 	if projectile == null:
 		if aoeRange[Global.AoeSet.ATTACK] == 0:#近战单体
-			Global.damage_Calu(other,Global.damCaluType.ATTEFF,attackType,damage[attAni[attackAni]],damagerType,attackEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
+			Global.damage_Calu(other,Global.damCaluType.ATTEFF,attackType,damage[attAni[attackAni]],damagerType[attAni[attackAni]],attackEffect[attAni[attackAni]],effValue[attAni[attackAni]],effTime[attAni[attackAni]],effTimes[attAni[attackAni]],Global.IfAoeType.NONE)
 		else:#近战AOE
 			#Global.damage_Calu(body,Global.TRANSFER,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,null)
 			if attackType[Global.AttackType.EXPLODE] == true: other = self
-			Global.aoe_create(other,Global.CREATE,aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],ifAoeHold[Global.AoeSet.ATTACK],attackType,damage[attAni[attackAni]],damagerType,attackEffect,effValue,effTime,effTimes)
+			Global.aoe_create(other,Global.CREATE,aoeModel[attAni[attackAni]],aoeRange[attAni[attackAni]],ifAoeHold[attAni[attackAni]],attackType,damage[attAni[attackAni]],damagerType[attAni[attackAni]],attackEffect[attAni[attackAni]],effValue[attAni[attackAni]],effTime[attAni[attackAni]],effTimes[attAni[attackAni]])
 			if attackType[Global.AttackType.EXPLODE] == true: queue_free()#近战AOE且是爆炸伤害类型->只有自爆
 	else:#远程
 		var attTimes = 1
@@ -256,14 +257,17 @@ func attack():
 			attTimes = 2
 		for i in attTimes:
 			var newPro = Projectile.instantiate()
-			add_child(newPro)
+			Global.root.add_child(newPro)
+			newPro.collision_mask = collision_mask
+			newPro.camp = camp
 			newPro.projectile = projectile[attAni[attackAni]]
-			newPro.position = Global.ProPos[projectile[attAni[attackAni]]]
+			newPro.position = position 
+			#Global.ProPos[projectile[attAni[attackAni]]]
 			newPro.proRange = attRange[attAni[attackAni]]
 			newPro.proSpeed = proSpeed[attAni[attackAni]]
 			newPro.ifPriece = ifPriece[attAni[attackAni]]
 			if currentAni == "attackThr"&&attackAni == "attack":  attackAni = "attackSec"
-			Global.aoe_create(newPro,Global.TRANSFER,aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],ifAoeHold[Global.AoeSet.ATTACK],attackType,damage[attAni[attackAni]],damagerType,attackEffect,effValue,effTime,effTimes)
+			Global.aoe_create(newPro,Global.TRANSFER,aoeModel[attAni[attackAni]],aoeRange[attAni[attackAni]],ifAoeHold[attAni[attackAni]],attackType,damage[attAni[attackAni]],damagerType[attAni[attackAni]],attackEffect[attAni[attackAni]],effValue[attAni[attackAni]],effTime[attAni[attackAni]],effTimes[attAni[attackAni]])
 			newPro.firstSetting()
 	pass
 	

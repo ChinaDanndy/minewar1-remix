@@ -6,6 +6,24 @@ func firstSetting(soldier):
 	SetAnimationAndCollBox(soldier)
 	super.firstSetting(soldier)
 	collision_layer = Global.LAyer[camp+1][kind]
+	if kind == Kind.SKY: position.y = Global.FightSkyY
+	var distanceLandSky = Global.FightGroundY - Global.FightSkyY
+
+	if coll2Pos == "land":#骷髅
+		$Collision2.position.y = -(distanceLandSky)
+		$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
+	if coll2Pos == "skyBais":#恶魂
+		$Collision2.position.y = (distanceLandSky)
+		$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
+	if coll2Pos == "skyLine":#活塞虫
+		$Collision2.position.y = (distanceLandSky)
+		$Collision2.position.x = -(attRangeBasic[1]/2)
+	if coll2Pos != null: 
+
+		$Collision2.collide_with_areas = true
+
+	
+	
 	pass
 
 func _physics_process(_delta):
