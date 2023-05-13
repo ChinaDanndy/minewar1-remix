@@ -11,7 +11,7 @@ var thunderTimeRand
 signal cardMessage
 signal reloadSence
 func _ready():
-	var file = FileAccess.open("user://soldier.json", FileAccess.READ)#user:
+	var file = FileAccess.open("res://data/object.json", FileAccess.READ)#user:
 	var content = file.get_as_text()
 	file = null #读取所有士兵数据
 	var jsonValue = JSON.new()
@@ -30,14 +30,17 @@ func _ready():
 						for i in arrayLength:
 							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
 		#提前根据图片得到单位碰撞箱尺寸
-		var pictureGet
-		match Global.STSData[STSName]["type"]:
-			Global.Type.SOLDIER: pictureGet = load("res://assets/objects/soldier/%s/attack/attack1.png"% STSName)
-			Global.Type.TOWER: pictureGet = load("res://assets/objects/tower/%s/attack/attack1.png"% STSName)
-			Global.Type.SKILL: pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
-		Global.STSData[STSName]["collBox"] = pictureGet.get_size()
+		if STSName != "power":
+			var pictureGet
+			match Global.STSData[STSName]["type"]:
+				Global.Type.SOLDIER: pictureGet = load("res://assets/objects/soldier/%s/attack/attack1.png"% STSName)
+				Global.Type.TOWER: pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
+				Global.Type.SKILL: pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
+			#print(STSName)
+			#print(pictureGet)
+			Global.STSData[STSName]["collBox"] = pictureGet.get_size()
 
-	file = FileAccess.open("user://level.json", FileAccess.READ)
+	file = FileAccess.open("res://data/level.json", FileAccess.READ)
 	content = file.get_as_text()
 	file.close()
 	jsonValue = JSON.new()

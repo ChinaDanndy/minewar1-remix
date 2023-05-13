@@ -25,9 +25,13 @@ func _on_pressed():
 			var friend = Global.VillageSoldier.instantiate()
 			Global.root.add_child(friend)
 			friend.firstSetting(soldier)
-
+		if soldier == "power":
+			Global.villFirEffTime = Global.STSData[soldier]["time"]
+			Global.NowMoney -= price
+			pass
 			
-		if Global.STSData[soldier]["type"] == Global.Type.TOWER||Global.STSData[soldier]["type"] == Global.Type.SKILL:
+			
+		if (Global.STSData[soldier]["type"] == Global.Type.TOWER)||(Global.STSData[soldier]["type"] == Global.Type.SKILL&&soldier != "power"):
 			match self.button_mask:
 				1:#左键
 					Global.CardBuy == soldier

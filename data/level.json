@@ -1,18 +1,48 @@
 [
+    {
+        "moneySpeed":1,
+        "thunderSpeed":0.1
+    },
     [
-        {"levelType":1,"attackTime":1},[
+        {"levelType":1,"attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[
             {
                 "firstCD":0,
-                "group":["skeleton"],
-                "CDType":0,
-                "groupCD":4,
+                "soldier":["zombie"],
+                "soldierCD":2,
+                "groupCD":1,
                 "groupCDRand":0,
                 "times":1,
-                "stopPos":300,
-                "stopTime":0
+                "stopPos":null,
+                "stopTime":null
             }
-        ],["shoveler","projector","snowman",null,null,null,null]
+        ],["iron","shoveler","regeneration","freeze","power","wall","cave"]
+    ],
+    [
+        {"levelType":1,"attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":1},[
+            {
+                "firstCD":0,
+                "soldier":["creeper","zombie"],
+                "soldierCD":2,
+                "groupCD":2,
+                "groupCDRand":0,
+                "times":1,
+                "stopPos":null,
+                "stopTime":null
+            },
+            {
+                "firstCD":4,
+                "soldier":["zombie","zombie","skeleton"],
+                "soldierCD":0.6,
+                "groupCD":0.8,
+                "groupCDRand":0,
+                "times":1,
+                "stopPos":null,
+                "stopTime":null
+            }
+        ],["shoveler","shielder","regeneration","projector",null,null,null]
     ]
+
+    
 ]
 
 

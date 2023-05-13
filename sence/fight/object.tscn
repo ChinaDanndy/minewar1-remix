@@ -29,4 +29,4 @@ offset_top = -32.0
 offset_right = 31.0
 offset_bottom = -18.0
 
-[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
+[connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

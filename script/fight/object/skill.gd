@@ -33,13 +33,13 @@ func _physics_process(_delta):
 			position.y = 297
 			unPeopleFly = false
 			await get_tree().create_timer(0.1,false).timeout
-			Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,null,null,["skill"],attackEffect,effValue,effTime,effTimes)
+			Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,null,null,["skill"],giveEffect,effValue,effTime,effTimes)
 			queue_free()
 	if soldierName[0] == "thunder": 
 		if thunderAphla == 0: $Sprite2D.modulate.a += Global.ThunderSpeed
 		if $Sprite2D.modulate.a >= 1&&thunderAphla == 0:
 			thunderAphla += 1
-			Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false,null,null,["thunder"],attackEffect,effValue,effTime,effTimes)
+			Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false,null,null,["thunder"],giveEffect,effValue,effTime,effTimes)
 			$CollisionShape2D.position.y = collBox.y/2-10
 			await get_tree().create_timer(0.05,false).timeout  
 		if thunderAphla > 0:

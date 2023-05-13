@@ -6,3 +6,7 @@
 [node name="object" instance=ExtResource("1_6kuqs")]
 input_pickable = false
 script = ExtResource("2_3fwhs")
+
+[node name="Timer" type="Timer" parent="." index="5"]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

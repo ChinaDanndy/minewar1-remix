@@ -23,7 +23,7 @@ var effTime
 var effTimes
 
 var effDefence
-var effBasic = [0,0,0,0,0]
+
 func normalAttackCalu(damager):
 	attDefence = damager.attDefence
 	for i in Global.AttackType.size():
@@ -48,11 +48,8 @@ func effectAttackCalu(damager):
 						var this = i
 						if giveEffect[i] == Global.EFFGOOD: this = i+Global.Effect.DAMAGE
 						damager.nowEffect[this] = Global.EffValue[i]
-						if i==Global.Effect.SPEED: damager.nowEffect[this+1] = Global.EffValue[i]
-						
-						if damager.effTimerId[this] == null:
-							damager.effectTimer(i,effTime[i],giveEffect[i])
-						else:	if effTime[i]>damager.effTimerId[this].time_left: damager.effTimerId[this].start(effTime[i])
+						if damager.effTimerId[this] == null: damager.effectTimer(i,effTime[i],giveEffect[i])
+						else: if effTime[i]>damager.effTimerId[this].time_left: damager.effTimerId[this].start(effTime[i])
 							#新计时器时间是否大于旧的计时器剩余时间
 				match i:
 					Global.Effect.HOLDDAMAGE: 
@@ -61,7 +58,7 @@ func effectAttackCalu(damager):
 						if (damager.health+effValue[Global.DamValue.DAMAGE]*giveEffect[i])<=damager.healthUp: 
 							damager.health += effValue[Global.DamValue.DAMAGE]*giveEffect[i]
 						else: damager.health = damager.healthUp
-					Global.Effect.KNOCK: damager.position.x -= effValue[Global.DamValue.KNOCK]*damager.camp
+					Global.Effect.KNOCK: damager.position.x += effValue[Global.DamValue.KNOCK]*damager.camp*giveEffect[i]
 	queue_free()
 	pass
 	

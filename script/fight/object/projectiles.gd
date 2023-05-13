@@ -56,7 +56,6 @@ func firstSetting():
 		$Sprite2D.hframes = Global.ProPicture[projectile]
 		$Sprite2D.frame = 0
 		$animationTimer.start(Global.ProAniTime[projectile])
-		
 	pass
 
 

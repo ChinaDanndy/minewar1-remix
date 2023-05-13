@@ -8,3 +8,7 @@ script = ExtResource("2_sxvfl")
 
 [node name="Collision2" parent="." index="3"]
 collide_with_areas = true
+
+[node name="UsualTimer" type="Timer" parent="." index="5"]
+
+[connection signal="timeout" from="UsualTimer" to="." method="_on_usual_timer_timeout"]

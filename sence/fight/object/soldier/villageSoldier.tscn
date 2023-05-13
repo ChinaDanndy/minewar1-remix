@@ -11,7 +11,6 @@ script = ExtResource("2_uwk61")
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_s87tp")
 
-[node name="usuallyTimer" type="Timer" parent="." index="4"]
-
 [connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="timeout" from="usuallyTimer" to="." method="_on_usuallyTimer_timeout" flags=18]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished" flags=18]
+[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped" flags=18]
