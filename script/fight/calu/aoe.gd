@@ -1,6 +1,7 @@
 extends Area2D
 var kind = Global.Type.SKILL
-
+#const MAsk = [[1+16,1+4+16,16],[1+2+16+32],[2+32,2+8+32,32]]
+const Mod = {"village":0,"all":1,"monster":2} 
 var aoeModel
 var aoeRange
 var ifAoeHold
@@ -23,7 +24,7 @@ func _ready():
 	pass
 
 func firstsetting():
-	collision_mask = Global.LAyer[aoeModel][0]
+	collision_mask = Global.MAsk[Mod[aoeModel]][0]
 
 	var newRange = RectangleShape2D.new()#AOE范围
 	newRange.size = Vector2(aoeRange,Global.NormalAOERangeY)
@@ -47,8 +48,8 @@ func firstsetting():
 	pass
 
 func _process(delta):
-	
 	pass
+	
 func _on_area_entered(area):
 	#var noDamageEffect = giveEffect.duplicate()
 	#noDamageEffect[Global.Effect.DAMAGE] = 0#防止平时持续效果里给伤害时给属性效果续时间
@@ -69,7 +70,7 @@ func _on_hold_timer_timeout():
 	#var nolyDamageEffect:Array
 	#for i in Global.Effect.size(): nolyDamageEffect[i] = 0
 	#nolyDamageEffect[Global.Effect.DAMAGE] = giveEffect[Global.Effect.DAMAGE]#防止平时持续效果里给伤害时给属性效果续时间
-	print("aaaaa")
+
 	Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false,null,null,["skill"],giveEffect,effValue,effTime,effTimes)
 	pass
 

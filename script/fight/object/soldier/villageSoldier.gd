@@ -8,10 +8,9 @@ func firstSetting(soldier):
 	add_to_group("villageObject")
 	pass
 
-func _physics_process(_delta):
-
+func _process(_delta):
 	position.x = clamp(position.x,Global.VillagePoint.x-16,Global.MonsterPoint.x+16)#限制移动范围
-	super._physics_process(_delta)
+	super._process(_delta)
 	if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&currentAni != "sea": 
 		#if (collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
 		contrl()

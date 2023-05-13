@@ -4,9 +4,8 @@ var towKeepTime#
 
 
 func firstSetting(soldier):
+	giveEffect = null
 	super.SetValue(soldier)
-	type = Global.Type.TOWER
-	typeName = "tower"
 	currentState = State.STOP
 	currentAni = "stop"
 	standardState = currentState
@@ -17,26 +16,25 @@ func firstSetting(soldier):
 	collision_layer = Global.LAyer[camp+1][2]
 	$Collision1.collide_with_areas = false
 	if soldierName[0] == "projector": $Collision1.collide_with_areas = true
-	if soldierName[0] == "golder"||soldierName[0] == "cave": 
-		print("sefdcvc")
-		$Timer.start(time)
+	if soldierName[0] == "golder"||soldierName[0] == "cave": $Timer.start(speed)
 	if towKeepTime != null:
 		await get_tree().create_timer(towKeepTime,false).timeout
 		queue_free()
 	pass
 
-func _physics_process(_delta):
-	print($Timer.time_left)
+func _process(_delta):
+
 	if unPeopleFly == true:
-		position.y += Global.DropSpeed 
+		position.y += Global.DropSpeed
+		unPeopleFly = false
 		if position.y >= 297: 
 			position.y = 297
-			unPeopleFly = false
-			if type == Global.Type.SKILL:
-				await get_tree().create_timer(0.2,false).timeout
+			if giveEffect != null:
+				
+				pass
 				#Global.TRvalue_caluORcreate(null,self,Global.TRtype.VALCREATE,null,null,null,aoeModel[Global.AoeSet.ATTACK],aoeRange[Global.AoeSet.ATTACK],aoeTime[Global.AoeSet.ATTACK],aoeTimes[Global.AoeSet.ATTACK],null,null,null,attackEffect,effValue,effTime,effTimes)
-				queue_free()
-	super._physics_process(_delta)
+
+	super._process(_delta)
 	#if health <= 0: queue_free()#炮塔坏了直接销毁
 pass
 
@@ -51,4 +49,5 @@ func _on_timer_timeout():
 			enemy.firstSetting(projectile[0])
 			enemy.position = position
 			pass
-	pass # Replace with function body.
+	$Timer.start(speed)
+	pass

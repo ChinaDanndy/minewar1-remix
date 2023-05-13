@@ -52,6 +52,7 @@ func firstSetting():
 	newBox.size = $Sprite2D.texture.get_size()
 	$CollisionShape2D.shape = newBox
 	if camp == Global.MONSTER: $Sprite2D.flip_h = true
+	
 	if Global.ProPicture[projectile] > 1:
 		$Sprite2D.hframes = Global.ProPicture[projectile]
 		$Sprite2D.frame = 0

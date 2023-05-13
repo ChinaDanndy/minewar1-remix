@@ -2,8 +2,8 @@ extends Node
 @onready var root = get_tree().get_root()
 var STSData:Dictionary
 enum STSType {INT,ARRAY}
-const STSDataName = {"price":STSType.INT,"kind":STSType.INT,
-"coll2Pos":null,"health":STSType.INT,"type":STSType.INT,"towKeepTime":STSType.INT,"soldierName":null,
+const STSDataName = {"price":STSType.INT,"kind":null,
+"coll2Pos":null,"health":STSType.INT,"type":null,"towKeepTime":STSType.INT,"soldierName":null,
 "animation":null,"aniSpeedBasic":null,"speedBasic":null,"ifOnlyAttBase":null,
 "attackType":null,"damageMethod":null,"damagerType":null,"damageBasic":null,"projectile":null,
 "proSpeed":null,"ifPriece":null,"attRangeBasic":null,"proSleepTime":STSType.INT,"proContinueTimes":STSType.INT,"aoeModel":null,"aoeRange":null,"ifAoeHold":null,
@@ -25,13 +25,12 @@ const DropSpeed = 20
 const NormalAOERangeY = 20
 const SkillAOERangeY = 300
 
+
+
+
+
+
 const VILLAGE = 1
-var villFirEffTime
-func _process(_delta):
-	if villFirEffTime !=null:
-		await get_tree().create_timer(villFirEffTime,false).timeout
-		villFirEffTime = null
-	pass
 const MONSTER = -1
 const MIDDLE = 0
 #MONSTER,ALL,VILLAGE
@@ -39,14 +38,7 @@ const LAyer = [[2,8,32],[1+2+16+32],[1,4,16]]
 #碰撞层：敌方普通，敌方海,敌方基地,敌友全部除海,全部，我方普通，我方海，我方基地
 const MAsk = [[1+16,1+4+16,16],[1+2+16+32],[2+32,2+8+32,32]]
 #const deathLayer = 32
-#近 靠近效果 单陆地远 仅地面地远 地空地远 空地分开空 空地同时空
-enum CollKind {NARE,NARESPE,LAND,LANDSKY,SKY,SKYLAND}
-const Coll2IfUse = [false,true,false,true,true,true]
-enum Type {SOLDIER,TOWER,SKILL,PROJECTILE,BASE}
-
-enum DamageMethod {NEARSINGLE,NEARAOE,FAR}
 enum AttackType {NEAR,FAR,EXPLODE}
-
 const AddDamage = 1.5
 enum Effect {ATTDAMAGE,ATTRANGE,SPEED,FREEZE,DAMAGE,HOLDDAMAGE,KNOCK}
 const EffGood = Effect.DAMAGE
@@ -56,18 +48,13 @@ const EFFGOOD = 1
 const OFFEFFECT = 0
 const EFFBAD = -1
 
-#const ProPos = {"arrow":Vector2(0,1.5),"arrowUp":Vector2(0,1.5),"tnt":Vector2(0,4),"fireBall":Vector2(0,0),"fireBallDown":Vector2(0,0),"water":Vector2(0,0)}
-const ProDire = {"arrow":Vector2(1,0),"arrowUp":Vector2(1,-1),"tnt":Vector2(0,1),"fireBall":Vector2(1,0),"fireBallDown":Vector2(1,1),"water":Vector2(1,0),"snowBall":Vector2(1,0)}
-const ProPicture = {"arrow":1,"arrowUp":1,"tnt":1,"fireBall":1,"fireBallDown":1,"water":1,"snowBall":1}
-const ProAniTime = {"arrow":0,"arrowUp":0,"tnt":0,"fireBall":0,"fireBallDown":0,"water":0,"snowBall":0}
 
-
-#const ProSpeed = {"arrow":4,"snowball":3}
-
-
-#const ProGrivaty = 0.8
-#const ProHigh = 50
-##var ProThrowTime = round(sqrt((2*ProHigh)/ProGrivaty))
+const ProDire = {"arrow":Vector2(1,0),"arrowUp":Vector2(1,-1),"tnt":Vector2(0,1),
+"fireBall":Vector2(1,0),"fireBallDown":Vector2(1,1),"water":Vector2(1,0),"snowBall":Vector2(1,0)}
+const ProPicture = {"arrow":1,"arrowUp":1,"tnt":1,"fireBall":1,"fireBallDown":1,"water":1,"snowBall":1
+}
+const ProAniTime = {"arrow":0,"arrowUp":0,"tnt":0,"fireBall":0,"fireBallDown":0,"water":0,"snowBall":0
+}
 
 var calu = preload("res://script/fight/calu/attackCalu.gd")
 enum damCaluType {ATTEFF,EFF}
@@ -144,6 +131,14 @@ var MonsterSoldier = preload("res://sence/fight/object/soldier/monsterSoldier.ts
 var Tower = preload("res://sence/fight/object/tower.tscn")
 var Skill = preload("res://sence/fight/object/skill.tscn")
 	
+	
+
+#const ProSpeed = {"arrow":4,"snowball":3}
+#const ProPos = {"arrow":Vector2(0,1.5),"arrowUp":Vector2(0,1.5),"tnt":Vector2(0,4),"fireBall":Vector2(0,0),"fireBallDown":Vector2(0,0),"water":Vector2(0,0)}
+#enum DamageMethod {NEARSINGLE,NEARAOE,FAR}
+#const ProGrivaty = 0.8
+#const ProHigh = 50
+##var ProThrowTime = round(sqrt((2*ProHigh)/ProGrivaty))
 
 
 

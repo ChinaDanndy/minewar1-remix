@@ -8,7 +8,6 @@ func firstSetting(soldier):
 	$AnimatedSprite2D.queue_free()
 	$Label.queue_free()
 	super.SetValue(soldier)
-	type = Global.Type.SKILL
 	
 	$Sprite2D.texture = load("res://assets/objects/skill/%s.png"% soldier)
 	super.firstSetting(soldier)
@@ -26,7 +25,7 @@ func firstSetting(soldier):
 		pass
 	pass
 	
-func _physics_process(_delta):
+func _process(_delta):
 	if unPeopleFly == true:
 		position.y += Global.DropSpeed 
 		if position.y >= 297: 
@@ -35,6 +34,7 @@ func _physics_process(_delta):
 			await get_tree().create_timer(0.1,false).timeout
 			Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,null,null,["skill"],giveEffect,effValue,effTime,effTimes)
 			queue_free()
+			
 	if soldierName[0] == "thunder": 
 		if thunderAphla == 0: $Sprite2D.modulate.a += Global.ThunderSpeed
 		if $Sprite2D.modulate.a >= 1&&thunderAphla == 0:
@@ -50,4 +50,4 @@ func _physics_process(_delta):
 
 func _on_area_entered(area):
 	if area.soldierName[0] == "creeper": area.reSet(area.soldierName[1])
-	pass # Replace with function body.
+	pass

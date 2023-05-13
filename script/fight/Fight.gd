@@ -32,10 +32,13 @@ func _ready():
 		#提前根据图片得到单位碰撞箱尺寸
 		if STSName != "power":
 			var pictureGet
-			match Global.STSData[STSName]["type"]:
-				Global.Type.SOLDIER: pictureGet = load("res://assets/objects/soldier/%s/attack/attack1.png"% STSName)
-				Global.Type.TOWER: pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
-				Global.Type.SKILL: pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
+
+			if Global.STSData[STSName]["type"] == "soldier":
+				pictureGet = load("res://assets/objects/soldier/%s/attack/attack1.png"% STSName)
+			if Global.STSData[STSName]["type"] == "tower":
+				pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
+			if Global.STSData[STSName]["type"] == "skill":
+				pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
 			#print(STSName)
 			#print(pictureGet)
 			Global.STSData[STSName]["collBox"] = pictureGet.get_size()

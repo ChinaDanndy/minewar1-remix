@@ -2,20 +2,21 @@ extends "res://script/fight/object.gd"
 
 func firstSetting(soldier):
 	super.SetValue(soldier)
-	typeName = "soldier"
 	
 	SetAnimationAndCollBox(soldier)
 	super.firstSetting(soldier)
+	
+	
+	
 	collision_layer = Global.LAyer[camp+1][0]
-
-	if kind == Kind.SEA: collision_layer = Global.LAyer[camp+1][1]
-	if kind == Kind.SKY: position.y = Global.FightSkyY
+	if kind == "sea": collision_layer = Global.LAyer[camp+1][1]
+	if kind == "sky": position.y = Global.FightSkyY
 	var distanceLandSky = Global.FightGroundY - Global.FightSkyY
 
-	if coll2Pos == "land":#骷髅
+	if coll2Pos == "landSky":#骷髅
 		$Collision2.position.y = -(distanceLandSky)
 		$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
-	if coll2Pos == "skyBais":#恶魂
+	if coll2Pos == "skyLand":#恶魂
 		$Collision2.position.y = (distanceLandSky)
 		$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
 	if coll2Pos == "skyLine":#活塞虫
@@ -32,7 +33,7 @@ func _on_usual_timer_timeout():
 
 	pass
 
-func _physics_process(_delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
 		print(speed)
 		pass
@@ -44,16 +45,12 @@ func _physics_process(_delta):
 		attDefShield = null
 		reSet(soldierName[1])
 		
-	if health <= healthEffValue: 
+	if health <= healthEffValue: #低血量狂暴永久效果
 		nowEffect[Global.Effect.ATTDAMAGE+Global.EffGood] = Global.EffValue[Global.Effect.ATTDAMAGE]
 		nowEffect[Global.Effect.SPEED+Global.EffGood] = Global.EffValue[Global.Effect.SPEED]
 		healthEffValue = -1
 
-			
-		$Collision1.collide_with_areas = false
-		$Collision2.collide_with_areas = false
-		$AnimatedSprite2D.material = null
-	super._physics_process(_delta)
+	super._process(_delta)
 	pass
 
 
