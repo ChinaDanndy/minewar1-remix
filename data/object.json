@@ -76,7 +76,7 @@
         "price":1,
         "type":0,
         "health":15,
-        "animation":{"walk":1,"attack":1,"attackSec":1,"attackThr":1,"stop":1,"death":1},
+        "animation":{"walk":1,"attack":1,"attackSec":1,"attackThr":1,"stop":1,"death":1,"deathFall":1},
         "aniSpeedBasic":0.4,
         "speedBasic":0.4,
         "attackType":[[false,true,false],[false,false,true]],
