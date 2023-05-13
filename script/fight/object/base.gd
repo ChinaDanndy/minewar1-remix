@@ -9,10 +9,6 @@ var nowEffect = [0,0,0,0,0,0,0,0]
 var effDefence = [true,true,true,false,false,true]
 var shield = 0
 var attDefence = [false,false,false]
-var damageBasic = 0
-var speedBasic = 0
-var attRangeBasic = 0
-var aniSpeedBasic = 0
 
 func firstSetting(Name):
 	health = Global.LevelData[Global.Level][0][Name]

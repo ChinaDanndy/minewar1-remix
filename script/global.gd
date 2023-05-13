@@ -11,6 +11,7 @@ const STSDataName = {"price":STSType.INT,"kind":null,
 "endTime":null,"time":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"attDefOrigin":null,"shield":STSType.INT,
 "attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
 var ThunderSpeed
+var MonsterDeaths = 0
 const Money = 100
 var NowMoney = 0
 var CardBuy = null
@@ -24,11 +25,6 @@ var LevelOver = false
 const DropSpeed = 20 
 const NormalAOERangeY = 20
 const SkillAOERangeY = 300
-
-
-
-
-
 
 const VILLAGE = 1
 const MONSTER = -1

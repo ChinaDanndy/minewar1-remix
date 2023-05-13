@@ -7,42 +7,41 @@
         "aniSpeedBasic":1.0,
         "speedBasic":0.7,
         "attackType":[[true,false,false]],
-        "damageBasic":[1],
+        "damageBasic":[1,0],
         "damagerType":[[1,4]],
-        "attRangeBasic":[20]
+        "attRangeBasic":[20,0]
     },
     "shielder":{
         "price":1,
-        "type":0,
+        "type":"soldier",
         "health":5,
         "soldierName":[null,"shielderNo"],
         "animation":{"walk":6,"attack":4,"stop":1},
         "aniSpeedBasic":0.8,
         "speedBasic":0.5,
         "attackType":[[true,false,false]],
-        "damageBasic":[1],
-        "attRangeBasic":[10],
+        "damageBasic":[1,0],
+        "attRangeBasic":[10,0],
         "shield":5,
         "attDefShield":[false,true,false]
     }, 
     "shielderNo":
     {
-        "type":0,
+        "type":"soldier",
         "animation":{"walk":6,"attack":4,"stop":1,"death":1},
         "aniSpeedBasic":1,
         "speedBasic":0.7,
-        "damageBasic":[1],
-        "attRangeBasic":[10]
+        "damageBasic":[1,0],
+        "attRangeBasic":[10,0]
     },
     "projector":{
         "price":1,
         "type":"tower",
         "health":5,
-        "animation":{"attack":1,"stop":1},
+        "animation":{"attack":1,"stop":1,"death":1},
         "aniSpeedBasic":0.8,
         "towKeepTime":10,
         "attackType":[[false,true,false]],
-        "damageMethod":2,
         "damageBasic":[1,0],
         "attRangeBasic":[200,0],
         "projectile":["arrow"],
@@ -70,8 +69,8 @@
         "aniSpeedBasic":1,
         "speedBasic":0.6,
         "attackType":[[true,false,false]],
-        "damageBasic":[1],
-        "attRangeBasic":[10]
+        "damageBasic":[1,0],
+        "attRangeBasic":[10,0]
     },    
     "skeleton":{
         "coll2Pos":"land",
@@ -94,18 +93,19 @@
         "aniSpeedBasic":1.1,
         "speedBasic":0.8,
         "attackType":[[false,false,true]],
-        "damageBasic":[1],
-        "attRangeBasic":[20],
+        "damageBasic":[1,0],
+        "attRangeBasic":[20,0],
         "aoeModel":["all"],
         "aoeRange":[40]
     },
     "creeperThunder":{
+        "type":"soldier",
         "health":7,
         "animation":{"walk":6,"attack":4,"death":1,"stop":1},
         "aniSpeedBasic":1.2,
         "speedBasic":0.9,
-        "damageBasic":[1],
-        "attRangeBasic":[10],
+        "damageBasic":[1,0],
+        "attRangeBasic":[10,0],
         "aoeRange":[80]
     },
     "thunder":{
@@ -117,8 +117,6 @@
         "giveEffect":[0,0,0,0,-1,0,0]
     },
 
-
-    
     "snowman":{
         "price":1,
         "type":"soldier",
@@ -127,12 +125,12 @@
         "aniSpeedBasic":0.95,
         "speedBasic":0.55,
         "attackType":[[false,true,false]],
-        "damageBasic":[0.25],
-        "attRangeBasic":[150],
+        "damageBasic":[0.25,0],
+        "attRangeBasic":[150,0],
         "projectile":["snowBall"],
         "proSpeed":[3],
-        "effTime":[[0,0,2,0,0,0]],
-        "giveEffect":[[0,0,-1,0,0,0,0]]
+        "effTime":[[0,0,2,0,0,0],[],[],[]],
+        "giveEffect":[[0,0,-1,0,0,0,0],[],[],[]]
     },   
     "assassinFirst":{
         "price":1,
@@ -144,18 +142,18 @@
         "aniSpeedBasic":1.6,
         "speedBasic":1.4,
         "attackType":[[true,false,false]],
-        "damageBasic":[4],
-        "attRangeBasic":[3],
+        "damageBasic":[4,0],
+        "attRangeBasic":[30,0],
         "aoeModel":["monster"],
-        "aoeRange":[40]
+        "aoeRange":[60]
     },
     "assassin":{
         "type":"soldier",
         "animation":{"walk":6,"attack":6,"stop":1,"death":1,"seaOut":4},
         "aniSpeedBasic":1.2,
         "speedBasic":1,
-        "damageBasic":[2],
-        "attRangeBasic":[35],
+        "damageBasic":[2,0],
+        "attRangeBasic":[25,0],
         "aoeModel":[null],
         "aoeRange":[null]
     },
@@ -174,11 +172,11 @@
         "price":1,
         "type":"tower",
         "health":5,
-        "animation":{"attack":1,"stop":1},
-        "aoeModel":[0,0,0,"monster"],
-        "aoeRange":[0,0,0,100],
-        "effValue":[[],[],[],[1.25,0,0]],
-        "giveEffect":[[],[],[],[0,0,0,0,-1,0,0]]
+        "animation":{"attack":1,"stop":1,"death":1},
+        "aoeModel":[null,"all",null,"monster"],
+        "aoeRange":[null,100,null,100],
+        "effValue":[[],[0.25,0,0],[],[5,0,0]],
+        "giveEffect":[[],[0,0,0,0,-1,0,0],[],[0,0,0,0,-1,0,0]]
     },
 
 
@@ -189,15 +187,15 @@
         "aniSpeedBasic":0.8,
         "speedBasic":0.55,
         "attackType":[[false,true,false]],
-        "damageBasic":[0],
-        "attRangeBasic":[100],
+        "damageBasic":[0.25,0],
+        "attRangeBasic":[100,0],
         "projectile":["water"],
         "proSpeed":[5],
-        "aoeModel":["village",null,"monster"],
-        "aoeRange":[60,0,200],
-        "effTime":[[3,0,0,0,0,0],[null],[null]],
-        "effValue":[[0,0,0],[null],[1.25,0,0]],
-        "giveEffect":[[-1,0,0,0,0,0,0],[null],[0,0,0,0,1,0,0]],
+        "aoeModel":["village",null,"monster",null],
+        "aoeRange":[60,null,200,null],
+        "effTime":[[3,0,0,0,0,0],[],[],[]],
+        "effValue":[[0,0,0],[],[1.25,0,0],[]],
+        "giveEffect":[[-1,0,0,0,0,0,0],[],[0,0,0,0,1,0,0],[]],
         "usualTime":2
     },
     "sear":{
@@ -208,17 +206,17 @@
         "aniSpeedBasic":1.2,
         "speedBasic":0.8,
         "attackType":[[true,false,false]],
-        "damageBasic":[1.25],
-        "attRangeBasic":[10],
+        "damageBasic":[1.25,0],
+        "attRangeBasic":[10,0],
         "healthEffValue":3
     },
     "cave":{
         "price":1,
         "type":"tower",
         "health":5,
-        "animation":{"attack":1,"stop":1},
+        "animation":{"attack":1,"stop":1,"death":1},
         "aniSpeedBasic":1.5,
-        "speedBasic":1.5,
+        "speedBasic":1,
         "projectile":["spdier"]
     },
     "spdier":{
@@ -228,11 +226,9 @@
         "aniSpeedBasic":1.8,
         "speedBasic":1.6,
         "attackType":[[true,false,false]],
-        "damageBasic":[1.25],
-        "attRangeBasic":[20]
+        "damageBasic":[1.25,0],
+        "attRangeBasic":[20,0]
     },
-
-
 
     "iron":
     {
@@ -243,12 +239,12 @@
         "aniSpeedBasic":0.6,
         "speedBasic":0.4,
         "attackType":[[true,false,false]],
-        "damageBasic":[4],
-        "attRangeBasic":[50],
+        "damageBasic":[4,0],
+        "attRangeBasic":[50,0],
         "aoeModel":["monster"],
         "aoeRange":[40],
-        "effValue":[[0,0,60]],
-        "giveEffect":[[0,0,0,0,0,0,-1]]
+        "effValue":[[0,0,60],[],[],[]],
+        "giveEffect":[[0,0,0,0,0,0,-1],[],[],[]]
     },
     "worm":{
         "price":1,
@@ -260,20 +256,23 @@
         "aniSpeedBasic":0.4,
         "speedBasic":0.4,
         "attackType":[[false,true,false],[false,false,true]],
-        "damageBasic":[1,5],
-        "attRangeBasic":[120,80],
-        "aoeModel":["monster","all"],
-        "aoeRange":[0,100],
+        "damageBasic":[2.5,5],
+        "attRangeBasic":[200,80],
+        "aoeModel":[null,"all",null,"all"],
+        "aoeRange":[null,200,null,400],
         "projectile":["arrow","tnt"],
-        "proSpeed":[5,5]
+        "proSpeed":[5,5],
+        "effValue":[[0,0,0],[0,0,0],[],[1.25,0,0]],
+        "giveEffect":[[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[],[0,0,0,0,-1,0,0]]
     },
     "golder":{
         "price":1,
         "type":"tower",
         "health":5,
-        "animation":{"attack":1,"stop":1},
+        "animation":{"attack":1,"stop":1,"death":1},
         "aniSpeedBasic":1.5,
-        "speedBasic":1.5,
+        "speedBasic":1,
+        "damageBasic":[1.5,0],
         "towKeepTime":10
     },
     "power":{
@@ -282,35 +281,41 @@
         "ifAoeHold":true,
         "aoeModel":"village",
         "aoeRange":100,
-        "effTime":[5,0,5,0,0,0],
+        "effTime":[5,0,5,0,3,0],
+        "effTimes":[1,0,0],
         "giveEffect":[1,0,1,0,0,0,0]
     },
 
     "ghost":{
         "kind":"sky",
-        "coll2Pos":"skyBais",
+        "coll2Pos":"skyLand",
         "type":"soldier",
         "health":30,
         "animation":{"walk":7,"attack":5,"attackSec":5,"stop":7,"death":1},
         "aniSpeedBasic":0.8,
         "speedBasic":0.5,
         "attackType":[[false,true,false],[false,true,false]],
-        "damageBasic":[3,3],
-        "attRangeBasic":[120,120],
-        "aoeModel":["village","village"],
-        "aoeRange":[80,80],
+        "damageBasic":[1,1.5],
+        "attRangeBasic":[200,120],
+        "ifAoeHold":[false,true,false,false],
+        "aoeModel":["village","village",null,null],
+        "aoeRange":[80,80,null,null],
         "projectile":["fireBall","fireBallDown"],
-        "proSpeed":[3,3]
+        "proSpeed":[3,3],
+        "effTime":[[0,0,0,0,0,0],[0,0,0,0,2,0],[],[]],
+        "effValue":[[0,0,0],[1.25,0,0],[],[]],
+        "effTimes":[[0,0],[3,0],[],[]],
+        "giveEffect":[[0,0,0,0,0,0,0],[0,0,0,0,-1,0,0],[],[]]
     },
     "axer":{
-        "type":0,
+        "type":"soldier",
         "health":5,
-        "animation":{"walk":6,"attack":4,"stop":1,"death":1},
+        "animation":{"walk":6,"attack":6,"stop":1,"death":1},
         "aniSpeedBasic":0.75,
         "speedBasic":0.5,
         "attackType":[[true,false,false]],
-        "damageBasic":[1],
-        "attRangeBasic":[10]
+        "damageBasic":[4,0],
+        "attRangeBasic":[20,0]
     },
     "zombieShield2":{
         "type":"soldier",
@@ -321,28 +326,30 @@
         "aniSpeedBasic":1.2,
         "speedBasic":1,
         "attackType":[[true,false,false]],
-        "damageBasic":[2.5],
-        "attRangeBasic":[20],
+        "damageBasic":[2.5,0],
+        "attRangeBasic":[20,0],
         "shield":5,
         "attDefShield":[false,true,true]
     }, 
     "zombieShield1":
     {
+        "type":"soldier",
         "animation":{"walk":6,"attack":4,"stop":1},
-        "soldierName":[null,"zombieShield1"],
+        "soldierName":[null,"zombieShieldNo"],
         "aniSpeedBasic":1.2,
         "speedBasic":1,
-        "damageBasic":[2.5],
-        "attRangeBasic":[20],
+        "damageBasic":[2.5,0],
+        "attRangeBasic":[20,0],
         "shield":5,
         "attDefShield":[true,false,false]
     },
     "zombieShieldNo":
     {
+        "type":"soldier",
         "animation":{"walk":6,"attack":4,"stop":1,"death":1},
         "aniSpeedBasic":1.2,
         "speedBasic":1,
-        "damageBasic":[2.5],
-        "attRangeBasic":[20]
+        "damageBasic":[2.5,0],
+        "attRangeBasic":[20,0]
     }
 }

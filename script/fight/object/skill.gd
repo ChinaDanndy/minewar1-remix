@@ -11,8 +11,8 @@ func firstSetting(soldier):
 	
 	$Sprite2D.texture = load("res://assets/objects/skill/%s.png"% soldier)
 	super.firstSetting(soldier)
-	collision_mask = 0
 	if camp == Global.MONSTER: unPeopleFly = false
+	
 	if soldier == "thunder": 
 		$Sprite2D.modulate.a = 0
 		collision_mask = 2

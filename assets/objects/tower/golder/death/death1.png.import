@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duhh4kx7swtdt"
-path="res://.godot/imported/death1.png-6a8859a1112bb3ad43b607e63e57190b.ctex"
+uid="uid://dq1abhx8po0cu"
+path="res://.godot/imported/death1.png-43cb14607524a116d2f194798a65b6f0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/soldier/worm/deathFall/death1.png"
-dest_files=["res://.godot/imported/death1.png-6a8859a1112bb3ad43b607e63e57190b.ctex"]
+source_file="res://assets/objects/tower/golder/death/death1.png"
+dest_files=["res://.godot/imported/death1.png-43cb14607524a116d2f194798a65b6f0.ctex"]
 
 [params]
 

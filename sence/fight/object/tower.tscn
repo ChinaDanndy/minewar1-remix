@@ -8,5 +8,6 @@ input_pickable = false
 script = ExtResource("2_3fwhs")
 
 [node name="Timer" type="Timer" parent="." index="5"]
+one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

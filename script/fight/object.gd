@@ -46,8 +46,8 @@ var proContinueTimes#
 var proTimes = 0
 
 #攻击 平时 死亡
-var aoeModel = [0,0,0,0]#
-var aoeRange = [0,0,0,0]#
+var aoeModel = [null,null,null,null]#
+var aoeRange = [null,null,null,null]#
 var ifAoeHold = [false,false,false,false]#
 #自身状态数据 #攻击1 攻击2 平时 死亡
 var effTimerId = [null,null,null,null,null,null,null]
@@ -60,8 +60,6 @@ var effDefence = [false,false,false,false,false,false,false]#
 var giveEffect = [[0,0,0,0,0,0,0],[],[],[]]#攻击给予状态同时表示好坏
 var healthEffValue = 0#低血量提升攻击力速度
 var usualTime#
-var endTime
-var time
 var shield = 0#
 var attDefOrigin = [false,false,false]#
 var attDefence = attDefOrigin
@@ -147,25 +145,24 @@ func _process(_delta):#每帧执行的部分
 	$Collision2.target_position = attRange[1]*Vector2(camp,0)
 	$AnimatedSprite2D.speed_scale = aniSpeed
 	
-	if health <= 0&&currentState != State.DEATH: #死亡判定
+	if health <= 0&&currentState != State.DEATH&&currentState != State.FALL: #死亡判定
 		$Collision1.collide_with_areas = false
 		$Collision2.collide_with_areas = false
 		$AnimatedSprite2D.material = null
 		#死亡特效
-		if animation.has("deathFall"): 
-			changeState("death",State.DEATH)
-		else:
-			changeState("deathFall",State.FALL)
+		if animation.has("deathFall"): changeState("deathFall",State.FALL)
+		else: changeState("death",State.DEATH)
 			
-	if health <=0 && !giveEffect[ani["death"]].is_empty()&&currentState == State.DEATH:
-		var usual = ani["death"]
-		Global.aoe_create(self,Global.CREATE,aoeModel[usual],aoeRange[usual],ifAoeHold[usual],null,null,null,giveEffect[usual],effValue[usual],effTime[usual],effTimes[usual])
-		giveEffect[ani["death"]] = []
-		
-	if currentState == State.FALL:
+	if currentState == State.FALL:#活塞虫坠机自爆
 		position.y += 5
-		if position.y <= Global.FightGroundY: changeState("death",State.DEATH)
-		
+		if position.y >= Global.FightGroundY: changeState("death",State.DEATH)
+	
+	if health <=0 && !giveEffect[ani["death"]].is_empty()&&currentState == State.DEATH:#死亡效果
+		var usual = ani["death"]
+		Global.aoe_create(self,Global.CREATE,aoeModel[usual],aoeRange[usual],ifAoeHold[usual],
+		null,null,null,giveEffect[usual],effValue[usual],effTime[usual],effTimes[usual])
+		giveEffect[ani["death"]] = []
+
 	if Input.is_action_just_pressed("ui_select"):#测试用
 		if camp == Global.MONSTER:
 			#print(speedEffect)
@@ -203,14 +200,13 @@ func changeState(AniName,StaName):#入海出海的动作图片在每个动画的
 		seaAni = AniName
 		seaState = StaName
 		if (StaName == State.ATTACK&&currentState == State.PUSH):#海军出海
-			collision_layer = Global.LAyer[camp+1][0]
+			collision_layer = Global.LAyer[camp+1][0]#出海后不再入海
 			StaName = State.OUTSEA
 			AniName = "seaOut"
 			$Collision1.collide_with_areas = false
 	match StaName:
-		State.DEATH:#最优先状态
-			collision_layer = 0#不再能互动
-
+		#State.DEATH:#最优先状态
+			#collision_layer = 0#不再能互动
 			#changeTime = 0.6#标准死亡等待消失时间(总共0.6s)
 		#State.ATTACK:if currentState == State.PUSH||currentState == State.STOP:pass
 		State.STOP:#攻击时候停止是在攻击完后保持静止
@@ -254,7 +250,9 @@ func _on_animated_sprite_2d_frame_changed():
 							if proTimes == proContinueTimes:
 								await get_tree().create_timer(proSleepTime,false).timeout
 								proTimes = 0
-			State.DEATH: queue_free()
+			State.DEATH: 
+				if camp == Global.MONSTER: Global.MonsterDeaths += 1
+				queue_free()
 		if currentState == State.OUTSEA: 
 			changeState(seaAni,seaState)
 			$Collision1.collide_with_areas = true
@@ -267,14 +265,19 @@ func attack():
 	if attackAni == "attackSec"&&damageBasic[ani["attackSec"]] == null: attackAni = "attack"
 	
 	if projectile == null:
-		if aoeRange[ani[attackAni]] == 0:#近战单体
-			Global.damage_Calu(other,Global.damCaluType.ATTEFF,attackType[ani[attackAni]],damage[ani[attackAni]],damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],effTime[ani[attackAni]],effTimes[ani[attackAni]],Global.IfAoeType.NONE)
+		if aoeRange[ani[attackAni]] == null:#近战单体
+			Global.damage_Calu(other,Global.damCaluType.ATTEFF,attackType[ani[attackAni]],
+			damage[ani[attackAni]],damagerType[ani[attackAni]],giveEffect[ani[attackAni]],
+			effValue[ani[attackAni]],effTime[ani[attackAni]],effTimes[ani[attackAni]],Global.IfAoeType.NONE)
 		
 		else:#近战AOE
 			#Global.damage_Calu(body,Global.TRANSFER,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,null)
-			if attackType[Global.AttackType.EXPLODE] == true: other = self
-			Global.aoe_create(other,Global.CREATE,aoeModel[ani[attackAni]],aoeRange[ani[attackAni]],ifAoeHold[ani[attackAni]],attackType[ani[attackAni]],damage[ani[attackAni]],damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],effTime[ani[attackAni]],effTimes[ani[attackAni]])
-			if attackType[Global.AttackType.EXPLODE] == true: queue_free()#近战AOE且是爆炸伤害类型->只有自爆
+			if attackType[ani[attackAni]][Global.AttackType.EXPLODE] == true: other = self
+			Global.aoe_create(other,Global.CREATE,aoeModel[ani[attackAni]],aoeRange[ani[attackAni]],
+			ifAoeHold[ani[attackAni]],attackType[ani[attackAni]],damage[ani[attackAni]],
+			damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],
+			effTime[ani[attackAni]],effTimes[ani[attackAni]])
+			if attackType[ani[attackAni]][Global.AttackType.EXPLODE] == true: queue_free()#近战AOE且是爆炸伤害类型->只有自爆
 			if soldierName[0] == "assassinFirst": reSet(soldierName[1])
 	else:#远程
 		var attTimes = 1
@@ -293,7 +296,11 @@ func attack():
 			newPro.proSpeed = proSpeed[ani[attackAni]]
 			newPro.ifPriece = ifPriece[ani[attackAni]]
 			if currentAni == "attackThr"&&attackAni == "attack":  attackAni = "attackSec"
-			Global.aoe_create(newPro,Global.TRANSFER,aoeModel[ani[attackAni]],aoeRange[ani[attackAni]],ifAoeHold[ani[attackAni]],attackType[ani[attackAni]],damage[ani[attackAni]],damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],effTime[ani[attackAni]],effTimes[ani[attackAni]])
+
+			Global.aoe_create(newPro,Global.TRANSFER,aoeModel[ani[attackAni]],aoeRange[ani[attackAni]],
+			ifAoeHold[ani[attackAni]],attackType[ani[attackAni]],damage[ani[attackAni]],
+			damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],
+			effTime[ani[attackAni]],effTimes[ani[attackAni]])
 			newPro.firstSetting()
 	pass
 	
@@ -335,7 +342,7 @@ func holdDamageTimer(effKeepTime,effKeepTimes,effDamageValue):
 func holdDamageTimerOut(Times,effKeepTimes,Id,effDamageValue):
 	health += effDamageValue
 	Times += 1
-	if Times == effKeepTimes: Id.queue_free()
+	if Times >= effKeepTimes: Id.queue_free()
 	pass
 
 func reload():

@@ -1,6 +1,6 @@
 extends Area2D
 var camp
-var type = Global.Type.PROJECTILE
+var type = "projectiles"
 var startPos = position.x
 var currentPos
 var frame
@@ -77,11 +77,14 @@ func _process(_delta):
 	pass
 
 func _on_area_entered(area):
-	if aoeRange == 0:#单体
-		Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
+	if aoeModel == null:#单体
+		print(damage)
+		Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,
+		effTime,effTimes,Global.IfAoeType.NONE)
 		#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	
 	else:#AOE
-		Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes)
+		Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,
+		giveEffect,effValue,effTime,effTimes)
 	#if Global.ProTypeValue[projectile] != Global.ProType.PIERCE: 
 	if ifPriece == false: queue_free()
 	pass 

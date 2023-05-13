@@ -29,19 +29,15 @@ func _ready():
 						arrayLength = Global.STSData[STSName][STSDatename].size()
 						for i in arrayLength:
 							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
-		#提前根据图片得到单位碰撞箱尺寸
-		if STSName != "power":
-			var pictureGet
-
-			if Global.STSData[STSName]["type"] == "soldier":
-				pictureGet = load("res://assets/objects/soldier/%s/attack/attack1.png"% STSName)
-			if Global.STSData[STSName]["type"] == "tower":
-				pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
-			if Global.STSData[STSName]["type"] == "skill":
-				pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
-			#print(STSName)
-			#print(pictureGet)
-			Global.STSData[STSName]["collBox"] = pictureGet.get_size()
+		
+		var pictureGet#提前根据图片得到单位碰撞箱尺寸
+		if Global.STSData[STSName]["type"] == "soldier":
+			pictureGet = load("res://assets/objects/soldier/%s/attack/attack1.png"% STSName)
+		if Global.STSData[STSName]["type"] == "tower":
+			pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
+		if Global.STSData[STSName]["type"] == "skill":
+			pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
+		Global.STSData[STSName]["collBox"] = pictureGet.get_size()
 
 	file = FileAccess.open("res://data/level.json", FileAccess.READ)
 	content = file.get_as_text()
@@ -98,6 +94,15 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_select"):
 		Global.MonsterBase.health = 0
 		pass
+	
+#	if Global.MonsterDeaths >= 1:
+#		var tower = Global.Tower.instantiate()
+#		Global.root.add_child(tower)
+#		tower.camp = Global.MONSTER
+#		tower.unPeopleFly = false
+#		tower.position = Global.MonsterPoint
+#		tower.firstSetting("cave")
+#		Global.MonsterDeaths = 0
 	$Moneytext/Moneycount.text = str(Global.NowMoney) +"/"+ str(Global.Money)
 	if Global.NowMoney != Global.Money&&$Moneytimer.one_shot == true:
 		$Moneytimer.start(moneyTime)
@@ -130,6 +135,7 @@ func _on_moneytimer_timeout():
 func _on_tree_exited():
 	summonEnemyID.queue_free()
 	Global.NowMoney = 0
+	Global.MonsterDeaths = 0
 	Global.CardBuy = null
 	Global.Contrl = null
 	emit_signal("reloadSence")

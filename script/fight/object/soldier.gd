@@ -27,15 +27,16 @@ func firstSetting(soldier):
 
 	pass
 
-func _on_usual_timer_timeout():
+func _on_usual_timer_timeout():#平常给予效果
 	var usual = 2
-	Global.aoe_create(self,Global.CREATE,aoeModel[usual],aoeRange[usual],ifAoeHold[usual],null,null,null,giveEffect[usual],effValue[usual],effTime[usual],effTimes[usual])
-
+	Global.aoe_create(self,Global.CREATE,aoeModel[usual],aoeRange[usual],ifAoeHold[usual]
+	,null,null,null,giveEffect[usual],effValue[usual],effTime[usual],effTimes[usual])
 	pass
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
-		print(speed)
+		if camp == Global.VILLAGE: health = 0
+		#shield = 0
 		pass
 	#移动控制
 	position += speed*camp*speedDirection
