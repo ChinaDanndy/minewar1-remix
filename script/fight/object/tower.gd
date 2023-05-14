@@ -29,7 +29,7 @@ func _process(_delta):
 		if position.y >= 297: 
 			unPeopleFly = false
 			position.y = 297
-			if !giveEffect[1].is_empty():
+			if !giveEffect[ani["usual"]].is_empty():
 				var usual = 1
 				Global.aoe_create(self,Global.CREATE,aoeModel[usual],aoeRange[usual],ifAoeHold[usual],
 				null,null,null,giveEffect[usual],effValue[usual],effTime[usual],effTimes[usual])

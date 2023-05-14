@@ -10,7 +10,7 @@ var soldierName = [null,null]#
 var other
 
 enum State {ATTACK,STOP,DEATH,BACK,PUSH,OUTSEA,FALL}
-const ani = {"attack":0,"attackSec":1,"death":3}#usual = 2
+const ani = {"attack":0,"attackSec":1,"usual":2,"death":3}#usual = 2
 var animation#
 var currentState = State.PUSH
 var currentAni = "walk"
@@ -52,12 +52,12 @@ var ifAoeHold = [false,false,false,false]#
 #自身状态数据 #攻击1 攻击2 平时 死亡
 var effTimerId = [null,null,null,null,null,null,null]
 var nowEffect = [0,0,0,0,0,0,0]#记录伤害，速度，射程当前的效果值，区分好坏
-var effTime = [[0,0,0,0,0,0],[],[],[]]#后两个为平时，攻击持续效果的间隔给予数值的时间
-var effValue = [[0,0,0],[],[],[]]#平时效果保持伤害,攻击效果保持伤害,击退距离
-var effTimes = [[0,0],[],[],[]]#效果持续：平时次数，攻击次数
+var effTime = [[0,0,0,0,0],[0,0,0,0,0],[],[]]#后两个为平时，攻击持续效果的间隔给予数值的时间
+var effValue = [[0,0],[0,0],[],[]]#平时效果保持伤害,攻击效果保持伤害,击退距离
+var effTimes = [0,0,0,0]#效果持续：平时次数，攻击次数
 var ifAoe##仅用于伤害判定给予效果时分辨效果来源
 var effDefence = [false,false,false,false,false,false,false]#
-var giveEffect = [[0,0,0,0,0,0,0],[],[],[]]#攻击给予状态同时表示好坏
+var giveEffect = [[0,0,0,0,0,0],[0,0,0,0,0,0],[],[]]#攻击给予状态同时表示好坏
 var healthEffValue = 0#低血量提升攻击力速度
 var usualTime#
 var shield = 0#
@@ -109,7 +109,6 @@ func firstSetting(soldier):
 	nowEffect[Global.Effect.FREEZE] = SpeState.MOVE
 	healthUp = health#记录血量上限
 	if attDefShield != null: attDefence = attDefShield
-	
 	collision_mask = Global.MAsk[camp+1][0]#设置碰撞的笼罩层
 	if ifOnlyAttBase == true:  collision_mask = Global.MAsk[camp+1][2]
 	#把设置过的碰撞层导入射线检测的碰撞层
@@ -155,7 +154,14 @@ func _process(_delta):#每帧执行的部分
 			
 	if currentState == State.FALL:#活塞虫坠机自爆
 		position.y += 5
-		if position.y >= Global.FightGroundY: changeState("death",State.DEATH)
+		if position.y >= Global.FightGroundY: 
+			var attackAni = "attackSec"
+			aoeRange[ani[attackAni]] = aoeRange[ani[attackAni]]*1.5#扩大爆炸范围
+			Global.aoe_create(self,Global.CREATE,aoeModel[ani[attackAni]],aoeRange[ani[attackAni]],
+			ifAoeHold[ani[attackAni]],attackType[ani[attackAni]],damage[ani[attackAni]],
+			damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],
+			effTime[ani[attackAni]],effTimes[ani[attackAni]])
+			changeState("death",State.DEATH)
 	
 	if health <=0 && !giveEffect[ani["death"]].is_empty()&&currentState == State.DEATH:#死亡效果
 		var usual = ani["death"]
@@ -332,18 +338,6 @@ func effectTimerTimeout(effName,GoodOrBad):
 	if effTimerId[this] != null: effTimerId[this].queue_free()
 	pass
 	
-func holdDamageTimer(effKeepTime,effKeepTimes,effDamageValue):
-	var effTimer = Timer.new()
-	effTimer.timeout.connect(holdDamageTimerOut.bind(0,effKeepTimes,effTimer,effDamageValue))
-	add_child(effTimer)
-	effTimer.start(effKeepTime)
-	pass
-	
-func holdDamageTimerOut(Times,effKeepTimes,Id,effDamageValue):
-	health += effDamageValue
-	Times += 1
-	if Times >= effKeepTimes: Id.queue_free()
-	pass
 
 func reload():
 	queue_free()

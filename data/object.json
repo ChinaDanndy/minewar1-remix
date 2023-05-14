@@ -57,8 +57,8 @@
         "aoeRange":100,
         "effTime":[0,0,0,0,1.5,0],
         "effValue":[1.25,0,0],
-        "effTimes":[5,0],
-        "giveEffect":[0,0,0,0,1,0,0]
+        "effTimes":5,
+        "giveEffect":[0,0,0,0,1,0]
     },
 
     
@@ -114,7 +114,7 @@
         "aoeRange":200,
         "ifAoeHold":false,
         "effValue":[2.5,0,0],
-        "giveEffect":[0,0,0,0,-1,0,0]
+        "giveEffect":[0,0,0,0,-1,0]
     },
 
     "snowman":{
@@ -129,8 +129,8 @@
         "attRangeBasic":[150,0],
         "projectile":["snowBall"],
         "proSpeed":[3],
-        "effTime":[[0,0,2,0,0,0],[],[],[]],
-        "giveEffect":[[0,0,-1,0,0,0,0],[],[],[]]
+        "effTime":[[0,0,2,0,0],[],[],[]],
+        "giveEffect":[[0,0,-1,0,0,0],[],[],[]]
     },   
     "assassinFirst":{
         "price":1,
@@ -165,7 +165,7 @@
         "aoeRange":80,
         "effTime":[0,0,0,3,0,0],
         "effValue":[0,0,0],
-        "effTimes":[0,0],
+        "effTimes":0,
         "giveEffect":[0,0,0,-1,0,0,0]
     },    
     "wall":{
@@ -175,8 +175,8 @@
         "animation":{"attack":1,"stop":1,"death":1},
         "aoeModel":[null,"all",null,"monster"],
         "aoeRange":[null,100,null,100],
-        "effValue":[[],[0.25,0,0],[],[5,0,0]],
-        "giveEffect":[[],[0,0,0,0,-1,0,0],[],[0,0,0,0,-1,0,0]]
+        "effValue":[[],[],[0.25,0],[5,0]],
+        "giveEffect":[[],[],[0,0,0,0,-1,0],[0,0,0,0,-1,0]]
     },
 
 
@@ -193,9 +193,9 @@
         "proSpeed":[5],
         "aoeModel":["village",null,"monster",null],
         "aoeRange":[60,null,200,null],
-        "effTime":[[3,0,0,0,0,0],[],[],[]],
-        "effValue":[[0,0,0],[],[1.25,0,0],[]],
-        "giveEffect":[[-1,0,0,0,0,0,0],[],[0,0,0,0,1,0,0],[]],
+        "effTime":[[3,0,0,0,0],[],[],[]],
+        "effValue":[[0,0],[],[1.25,0],[]],
+        "giveEffect":[[-1,0,0,0,0,0],[],[0,0,0,0,1,0],[]],
         "usualTime":2
     },
     "sear":{
@@ -243,8 +243,8 @@
         "attRangeBasic":[50,0],
         "aoeModel":["monster"],
         "aoeRange":[40],
-        "effValue":[[0,0,60],[],[],[]],
-        "giveEffect":[[0,0,0,0,0,0,-1],[],[],[]]
+        "effValue":[[0,60],[],[],[]],
+        "giveEffect":[[0,0,0,0,0,-1],[],[],[]]
     },
     "worm":{
         "price":1,
@@ -258,12 +258,10 @@
         "attackType":[[false,true,false],[false,false,true]],
         "damageBasic":[2.5,5],
         "attRangeBasic":[200,80],
-        "aoeModel":[null,"all",null,"all"],
-        "aoeRange":[null,200,null,400],
+        "aoeModel":[null,"all",null,null],
+        "aoeRange":[null,200,null,null],
         "projectile":["arrow","tnt"],
-        "proSpeed":[5,5],
-        "effValue":[[0,0,0],[0,0,0],[],[1.25,0,0]],
-        "giveEffect":[[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[],[0,0,0,0,-1,0,0]]
+        "proSpeed":[5,5]
     },
     "golder":{
         "price":1,
@@ -281,9 +279,9 @@
         "ifAoeHold":true,
         "aoeModel":"village",
         "aoeRange":100,
-        "effTime":[5,0,5,0,3,0],
-        "effTimes":[1,0,0],
-        "giveEffect":[1,0,1,0,0,0,0]
+        "effTime":[5,0,5,0,3],
+        "effTimes":1,
+        "giveEffect":[1,0,1,0,0,0]
     },
 
     "ghost":{
@@ -302,10 +300,10 @@
         "aoeRange":[80,80,null,null],
         "projectile":["fireBall","fireBallDown"],
         "proSpeed":[3,3],
-        "effTime":[[0,0,0,0,0,0],[0,0,0,0,2,0],[],[]],
-        "effValue":[[0,0,0],[1.25,0,0],[],[]],
-        "effTimes":[[0,0],[3,0],[],[]],
-        "giveEffect":[[0,0,0,0,0,0,0],[0,0,0,0,-1,0,0],[],[]]
+        "effTime":[[0,0,0,0,0],[0,0,0,0,1],[],[]],
+        "effValue":[[0,0],[1.25,0],[],[]],
+        "effTimes":[0,3,0,0],
+        "giveEffect":[[0,0,0,0,0,0],[0,0,0,0,-1,0],[],[]]
     },
     "axer":{
         "type":"soldier",

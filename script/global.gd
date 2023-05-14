@@ -36,14 +36,13 @@ const MAsk = [[1+16,1+4+16,16],[1+2+16+32],[2+32,2+8+32,32]]
 #const deathLayer = 32
 enum AttackType {NEAR,FAR,EXPLODE}
 const AddDamage = 1.5
-enum Effect {ATTDAMAGE,ATTRANGE,SPEED,FREEZE,DAMAGE,HOLDDAMAGE,KNOCK}
+enum Effect {ATTDAMAGE,ATTRANGE,SPEED,FREEZE,DAMAGE,KNOCK}
 const EffGood = Effect.DAMAGE
-enum DamValue {DAMAGE,HOLDDAMAGE,KNOCK}
+enum DamValue {DAMAGE,KNOCK}
 const EffValue = [0.5,0.5,0.5,0]
 const EFFGOOD = 1
 const OFFEFFECT = 0
 const EFFBAD = -1
-
 
 const ProDire = {"arrow":Vector2(1,0),"arrowUp":Vector2(1,-1),"tnt":Vector2(0,1),
 "fireBall":Vector2(1,0),"fireBallDown":Vector2(1,1),"water":Vector2(1,0),"snowBall":Vector2(1,0)}

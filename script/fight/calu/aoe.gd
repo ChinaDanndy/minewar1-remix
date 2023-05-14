@@ -43,44 +43,25 @@ func firstsetting():
 		if giveEffect[Global.Effect.DAMAGE] != Global.OFFEFFECT:#平常情况下的伤害类型范围持续效果
 			$holdTimer.start(effTime[Global.Effect.DAMAGE])
 			#$deathTimer.start(effTime[Global.Effect.DAMAGE]*effTimes[Global.DamValue.DAMAGE])
-		await get_tree().create_timer(effTime[Global.Effect.DAMAGE]*effTimes[Global.DamValue.DAMAGE],false).timeout
+		await get_tree().create_timer(effTime[Global.Effect.DAMAGE]*effTimes,false).timeout
 		queue_free()
-	pass
-
-func _process(delta):
 	pass
 	
 func _on_area_entered(area):
-	#var noDamageEffect = giveEffect.duplicate()
-	#noDamageEffect[Global.Effect.DAMAGE] = 0#防止平时持续效果里给伤害时给属性效果续时间
-			#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	else:#AOE
-	if damage == null: 
-		#if damagerType == null: 
-		Global.damage_Calu(area,Global.damCaluType.EFF,null,null,null,giveEffect,effValue,effTime,effTimes,
-		Global.IfAoeType.NONE)
+	if damage == null:
+		Global.damage_Calu(area,Global.damCaluType.EFF,null,null,null,giveEffect,
+		effValue,effTime,effTimes,Global.IfAoeType.NONE)#纯效果
 	else:
 		if ifAoeHold == false:
-			Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,
-			effTime,effTimes,Global.IfAoeType.NONE)
-	if ifAoeHold == false: 
-		#if damagerType != null&&damagerType[0] == "skill":
-
-			#Global.damage_Calu(area,Global.damCaluType.EFF,null,null,null,giveEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)
-		queue_free()
+			Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,
+			giveEffect,effValue,effTime,effTimes,Global.IfAoeType.NONE)#攻击全部
+	if ifAoeHold == false:  queue_free()
 	pass
 	
 func _on_hold_timer_timeout():
-	#var nolyDamageEffect:Array
-	#for i in Global.Effect.size(): nolyDamageEffect[i] = 0
-	#nolyDamageEffect[Global.Effect.DAMAGE] = giveEffect[Global.Effect.DAMAGE]#防止平时持续效果里给伤害时给属性效果续时间
-
-	Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false,null,null,["skill"],giveEffect,effValue,
-	effTime,effTimes)
+	Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false,null,null,
+	["skill"],giveEffect,effValue,effTime,effTimes)
 	pass
-
-func _on_death_timer_timeout():
-	queue_free()
-	pass # Replace with function body.
 
 func reload():
 	queue_free()

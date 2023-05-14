@@ -7,7 +7,7 @@
         {"levelType":1,"attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":2,"thunderTimeRand":0},[
             {
                 "firstCD":0,
-                "soldier":["ghost"],
+                "soldier":["creeper"],
                 "soldierCD":0.6,
                 "groupCD":6,
                 "groupCDRand":0,
@@ -15,7 +15,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],["shoveler","golder","power","wall","power","wall","cave"]
+        ],["shoveler","worm","power","wall","power","wall","cave"]
     ],
     [
         {"levelType":1,"attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":1},[

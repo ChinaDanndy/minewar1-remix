@@ -52,8 +52,6 @@ func effectAttackCalu(damager):
 						else: if effTime[i]>damager.effTimerId[this].time_left: damager.effTimerId[this].start(effTime[i])
 							#新计时器时间是否大于旧的计时器剩余时间
 				match i:
-					Global.Effect.HOLDDAMAGE: 
-						damager.holdDamageTimer(effTime[i],effTimes[Global.DamValue.HOLDDAMAGE],effValue[Global.DamValue.HOLDDAMAGE]*giveEffect[i])
 					Global.Effect.DAMAGE:
 						if (damager.health+effValue[Global.DamValue.DAMAGE]*giveEffect[i])<=damager.healthUp: 
 							damager.health += effValue[Global.DamValue.DAMAGE]*giveEffect[i]

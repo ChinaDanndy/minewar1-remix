@@ -1,16 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c26tal5mjaxyo"]
+[gd_scene load_steps=3 format=3 uid="uid://b0jises1d263n"]
 
 [ext_resource type="PackedScene" uid="uid://q05lgu8j1nu8" path="res://sence/fight/object/soldier.tscn" id="1_12baw"]
 [ext_resource type="Script" path="res://script/fight/object/soldier/villageSoldier.gd" id="2_uwk61"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_s87tp"]
-
 [node name="object" instance=ExtResource("1_12baw")]
 script = ExtResource("2_uwk61")
-
-[node name="AnimatedSprite2D" parent="." index="0"]
-sprite_frames = SubResource("SpriteFrames_s87tp")
-
-[connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished" flags=18]
-[connection signal="animation_looped" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped" flags=18]

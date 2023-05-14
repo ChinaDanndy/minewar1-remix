@@ -2,26 +2,22 @@ extends "res://script/fight/object.gd"
 
 func firstSetting(soldier):
 	super.SetValue(soldier)
-	
 	SetAnimationAndCollBox(soldier)
 	super.firstSetting(soldier)
-	
-	
-	
 	collision_layer = Global.LAyer[camp+1][0]
 	if kind == "sea": collision_layer = Global.LAyer[camp+1][1]
 	if kind == "sky": position.y = Global.FightSkyY
 	var distanceLandSky = Global.FightGroundY - Global.FightSkyY
-
 	if coll2Pos == "landSky":#骷髅
 		$Collision2.position.y = -(distanceLandSky)
 		$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
 	if coll2Pos == "skyLand":#恶魂
 		$Collision2.position.y = (distanceLandSky)
 		$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
-	if coll2Pos == "skyLine":#活塞虫
-		$Collision2.position.y = (distanceLandSky)
-		$Collision2.position.x = -(attRangeBasic[1]/2)
+	match coll2Pos:
+		"skyLine":#活塞虫
+			$Collision2.position.y = (distanceLandSky)
+			$Collision2.position.x = -(attRangeBasic[1]/2)
 	if coll2Pos != null: $Collision2.collide_with_areas = true
 	if usualTime != null: $UsualTimer.start(usualTime)
 
