@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1lu65w4nomle"]
+
+[ext_resource type="Texture2D" uid="uid://jbxgg1stfefq" path="res://assets/backgrounds/card_square.png" id="1_weevt"]
+[ext_resource type="Texture2D" uid="uid://rpyqwom4dpsa" path="res://assets/UI/button/cancel_normal.png" id="2_0rodr"]
+[ext_resource type="PackedScene" uid="uid://cqu0trx4tn07j" path="res://sence/fight/ui/cardButton.tscn" id="2_ltcr5"]
+[ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="3_dp3fp"]
+[ext_resource type="Script" path="res://script/start/cancelButton.gd" id="4_mip36"]
+
+[node name="BuyCardWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.262745)
+
+[node name="Main" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 200.0
+offset_top = 40.0
+offset_right = 200.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Main"]
+layout_mode = 0
+offset_right = 266.0
+offset_bottom = 320.0
+texture = ExtResource("1_weevt")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Main"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 58.0
+offset_bottom = 88.0
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Main/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="cardButton1" parent="CanvasLayer/Main/VBoxContainer/HBoxContainer" instance=ExtResource("2_ltcr5")]
+layout_mode = 2
+cardType = 2
+
+[node name="cardButton2" parent="CanvasLayer/Main/VBoxContainer/HBoxContainer" instance=ExtResource("2_ltcr5")]
+layout_mode = 2
+cardType = 2
+
+[node name="cardButton3" parent="CanvasLayer/Main/VBoxContainer/HBoxContainer" instance=ExtResource("2_ltcr5")]
+layout_mode = 2
+cardType = 2
+
+[node name="cardButton4" parent="CanvasLayer/Main/VBoxContainer/HBoxContainer" instance=ExtResource("2_ltcr5")]
+layout_mode = 2
+cardType = 2
+
+[node name="buyCancelButton" type="TextureButton" parent="CanvasLayer/Main"]
+layout_mode = 0
+offset_left = 280.0
+offset_right = 300.0
+offset_bottom = 20.0
+texture_normal = ExtResource("2_0rodr")
+texture_pressed = ExtResource("3_dp3fp")
+texture_hover = ExtResource("3_dp3fp")
+script = ExtResource("4_mip36")
+
+[connection signal="pressed" from="CanvasLayer/Main/buyCancelButton" to="CanvasLayer/Main/buyCancelButton" method="_on_pressed"]

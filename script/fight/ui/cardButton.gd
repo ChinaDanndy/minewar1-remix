@@ -1,27 +1,34 @@
 extends Control
-enum  cType {BUY,CHOICE}
+enum  cType {BUY,CHOICE,HOME}
 @export var cardType:int
 @onready var cantBuy = $cantChoice
-@onready var choice = $choice
 var outLine = true
-
-
 
 var soldier
 var price
 var areaId
-
 var choiceArea = preload("res://sence/fight/ui/choiceArea.tscn")
 var num
+var cardNum
+
+
 func _ready():
-	material = null
-	Global.FightSence.cardMessage.connect(cardMessageOut)
-	Global.FightButton.FightStart.connect(buyCardReSet)
 	num = int(str(name))-1
+	if cardType != cType.HOME:
+		Global.FightSence.cardMessage.connect(cardMessageOut)
+		Global.FightButton.FightStart.connect(buyCardReSet)
+	else:
+		soldier = Global.LevelData[0]["allVillageBuyObject"][num]
+		display()
+		if Global.CardBrought[soldier] == true:
+			self.button_mask = 0
+			outLine = false
+			cantBuy.visible = true
 	pass
 	
 func display():
-	price = Global.STSData[soldier]["price"]#基本属性填充
+	if cardType != cType.HOME: price = Global.STSData[soldier]["price"]#基本属性填充
+	else: price = Global.LevelData[0]["villageBuyPrice"][num]
 	$cardPrice.text = str(price)
 	$cardName.text = soldier
 	pass
@@ -31,8 +38,9 @@ func cardMessageOut():
 		cType.CHOICE:
 			soldier = Global.LevelData[0]["allVillageObject"][num]#获得士兵数据
 			if soldier != null:  display()
-			var banCard = Global.LevelData[Global.Level].size()-2#查看是否为禁用卡
-			if Global.LevelData[Global.Level][banCard].has(soldier):
+			var banCard = Global.LevelData[Global.Level].size()-2#查看是否为禁用卡,外面没购买的卡也不能选
+			if (Global.LevelData[Global.Level][banCard].has(soldier))||(
+				Global.LevelData[0]["allVillageBuyObject"].has(soldier)&&Global.CardBrought[soldier]==false):
 				self.button_mask = 0
 				outLine = false
 				cantBuy.visible = true
@@ -44,6 +52,7 @@ func cardMessageOut():
 				soldier = Global.LevelData[Global.Level][card][num]
 				buyCardReSet()
 				display()
+			pass
 	pass
 
 func buyCardReSet():
@@ -89,6 +98,12 @@ func _on_pressed():
 				Global.ChosenCardNum -= 1
 				$cardPrice.text = ""
 				$cardName.text = ""
+			cType.HOME:
+				if  Global.Point >= price&&Global.CardBrought[soldier] == false:
+					Global.CardBrought[soldier] = true
+					Global.Point -= price
+					cantBuy.visible = true
+				pass
 		self.button_mask = 0
 		outLine = false
 		material = null

@@ -11,7 +11,6 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="LevelChoiceWindowLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="LevelChoiceWindowLayer"]
 anchors_preset = 15
@@ -67,7 +66,7 @@ level = 3
 layout_mode = 2
 level = 4
 
-[node name="CancelButton" type="TextureButton" parent="LevelChoiceWindowLayer/MainMove"]
+[node name="levelCancelButton" type="TextureButton" parent="LevelChoiceWindowLayer/MainMove"]
 layout_mode = 2
 offset_left = 400.0
 offset_right = 420.0
@@ -77,4 +76,4 @@ texture_pressed = ExtResource("4_pk3dp")
 texture_hover = ExtResource("4_pk3dp")
 script = ExtResource("5_nhy6r")
 
-[connection signal="pressed" from="LevelChoiceWindowLayer/MainMove/CancelButton" to="LevelChoiceWindowLayer/MainMove/CancelButton" method="_on_pressed"]
+[connection signal="pressed" from="LevelChoiceWindowLayer/MainMove/levelCancelButton" to="LevelChoiceWindowLayer/MainMove/levelCancelButton" method="_on_pressed"]

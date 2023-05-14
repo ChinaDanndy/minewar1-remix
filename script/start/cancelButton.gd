@@ -1,5 +1,7 @@
 extends TextureButton
+
 func _on_pressed():
-	Global.LevelChoiceWindow.visible = false
-	Global.LevelChoiceButton.disabled = false
+	match name:
+		"levelCancelButton": Global.LevelChoiceWindow.visible = false
+		"buyCancelButton": Global.BuyCardWindow.visible = false
 	pass

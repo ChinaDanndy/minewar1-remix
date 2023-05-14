@@ -40,12 +40,7 @@ func _ready():
 			"skill": pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
 		Global.STSData[STSName]["collBox"] = pictureGet.get_size()
 
-	file = FileAccess.open("res://data/level.json", FileAccess.READ)
-	content = file.get_as_text()
-	file.close()
-	jsonValue = JSON.new()
-	jsonValue.parse(content)
-	Global.LevelData = jsonValue.data
+
 	
 	Global.Level = 1
 	

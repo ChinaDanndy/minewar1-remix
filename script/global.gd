@@ -107,6 +107,8 @@ func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold,attackType,damage,damag
 
 var LevelChoiceButton
 var LevelChoiceWindow
+var BuyCardButton
+var BuyCardWindow
 
 var LevelReady = false
 var ChosenCard = [null,null,null,null]
@@ -138,9 +140,11 @@ var MonsterSoldier = preload("res://sence/fight/object/soldier/monsterSoldier.ts
 var Tower = preload("res://sence/fight/object/tower.tscn")
 var Skill = preload("res://sence/fight/object/skill.tscn")
 	
-var Point = 6233
-var CardBrought = [1,233,666,114514]
-func _ready():
+var Point = 0
+var CardBrought = {"freeze":false,"wall":false,"power":false,"golder":false}
+
+
+func _ready():#读入数据
 #	var json = JSON.new()
 #	var load = FileAccess.open("user://playerData.json",FileAccess.READ)
 #	var waitJson = load.get_as_text()
@@ -149,16 +153,21 @@ func _ready():
 #	CardBrought = json.data["CardBrought"]
 #	load = null
 	root.close_requested.connect(closeWindow)
-#	print(Point,CardBrought)
+	
+	var file = FileAccess.open("res://data/level.json", FileAccess.READ)
+	var content = file.get_as_text()
+	file.close()
+	var jsonValue = JSON.new()
+	jsonValue.parse(content)
+	Global.LevelData = jsonValue.data
 	pass
 	
-func closeWindow():
+func closeWindow():#存储数据
 	var saveJson = {"Point":Point,"CardBrought":CardBrought}
 	var json = JSON.new()
 	var save = FileAccess.open("user://playerData.json",FileAccess.WRITE)
 	save.store_string(json.stringify(saveJson))
 	save = null
-	print("over")
 	pass
 
 

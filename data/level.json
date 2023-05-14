@@ -6,7 +6,8 @@
         "snowman","assassinFirst","freeze","wall",
         "iron","worm","power","golder"],
         "allMonsterObject":[],
-        "allVillageBuyObject":["freeze","wall","power","golder"]
+        "allVillageBuyObject":["freeze","wall","power","golder"],
+        "villageBuyPrice":[1,2,3,4]
     },
     [
         {"levelType":1,"attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":2,"thunderTimeRand":0},[
@@ -20,7 +21,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],["worm","power","wall"],[]
+        ],[],[]
     ],
     [
         {"levelType":1,"attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":1},[
