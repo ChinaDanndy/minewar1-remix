@@ -8,13 +8,15 @@ func firstSetting(soldier):
 	if kind == "sea": collision_layer = Global.LAyer[camp+1][1]
 	if kind == "sky": position.y = Global.FightSkyY
 	var distanceLandSky = Global.FightGroundY - Global.FightSkyY
-	if coll2Pos == "landSky":#骷髅
-		$Collision2.position.y = -(distanceLandSky)
-		$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
-	if coll2Pos == "skyLand":#恶魂
-		$Collision2.position.y = (distanceLandSky)
-		$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
+	#if coll2Pos == "landSky":#骷髅
+	#if coll2Pos == "skyLand":#恶魂
 	match coll2Pos:
+		"landSky":
+			$Collision2.position.y = -(distanceLandSky)
+			$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
+		"skyLand":#恶魂
+			$Collision2.position.y = (distanceLandSky)
+			$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
 		"skyLine":#活塞虫
 			$Collision2.position.y = (distanceLandSky)
 			$Collision2.position.x = -(attRangeBasic[1]/2)

@@ -1,13 +1,18 @@
 [
     {
         "moneySpeed":1,
-        "thunderSpeed":0.1
+        "thunderSpeed":0.1,
+        "allVillageObject":["shoveler","shielder","projector","regeneration",
+        "snowman","assassinFirst","freeze","wall",
+        "iron","worm","power","golder"],
+        "allMonsterObject":[],
+        "allVillageBuyObject":["freeze","wall","power","golder"]
     },
     [
         {"levelType":1,"attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":2,"thunderTimeRand":0},[
             {
                 "firstCD":0,
-                "soldier":["creeper"],
+                "soldier":["zombie"],
                 "soldierCD":0.6,
                 "groupCD":6,
                 "groupCDRand":0,
@@ -15,7 +20,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],["shoveler","worm","power","wall","power","wall","cave"]
+        ],["worm","power","wall"],[]
     ],
     [
         {"levelType":1,"attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":1},[
@@ -39,7 +44,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],["shoveler","shielder","regeneration","projector",null,null,null]
+        ],[],["shoveler","shielder","regeneration","projector",null,null,null],["shoveler","worm","power","wall","power","wall","cave"]
     ]
 
     

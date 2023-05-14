@@ -7,9 +7,8 @@ func _ready():
 	pass
 
 func _on_mouse_entered():
-	material = Global.OutLine
+	material = Global.ButtonOutLine
 	pass
-
 
 func _on_mouse_exited():
 	material = null

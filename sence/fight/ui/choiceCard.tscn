@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=3 uid="uid://cimi287socn0s"]
+
+[ext_resource type="Texture2D" uid="uid://jbxgg1stfefq" path="res://assets/backgrounds/card_square.png" id="1_hd28k"]
+[ext_resource type="PackedScene" uid="uid://cqu0trx4tn07j" path="res://sence/fight/ui/cardButton.tscn" id="2_avj7v"]
+[ext_resource type="Texture2D" uid="uid://rpyqwom4dpsa" path="res://assets/UI/button/cancel_normal.png" id="3_hq3mw"]
+[ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="4_ggfrn"]
+[ext_resource type="Script" path="res://script/fight/ui/fightButton.gd" id="5_ekptk"]
+
+[node name="choiceCard" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="backGround" type="TextureRect" parent="."]
+layout_mode = 0
+texture = ExtResource("1_hd28k")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 112.0
+offset_bottom = 84.0
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="cardButton1" parent="VBoxContainer/HBoxContainer" instance=ExtResource("2_avj7v")]
+layout_mode = 2
+cardType = 1
+
+[node name="cardButton2" parent="VBoxContainer/HBoxContainer" instance=ExtResource("2_avj7v")]
+layout_mode = 2
+cardType = 1
+
+[node name="cardButton3" parent="VBoxContainer/HBoxContainer" instance=ExtResource("2_avj7v")]
+layout_mode = 2
+cardType = 1
+
+[node name="cardButton4" parent="VBoxContainer/HBoxContainer" instance=ExtResource("2_avj7v")]
+layout_mode = 2
+cardType = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="cardButton5" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("2_avj7v")]
+layout_mode = 2
+cardType = 1
+
+[node name="cardButton6" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("2_avj7v")]
+layout_mode = 2
+cardType = 1
+
+[node name="cardButton7" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("2_avj7v")]
+layout_mode = 2
+cardType = 1
+
+[node name="cardButton8" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("2_avj7v")]
+layout_mode = 2
+cardType = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="cardButton9" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("2_avj7v")]
+layout_mode = 2
+cardType = 1
+
+[node name="cardButton10" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("2_avj7v")]
+layout_mode = 2
+cardType = 1
+
+[node name="cardButton11" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("2_avj7v")]
+layout_mode = 2
+cardType = 1
+
+[node name="cardButton12" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("2_avj7v")]
+layout_mode = 2
+cardType = 1
+
+[node name="fightButton" type="TextureButton" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 274.0
+offset_right = 314.0
+offset_bottom = 40.0
+texture_normal = ExtResource("3_hq3mw")
+texture_pressed = ExtResource("4_ggfrn")
+texture_hover = ExtResource("4_ggfrn")
+script = ExtResource("5_ekptk")
+
+[connection signal="pressed" from="fightButton" to="fightButton" method="_on_pressed"]

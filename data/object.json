@@ -73,7 +73,7 @@
         "attRangeBasic":[10,0]
     },    
     "skeleton":{
-        "coll2Pos":"land",
+        "coll2Pos":"landSky",
         "type":"soldier",
         "health":5,
         "animation":{"walk":6,"attack":4,"attackSec":4,"stop":1,"death":1},

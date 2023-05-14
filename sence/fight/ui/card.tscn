@@ -23,12 +23,3 @@ layout_mode = 2
 
 [node name="CardButton4" parent="HBoxContainer" instance=ExtResource("1_v5vvb")]
 layout_mode = 2
-
-[node name="CardButton5" parent="HBoxContainer" instance=ExtResource("1_v5vvb")]
-layout_mode = 2
-
-[node name="CardButton6" parent="HBoxContainer" instance=ExtResource("1_v5vvb")]
-layout_mode = 2
-
-[node name="CardButton7" parent="HBoxContainer" instance=ExtResource("1_v5vvb")]
-layout_mode = 2

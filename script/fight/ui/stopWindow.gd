@@ -37,5 +37,5 @@ func _on_button_2_pressed():
 	pass 
 func _on_button_3_pressed():
 	usual()
-	get_tree().change_scene_to_file("res://sence/start.tscn")
+	get_tree().change_scene_to_file("res://sence/start/Start.tscn")
 	pass 

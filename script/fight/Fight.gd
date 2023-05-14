@@ -31,12 +31,13 @@ func _ready():
 							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
 		
 		var pictureGet#提前根据图片得到单位碰撞箱尺寸
-		if Global.STSData[STSName]["type"] == "soldier":
-			pictureGet = load("res://assets/objects/soldier/%s/attack/attack1.png"% STSName)
-		if Global.STSData[STSName]["type"] == "tower":
-			pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
-		if Global.STSData[STSName]["type"] == "skill":
-			pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
+		match Global.STSData[STSName]["type"]:
+		#if Global.STSData[STSName]["type"] == "soldier":
+		#if Global.STSData[STSName]["type"] == "tower":
+		#if Global.STSData[STSName]["type"] == "skill":
+			"soldier": pictureGet = load("res://assets/objects/soldier/%s/attack/attack1.png"% STSName)
+			"tower": pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
+			"skill": pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
 		Global.STSData[STSName]["collBox"] = pictureGet.get_size()
 
 	file = FileAccess.open("res://data/level.json", FileAccess.READ)
@@ -46,13 +47,14 @@ func _ready():
 	jsonValue.parse(content)
 	Global.LevelData = jsonValue.data
 	
-	moneyTime = Global.LevelData[0]["moneySpeed"]
-	$Moneytimer.start(moneyTime)
+	Global.Level = 1
 	
+	moneyTime = Global.LevelData[0]["moneySpeed"]
 	Global.ThunderSpeed = Global.LevelData[0]["thunderSpeed"]
 	thunderTime = Global.LevelData[Global.Level][0]["thunderTime"]
 	thunderTimeRand = Global.LevelData[Global.Level][0]["thunderTimeRand"]
-	if thunderTime >0: $Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
+	
+
 	
 	Global.VillageBase.camp = Global.VILLAGE
 	Global.VillageBase.firstSetting("baseVillageHealth")
@@ -66,15 +68,13 @@ func _ready():
 			$AttackTime.visible = true
 			$attackTimer.start(1)
 		Global.LevelType.DEFENCE: $baseMonster/Label.visible = false 
+	
+	
+	if !Global.LevelData[Global.Level][-1].is_empty():#有给定卡不开选卡
+		Global.ChoiceWindow.visible =false
+		fightStart()
 		
 	emit_signal("cardMessage")#monseter 680
-
-	var newEnemy = summonEnemy.new()
-	Global.Level = 1
-	Global.root.call_deferred("add_child",newEnemy)
-	newEnemy.call_deferred("firstStart")
-	newEnemy.name = "summonEnemy"
-	summonEnemyID = newEnemy
 	pass
 	
 func _on_thundertimer_timeout():
@@ -90,12 +90,27 @@ func _on_thundertimer_timeout():
 	$Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
 	pass
 	
+func fightStart():
+	#await get_tree().create_timer(1,false).timeout#开局延迟开始
+	var newEnemy = summonEnemy.new()
+	
+	Global.root.call_deferred("add_child",newEnemy)
+	newEnemy.call_deferred("firstStart")
+	newEnemy.name = "summonEnemy"
+	summonEnemyID = newEnemy
+	
+	$Moneytimer.start(moneyTime)
+	if thunderTime >0: $Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
+
+	pass
+	
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_select"):
 		Global.MonsterBase.health = 0
 		pass
-	
-#	if Global.MonsterDeaths >= 1:
+
+		
+#	if Global.MonsterDeaths >= 1:#怪物死一定数量生成蜘蛛笼
 #		var tower = Global.Tower.instantiate()
 #		Global.root.add_child(tower)
 #		tower.camp = Global.MONSTER
@@ -133,15 +148,24 @@ func _on_moneytimer_timeout():
 	pass 
 
 func _on_tree_exited():
-	summonEnemyID.queue_free()
+
+	if summonEnemyID != null: summonEnemyID.queue_free()
 	Global.NowMoney = 0
 	Global.MonsterDeaths = 0
 	Global.CardBuy = null
 	Global.Contrl = null
+	Global.ChosenCard = [null,null,null,null]
+	Global.ChosenId = [null,null,null,null,null]
+	Global.ChosenCardNum = 0
 	emit_signal("reloadSence")
 	pass
 	
 func _on_tree_entered():
+	Global.ChoiceWindow = $choiceCard
+	Global.FightButton = $choiceCard/fightButton
+	Global.FightButton.FightStart.connect(fightStart)
+
+
 	Global.StopButton = $StopButton
 	Global.StopWindowLayer = $StopWindowLayer
 	Global.StopWindow = $StopWindowLayer/StopWindow

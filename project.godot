@@ -30,7 +30,7 @@ window/stretch/aspect="expand"
 
 [editor]
 
-version_control_autoload_on_startup=true
+version_control_autoload_on_startup=false
 version_control_plugin_name="GitAPI"
 
 [editor_plugins]

@@ -1,9 +1,9 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://eslbs4jeusj1"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://brume671quhqj"]
 
-[ext_resource type="Shader" path="res://rescourse/outLine.gdshader" id="1_lnij6"]
+[ext_resource type="Shader" path="res://rescourse/outLine.gdshader" id="1_u2s17"]
 
 [resource]
-shader = ExtResource("1_lnij6")
+shader = ExtResource("1_u2s17")
 shader_parameter/color = Color(1, 1, 0, 1)
 shader_parameter/width = 2.0
 shader_parameter/pattern = null

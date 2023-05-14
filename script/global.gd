@@ -10,6 +10,9 @@ const STSDataName = {"price":STSType.INT,"kind":null,
 "effValue":null,"effTime":null,"effTimes":null,"effDefence":null,"giveEffect":null,"usualTime":null,
 "endTime":null,"time":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"attDefOrigin":null,"shield":STSType.INT,
 "attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
+
+
+
 var ThunderSpeed
 var MonsterDeaths = 0
 const Money = 100
@@ -105,6 +108,13 @@ func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold,attackType,damage,damag
 var LevelChoiceButton
 var LevelChoiceWindow
 
+var LevelReady = false
+var ChosenCard = [null,null,null,null]
+var ChosenId = [null,null,null,null]
+var ChosenCardNum = 0
+var ChoiceWindow
+var FightButton
+
 var StopButton
 var StopWindowLayer
 var StopWindow
@@ -120,13 +130,37 @@ var MonsterBase
 var towerArea
 var skillArea
 
-var OutLine = preload("res://rescourse/outLine.tres")
+var SoldierOutLine = preload("res://rescourse/soldierOutLine.tres")
+var ButtonOutLine = preload("res://rescourse/buttonOutLine.tres")
+var CardOutLine = preload("res://rescourse/cardOutLine.tres")
 var VillageSoldier = preload("res://sence/fight/object/soldier/villageSoldier.tscn")
 var MonsterSoldier = preload("res://sence/fight/object/soldier/monsterSoldier.tscn")
 var Tower = preload("res://sence/fight/object/tower.tscn")
 var Skill = preload("res://sence/fight/object/skill.tscn")
 	
+var Point = 6233
+var CardBrought = [1,233,666,114514]
+func _ready():
+#	var json = JSON.new()
+#	var load = FileAccess.open("user://playerData.json",FileAccess.READ)
+#	var waitJson = load.get_as_text()
+#	json.parse(waitJson)
+#	Point = json.data["Point"]
+#	CardBrought = json.data["CardBrought"]
+#	load = null
+	root.close_requested.connect(closeWindow)
+#	print(Point,CardBrought)
+	pass
 	
+func closeWindow():
+	var saveJson = {"Point":Point,"CardBrought":CardBrought}
+	var json = JSON.new()
+	var save = FileAccess.open("user://playerData.json",FileAccess.WRITE)
+	save.store_string(json.stringify(saveJson))
+	save = null
+	print("over")
+	pass
+
 
 #const ProSpeed = {"arrow":4,"snowball":3}
 #const ProPos = {"arrow":Vector2(0,1.5),"arrowUp":Vector2(0,1.5),"tnt":Vector2(0,4),"fireBall":Vector2(0,0),"fireBallDown":Vector2(0,0),"water":Vector2(0,0)}
