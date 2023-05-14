@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cy72fdibpxaap"]
+[gd_scene load_steps=8 format=3 uid="uid://cy72fdibpxaap"]
 
 [ext_resource type="PackedScene" uid="uid://byp0sfn4apxll" path="res://sence/start/levelChoiceWindow.tscn" id="1_udu2w"]
 [ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="2_6fy6l"]
 [ext_resource type="Material" uid="uid://brume671quhqj" path="res://rescourse/buttonOutLine.tres" id="2_i6bem"]
 [ext_resource type="Texture2D" uid="uid://blle2sr7hambv" path="res://assets/UI/button/levelSign.png" id="4_biw7n"]
 [ext_resource type="Script" path="res://script/start/levelChoiceButton.gd" id="5_nphug"]
+[ext_resource type="PackedScene" uid="uid://3xyjbkr4js7v" path="res://sence/start/book_window.tscn" id="7_ig6ki"]
 [ext_resource type="PackedScene" uid="uid://d1lu65w4nomle" path="res://sence/start/buy_card_window.tscn" id="7_llewj"]
 
 [node name="Start" type="Control"]
@@ -46,6 +47,17 @@ metadata/_edit_group_ = true
 
 [node name="BuyCardWindow" parent="." instance=ExtResource("7_llewj")]
 
+[node name="BookButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 288.0
+offset_right = 376.0
+offset_bottom = 312.0
+texture_normal = ExtResource("4_biw7n")
+script = ExtResource("5_nphug")
+
+[node name="BookWindow" parent="." instance=ExtResource("7_ig6ki")]
+
 [connection signal="tree_entered" from="." to="LevelChoiceButton" method="_on_start_tree_entered"]
 [connection signal="mouse_entered" from="LevelChoiceButton" to="LevelChoiceButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="LevelChoiceButton" to="LevelChoiceButton" method="_on_mouse_exited"]
@@ -53,3 +65,6 @@ metadata/_edit_group_ = true
 [connection signal="mouse_entered" from="BuyCardButton" to="BuyCardButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="BuyCardButton" to="BuyCardButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="BuyCardButton" to="BuyCardButton" method="_on_pressed"]
+[connection signal="mouse_entered" from="BookButton" to="BookButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="BookButton" to="BookButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="BookButton" to="BookButton" method="_on_pressed"]

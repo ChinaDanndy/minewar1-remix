@@ -5,7 +5,6 @@
 [ext_resource type="LabelSettings" uid="uid://bapxcv21f0nsf" path="res://rescourse/blackFont.tres" id="3_l4gbm"]
 
 [node name="cardButton" type="TextureButton"]
-tooltip_text = "1111"
 texture_normal = ExtResource("1_b3qwr")
 script = ExtResource("2_hkh54")
 

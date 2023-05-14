@@ -10,6 +10,7 @@ var thunderTimeRand
 
 signal cardMessage
 signal reloadSence
+signal fight
 func _ready():
 	var file = FileAccess.open("res://data/object.json", FileAccess.READ)#user:
 	var content = file.get_as_text()
@@ -49,7 +50,12 @@ func _ready():
 	thunderTime = Global.LevelData[Global.Level][0]["thunderTime"]
 	thunderTimeRand = Global.LevelData[Global.Level][0]["thunderTimeRand"]
 	
-
+	var mPicShow = Global.LevelData[Global.Level].size()-3
+	if !Global.LevelData[Global.Level][mPicShow].is_empty():
+		for i in Global.LevelData[Global.Level][mPicShow].size():
+			var mShow = get_node("monsterShow/HBoxContainer/mShow%s"%(i+1))
+			mShow.texture = load("res://assets/objects/soldier/%s/attack/attack1.png"%Global.LevelData[Global.Level][mPicShow][i])
+		pass
 	
 	Global.VillageBase.camp = Global.VILLAGE
 	Global.VillageBase.firstSetting("baseVillageHealth")
@@ -93,7 +99,7 @@ func fightStart():
 	newEnemy.call_deferred("firstStart")
 	newEnemy.name = "summonEnemy"
 	summonEnemyID = newEnemy
-	
+	emit_signal("fight")
 	$Moneytimer.start(moneyTime)
 	if thunderTime >0: $Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
 
@@ -143,7 +149,6 @@ func _on_moneytimer_timeout():
 	pass 
 
 func _on_tree_exited():
-
 	if summonEnemyID != null: summonEnemyID.queue_free()
 	Global.NowMoney = 0
 	Global.MonsterDeaths = 0
@@ -158,7 +163,7 @@ func _on_tree_exited():
 func _on_tree_entered():
 	Global.ChoiceWindow = $choiceCard
 	Global.FightButton = $choiceCard/fightButton
-	Global.FightButton.FightStart.connect(fightStart)
+	#Global.FightButton.FightStart.connect(fightStart)
 
 
 	Global.StopButton = $StopButton

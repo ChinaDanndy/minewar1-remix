@@ -11,8 +11,6 @@ const STSDataName = {"price":STSType.INT,"kind":null,
 "endTime":null,"time":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"attDefOrigin":null,"shield":STSType.INT,
 "attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
 
-
-
 var ThunderSpeed
 var MonsterDeaths = 0
 const Money = 100
@@ -109,6 +107,15 @@ var LevelChoiceButton
 var LevelChoiceWindow
 var BuyCardButton
 var BuyCardWindow
+var BookWindow
+var ChangePageButton
+var ShowLastId
+var ShowPicture
+var ShowName
+var ShowDisplay
+var ShowText
+var PageNow = true
+const Page = {true:"allVillageObject",false:"allMonsterObject"}#{"allVillageObject":true,"allMonsterObject":false}
 
 var LevelReady = false
 var ChosenCard = [null,null,null,null]
@@ -153,7 +160,6 @@ func _ready():#读入数据
 #	CardBrought = json.data["CardBrought"]
 #	load = null
 	root.close_requested.connect(closeWindow)
-	
 	var file = FileAccess.open("res://data/level.json", FileAccess.READ)
 	var content = file.get_as_text()
 	file.close()

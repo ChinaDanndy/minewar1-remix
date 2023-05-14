@@ -5,7 +5,7 @@
         "allVillageObject":["shoveler","shielder","projector","regeneration",
         "snowman","assassinFirst","freeze","wall",
         "iron","worm","power","golder"],
-        "allMonsterObject":[],
+        "allMonsterObject":["zombie","creeper","skeleton","sear","witch"],
         "allVillageBuyObject":["freeze","wall","power","golder"],
         "villageBuyPrice":[1,2,3,4]
     },
@@ -21,7 +21,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],[],[]
+        ],["zombie","skeleton","creeper"],[],[]
     ],
     [
         {"levelType":1,"attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":1},[

@@ -6,6 +6,7 @@ func _ready():
 	
 	Global.LevelChoiceWindow.visible = false
 	Global.BuyCardWindow.visible = false
+	Global.BookWindow.visible = false
 	await  get_tree().create_timer(0.2,false).timeout
 	material = null
 	pass
@@ -22,6 +23,7 @@ func _on_pressed():
 	match name:
 		"LevelChoiceButton": Global.LevelChoiceWindow.visible = true
 		"BuyCardButton": Global.BuyCardWindow.visible = true
+		"BookButton": Global.BookWindow.visible = true
 	#disabled = true
 	material = null
 	pass 
@@ -32,4 +34,9 @@ func _on_start_tree_entered():
 	Global.LevelChoiceWindow = get_parent().get_node("LevelChoiceWindow/LevelChoiceWindowLayer")
 	#Global.BuyCardButton = get_parent().get_node("BuyCardButton")
 	Global.BuyCardWindow = get_parent().get_node("BuyCardWindow/CanvasLayer")
+	Global.BookWindow = get_parent().get_node("BookWindow/CanvasLayer")
+	Global.ChangePageButton = get_parent().get_node("BookWindow/CanvasLayer/main/changePageButton")
+	Global.ShowPicture = get_parent().get_node("BookWindow/CanvasLayer/main/HBoxContainer/textBackground/Picture")
+	Global.ShowName = get_parent().get_node("BookWindow/CanvasLayer/main/HBoxContainer/textBackground/Name")
+	
 	pass 

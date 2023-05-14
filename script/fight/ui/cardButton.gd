@@ -1,5 +1,5 @@
 extends Control
-enum  cType {BUY,CHOICE,HOME}
+enum  cType {BUY,CHOICE,HOME,SHOW}
 @export var cardType:int
 @onready var cantBuy = $cantChoice
 var outLine = true
@@ -10,20 +10,26 @@ var areaId
 var choiceArea = preload("res://sence/fight/ui/choiceArea.tscn")
 var num
 var cardNum
-
+signal reSet
 
 func _ready():
 	num = int(str(name))-1
-	if cardType != cType.HOME:
+	if cardType != cType.HOME&&cardType != cType.SHOW:
 		Global.FightSence.cardMessage.connect(cardMessageOut)
-		Global.FightButton.FightStart.connect(buyCardReSet)
+		Global.FightSence.fight.connect(buyCardReSet)
 	else:
-		soldier = Global.LevelData[0]["allVillageBuyObject"][num]
-		display()
-		if Global.CardBrought[soldier] == true:
-			self.button_mask = 0
-			outLine = false
-			cantBuy.visible = true
+		match cardType:
+			cType.HOME:
+				soldier = Global.LevelData[0]["allVillageBuyObject"][num]
+				display()
+				if Global.CardBrought[soldier] == true:
+					self.button_mask = 0
+					outLine = false
+					cantBuy.visible = true
+			cType.SHOW: 
+				Global.ChangePageButton.cardMessage.connect(cardMessageOut)
+				self.reSet.connect(buyCardReSet)
+				cardMessageOut()
 	pass
 	
 func display():
@@ -52,13 +58,18 @@ func cardMessageOut():
 				soldier = Global.LevelData[Global.Level][card][num]
 				buyCardReSet()
 				display()
-			pass
+		cType.SHOW:
+			emit_signal("reSet")#重置所有展示选择按钮以便重选
+			soldier = Global.LevelData[0][Global.Page[Global.PageNow]][num]
+			$cardName.text = soldier
 	pass
 
 func buyCardReSet():
-	if cardType == cType.BUY:
-		self.button_mask = MOUSE_BUTTON_MASK_LEFT
-		outLine = true
+	match cardType:
+		cType.BUY,cType.SHOW:
+			self.button_mask = MOUSE_BUTTON_MASK_LEFT
+			outLine = true
+			cantBuy.visible = false
 	pass
 
 func _process(_delta):
@@ -88,7 +99,6 @@ func _on_pressed():
 				Global.ChosenCard[Global.ChosenCardNum] = soldier
 				Global.ChosenId[Global.ChosenCardNum] = self
 				Global.ChosenCardNum += 1
-				cantBuy.visible = true
 			cType.BUY:#退卡
 				Global.ChosenId[num].button_mask = MOUSE_BUTTON_MASK_LEFT
 				Global.ChosenId[num].cantBuy.visible = false
@@ -102,11 +112,18 @@ func _on_pressed():
 				if  Global.Point >= price&&Global.CardBrought[soldier] == false:
 					Global.CardBrought[soldier] = true
 					Global.Point -= price
-					cantBuy.visible = true
-				pass
+			cType.SHOW: 
+				if Global.ShowLastId != null:
+					Global.ShowLastId.button_mask = MOUSE_BUTTON_MASK_LEFT
+					Global.ShowLastId.outLine = true
+					Global.ShowLastId.cantBuy.visible = false
+				Global.ShowName.text = soldier
+				Global.ShowLastId = self
+		if cardType != cType.BUY: cantBuy.visible = true
 		self.button_mask = 0
 		outLine = false
 		material = null
+		
 	else:
 		if cardType == cType.BUY:#战斗开始买卡
 			if Global.CardBuy == null&&Global.NowMoney>=price:#士兵

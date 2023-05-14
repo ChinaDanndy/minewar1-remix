@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://jbxgg1stfefq" path="res://assets/backgrounds/card_square.png" id="1_hd28k"]
 [ext_resource type="PackedScene" uid="uid://cqu0trx4tn07j" path="res://sence/fight/ui/cardButton.tscn" id="2_avj7v"]
-[ext_resource type="Texture2D" uid="uid://rpyqwom4dpsa" path="res://assets/UI/button/cancel_normal.png" id="3_hq3mw"]
-[ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="4_ggfrn"]
+[ext_resource type="Texture2D" uid="uid://cff6qvysicflb" path="res://assets/UI/button/smallButtonNormal.png" id="3_ocdvq"]
+[ext_resource type="Texture2D" uid="uid://5800a47dpa4q" path="res://assets/UI/button/smallButtonPress.png" id="4_kynlk"]
 [ext_resource type="Script" path="res://script/fight/ui/fightButton.gd" id="5_ekptk"]
 
 [node name="choiceCard" type="Control"]
@@ -83,14 +83,13 @@ layout_mode = 2
 cardType = 1
 
 [node name="fightButton" type="TextureButton" parent="."]
-visible = false
 layout_mode = 0
 offset_left = 274.0
-offset_right = 314.0
-offset_bottom = 40.0
-texture_normal = ExtResource("3_hq3mw")
-texture_pressed = ExtResource("4_ggfrn")
-texture_hover = ExtResource("4_ggfrn")
+offset_right = 338.0
+offset_bottom = 20.0
+texture_normal = ExtResource("3_ocdvq")
+texture_pressed = ExtResource("4_kynlk")
+texture_hover = ExtResource("4_kynlk")
 script = ExtResource("5_ekptk")
 
 [connection signal="pressed" from="fightButton" to="fightButton" method="_on_pressed"]

@@ -42,6 +42,29 @@ offset_top = 352.0
 offset_right = 69.0
 offset_bottom = 352.0
 
+[node name="monsterShow" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 400.0
+offset_top = 262.0
+offset_right = 465.0
+offset_bottom = 283.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="monsterShow"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 4
+
+[node name="mShow1" type="TextureRect" parent="monsterShow/HBoxContainer"]
+layout_mode = 2
+
+[node name="mShow2" type="TextureRect" parent="monsterShow/HBoxContainer"]
+layout_mode = 2
+
+[node name="mShow3" type="TextureRect" parent="monsterShow/HBoxContainer"]
+layout_mode = 2
+
 [node name="Thundertimer" type="Timer" parent="."]
 one_shot = true
 
