@@ -6,14 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="3_dp3fp"]
 [ext_resource type="Script" path="res://script/start/cancelButton.gd" id="4_mip36"]
 
-[node name="BuyCardWindow" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="BuyCardWindow" type="CanvasLayer"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -21,7 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.262745)
 
-[node name="Main" type="Control" parent="CanvasLayer"]
+[node name="Main" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 200.0
@@ -29,13 +24,13 @@ offset_top = 40.0
 offset_right = 200.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Main"]
+[node name="TextureRect" type="TextureRect" parent="Main"]
 layout_mode = 0
 offset_right = 266.0
 offset_bottom = 320.0
 texture = ExtResource("1_weevt")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Main"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Main"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -43,27 +38,27 @@ offset_right = 58.0
 offset_bottom = 88.0
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Main/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Main/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="cardButton1" parent="CanvasLayer/Main/VBoxContainer/HBoxContainer" instance=ExtResource("2_ltcr5")]
+[node name="cardButton1" parent="Main/VBoxContainer/HBoxContainer" instance=ExtResource("2_ltcr5")]
 layout_mode = 2
 cardType = 2
 
-[node name="cardButton2" parent="CanvasLayer/Main/VBoxContainer/HBoxContainer" instance=ExtResource("2_ltcr5")]
+[node name="cardButton2" parent="Main/VBoxContainer/HBoxContainer" instance=ExtResource("2_ltcr5")]
 layout_mode = 2
 cardType = 2
 
-[node name="cardButton3" parent="CanvasLayer/Main/VBoxContainer/HBoxContainer" instance=ExtResource("2_ltcr5")]
+[node name="cardButton3" parent="Main/VBoxContainer/HBoxContainer" instance=ExtResource("2_ltcr5")]
 layout_mode = 2
 cardType = 2
 
-[node name="cardButton4" parent="CanvasLayer/Main/VBoxContainer/HBoxContainer" instance=ExtResource("2_ltcr5")]
+[node name="cardButton4" parent="Main/VBoxContainer/HBoxContainer" instance=ExtResource("2_ltcr5")]
 layout_mode = 2
 cardType = 2
 
-[node name="buyCancelButton" type="TextureButton" parent="CanvasLayer/Main"]
+[node name="buyCancelButton" type="TextureButton" parent="Main"]
 layout_mode = 0
 offset_left = 280.0
 offset_right = 300.0
@@ -73,4 +68,4 @@ texture_pressed = ExtResource("3_dp3fp")
 texture_hover = ExtResource("3_dp3fp")
 script = ExtResource("4_mip36")
 
-[connection signal="pressed" from="CanvasLayer/Main/buyCancelButton" to="CanvasLayer/Main/buyCancelButton" method="_on_pressed"]
+[connection signal="pressed" from="Main/buyCancelButton" to="Main/buyCancelButton" method="_on_pressed"]

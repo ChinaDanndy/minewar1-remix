@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 var Mode
 func _ready():
 	#Global.StopWindowLayer.visible = false
@@ -12,12 +12,16 @@ func text(mode):
 		"stop": $Control/HBoxContainer/Button2/Button2Text.text = "continue"
 		"win": $Control/HBoxContainer/Button2/Button2Text.text = "next"
 		"lose": $Control/HBoxContainer/Button2.visible = false
-	Global.StopWindowLayer.visible = true
+		"over": 
+			$Control/HBoxContainer/Button2.visible = false
+			Global.Point += round(Global.MiniGameScore/5)
+			
+	Global.StopWindow.visible = true
 	pass
 
 func usual():
 	get_tree().paused = false
-	Global.StopWindowLayer.visible = false
+	Global.StopWindow.visible = false
 	$Control/HBoxContainer/Button1.button_pressed = false
 	$Control/HBoxContainer/Button2.button_pressed = false
 	$Control/HBoxContainer/Button3.button_pressed = false
@@ -27,7 +31,6 @@ func usual():
 func _on_button_1_pressed():
 	usual()
 	Global.root.get_tree().reload_current_scene()
-	#get_tree().reload_current_scene()
 	pass
 func _on_button_2_pressed():
 	usual()
@@ -35,6 +38,7 @@ func _on_button_2_pressed():
 		Global.Level += 1
 		get_tree().reload_current_scene()
 	pass 
+	
 func _on_button_3_pressed():
 	usual()
 	get_tree().change_scene_to_file("res://sence/start/Start.tscn")

@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://smvhaqbhjd0o"]
+
+[ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/UI/button/spr_broad.png" id="1_25scl"]
+[ext_resource type="PackedScene" uid="uid://cluf3870eyfa3" path="res://sence/start/levelButton.tscn" id="2_ytqyd"]
+[ext_resource type="Texture2D" uid="uid://rpyqwom4dpsa" path="res://assets/UI/button/cancel_normal.png" id="3_7ycmw"]
+[ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="4_vn6f5"]
+[ext_resource type="Script" path="res://script/start/cancelButton.gd" id="5_el3mk"]
+
+[node name="miniGameWindow" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.262745)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -124.0
+offset_top = -83.0
+offset_right = 124.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_25scl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 48.0
+offset_right = 222.0
+offset_bottom = 112.0
+theme_override_constants/separation = 64
+
+[node name="Level1" parent="TextureRect/HBoxContainer" instance=ExtResource("2_ytqyd")]
+layout_mode = 2
+
+[node name="Level2" parent="TextureRect/HBoxContainer" instance=ExtResource("2_ytqyd")]
+layout_mode = 2
+
+[node name="miniGameCancelButton" type="TextureButton" parent="."]
+offset_left = 546.0
+offset_top = 122.0
+offset_right = 566.0
+offset_bottom = 142.0
+texture_normal = ExtResource("3_7ycmw")
+texture_pressed = ExtResource("4_vn6f5")
+texture_hover = ExtResource("4_vn6f5")
+script = ExtResource("5_el3mk")
+
+[connection signal="pressed" from="miniGameCancelButton" to="miniGameCancelButton" method="_on_pressed"]

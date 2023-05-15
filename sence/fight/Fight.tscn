@@ -16,8 +16,9 @@
 process_mode = 1
 script = ExtResource("1_0rvy3")
 
-[node name="Background1" type="Sprite2D" parent="."]
-position = Vector2(417.5, 225)
+[node name="backGround" type="TextureRect" parent="."]
+offset_right = 835.0
+offset_bottom = 450.0
 texture = ExtResource("2_1lg06")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
@@ -166,7 +167,9 @@ color = Color(0, 0, 0, 0.313726)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="StopButton" type="TextureButton" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StopButton" type="TextureButton" parent="CanvasLayer"]
 offset_left = 767.0
 offset_top = 21.0
 offset_right = 787.0
@@ -176,30 +179,14 @@ texture_pressed = ExtResource("7_a3cl8")
 texture_hover = ExtResource("7_a3cl8")
 script = ExtResource("9_eg3an")
 
-[node name="StopWindowLayer" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="ColorRect" type="ColorRect" parent="StopWindowLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.235294)
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
-
-[node name="StopWindow" parent="StopWindowLayer" instance=ExtResource("10_jfeyj")]
-offset_left = 417.5
-offset_top = 225.0
-offset_right = 417.5
-offset_bottom = 225.0
+[node name="StopWindow" parent="." instance=ExtResource("10_jfeyj")]
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="timeout" from="Thundertimer" to="." method="_on_thundertimer_timeout"]
 [connection signal="timeout" from="Moneytimer" to="." method="_on_moneytimer_timeout"]
 [connection signal="timeout" from="attackTimer" to="." method="_on_attack_timer_timeout"]
-[connection signal="mouse_entered" from="StopButton" to="StopButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="StopButton" to="StopButton" method="_on_mouse_exited"]
-[connection signal="pressed" from="StopButton" to="StopButton" method="_on_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/StopButton" to="CanvasLayer/StopButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/StopButton" to="CanvasLayer/StopButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/StopButton" to="CanvasLayer/StopButton" method="_on_pressed"]
+[connection signal="tree_entered" from="CanvasLayer/StopButton" to="CanvasLayer/StopButton" method="_on_tree_entered"]

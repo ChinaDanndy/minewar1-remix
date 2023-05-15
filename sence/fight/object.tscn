@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://script/fight/object.gd" id="1_cj46x"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fq6p3"]
+resource_local_to_scene = true
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(20, 44)

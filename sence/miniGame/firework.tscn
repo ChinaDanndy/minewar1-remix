@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsnaen6v7ef5g"]
+
+[ext_resource type="Texture2D" uid="uid://drr1q3d0dq53v" path="res://assets/miniGame/game2/fireworker/firework3.png" id="1_0pq6y"]
+[ext_resource type="Script" path="res://script/miniGame/firework.gd" id="1_fnggh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ow0a"]
+size = Vector2(10, 24)
+
+[node name="firework" type="Area2D"]
+monitorable = false
+script = ExtResource("1_fnggh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_0pq6y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4ow0a")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -23,6 +23,7 @@ var Level = 1
 enum  LevelType {ATTACK,ATTDEF,DEFENCE}
 var LevelOver = false
 
+
 const DropSpeed = 20 
 const NormalAOERangeY = 20
 const SkillAOERangeY = 300
@@ -108,6 +109,24 @@ var LevelChoiceWindow
 var BuyCardButton
 var BuyCardWindow
 var BookWindow
+
+var MiniGame = 2#0
+var MiniGameWindow
+var MiniGameSence
+
+var MiniGameScore
+var MiniGame1RandMin
+var MiniGame1RandMax
+var MiniGame1HoldTime
+var MiniGame1RandGunpowder
+var MiniGame2FireworkReloadTime = 1.5
+var MiniGame2FireworkSpeed = Vector2(0,-6)
+var MiniGame2GhostSpeed = 2
+var MiniGame2ZombieSpeed = 4
+var MiniGame2Pos1Y
+var MiniGame2Pos2Y
+var MiniGame2Pos3Y
+
 var ChangePageButton
 var ShowLastId
 var ShowPicture

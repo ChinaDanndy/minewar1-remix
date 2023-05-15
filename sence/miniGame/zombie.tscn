@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cy1pon72tcquy"]
+
+[ext_resource type="Script" path="res://script/miniGame/mob.gd" id="1_wrtss"]
+[ext_resource type="Texture2D" uid="uid://dg6t54rkse0eq" path="res://assets/miniGame/game2/zombie/zombie.png" id="2_sk8oc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ebk3r"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sk8oc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sd7li"]
+size = Vector2(28, 28)
+
+[node name="zombie" type="Area2D"]
+monitoring = false
+script = ExtResource("1_wrtss")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ebk3r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_sd7li")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true

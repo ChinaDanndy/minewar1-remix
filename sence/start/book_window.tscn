@@ -9,13 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cff6qvysicflb" path="res://assets/UI/button/smallButtonNormal.png" id="7_b1dvo"]
 [ext_resource type="Texture2D" uid="uid://5800a47dpa4q" path="res://assets/UI/button/smallButtonPress.png" id="8_avq5c"]
 
-[node name="BookWindow" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="BookWindow" type="CanvasLayer"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -25,7 +21,7 @@ color = Color(0, 0, 0, 0.262745)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="main" type="Control" parent="CanvasLayer"]
+[node name="main" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 100.0
@@ -33,7 +29,7 @@ offset_top = 16.0
 offset_right = 100.0
 offset_bottom = 16.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/main"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -41,13 +37,13 @@ theme_override_constants/separation = 16
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="cardBackground" type="TextureRect" parent="CanvasLayer/main/HBoxContainer"]
+[node name="cardBackground" type="TextureRect" parent="main/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_i3y20")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/main/HBoxContainer/cardBackground"]
+[node name="VBoxContainer" type="VBoxContainer" parent="main/HBoxContainer/cardBackground"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -55,44 +51,44 @@ offset_right = 48.0
 offset_bottom = 48.0
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/main/HBoxContainer/cardBackground/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="main/HBoxContainer/cardBackground/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="cardButton1" parent="CanvasLayer/main/HBoxContainer/cardBackground/VBoxContainer/HBoxContainer" instance=ExtResource("2_qleol")]
+[node name="cardButton1" parent="main/HBoxContainer/cardBackground/VBoxContainer/HBoxContainer" instance=ExtResource("2_qleol")]
 layout_mode = 2
 cardType = 3
 
-[node name="cardButton2" parent="CanvasLayer/main/HBoxContainer/cardBackground/VBoxContainer/HBoxContainer" instance=ExtResource("2_qleol")]
+[node name="cardButton2" parent="main/HBoxContainer/cardBackground/VBoxContainer/HBoxContainer" instance=ExtResource("2_qleol")]
 layout_mode = 2
 cardType = 3
 
-[node name="cardButton3" parent="CanvasLayer/main/HBoxContainer/cardBackground/VBoxContainer/HBoxContainer" instance=ExtResource("2_qleol")]
+[node name="cardButton3" parent="main/HBoxContainer/cardBackground/VBoxContainer/HBoxContainer" instance=ExtResource("2_qleol")]
 layout_mode = 2
 cardType = 3
 
-[node name="cardButton4" parent="CanvasLayer/main/HBoxContainer/cardBackground/VBoxContainer/HBoxContainer" instance=ExtResource("2_qleol")]
+[node name="cardButton4" parent="main/HBoxContainer/cardBackground/VBoxContainer/HBoxContainer" instance=ExtResource("2_qleol")]
 layout_mode = 2
 cardType = 3
 
-[node name="cardButton5" parent="CanvasLayer/main/HBoxContainer/cardBackground/VBoxContainer/HBoxContainer" instance=ExtResource("2_qleol")]
+[node name="cardButton5" parent="main/HBoxContainer/cardBackground/VBoxContainer/HBoxContainer" instance=ExtResource("2_qleol")]
 layout_mode = 2
 cardType = 3
 
-[node name="textBackground" type="TextureRect" parent="CanvasLayer/main/HBoxContainer"]
+[node name="textBackground" type="TextureRect" parent="main/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("2_15e0t")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="Picture" type="TextureRect" parent="CanvasLayer/main/HBoxContainer/textBackground"]
+[node name="Picture" type="TextureRect" parent="main/HBoxContainer/textBackground"]
 layout_mode = 0
 offset_left = 120.0
 offset_top = 16.0
 offset_right = 120.0
 offset_bottom = 16.0
 
-[node name="Name" type="Label" parent="CanvasLayer/main/HBoxContainer/textBackground"]
+[node name="Name" type="Label" parent="main/HBoxContainer/textBackground"]
 layout_mode = 0
 offset_left = 141.0
 offset_top = 97.0
@@ -100,7 +96,7 @@ offset_right = 221.0
 offset_bottom = 139.0
 autowrap_mode = 3
 
-[node name="bookCancelButton" type="TextureButton" parent="CanvasLayer/main"]
+[node name="bookCancelButton" type="TextureButton" parent="main"]
 layout_mode = 0
 offset_left = 680.0
 offset_right = 700.0
@@ -110,7 +106,7 @@ texture_pressed = ExtResource("4_0twgn")
 texture_hover = ExtResource("4_0twgn")
 script = ExtResource("5_3gxni")
 
-[node name="changePageButton" type="TextureButton" parent="CanvasLayer/main"]
+[node name="changePageButton" type="TextureButton" parent="main"]
 layout_mode = 0
 offset_left = 200.0
 offset_top = 390.0
@@ -121,5 +117,5 @@ texture_pressed = ExtResource("8_avq5c")
 texture_hover = ExtResource("8_avq5c")
 script = ExtResource("5_3gxni")
 
-[connection signal="pressed" from="CanvasLayer/main/bookCancelButton" to="CanvasLayer/main/bookCancelButton" method="_on_pressed"]
-[connection signal="pressed" from="CanvasLayer/main/changePageButton" to="CanvasLayer/main/changePageButton" method="_on_pressed"]
+[connection signal="pressed" from="main/bookCancelButton" to="main/bookCancelButton" method="_on_pressed"]
+[connection signal="pressed" from="main/changePageButton" to="main/changePageButton" method="_on_pressed"]

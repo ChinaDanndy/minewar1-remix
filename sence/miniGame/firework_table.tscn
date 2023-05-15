@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://ds30omdo3jq36"]
+
+[ext_resource type="Script" path="res://script/miniGame/firework_table.gd" id="1_1dffq"]
+[ext_resource type="Texture2D" uid="uid://dsn4qp6w8wbph" path="res://assets/miniGame/game2/fireworker/firework1.png" id="1_i16fk"]
+[ext_resource type="Texture2D" uid="uid://dr3hmn4s7nlfy" path="res://assets/miniGame/game2/fireworker/firework2.png" id="2_3x5ry"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8oxy"]
+size = Vector2(36, 24)
+
+[node name="fireworkTable" type="Area2D"]
+monitoring = false
+monitorable = false
+script = ExtResource("1_1dffq")
+
+[node name="fireworkHas" type="Sprite2D" parent="."]
+texture = ExtResource("1_i16fk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_d8oxy")
+
+[node name="fireworkNo" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_3x5ry")
+
+[node name="reloadTimer" type="Timer" parent="."]
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="timeout" from="reloadTimer" to="." method="_on_reload_timer_timeout"]

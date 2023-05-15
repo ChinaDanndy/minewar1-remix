@@ -166,9 +166,9 @@ func _on_tree_entered():
 	#Global.FightButton.FightStart.connect(fightStart)
 
 
-	Global.StopButton = $StopButton
-	Global.StopWindowLayer = $StopWindowLayer
-	Global.StopWindow = $StopWindowLayer/StopWindow
+	
+	#Global.StopWindowLayer = $StopWindowLayer
+	
 	Global.FightSence = self
 	Global.FightGroundY = $ground.position.y
 	Global.FightSkyY = $sky.position.y
@@ -177,10 +177,11 @@ func _on_tree_entered():
 	
 	Global.VillageBase = $baseVillage/collBox
 	Global.MonsterBase = $baseMonster/collBox
+	
 	Global.towerArea = $towerArea
-	#Global.towerArea.visible = false
+	Global.towerArea.visible = false
 	Global.skillArea = $skillArea
-	#Global.skillArea.visible = false
+	Global.skillArea.visible = false
 	Global.StopON = false
 	pass
 
