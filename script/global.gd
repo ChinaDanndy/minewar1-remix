@@ -110,16 +110,17 @@ var ShowPicture
 var ShowName
 var ShowDisplay
 var ShowText
-var PageNow = true
+var PageNow = true#
 const Page = {true:"allVillageObject",false:"allMonsterObject"}#{"allVillageObject":true,"allMonsterObject":false}
 
 var LevelReady = false
-var ChosenCard = [null,null,null,null]
-var ChosenId = [null,null,null,null]
+
 var ChosenCardNum = 0
 var ChoiceWindow
 var FightButton
-
+var ChosenCard = [null,null,null,null,null,null]
+var ChosenId = [null,null,null,null,null,null]
+var NowMonsterObject = []
 var StopButton
 var StopWindowLayer
 var StopWindow
@@ -143,8 +144,8 @@ var MonsterSoldier = preload("res://sence/fight/object/soldier/monsterSoldier.ts
 var Tower = preload("res://sence/fight/object/tower.tscn")
 var Skill = preload("res://sence/fight/object/skill.tscn")
 	
-var Point = 0
-var CardBrought = {"freeze":false,"wall":false,"power":false,"golder":false}
+var Point #= 0
+var Brought #= {"freeze":false,"wall":false,"power":false,"golder":false}
 
 var STSData:Dictionary
 enum STSType {INT,ARRAY}
@@ -159,8 +160,10 @@ const STSDataName = {"price":STSType.INT,"kind":null,
 
 var ThunderSpeed
 var MonsterDeaths = 0
-const Money = 100
+var Money = 10
+var CardUp = 4
 var NowMoney = 0
+
 var CardBuy = null
 var Contrl = null
 
@@ -168,22 +171,27 @@ var LevelData
 var Level = 1
 enum  LevelType {ATTACK,ATTDEF,DEFENCE}
 var LevelOver = false
-
 var TextData
 
 func _ready():#读入数据
-#	var json = JSON.new()
-#	var load = FileAccess.open("user://playerData.json",FileAccess.READ)
-#	var waitJson = load.get_as_text()
-#	json.parse(waitJson)
-#	Point = json.data["Point"]
-#	CardBrought = json.data["CardBrought"]
-#	load = null
+	var json = JSON.new()
+	var load = FileAccess.open("user://playerData.json",FileAccess.READ)
+	var waitJson = load.get_as_text()
+	json.parse(waitJson)
+	
+	Point = json.data["Point"]
+	Brought = json.data["Brought"]
+	Level = json.data["Level"]
+	load = null
 	root.close_requested.connect(closeWindow)
 	
+	if Brought["card"] == 1: CardUp = 5
+	if Brought["card"] == 2: CardUp = 6
+	if Brought["gold"] == 1: Money = 20
+	if Brought["gold"] == 2: Money = 30
+
 	var file = FileAccess.open("res://data/object.json", FileAccess.READ)#user:
 	var content = file.get_as_text()#读取所有士兵数据
-	
 	var jsonValue = JSON.new()
 	jsonValue.parse(content)
 	Global.STSData = jsonValue.data
@@ -208,13 +216,22 @@ func _ready():#读入数据
 		STSData[STSName]["collBox"] = pictureGet.get_size()
 	file = null 
 	
-	
 	file = FileAccess.open("res://data/level.json", FileAccess.READ)
 	content = file.get_as_text()
 	jsonValue = JSON.new()
 	jsonValue.parse(content)
 	LevelData = jsonValue.data
 	file = null
+	
+	#"allMonsterObject":["zombie","creeper","skeleton","sear","witch"],
+	for k in Level+1:#记录到目前为止的关卡出现了哪些怪
+		if k > 0:
+			for i in LevelData[k][1].size():
+				for j in LevelData[k][1][i]["soldier"]:
+					if !NowMonsterObject.has(j): NowMonsterObject.append(j)
+	print(NowMonsterObject)
+	print(Level)
+	#LevelData[0][allMonsterObject]
 	
 	file = FileAccess.open("res://data/text.json", FileAccess.READ)
 	content = file.get_as_text()
@@ -226,11 +243,11 @@ func _ready():#读入数据
 	pass
 	
 func closeWindow():#存储数据
-	var saveJson = {"Point":Point,"CardBrought":CardBrought}
-	var json = JSON.new()
-	var save = FileAccess.open("user://playerData.json",FileAccess.WRITE)
-	save.store_string(json.stringify(saveJson))
-	save = null
+#	var saveJson = {"Point":Point,"Brought":Brought,"Level":Level}
+#	var json = JSON.new()
+#	var save = FileAccess.open("user://playerData.json",FileAccess.WRITE)
+#	save.store_string(JSON.stringify(saveJson))
+#	save = null
 	pass
 
 

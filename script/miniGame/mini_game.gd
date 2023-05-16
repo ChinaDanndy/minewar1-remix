@@ -11,7 +11,6 @@ var MiniGame2ZombieTime = 2
 var MiniGame2GhostTime = 1
 
 func _ready():
-	print($game1)
 	match Global.MiniGame:
 		1: 
 			Global.MiniGame1RandMin = 3
@@ -21,7 +20,7 @@ func _ready():
 			$game2.free()
 		2: 
 			$game1.free()
-	print($game1)
+
 	GameStart.connect(start)
 	#await get_tree().create_timer(0.5,false).timeout
 	emit_signal("GameStart")
@@ -29,7 +28,7 @@ func _ready():
 
 func start():
 	$overTimer.start(1)
-	if $game2 != null:
+	if $game2:
 		game2GhostCreate()
 		game2GhostCreate()
 		game2GhostCreate()

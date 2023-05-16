@@ -5,15 +5,24 @@
         "allVillageObject":["shoveler","shielder","projector","regeneration",
         "snowman","assassinFirst","freeze","wall",
         "iron","worm","power","golder"],
-        "allMonsterObject":["zombie","creeper","skeleton","sear","witch"],
+        "villObjectHasLevel":{"shoveler":1,"shielder":1,"projector":1,"regeneration":1,
+        "snowman":1,"assassinFirst":1,"freeze":1,"wall":1,
+        "iron":1,"worm":1,"power":1,"golder":1},
+
+        "allMonsterObject":["zombie","creeper","skeleton","sear","witch","ghost","spider","axer",
+        null,null,null,null,null,null,null,null],
         "allVillageBuyObject":["freeze","wall","power","golder"],
-        "villageBuyPrice":[1,2,3,4]
+        "villageBuyPrice":[1,2,3,4],
+        "villageBuyLevel":[1,4,1,1],
+        "Update":["card","gold"],
+        "UpdatePrice":[[12,13,13],[13,14,14]],
+        "UpdateLevel":[[1,1,1],[1,1,3]]
     },
     [
         {"levelType":1,"attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":2,"thunderTimeRand":0},[
             {
                 "firstCD":0,
-                "soldier":["zombie"],
+                "soldier":["zombie","skeleton"],
                 "soldierCD":0.6,
                 "groupCD":6,
                 "groupCDRand":0,
@@ -21,13 +30,13 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],["zombie","skeleton","creeper"],[],[]
+        ],[],[]
     ],
     [
         {"levelType":1,"attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":1},[
             {
                 "firstCD":0,
-                "soldier":["creeper","zombie"],
+                "soldier":["zombie","creeper","skeleton","sear","witch","ghost","spider","axer"],
                 "soldierCD":2,
                 "groupCD":2,
                 "groupCDRand":0,
@@ -45,7 +54,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],[],["shoveler","shielder","regeneration","projector",null,null,null],["shoveler","worm","power","wall","power","wall","cave"]
+        ],["shoveler","shielder","regeneration","projector",null,null,null],["shoveler","worm","power","wall","power","wall","cave"]
     ]
 
     

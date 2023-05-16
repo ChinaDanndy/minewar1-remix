@@ -46,6 +46,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="name" type="Label" parent="ExplainBox/Pos"]
+layout_mode = 0
 offset_top = -24.0
 offset_right = 30.0
 offset_bottom = -5.0
@@ -56,6 +57,7 @@ text = "name"
 vertical_alignment = 1
 
 [node name="explain" type="Label" parent="ExplainBox/Pos"]
+layout_mode = 0
 offset_top = -2.0
 offset_right = 70.0
 offset_bottom = 14.0

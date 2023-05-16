@@ -66,6 +66,18 @@ layout_mode = 2
 [node name="mShow3" type="TextureRect" parent="monsterShow/HBoxContainer"]
 layout_mode = 2
 
+[node name="mShow4" type="TextureRect" parent="monsterShow/HBoxContainer"]
+layout_mode = 2
+
+[node name="mShow5" type="TextureRect" parent="monsterShow/HBoxContainer"]
+layout_mode = 2
+
+[node name="mShow6" type="TextureRect" parent="monsterShow/HBoxContainer"]
+layout_mode = 2
+
+[node name="mShow7" type="TextureRect" parent="monsterShow/HBoxContainer"]
+layout_mode = 2
+
 [node name="Thundertimer" type="Timer" parent="."]
 one_shot = true
 

@@ -189,7 +189,7 @@ func testchangeState():
 		if $Collision1.is_colliding():#第一碰撞
 			if currentAni != "attack": 
 				other = $Collision1.get_collider() #单体攻击时获得对方id 
-				if soldierName[0] == "end": $un
+				#if soldierName[0] == "end": $un
 				changeState("attack",State.ATTACK)
 		else: 
 			if currentAni == "attack": 

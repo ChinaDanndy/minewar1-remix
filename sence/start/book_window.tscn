@@ -75,6 +75,22 @@ cardType = 3
 layout_mode = 2
 cardType = 3
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="main/HBoxContainer/cardBackground/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="cardButton6" parent="main/HBoxContainer/cardBackground/VBoxContainer/HBoxContainer2" instance=ExtResource("2_qleol")]
+layout_mode = 2
+cardType = 3
+
+[node name="cardButton7" parent="main/HBoxContainer/cardBackground/VBoxContainer/HBoxContainer2" instance=ExtResource("2_qleol")]
+layout_mode = 2
+cardType = 3
+
+[node name="cardButton8" parent="main/HBoxContainer/cardBackground/VBoxContainer/HBoxContainer2" instance=ExtResource("2_qleol")]
+layout_mode = 2
+cardType = 3
+
 [node name="textBackground" type="TextureRect" parent="main/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("2_15e0t")

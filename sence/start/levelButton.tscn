@@ -6,7 +6,6 @@
 [node name="Level1" type="TextureButton"]
 texture_normal = ExtResource("1_r58b2")
 script = ExtResource("2_2ip6f")
-level = 1
 
 [node name="text" type="Label" parent="."]
 layout_mode = 0

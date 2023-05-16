@@ -10,5 +10,4 @@ func _on_pressed():
 		"changePageButton": 
 			Global.PageNow = !Global.PageNow
 			emit_signal("reSetAll")
-		
 	pass

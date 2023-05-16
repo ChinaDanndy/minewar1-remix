@@ -3,7 +3,13 @@ var level
 
 func _ready():
 	level = int(str(name))
-	$text.text = str(level)
+	var ParentName = get_parent().name
+	if ParentName != "miniGame": 
+		$text.text = str(level)
+#	else:
+#		visible = false
+#		if Global.Level > 4&&level == 1: visible = true
+#		if Global.Level > 8&&level == 2: visible = true
 	material = null
 	pass
 

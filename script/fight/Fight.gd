@@ -19,11 +19,14 @@ func _ready():
 	thunderTime = Global.LevelData[Global.Level][0]["thunderTime"]
 	thunderTimeRand = Global.LevelData[Global.Level][0]["thunderTimeRand"]
 	
-	var mPicShow = Global.LevelData[Global.Level].size()-3
-	if !Global.LevelData[Global.Level][mPicShow].is_empty():
-		for i in Global.LevelData[Global.Level][mPicShow].size():
+	var allMonster = []#怪物展示，自动填充目前所有有的怪物
+	for i in Global.LevelData[Global.Level][1].size():
+		for j in Global.LevelData[Global.Level][1][i]["soldier"]:
+			if !allMonster.has(j): allMonster.append(j)
+	if !allMonster.is_empty():
+		for i in allMonster.size():
 			var mShow = get_node("monsterShow/HBoxContainer/mShow%s"%(i+1))
-			mShow.texture = load("res://assets/objects/soldier/%s/attack/attack1.png"%Global.LevelData[Global.Level][mPicShow][i])
+			mShow.texture = load("res://assets/objects/soldier/%s/attack/attack1.png"%allMonster[i])
 		pass
 	
 	Global.VillageBase.camp = Global.VILLAGE
@@ -39,10 +42,15 @@ func _ready():
 			$attackTimer.start(1)
 		Global.LevelType.DEFENCE: $baseMonster/Label.visible = false 
 	
-	if !Global.LevelData[Global.Level][-1].is_empty():#有给定卡不开选卡
-		Global.ChoiceWindow.visible =false
+	if Global.LevelData[Global.Level][-1].is_empty():
+		$monsterShow.visible = true
+		Global.ChoiceWindow.visible = true
+	else:
+		Global.ChoiceWindow.visible =false#有给定卡不开选卡
 		fightStart()
-		
+
+
+
 	#monseter 680
 	pass
 	
@@ -60,10 +68,7 @@ func _on_thundertimer_timeout():
 	pass
 	
 func fightStart():
-	var mPicShow = Global.LevelData[Global.Level].size()-3
-	for i in Global.LevelData[Global.Level][mPicShow].size():
-		var mShow = get_node("monsterShow/HBoxContainer/mShow%s"%(i+1))
-		mShow.texture = null
+	$monsterShow.visible = false
 	#await get_tree().create_timer(1,false).timeout#开局延迟开始
 	var newEnemy = summonEnemy.new()
 	
@@ -133,17 +138,21 @@ func _on_tree_exited():
 	pass
 	
 func _on_tree_entered():
+	Global.FightSence = self
 	Global.ChoiceWindow = $choiceCard
 	Global.FightButton = $choiceCard/fightButton
 	Global.FightButton.fight.connect(fightStart)
+	if Global.CardUp == 4:
+		$card/HBoxContainer/CardButton5.visible = false
+		$card/HBoxContainer/CardButton6.visible = false
+	if Global.CardUp == 5: $card/HBoxContainer/CardButton6.visible = false
 	#Global.StopWindowLayer = $StopWindowLayer
 	
-	Global.FightSence = self
+	
 	Global.FightGroundY = $ground.position.y
 	Global.FightSkyY = $sky.position.y
 	Global.VillagePoint = $VillagePoint.position
 	Global.MonsterPoint = $MonsterPoint.position#740
-	
 	Global.VillageBase = $baseVillage/collBox
 	Global.MonsterBase = $baseMonster/collBox
 	
