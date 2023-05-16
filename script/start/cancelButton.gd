@@ -1,5 +1,5 @@
 extends TextureButton
-signal cardMessage
+signal reSetAll
 
 func _on_pressed():
 	match name:
@@ -9,6 +9,6 @@ func _on_pressed():
 		"miniGameCancelButton": Global.MiniGameWindow.visible = false
 		"changePageButton": 
 			Global.PageNow = !Global.PageNow
-			emit_signal("cardMessage")
+			emit_signal("reSetAll")
 		
 	pass

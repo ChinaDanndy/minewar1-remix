@@ -1,28 +1,5 @@
 extends Node
 @onready var root = get_tree().get_root()
-var STSData:Dictionary
-enum STSType {INT,ARRAY}
-const STSDataName = {"price":STSType.INT,"kind":null,
-"coll2Pos":null,"health":STSType.INT,"type":null,"towKeepTime":STSType.INT,"soldierName":null,
-"animation":null,"aniSpeedBasic":null,"speedBasic":null,"ifOnlyAttBase":null,
-"attackType":null,"damageMethod":null,"damagerType":null,"damageBasic":null,"projectile":null,
-"proSpeed":null,"ifPriece":null,"attRangeBasic":null,"proSleepTime":STSType.INT,"proContinueTimes":STSType.INT,"aoeModel":null,"aoeRange":null,"ifAoeHold":null,
-"effValue":null,"effTime":null,"effTimes":null,"effDefence":null,"giveEffect":null,"usualTime":null,
-"endTime":null,"time":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"attDefOrigin":null,"shield":STSType.INT,
-"attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
-
-var ThunderSpeed
-var MonsterDeaths = 0
-const Money = 100
-var NowMoney = 0
-var CardBuy = null
-var Contrl = null
-
-var LevelData
-var Level = 1
-enum  LevelType {ATTACK,ATTDEF,DEFENCE}
-var LevelOver = false
-
 
 const DropSpeed = 20 
 const NormalAOERangeY = 20
@@ -169,6 +146,30 @@ var Skill = preload("res://sence/fight/object/skill.tscn")
 var Point = 0
 var CardBrought = {"freeze":false,"wall":false,"power":false,"golder":false}
 
+var STSData:Dictionary
+enum STSType {INT,ARRAY}
+const STSDataName = {"price":STSType.INT,"kind":null,
+"coll2Pos":null,"health":STSType.INT,"type":null,"towKeepTime":STSType.INT,"soldierName":null,
+"animation":null,"aniSpeedBasic":null,"speedBasic":null,"ifOnlyAttBase":null,
+"attackType":null,"damageMethod":null,"damagerType":null,"damageBasic":null,"projectile":null,
+"proSpeed":null,"ifPriece":null,"attRangeBasic":null,"proSleepTime":STSType.INT,"proContinueTimes":STSType.INT,"aoeModel":null,"aoeRange":null,"ifAoeHold":null,
+"effValue":null,"effTime":null,"effTimes":null,"effDefence":null,"giveEffect":null,"usualTime":null,
+"endTime":null,"time":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"attDefOrigin":null,"shield":STSType.INT,
+"attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
+
+var ThunderSpeed
+var MonsterDeaths = 0
+const Money = 100
+var NowMoney = 0
+var CardBuy = null
+var Contrl = null
+
+var LevelData
+var Level = 1
+enum  LevelType {ATTACK,ATTDEF,DEFENCE}
+var LevelOver = false
+
+var TextData
 
 func _ready():#读入数据
 #	var json = JSON.new()
@@ -179,12 +180,49 @@ func _ready():#读入数据
 #	CardBrought = json.data["CardBrought"]
 #	load = null
 	root.close_requested.connect(closeWindow)
-	var file = FileAccess.open("res://data/level.json", FileAccess.READ)
-	var content = file.get_as_text()
-	file.close()
+	
+	var file = FileAccess.open("res://data/object.json", FileAccess.READ)#user:
+	var content = file.get_as_text()#读取所有士兵数据
+	
 	var jsonValue = JSON.new()
 	jsonValue.parse(content)
-	Global.LevelData = jsonValue.data
+	Global.STSData = jsonValue.data
+	var arrayLength
+
+	for STSName in jsonValue.data:#把所有数值变成int,数组要挨个把里面的值重新读
+#		for STSDatename in STSData[STSName]:
+#			if STSDataName.has(STSDatename):
+#				match STSDataName[STSDatename]:
+#					STSType.INT: 
+#						STSData[STSName][STSDatename] = int(jsonValue.data[STSName][STSDatename])
+#					Global.STSType.ARRAY: 
+#						arrayLength = Global.STSData[STSName][STSDatename].size()
+#						for i in arrayLength:
+#							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
+		
+		var pictureGet#提前根据图片得到单位碰撞箱尺寸
+		match STSData[STSName]["type"]:
+			"soldier": pictureGet = load("res://assets/objects/soldier/%s/attack/attack1.png"% STSName)
+			"tower": pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
+			"skill": pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
+		STSData[STSName]["collBox"] = pictureGet.get_size()
+	file = null 
+	
+	
+	file = FileAccess.open("res://data/level.json", FileAccess.READ)
+	content = file.get_as_text()
+	jsonValue = JSON.new()
+	jsonValue.parse(content)
+	LevelData = jsonValue.data
+	file = null
+	
+	file = FileAccess.open("res://data/text.json", FileAccess.READ)
+	content = file.get_as_text()
+	jsonValue = JSON.new()
+	jsonValue.parse(content)
+	TextData = jsonValue.data
+	file = null
+	
 	pass
 	
 func closeWindow():#存储数据

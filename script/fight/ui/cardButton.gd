@@ -1,7 +1,10 @@
 extends Control
-enum  cType {BUY,CHOICE,HOME,SHOW}
+enum  cType {BUY,CHOICE,SHOP,SHOW}
 @export var cardType:int
 @onready var cantBuy = $cantChoice
+@onready var explainBox = $ExplainBox
+var explainText
+var explainName
 var outLine = true
 
 var soldier
@@ -13,66 +16,72 @@ var cardNum
 signal reSet
 
 func _ready():
+	cantBuy.visible = false
+	$ExplainBox.visible = false
+
 	num = int(str(name))-1
-	if cardType != cType.HOME&&cardType != cType.SHOW:
-		Global.FightSence.cardMessage.connect(cardMessageOut)
-		Global.FightSence.fight.connect(buyCardReSet)
-	else:
-		match cardType:
-			cType.HOME:
-				soldier = Global.LevelData[0]["allVillageBuyObject"][num]
-				display()
-				if Global.CardBrought[soldier] == true:
-					self.button_mask = 0
-					outLine = false
-					cantBuy.visible = true
-			cType.SHOW: 
-				Global.ChangePageButton.cardMessage.connect(cardMessageOut)
-				self.reSet.connect(buyCardReSet)
-				cardMessageOut()
-	pass
-	
-func display():
-	if cardType != cType.HOME: price = Global.STSData[soldier]["price"]#基本属性填充
-	else: price = Global.LevelData[0]["villageBuyPrice"][num]
-	$cardPrice.text = str(price)
-	$cardName.text = soldier
-	pass
-	
-func cardMessageOut():
+	cardReSet()
 	match cardType:
 		cType.CHOICE:
 			soldier = Global.LevelData[0]["allVillageObject"][num]#获得士兵数据
 			if soldier != null:  display()
-			var banCard = Global.LevelData[Global.Level].size()-2#查看是否为禁用卡,外面没购买的卡也不能选
-			if (Global.LevelData[Global.Level][banCard].has(soldier))||(
-				Global.LevelData[0]["allVillageBuyObject"].has(soldier)&&Global.CardBrought[soldier]==false):
+			
+			var banCard = Global.LevelData[Global.Level].size()-2
+			if (Global.LevelData[Global.Level][banCard].has(soldier))||(#查看是否为禁用卡BAN
+				Global.LevelData[0]["allVillageBuyObject"].has(soldier)&&(#外面没购买的卡也不能选
+					Global.CardBrought[soldier]==false))||(soldier == null):
 				self.button_mask = 0
 				outLine = false
 				cantBuy.visible = true
+				if soldier == null: cantBuy.visible = true
 		cType.BUY:
+			Global.FightSence.fight.connect(cardReSet)
 			self.button_mask = 0
 			outLine = false
 			if Global.ChoiceWindow.visible == false:#特定卡没有选卡
 				var card = Global.LevelData[Global.Level].size()-1
 				soldier = Global.LevelData[Global.Level][card][num]
-				buyCardReSet()
+				cardReSet()
 				display()
-		cType.SHOW:
-			emit_signal("reSet")#重置所有展示选择按钮以便重选
-			soldier = Global.LevelData[0][Global.Page[Global.PageNow]][num]
-			$cardName.text = soldier
+		cType.SHOP:
+			soldier = Global.LevelData[0]["allVillageBuyObject"][num]
+			display()
+			if  Global.Point < price||Global.CardBrought[soldier] == true:
+				self.button_mask = 0
+				outLine = false
+			if Global.CardBrought[soldier] == true: cantBuy.visible = true
+		cType.SHOW: 
+			display()
+			Global.ChangePageButton.reSetAll.connect(cardReSet)
+			
+	
+	if Global.TextData.has(soldier)&&cardType != cType.SHOW:
+		$ExplainBox/Pos/name.text = Global.TextData[soldier]["name"]
+		$ExplainBox/Pos/explain.text = Global.TextData[soldier]["explain"]
+		#explainBox.visible = true
+		pass
 	pass
-
-func buyCardReSet():
+	
+func display():
 	match cardType:
-		cType.BUY,cType.SHOW:
-			self.button_mask = MOUSE_BUTTON_MASK_LEFT
-			outLine = true
-			cantBuy.visible = false
+		cType.CHOICE,cType.BUY:
+			price = Global.STSData[soldier]["price"]#基本属性填充
+		cType.SHOP: price = Global.LevelData[0]["villageBuyPrice"][num]
+		cType.SHOW: soldier = Global.LevelData[0][Global.Page[Global.PageNow]][num]
+	$cardName.text = soldier
+	if cardType != cType.SHOW: $cardPrice.text = str(price)
+	pass
+	
+func cardReSet():
+	self.button_mask = MOUSE_BUTTON_MASK_LEFT
+	outLine = true
+	cantBuy.visible = false
+	if cardType == cType.SHOW: display()
 	pass
 
 func _process(_delta):
+	$ExplainBox/Pos.position = global_position
+
 	if Global.ChoiceWindow.visible == true:
 		match cardType:
 			cType.CHOICE:
@@ -108,11 +117,11 @@ func _on_pressed():
 				Global.ChosenCardNum -= 1
 				$cardPrice.text = ""
 				$cardName.text = ""
-			cType.HOME:
-				if  Global.Point >= price&&Global.CardBrought[soldier] == false:
-					Global.CardBrought[soldier] = true
-					Global.Point -= price
-			cType.SHOW: 
+			cType.SHOP:#买卡
+				#if  Global.Point >= price&&Global.CardBrought[soldier] == false:
+				Global.CardBrought[soldier] = true
+				Global.Point -= price
+			cType.SHOW:#展示图鉴
 				if Global.ShowLastId != null:
 					Global.ShowLastId.button_mask = MOUSE_BUTTON_MASK_LEFT
 					Global.ShowLastId.outLine = true
@@ -123,7 +132,7 @@ func _on_pressed():
 		self.button_mask = 0
 		outLine = false
 		material = null
-		
+		$ExplainBox.visible = false
 	else:
 		if cardType == cType.BUY:#战斗开始买卡
 			if Global.CardBuy == null&&Global.NowMoney>=price:#士兵
@@ -171,8 +180,12 @@ func _on_pressed():
 
 func _on_mouse_entered():
 	if outLine == true: material = Global.CardOutLine
+	await get_tree().create_timer(0.5,false).timeout
+	if Global.TextData.has(soldier)&&cardType != cType.SHOW: 
+		$ExplainBox.visible = true
 	pass
 	
 func _on_mouse_exited():
 	if outLine == true: material = null
+	$ExplainBox.visible = false
 	pass

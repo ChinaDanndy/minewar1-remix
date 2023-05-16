@@ -12,37 +12,6 @@ signal cardMessage
 signal reloadSence
 signal fight
 func _ready():
-	var file = FileAccess.open("res://data/object.json", FileAccess.READ)#user:
-	var content = file.get_as_text()
-	file = null #读取所有士兵数据
-	var jsonValue = JSON.new()
-	jsonValue.parse(content)
-	Global.STSData = jsonValue.data
-	var arrayLength
-
-	for STSName in jsonValue.data:#把所有数值变成int,数组要挨个把里面的值重新读
-		for STSDatename in Global.STSData[STSName]:
-			if Global.STSDataName.has(STSDatename):
-				match Global.STSDataName[STSDatename]:
-					Global.STSType.INT: 
-						Global.STSData[STSName][STSDatename] = int(jsonValue.data[STSName][STSDatename])
-					Global.STSType.ARRAY: 
-						arrayLength = Global.STSData[STSName][STSDatename].size()
-						for i in arrayLength:
-							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
-		
-		var pictureGet#提前根据图片得到单位碰撞箱尺寸
-		match Global.STSData[STSName]["type"]:
-		#if Global.STSData[STSName]["type"] == "soldier":
-		#if Global.STSData[STSName]["type"] == "tower":
-		#if Global.STSData[STSName]["type"] == "skill":
-			"soldier": pictureGet = load("res://assets/objects/soldier/%s/attack/attack1.png"% STSName)
-			"tower": pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
-			"skill": pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
-		Global.STSData[STSName]["collBox"] = pictureGet.get_size()
-
-
-	
 	Global.Level = 1
 	
 	moneyTime = Global.LevelData[0]["moneySpeed"]
@@ -70,12 +39,11 @@ func _ready():
 			$attackTimer.start(1)
 		Global.LevelType.DEFENCE: $baseMonster/Label.visible = false 
 	
-	
 	if !Global.LevelData[Global.Level][-1].is_empty():#有给定卡不开选卡
 		Global.ChoiceWindow.visible =false
 		fightStart()
 		
-	emit_signal("cardMessage")#monseter 680
+	#monseter 680
 	pass
 	
 func _on_thundertimer_timeout():
@@ -92,6 +60,10 @@ func _on_thundertimer_timeout():
 	pass
 	
 func fightStart():
+	var mPicShow = Global.LevelData[Global.Level].size()-3
+	for i in Global.LevelData[Global.Level][mPicShow].size():
+		var mShow = get_node("monsterShow/HBoxContainer/mShow%s"%(i+1))
+		mShow.texture = null
 	#await get_tree().create_timer(1,false).timeout#开局延迟开始
 	var newEnemy = summonEnemy.new()
 	
@@ -163,10 +135,7 @@ func _on_tree_exited():
 func _on_tree_entered():
 	Global.ChoiceWindow = $choiceCard
 	Global.FightButton = $choiceCard/fightButton
-	#Global.FightButton.FightStart.connect(fightStart)
-
-
-	
+	Global.FightButton.fight.connect(fightStart)
 	#Global.StopWindowLayer = $StopWindowLayer
 	
 	Global.FightSence = self

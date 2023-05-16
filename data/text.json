@@ -1,0 +1,17 @@
+{
+    "shoveler":
+    {
+        "name":"铲兵",
+        "explain":"近战攻击,对怪物基地和防御塔有伤害加成",
+        "story":""
+    },
+    "freeze":
+    {
+        "name":"freeze",
+        "explain":"freeze monster in seconds",
+        "story":""
+    }
+
+
+}
+

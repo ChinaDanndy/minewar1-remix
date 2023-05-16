@@ -30,7 +30,7 @@ func normalAttackCalu(damager):
 		if attackType[i] == true&&attDefence[i] == false: 
 			if damager.health>0&&damager.shield <=0: 
 				damager.health -= damage 
-				if damagerType.has(damager.type) != -1: damager.health -= damage*Global.AddDamage
+				if damagerType.has(damager.type) == true: damager.health -= damage*Global.AddDamage
 					#特定目标伤害加成
 			if damager.shield >0:#护盾被破坏时伤害溢出
 				damager.shield -= damage

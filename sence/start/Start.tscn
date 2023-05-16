@@ -60,6 +60,8 @@ offset_right = 376.0
 offset_bottom = 312.0
 texture_normal = ExtResource("4_biw7n")
 script = ExtResource("4_vqfaq")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="BookWindow" parent="." instance=ExtResource("7_ig6ki")]
 visible = false
@@ -73,6 +75,8 @@ offset_right = 456.0
 offset_bottom = 312.0
 texture_normal = ExtResource("4_biw7n")
 script = ExtResource("4_vqfaq")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="MiniGameWindow" parent="." instance=ExtResource("8_paf7j")]
 visible = false

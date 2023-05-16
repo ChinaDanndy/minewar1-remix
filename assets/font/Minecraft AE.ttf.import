@@ -1,0 +1,45 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://ck8rgcys0xfn0"
+path="res://.godot/imported/Minecraft AE.ttf-ab3f5b09fe31f253308aa62e85c69794.fontdata"
+
+[deps]
+
+source_file="res://assets/font/Minecraft AE.ttf"
+dest_files=["res://.godot/imported/Minecraft AE.ttf-ab3f5b09fe31f253308aa62e85c69794.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=0
+generate_mipmaps=false
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=0
+subpixel_positioning=0
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[{
+"chars": [49, 50, 51, 52, 53, 54, 55, 56, 57],
+"glyphs": [],
+"name": "number",
+"size": Vector2i(10, 0),
+"variation_embolden": 0.0
+}, {
+"chars": [],
+"glyphs": [],
+"name": "新建配置",
+"size": Vector2i(0, 0),
+"variation_embolden": 0.0
+}]
+language_support={}
+script_support={}
+opentype_features={}

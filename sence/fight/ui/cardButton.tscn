@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqu0trx4tn07j"]
+[gd_scene load_steps=6 format=3 uid="uid://cqu0trx4tn07j"]
 
 [ext_resource type="Texture2D" uid="uid://bipc5v1bbvy0" path="res://assets/UI/button/cardButton.png" id="1_b3qwr"]
 [ext_resource type="Script" path="res://script/fight/ui/cardButton.gd" id="2_hkh54"]
 [ext_resource type="LabelSettings" uid="uid://bapxcv21f0nsf" path="res://rescourse/blackFont.tres" id="3_l4gbm"]
+[ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="4_sgha7"]
+[ext_resource type="StyleBox" uid="uid://bmkpjqg18y3jw" path="res://rescourse/cardExplainBoard.tres" id="5_ds83k"]
 
 [node name="cardButton" type="TextureButton"]
 texture_normal = ExtResource("1_b3qwr")
@@ -33,6 +35,35 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.588235)
+
+[node name="ExplainBox" type="CanvasLayer" parent="."]
+layer = 2
+visible = false
+follow_viewport_enabled = true
+
+[node name="Pos" type="Control" parent="ExplainBox"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="name" type="Label" parent="ExplainBox/Pos"]
+offset_top = -24.0
+offset_right = 30.0
+offset_bottom = -5.0
+theme_override_fonts/font = ExtResource("4_sgha7")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = ExtResource("5_ds83k")
+text = "name"
+vertical_alignment = 1
+
+[node name="explain" type="Label" parent="ExplainBox/Pos"]
+offset_top = -2.0
+offset_right = 70.0
+offset_bottom = 14.0
+theme_override_fonts/font = ExtResource("4_sgha7")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = ExtResource("5_ds83k")
+text = "explain"
+autowrap_mode = 2
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
