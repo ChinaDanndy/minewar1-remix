@@ -3,7 +3,7 @@ extends Node
 
 const DropSpeed = 20 
 const NormalAOERangeY = 20
-const SkillAOERangeY = 300
+const SkillAOERangeY = 400
 
 const VILLAGE = 1
 const MONSTER = -1
@@ -76,7 +76,7 @@ func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold,attackType,damage,damag
 		newAoe.position = damager.global_position
 		#newAoe.position.y = FightGroundY
 	else: newAoe.free()
-	return newAoe
+	#return newAoe
 	pass
 
 var LevelChoiceButton
@@ -174,14 +174,14 @@ var TextData
 
 func _ready():#读入数据
 	var json = JSON.new()
-	var load = FileAccess.open("user://playerData.json",FileAccess.READ)
-	var waitJson = load.get_as_text()
+	var loadData = FileAccess.open("user://playerData.json",FileAccess.READ)
+	var waitJson = loadData.get_as_text()
 	json.parse(waitJson)
 	
 	Point = json.data["Point"]
 	Brought = json.data["Brought"]
 	Level = json.data["Level"]
-	load = null
+	loadData = null
 	root.close_requested.connect(closeWindow)
 	
 	if Brought["card"] == 1: CardUp = 5
@@ -194,7 +194,7 @@ func _ready():#读入数据
 	var jsonValue = JSON.new()
 	jsonValue.parse(content)
 	Global.STSData = jsonValue.data
-	var arrayLength
+	#var arrayLength
 
 	for STSName in jsonValue.data:#把所有数值变成int,数组要挨个把里面的值重新读
 #		for STSDatename in STSData[STSName]:
@@ -209,10 +209,10 @@ func _ready():#读入数据
 		
 		var pictureGet#提前根据图片得到单位碰撞箱尺寸
 		match STSData[STSName]["type"]:
-			"soldier": pictureGet = load("res://assets/objects/soldier/%s/attack/attack1.png"% STSName)
+			"soldier": pictureGet = load("res://assets/objects/soldier/%s/walk/walk1.png"% STSName)
 			"tower": pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
-			"skill": pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
-		STSData[STSName]["collBox"] = pictureGet.get_size()
+			#"skill": pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
+		if STSData[STSName]["type"] != "skill": STSData[STSName]["collBox"] = pictureGet.get_size()
 	file = null 
 	
 	file = FileAccess.open("res://data/level.json", FileAccess.READ)

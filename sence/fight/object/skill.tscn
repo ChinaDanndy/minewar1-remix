@@ -17,6 +17,13 @@ script = ExtResource("2_wf2hv")
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_44dsc")
 
+[node name="Collision1" parent="." index="2"]
+collide_with_areas = false
+collide_with_bodies = false
+
+[node name="Collision2" parent="." index="3"]
+collide_with_bodies = false
+
 [node name="Sprite2D" type="Sprite2D" parent="." index="5"]
 modulate = Color(0.988235, 1, 1, 1)
 

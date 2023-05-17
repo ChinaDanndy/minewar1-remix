@@ -22,9 +22,9 @@ var seaAni
 var aniSpeed
 var aniSpeedBasic = 1
 
-var speed = Vector2(0,0)
+var speed = 0
 var speedBasic = 0#
-var speedDirection = Vector2.RIGHT
+var speedDirection = 1
 enum SpeState {STATIC,MOVE}
 var speedState = SpeState.MOVE
 
@@ -59,11 +59,15 @@ var effTimes = [[0,0],[0,0],[0,0],[0,0]]#效果持续：平时次数，攻击次
 var ifAoe##仅用于伤害判定给予效果时分辨效果来源
 var effDefence = [false,false,false,false,false,false,false]#
 var giveEffect = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[],[]]#攻击给予状态同时表示好坏
-var healthEffValue = 0#低血量提升攻击力速度
+var healthEffValue = -100#低血量提升攻击力速度
 var usualTime#
 var shield = 0#
+var tpDistance#
+var tp = true
+var healthTpDistance#
 var attDefOrigin = [false,false,false]#
 var attDefence = attDefOrigin
+var ifJump = false
 
 var usuallyEffect#平时给予状态
 var usualEffValue
@@ -95,6 +99,8 @@ func SetAnimationAndCollBox(soldier):
 		for j in animation[i]:
 			var picture = load("res://assets/objects/%s/%s/%s/%s%s.png"% [type,soldier,i,i,j+1])
 			spirte.add_frame(i,picture)
+
+				
 	$AnimatedSprite2D.sprite_frames = spirte
 	changeAnimation(currentAni,currentState)
 	#填充碰撞箱
@@ -132,17 +138,18 @@ func _process(_delta):#每帧执行的部分
 		damage[i] = (damageBasic[i]+(damageBasic[i]*(nowEffect[Global.Effect.ATTDAMAGE]
 		+nowEffect[Global.Effect.ATTDAMAGE+Global.EffGood])))
 		
-		attRange[i] = Vector2(attRangeBasic[i]+(attRangeBasic[i]*(nowEffect[Global.Effect.ATTRANGE]
-		+nowEffect[Global.Effect.ATTRANGE+Global.EffGood])),0)
+		attRange[i] = attRangeBasic[i]+(attRangeBasic[i]*(nowEffect[Global.Effect.ATTRANGE]
+		+nowEffect[Global.Effect.ATTRANGE+Global.EffGood]))
 		
-	speed = Vector2(speedBasic+(speedBasic*(nowEffect[Global.Effect.SPEED]
-	+nowEffect[Global.Effect.SPEED+Global.EffGood])),0)*Vector2(nowEffect[Global.Effect.FREEZE]*speedState,0)
+	speed = speedBasic+(speedBasic*(nowEffect[Global.Effect.SPEED]
+	+nowEffect[Global.Effect.SPEED+Global.EffGood]))*nowEffect[Global.Effect.FREEZE]
 	
 	aniSpeed = (aniSpeedBasic+(aniSpeedBasic*(nowEffect[Global.Effect.SPEED]
 	+nowEffect[Global.Effect.SPEED+Global.EffGood])))*nowEffect[Global.Effect.FREEZE]
 	
-	$Collision1.target_position = attRange[0]*Vector2(camp,0)
-	$Collision2.target_position = attRange[1]*Vector2(camp,0)
+	$Collision1.target_position = Vector2(attRange[0]*camp,0)
+	#$Collision1.position.y = -20
+	$Collision2.target_position = Vector2(attRange[1]*camp,0)
 	$AnimatedSprite2D.speed_scale = aniSpeed
 	
 	if health <= 0&&currentState != State.DEATH&&currentState != State.FALL: #死亡判定
@@ -164,7 +171,7 @@ func _process(_delta):#每帧执行的部分
 			effTime[ani[attackAni]],effTimes[ani[attackAni]])
 			changeState("death",State.DEATH)
 	
-	if health <=0 && !giveEffect[ani["death"]].is_empty()&&currentState == State.DEATH:#死亡效果
+	if !giveEffect[ani["death"]].is_empty()&&currentState == State.DEATH:#死亡效果
 		var usual = ani["death"]
 		Global.aoe_create(self,Global.CREATE,aoeModel[usual],aoeRange[usual],ifAoeHold[usual],
 		null,null,null,giveEffect[usual],effValue[usual],effTime[usual],effTimes[usual])
@@ -184,13 +191,14 @@ func testchangeState():
 	if $Collision1.is_colliding()&&$Collision2.is_colliding()&&animation.has("attackThr")==true:
 		if currentAni != "attackThr": changeState("attackThr",State.ATTACK)
 	else: if currentAni == "attackThr": changeState(standardAni,standardState)
-	pass
-	
+
 	if currentAni != "attackThr":
 		if $Collision1.is_colliding():#第一碰撞
 			if currentAni != "attack": 
 				other = $Collision1.get_collider() #单体攻击时获得对方id 
-				#if soldierName[0] == "end": $un
+				if tpDistance != null&&tp == true&&other.type != "base": 
+					position.x += tpDistance*camp#末影人瞬移
+					tp = false#低血量tp到基地
 				changeState("attack",State.ATTACK)
 		else: 
 			if currentAni == "attack": 
@@ -237,14 +245,16 @@ func changeAnimation(AniName,StaName):
 		State.PUSH,State.BACK:
 			speedState = SpeState.MOVE
 	match StaName:#SpeedDirection
-		State.PUSH: speedDirection = Vector2.RIGHT
-		State.BACK: speedDirection = Vector2.LEFT
+		State.PUSH: speedDirection = 1
+		State.BACK: speedDirection = -1
 	currentAni = AniName
 	currentState = StaName#记录当前切换状态
+
 	$AnimatedSprite2D.play(AniName)
 	pass
 
 func _on_animated_sprite_2d_frame_changed():
+	
 	if $AnimatedSprite2D.frame == animation[$AnimatedSprite2D.animation]-1:
 		match currentState:
 			State.ATTACK: 
@@ -273,6 +283,8 @@ func attack():
 	
 	if projectile == null:
 		if aoeRange[ani[attackAni]] == null:#近战单体
+			
+				
 			Global.damage_Calu(other,Global.damCaluType.ATTEFF,attackType[ani[attackAni]],
 			damage[ani[attackAni]],damagerType[ani[attackAni]],giveEffect[ani[attackAni]],
 			effValue[ani[attackAni]],effTime[ani[attackAni]],effTimes[ani[attackAni]],Global.IfAoeType.NONE)

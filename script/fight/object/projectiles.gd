@@ -36,22 +36,14 @@ func _ready():
 		$animationTimer.start(Global.ProAniTime[projectile])
 	pass
 
-
-
-
-func firstSetting():
-
-	pass
-
 func _process(_delta):
 	position += Vector2(camp,1)*Global.ProDire[projectile]*proSpeed
 	currentPos = position.x
-	if (currentPos - startPos) >= proRange.x: queue_free()#超过射程直接自己销毁
+	if (currentPos - startPos) >= proRange: queue_free()#超过射程直接自己销毁
 	pass
 
 func _on_area_entered(area):
 	if aoeModel == null:#单体
-		print(damage)
 		Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,
 		effTime,effTimes,Global.IfAoeType.NONE)
 		#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	
@@ -66,7 +58,7 @@ func _on_animation_timer_timeout():
 	if $Sprite2D.frame != Global.ProPicture[projectile]:  $Sprite2D.frame += 1
 	if frame == Global.ProPicture[projectile]+1: 
 		frame = 0
-		$Sprite2D.frame == 0
+		$Sprite2D.frame = 0
 	pass 
 	
 

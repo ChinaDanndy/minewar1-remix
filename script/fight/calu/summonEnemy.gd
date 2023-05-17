@@ -10,6 +10,7 @@ signal stopOver
 
 
 func _ready(): 
+	name = "summonEnemy"
 	groupCount = Global.LevelData[Global.NowLevel][object].size()#记录有多少组人
 	for i in groupCount:
 		await get_tree().create_timer(Global.LevelData[Global.NowLevel][object][i]["firstCD"],false).timeout

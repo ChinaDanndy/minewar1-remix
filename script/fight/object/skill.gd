@@ -8,7 +8,6 @@ func firstSetting(soldier):
 	$AnimatedSprite2D.queue_free()
 	$Label.queue_free()
 	super.SetValue(soldier)
-	
 	$Sprite2D.texture = load("res://assets/objects/skill/%s.png"% soldier)
 	super.firstSetting(soldier)
 	if camp == Global.MONSTER: unPeopleFly = false
@@ -28,8 +27,8 @@ func firstSetting(soldier):
 func _process(_delta):
 	if unPeopleFly == true:
 		position.y += Global.DropSpeed 
-		if position.y >= 297: 
-			position.y = 297
+		if position.y >= Global.FightGroundY: 
+			position.y = Global.FightGroundY
 			unPeopleFly = false
 			await get_tree().create_timer(0.1,false).timeout
 			Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,null,null,["skill"],giveEffect,effValue,effTime,effTimes)

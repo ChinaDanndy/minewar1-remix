@@ -13,6 +13,7 @@ func _ready():
 	Global.FightSence.reloadSence.connect(reload)
 	#Global.towerArea.visible = true
 	#collLine.collision_mask = Global.MAsk[0][2]
+	#$ColorRect.set_anchors_preset(PRESET_CENTER)
 	pass
 	
 func reload():
@@ -28,17 +29,15 @@ func _process(_delta):
 		Global.root.add_child(friend)
 		friend.camp = Global.VILLAGE
 		friend.firstSetting(soldier)
-		friend.position.x = position.x
-		friend.position.y = -10
+		friend.position.x = global_position.x
+		friend.position.y = Global.FightGroundY+Global.STSData[soldier]["collBox"].y
 		area.visible = false
 		Global.NowMoney -= Global.STSData[soldier]["price"]
-		card.button_mask = 1#恢复购买
+		card.button_mask = MOUSE_BUTTON_MASK_LEFT#恢复购买
 		queue_free()
 	if area == Global.towerArea:
-		if collLine.is_colliding(): 
-			colorBox.color = warnColor
-		else: 
-			colorBox.color = choiceColor
+		if collLine.is_colliding():  colorBox.color = warnColor
+		else:  colorBox.color = choiceColor
 	pass
 
 

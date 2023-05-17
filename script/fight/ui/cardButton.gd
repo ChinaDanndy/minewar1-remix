@@ -191,7 +191,7 @@ func _on_pressed():
 			if (Global.STSData[soldier]["type"] == "tower")||(Global.STSData[soldier]["type"] == "skill"):
 				match self.button_mask:
 					MOUSE_BUTTON_MASK_LEFT:#左键
-						Global.CardBuy == soldier
+						Global.CardBuy = soldier
 						var Area = choiceArea.instantiate()
 						Global.root.add_child(Area)
 						#更新选择盒子尺寸
@@ -206,6 +206,7 @@ func _on_pressed():
 						if Global.STSData[soldier]["type"] == "skill":#选技能位置
 							Area.colorBox.size = Vector2(Global.STSData[soldier]["aoeRange"],Global.NormalAOERangeY)
 							Area.colorBox.position = Vector2(Global.STSData[soldier]["aoeRange"]/-2,Global.NormalAOERangeY/-2)
+							Area.collLine.collide_with_areas = false
 							#Area.collLine.
 							Global.skillArea.visible = true
 							Area.area = Global.skillArea

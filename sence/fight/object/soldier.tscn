@@ -12,9 +12,6 @@ script = ExtResource("2_sxvfl")
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_at3e2")
 
-[node name="Collision2" parent="." index="3"]
-collide_with_areas = true
-
 [node name="UsualTimer" type="Timer" parent="." index="5"]
 
 [connection signal="timeout" from="UsualTimer" to="." method="_on_usual_timer_timeout"]

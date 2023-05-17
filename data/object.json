@@ -60,6 +60,23 @@
         "effTimes":[0,5],
         "giveEffect":[0,0,0,0,0,1,0]
     },
+    
+    "end":{
+        "type":"soldier",
+        "health":5,
+        "animation":{"walk":6,"attack":4,"stop":1,"death":1},
+        "aniSpeedBasic":1,
+        "speedBasic":0.6,
+        "attackType":[[true,false,false]],
+        "damageBasic":[1,0],
+        "attRangeBasic":[10,0],
+        "tpDistance":40,
+        "healthEffValue":3
+
+    },
+
+
+
 
     
     "zombie":{

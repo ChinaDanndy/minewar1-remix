@@ -13,7 +13,18 @@ script = ExtResource("2_3fwhs")
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_0m7md")
 
-[node name="Timer" type="Timer" parent="." index="5"]
+[node name="Collision1" parent="." index="2"]
+collide_with_areas = false
+collide_with_bodies = false
+
+[node name="Collision2" parent="." index="3"]
+collide_with_bodies = false
+
+[node name="SkillTimer" type="Timer" parent="." index="5"]
 one_shot = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="DeathTimer" type="Timer" parent="." index="6"]
+one_shot = true
+
+[connection signal="timeout" from="SkillTimer" to="." method="_on_skill_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

@@ -1,7 +1,7 @@
 extends "res://script/fight/object/soldier.gd"
 
 func firstSetting(soldier):
-	position = Global.VillagePoint
+	position.x = Global.VillagePoint.x
 	if soldier == "skyer": position.y = Global.FightSkyY
 	camp = Global.VILLAGE
 	super.firstSetting(soldier)

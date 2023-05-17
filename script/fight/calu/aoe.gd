@@ -23,7 +23,9 @@ func _ready():
 	if damagerType !=null:
 		match damagerType[0]:
 			"skill": newRange.size = Vector2(aoeRange,Global.SkillAOERangeY)#换范围
-			#"thunder": $CollisionShape2D.position.y = Global.STSData["thunder"]["collBox"].y/2-20#换位置
+			"thunder": 
+				var thunder = load("res://assets/objects/skill/thunder.png")
+				newRange.size = thunder.get_size()
 	$CollisionShape2D.shape = newRange
 	if ifAoeHold == true: 
 		if damagerType[0] == "skill":

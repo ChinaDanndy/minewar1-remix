@@ -32,6 +32,7 @@ position = Vector2(787, 263)
 texture = ExtResource("5_efdka")
 
 [node name="choiceCard" parent="." instance=ExtResource("6_qxmrc")]
+visible = false
 offset_left = 58.0
 offset_top = 19.0
 offset_right = 58.0
@@ -155,7 +156,7 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="ground" type="Marker2D" parent="."]
-position = Vector2(0, 314)
+position = Vector2(0, 318)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
@@ -192,6 +193,7 @@ texture_hover = ExtResource("7_a3cl8")
 script = ExtResource("9_eg3an")
 
 [node name="StopWindow" parent="." instance=ExtResource("10_jfeyj")]
+visible = false
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

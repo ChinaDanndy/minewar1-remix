@@ -2,6 +2,7 @@ extends Node2D
 var count = 0
 var summonEnemy = preload("res://script/fight/calu/summonEnemy.gd")
 var summonEnemyID
+const lvType = {}
 
 var attackTime
 var moneyTime
@@ -41,8 +42,6 @@ func _ready():
 		Global.ChoiceWindow.visible =false#有给定卡不开选卡
 		fightStart()
 
-
-
 	#monseter 680
 	pass
 	
@@ -61,8 +60,6 @@ func _on_thundertimer_timeout():
 	
 func fightStart():
 	Global.CardUp = 6
-	
-	
 	emit_signal("fightCard")
 	$monsterShow.visible = false
 	#await get_tree().create_timer(1,false).timeout#开局延迟开始
@@ -71,26 +68,20 @@ func fightStart():
 	$baseVillage.visible = true
 	$Spacetext.visible = false
 
-	#Global.LevelData[Global.Level][0]["levelType"] = int(Global.LevelData[Global.Level][0]["levelType"])
 	match Global.LevelData[Global.NowLevel][0]["levelType"]:
-		"attack": 
+		"attack":
 			$baseVillage/Label.visible = false 
 			attackTime = Global.LevelData[Global.NowLevel][0]["attackTime"]
 			$AttackTime.visible = true
 			$attackTimer.start(1)
-		"defencee": $baseMonster/Label.visible = false 
-	
+		"defence": $baseMonster/Label.visible = false 
 	var newEnemy = summonEnemy.new()
 	Global.add_child(newEnemy)
-	#Global.root.call_deferred("add_child",newEnemy)
-	#newEnemy.firstStart()
-	newEnemy.name = "summonEnemy"
 	summonEnemyID = newEnemy
 	
-	
-	
 	$Moneytimer.start(moneyTime)
-	if thunderTime >0: $Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
+	if thunderTime >0: 
+		$Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
 
 	pass
 	
@@ -114,14 +105,15 @@ func _process(_delta):
 	$AttackTime/AttackTimeValue.text = str(attackTime)
 
 	match Global.LevelData[Global.NowLevel][0]["levelType"]:
-		Global.LevelType.ATTACK:
+		"attack":
 			if attackTime <=0:#loss
-				if Global.MonsterBase.health > 0: Global.StopWindow.text("lose")
+				if Global.MonsterBase.health > 0||Global.VillageBase.health <= 0: 
+					Global.StopWindow.text("lose")
 			else: if Global.MonsterBase.health <= 0: Global.StopWindow.text("win")
-		Global.LevelType.ATTDEF:
-			if Global.MonsterBase.health <= 0: Global.StopWindow.text("win")
+		"normal":
 			if Global.VillageBase.health <= 0: Global.StopWindow.text("lose")
-		Global.LevelType.DEFENCE:
+			if Global.MonsterBase.health <= 0: Global.StopWindow.text("win")
+		"defence":
 			if Global.VillageBase.health <= 0: Global.StopWindow.text("lose")
 			if Global.LevelOver == true&&get_tree().get_nodes_in_group("monsterSoldier").is_empty():
 				Global.StopWindow.text("win")
@@ -143,6 +135,7 @@ func _on_tree_exited():
 	Global.MonsterDeaths = 0
 	Global.CardBuy = null
 	Global.Contrl = null
+	Global.LevelOver = false
 	Global.ChosenCard = [null,null,null,null,null,null]
 	Global.ChosenId = [null,null,null,null,null,null]
 	Global.ChosenCardNum = 0
