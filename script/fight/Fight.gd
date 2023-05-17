@@ -39,7 +39,6 @@ func _ready():
 		Global.ChoiceWindow.visible = true
 	else:
 		Global.ChoiceWindow.visible =false#有给定卡不开选卡
-		print(Global.ChoiceWindow.visible)
 		fightStart()
 
 
@@ -83,8 +82,8 @@ func fightStart():
 	
 	var newEnemy = summonEnemy.new()
 	Global.add_child(newEnemy)
-	Global.root.call_deferred("add_child",newEnemy)
-	newEnemy.firstStart()
+	#Global.root.call_deferred("add_child",newEnemy)
+	#newEnemy.firstStart()
 	newEnemy.name = "summonEnemy"
 	summonEnemyID = newEnemy
 	
@@ -139,7 +138,7 @@ func _on_moneytimer_timeout():
 	pass 
 
 func _on_tree_exited():
-	if summonEnemyID != null: summonEnemyID.queue_free()
+	if summonEnemyID != null: summonEnemyID.free()
 	Global.NowMoney = 0
 	Global.MonsterDeaths = 0
 	Global.CardBuy = null

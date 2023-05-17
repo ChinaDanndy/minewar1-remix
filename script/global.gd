@@ -15,9 +15,9 @@ const MAsk = [[1+16,1+4+16,16],[1+2+16+32],[2+32,2+8+32,32]]
 #const deathLayer = 32
 enum AttackType {NEAR,FAR,EXPLODE}
 const AddDamage = 1.5
-enum Effect {ATTDAMAGE,ATTRANGE,SPEED,FREEZE,DAMAGE,KNOCK}
+enum Effect {ATTDAMAGE,ATTRANGE,SPEED,FREEZE,HOLDAMAGE,DAMAGE,KNOCK}
 const EffGood = Effect.DAMAGE
-enum DamValue {DAMAGE,KNOCK}
+enum DamValue {HOLDAMAGE,DAMAGE,KNOCK}
 const EffValue = [0.5,0.5,0.5,0]
 const EFFGOOD = 1
 const OFFEFFECT = 0
@@ -72,10 +72,8 @@ func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold,attackType,damage,damag
 	target.effTime = effTime
 	target.effTimes = effTimes
 	if type != TRANSFER&&damager!=null:
-		#root.call_deferred("add_child",newAoe)
-		root.add_child(newAoe)
-		newAoe.position = damager.position
-		newAoe.firstsetting()
+		root.call_deferred("add_child",newAoe)
+		newAoe.position = damager.global_position
 		#newAoe.position.y = FightGroundY
 	else: newAoe.free()
 	return newAoe

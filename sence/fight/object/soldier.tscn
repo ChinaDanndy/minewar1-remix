@@ -1,10 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://q05lgu8j1nu8"]
+[gd_scene load_steps=4 format=3 uid="uid://q05lgu8j1nu8"]
 
 [ext_resource type="PackedScene" uid="uid://3bh0vmtlyfuy" path="res://sence/fight/object.tscn" id="1_p63ko"]
 [ext_resource type="Script" path="res://script/fight/object/soldier.gd" id="2_sxvfl"]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_at3e2"]
+resource_local_to_scene = true
+
 [node name="object" instance=ExtResource("1_p63ko")]
 script = ExtResource("2_sxvfl")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_at3e2")
 
 [node name="Collision2" parent="." index="3"]
 collide_with_areas = true

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dou1ex0wt6kw8"
-path="res://.godot/imported/stop1.png-7ed1305cb28a6e667c9bd899f74c449d.ctex"
+uid="uid://d0wy5gyygj0m7"
+path="res://.godot/imported/walk6.png-89e74b3157ddb2c805af1b1f02bb6164.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/soldier/skeletonAttack/stop/stop1.png"
-dest_files=["res://.godot/imported/stop1.png-7ed1305cb28a6e667c9bd899f74c449d.ctex"]
+source_file="res://assets/objects/soldier/end/walk/walk6.png"
+dest_files=["res://.godot/imported/walk6.png-89e74b3157ddb2c805af1b1f02bb6164.ctex"]
 
 [params]
 

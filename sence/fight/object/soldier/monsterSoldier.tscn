@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://ex6p161gndc4"]
+[gd_scene load_steps=4 format=3 uid="uid://ex6p161gndc4"]
 
 [ext_resource type="PackedScene" uid="uid://q05lgu8j1nu8" path="res://sence/fight/object/soldier.tscn" id="1_u4vuw"]
 [ext_resource type="Script" path="res://script/fight/object/soldier/monsterSoldier.gd" id="2_sry4h"]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_3gaps"]
+resource_local_to_scene = true
+
 [node name="object" instance=ExtResource("1_u4vuw")]
 script = ExtResource("2_sry4h")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_3gaps")

@@ -50,21 +50,20 @@ var aoeModel = [null,null,null,null]#
 var aoeRange = [null,null,null,null]#
 var ifAoeHold = [false,false,false,false]#
 #自身状态数据 #攻击1 攻击2 平时 死亡
-var effTimerId = [null,null,null,null,null,null,null]
-var nowEffect = [0,0,0,0,0,0,0]#记录伤害，速度，射程当前的效果值，区分好坏
-var effTime = [[0,0,0,0,0],[0,0,0,0,0],[],[]]#后两个为平时，攻击持续效果的间隔给予数值的时间
-var effValue = [[0,0],[0,0],[],[]]#平时效果保持伤害,攻击效果保持伤害,击退距离
-var effTimes = [0,0,0,0]#效果持续：平时次数，攻击次数
+var effTimerId = [null,null,null,null,null,null,null,null,null]
+#var holdDamageTimes = {}
+var nowEffect = [0,0,0,0,0,0,0,0,0]#记录伤害，速度，射程当前的效果值，区分好坏
+var effTime = [[0,0,0,0,0,0],[0,0,0,0,0,0],[],[]]#后两个为平时，攻击持续效果的间隔给予数值的时间
+var effValue = [[0,0,0],[0,0,0],[],[]]#平时效果保持伤害,攻击效果保持伤害,击退距离
+var effTimes = [[0,0],[0,0],[0,0],[0,0]]#效果持续：平时次数，攻击次数
 var ifAoe##仅用于伤害判定给予效果时分辨效果来源
 var effDefence = [false,false,false,false,false,false,false]#
-var giveEffect = [[0,0,0,0,0,0],[0,0,0,0,0,0],[],[]]#攻击给予状态同时表示好坏
+var giveEffect = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[],[]]#攻击给予状态同时表示好坏
 var healthEffValue = 0#低血量提升攻击力速度
 var usualTime#
 var shield = 0#
 var attDefOrigin = [false,false,false]#
 var attDefence = attDefOrigin
-
-
 
 var usuallyEffect#平时给予状态
 var usualEffValue
@@ -77,9 +76,11 @@ var satDefValue = 0#
 var attDefState#
 
 func _init():
+	
 	pass
 	
 func _ready():
+	
 	pass
 	
 func SetValue(soldier):
@@ -128,16 +129,16 @@ func _process(_delta):#每帧执行的部分
 	$Label.text = str(health)
 	#基础数据实时更改/前是负属性后是正属性
 	for i in 2:#攻击和攻击距离有两套随攻击使用的不同
-		damage[i] = (damageBasic[i]+(damageBasic[i]*(-nowEffect[Global.Effect.ATTDAMAGE]
+		damage[i] = (damageBasic[i]+(damageBasic[i]*(nowEffect[Global.Effect.ATTDAMAGE]
 		+nowEffect[Global.Effect.ATTDAMAGE+Global.EffGood])))
 		
-		attRange[i] = Vector2(attRangeBasic[i]+(attRangeBasic[i]*(-nowEffect[Global.Effect.ATTRANGE]
+		attRange[i] = Vector2(attRangeBasic[i]+(attRangeBasic[i]*(nowEffect[Global.Effect.ATTRANGE]
 		+nowEffect[Global.Effect.ATTRANGE+Global.EffGood])),0)
 		
-	speed = Vector2(speedBasic+(speedBasic*(-nowEffect[Global.Effect.SPEED]
+	speed = Vector2(speedBasic+(speedBasic*(nowEffect[Global.Effect.SPEED]
 	+nowEffect[Global.Effect.SPEED+Global.EffGood])),0)*Vector2(nowEffect[Global.Effect.FREEZE]*speedState,0)
 	
-	aniSpeed = (aniSpeedBasic+(aniSpeedBasic*(-nowEffect[Global.Effect.SPEED]
+	aniSpeed = (aniSpeedBasic+(aniSpeedBasic*(nowEffect[Global.Effect.SPEED]
 	+nowEffect[Global.Effect.SPEED+Global.EffGood])))*nowEffect[Global.Effect.FREEZE]
 	
 	$Collision1.target_position = attRange[0]*Vector2(camp,0)
@@ -292,53 +293,58 @@ func attack():
 			attTimes = 2
 		for i in attTimes:
 			var newPro = Projectile.instantiate()
-			Global.root.add_child(newPro)
 			newPro.collision_mask = collision_mask
 			newPro.camp = camp
 			newPro.projectile = projectile[ani[attackAni]]
-			newPro.position = position 
 			#Global.ProPos[projectile[ani[attackAni]]]
 			newPro.proRange = attRange[ani[attackAni]]
 			newPro.proSpeed = proSpeed[ani[attackAni]]
 			newPro.ifPriece = ifPriece[ani[attackAni]]
 			if currentAni == "attackThr"&&attackAni == "attack":  attackAni = "attackSec"
-
 			Global.aoe_create(newPro,Global.TRANSFER,aoeModel[ani[attackAni]],aoeRange[ani[attackAni]],
 			ifAoeHold[ani[attackAni]],attackType[ani[attackAni]],damage[ani[attackAni]],
 			damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],
 			effTime[ani[attackAni]],effTimes[ani[attackAni]])
-			newPro.firstSetting()
+			
+			newPro.position = position
+			Global.root.add_child(newPro)
 	pass
 	
-	
-func effectTimer(effName,effKeepTime,GoodOrBad):
+func effectTimer(effName,effKeepTime,effKeepTimes,effDam,GoodOrBad):
 	var this = effName
-	if GoodOrBad == Global.EFFGOOD: this = effName+Global.Effect.DAMAGE
+	if GoodOrBad == Global.EFFGOOD: this += Global.EffGood
 	if effName == Global.Effect.FREEZE:
-		#$AnimatedSprite2D.pause()
 		$Collision1.collide_with_areas = false
 		$Collision2.collide_with_areas = false
-	if effKeepTime!=null: 
-		var effTimer = Timer.new()
-		effTimer.timeout.connect(effectTimerTimeout.bind(effName,GoodOrBad))
-		effTimer.one_shot = true
-		add_child(effTimer)
-		effTimer.start(effKeepTime)
-		effTimerId[this] = effTimer
+	#if effKeepTime!=null: 
+	var effTimer = Timer.new()
+	effTimer.timeout.connect(effectTimerTimeout.bind(effName,effKeepTimes,effDam,GoodOrBad))
+	effTimer.one_shot = true
+	if effKeepTimes != null: effTimer.one_shot = false
+	add_child(effTimer)
+	effTimer.start(effKeepTime)
+	effTimerId[this] = effTimer
 	pass
 	
-func effectTimerTimeout(effName,GoodOrBad):
+func effectTimerTimeout(effName,effKeepTimes,effDam,GoodOrBad):
 	var this = effName
-	if GoodOrBad == Global.EFFGOOD: this = effName+Global.Effect.DAMAGE
-	nowEffect[this] = 0
-	if effName == Global.Effect.FREEZE:
-		nowEffect[this] = SpeState.MOVE
-		$Collision1.collide_with_areas = true
-		$Collision2.collide_with_areas = true
-	if effTimerId[this] != null: effTimerId[this].queue_free()
+	if GoodOrBad == Global.EFFGOOD: this += Global.EffGood
+	if effName == Global.Effect.HOLDAMAGE:
+		if health+effDam<=healthUp: health += effDam
+		nowEffect[this] += 1 
+		if nowEffect[this] == effKeepTimes:
+			effTimerId[this].queue_free()
+			nowEffect[this] = 0
+	else:
+		nowEffect[this] = Global.OFFEFFECT
+		if effName == Global.Effect.FREEZE:
+			nowEffect[this] = SpeState.MOVE
+			$Collision1.collide_with_areas = true
+			$Collision2.collide_with_areas = true
+		if effTimerId[this] != null: effTimerId[this].queue_free()
 	pass
-	
 
+	
 func reload():
 	queue_free()
 	pass 

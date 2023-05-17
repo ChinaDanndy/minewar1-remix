@@ -24,20 +24,23 @@ var effTime
 var effTimes
 
 func _ready():
-	pass
-
-func firstSetting():
 	startPos = position.x
 	$Sprite2D.texture = load("res://assets/objects/projectiles/"+projectile+".png")
 	var newBox = RectangleShape2D.new()#碰撞箱自适应
 	newBox.size = $Sprite2D.texture.get_size()
 	$CollisionShape2D.shape = newBox
 	if camp == Global.MONSTER: $Sprite2D.flip_h = true
-	
 	if Global.ProPicture[projectile] > 1:
 		$Sprite2D.hframes = Global.ProPicture[projectile]
 		$Sprite2D.frame = 0
 		$animationTimer.start(Global.ProAniTime[projectile])
+	pass
+
+
+
+
+func firstSetting():
+
 	pass
 
 func _process(_delta):

@@ -21,7 +21,7 @@
         "speedBasic":0.5,
         "attackType":[[true,false,false]],
         "damageBasic":[1,0],
-        "attRangeBasic":[10,0],
+        "attRangeBasic":[20,0],
         "shield":5,
         "attDefShield":[false,true,false]
     }, 
@@ -55,10 +55,10 @@
         "ifAoeHold":true,
         "aoeModel":"village",
         "aoeRange":100,
-        "effTime":[0,0,0,0,1.5,0],
-        "effValue":[1.25,0,0],
-        "effTimes":5,
-        "giveEffect":[0,0,0,0,1,0]
+        "effTime":[0,0,0,0,0,1],
+        "effValue":[0,0.125,0],
+        "effTimes":[0,5],
+        "giveEffect":[0,0,0,0,0,1,0]
     },
 
     
@@ -93,7 +93,7 @@
         "aniSpeedBasic":1.1,
         "speedBasic":0.8,
         "attackType":[[false,false,true]],
-        "damageBasic":[1,0],
+        "damageBasic":[5,0],
         "attRangeBasic":[20,0],
         "aoeModel":["all"],
         "aoeRange":[40]
@@ -165,7 +165,7 @@
         "aoeRange":80,
         "effTime":[0,0,0,3,0,0],
         "effValue":[0,0,0],
-        "effTimes":0,
+        "effTimes":[0,0],
         "giveEffect":[0,0,0,-1,0,0,0]
     },    
     "wall":{
@@ -293,17 +293,17 @@
         "aniSpeedBasic":0.8,
         "speedBasic":0.5,
         "attackType":[[false,true,false],[false,true,false]],
-        "damageBasic":[1,1.5],
+        "damageBasic":[1,0.5],
         "attRangeBasic":[200,120],
-        "ifAoeHold":[false,true,false,false],
+       
         "aoeModel":["village","village",null,null],
         "aoeRange":[80,80,null,null],
         "projectile":["fireBall","fireBallDown"],
         "proSpeed":[3,3],
-        "effTime":[[0,0,0,0,0],[0,0,0,0,1],[],[]],
-        "effValue":[[0,0],[1.25,0],[],[]],
-        "effTimes":[0,3,0,0],
-        "giveEffect":[[0,0,0,0,0,0],[0,0,0,0,-1,0],[],[]]
+        "effTime":[[0,0,0,0,0,0],[0,0,0,0,1,0],[],[]],
+        "effValue":[[0,0,0],[0.125,0,0],[],[]],
+        "effTimes":[[0,0],[3,0],[],[]],
+        "giveEffect":[[0,0,0,0,0,0,0],[0,0,0,0,-1,0,0],[],[]]
     },
     "axer":{
         "type":"soldier",

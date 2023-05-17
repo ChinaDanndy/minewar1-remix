@@ -20,10 +20,10 @@
         "UpdateLevel":[[1,1,1],[1,1,3]]
     },
     [
-        {"levelType":"normal","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":2,"thunderTimeRand":0},[
+        {"levelType":"normal","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[
             {
                 "firstCD":0,
-                "soldier":["zombie","skeleton"],
+                "soldier":["zombie"],
                 "soldierCD":0.6,
                 "groupCD":6,
                 "groupCDRand":0,
@@ -31,7 +31,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],[],[]
+        ],[],["shielder","shoveler","regeneration","projector","freeze",null]
     ],
     [
         {"levelType":1,"attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":1},[
