@@ -169,6 +169,7 @@ var Contrl = null
 
 var LevelData
 var Level = 1
+var NowLevel = 1
 enum  LevelType {ATTACK,ATTDEF,DEFENCE}
 var LevelOver = false
 var TextData
@@ -223,15 +224,14 @@ func _ready():#读入数据
 	LevelData = jsonValue.data
 	file = null
 	
-	#"allMonsterObject":["zombie","creeper","skeleton","sear","witch"],
 	for k in Level+1:#记录到目前为止的关卡出现了哪些怪
 		if k > 0:
 			for i in LevelData[k][1].size():
 				for j in LevelData[k][1][i]["soldier"]:
 					if !NowMonsterObject.has(j): NowMonsterObject.append(j)
-	print(NowMonsterObject)
-	print(Level)
-	#LevelData[0][allMonsterObject]
+	#print(NowMonsterObject)
+	#print(Level)
+
 	
 	file = FileAccess.open("res://data/text.json", FileAccess.READ)
 	content = file.get_as_text()

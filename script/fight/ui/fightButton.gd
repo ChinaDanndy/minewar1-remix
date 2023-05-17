@@ -7,6 +7,7 @@ func _process(_delta):
 	pass
 
 func _on_pressed():
-	Global.ChoiceWindow.visible = false
 	emit_signal("fight")
+	Global.ChoiceWindow.visible = false
+	
 	pass

@@ -2,6 +2,7 @@
     {
         "moneySpeed":1,
         "thunderSpeed":0.1,
+        
         "allVillageObject":["shoveler","shielder","projector","regeneration",
         "snowman","assassinFirst","freeze","wall",
         "iron","worm","power","golder"],
@@ -19,7 +20,7 @@
         "UpdateLevel":[[1,1,1],[1,1,3]]
     },
     [
-        {"levelType":1,"attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":2,"thunderTimeRand":0},[
+        {"levelType":"normal","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":2,"thunderTimeRand":0},[
             {
                 "firstCD":0,
                 "soldier":["zombie","skeleton"],

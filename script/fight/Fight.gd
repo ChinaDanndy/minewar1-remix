@@ -10,18 +10,18 @@ var thunderTimeRand
 
 signal cardMessage
 signal reloadSence
-signal fight
+signal fightCard
 func _ready():
-	Global.Level = 1
+	Global.NowLevel = 1
 	
 	moneyTime = Global.LevelData[0]["moneySpeed"]
 	Global.ThunderSpeed = Global.LevelData[0]["thunderSpeed"]
-	thunderTime = Global.LevelData[Global.Level][0]["thunderTime"]
-	thunderTimeRand = Global.LevelData[Global.Level][0]["thunderTimeRand"]
+	thunderTime = Global.LevelData[Global.NowLevel][0]["thunderTime"]
+	thunderTimeRand = Global.LevelData[Global.NowLevel][0]["thunderTimeRand"]
 	
 	var allMonster = []#怪物展示，自动填充目前所有有的怪物
-	for i in Global.LevelData[Global.Level][1].size():
-		for j in Global.LevelData[Global.Level][1][i]["soldier"]:
+	for i in Global.LevelData[Global.NowLevel][1].size():
+		for j in Global.LevelData[Global.NowLevel][1][i]["soldier"]:
 			if !allMonster.has(j): allMonster.append(j)
 	if !allMonster.is_empty():
 		for i in allMonster.size():
@@ -33,20 +33,13 @@ func _ready():
 	Global.VillageBase.firstSetting("baseVillageHealth")
 	Global.MonsterBase.camp = Global.MONSTER
 	Global.MonsterBase.firstSetting("baseMonsterHealth")
-	Global.LevelData[Global.Level][0]["levelType"] = int(Global.LevelData[Global.Level][0]["levelType"])
-	match Global.LevelData[Global.Level][0]["levelType"]:
-		Global.LevelType.ATTACK: 
-			$baseVillage/Label.visible = false 
-			attackTime = Global.LevelData[Global.Level][0]["attackTime"]
-			$AttackTime.visible = true
-			$attackTimer.start(1)
-		Global.LevelType.DEFENCE: $baseMonster/Label.visible = false 
 	
-	if Global.LevelData[Global.Level][-1].is_empty():
+	if Global.LevelData[Global.NowLevel][-1].is_empty():
 		$monsterShow.visible = true
 		Global.ChoiceWindow.visible = true
 	else:
 		Global.ChoiceWindow.visible =false#有给定卡不开选卡
+		print(Global.ChoiceWindow.visible)
 		fightStart()
 
 
@@ -68,15 +61,35 @@ func _on_thundertimer_timeout():
 	pass
 	
 func fightStart():
+	Global.CardUp = 6
+	
+	
+	emit_signal("fightCard")
 	$monsterShow.visible = false
 	#await get_tree().create_timer(1,false).timeout#开局延迟开始
-	var newEnemy = summonEnemy.new()
+	$Moneytext.visible = true
+	$baseMonster.visible = true
+	$baseVillage.visible = true
+	$Spacetext.visible = false
+
+	#Global.LevelData[Global.Level][0]["levelType"] = int(Global.LevelData[Global.Level][0]["levelType"])
+	match Global.LevelData[Global.NowLevel][0]["levelType"]:
+		"attack": 
+			$baseVillage/Label.visible = false 
+			attackTime = Global.LevelData[Global.NowLevel][0]["attackTime"]
+			$AttackTime.visible = true
+			$attackTimer.start(1)
+		"defencee": $baseMonster/Label.visible = false 
 	
+	var newEnemy = summonEnemy.new()
+	Global.add_child(newEnemy)
 	Global.root.call_deferred("add_child",newEnemy)
-	newEnemy.call_deferred("firstStart")
+	newEnemy.firstStart()
 	newEnemy.name = "summonEnemy"
 	summonEnemyID = newEnemy
-	emit_signal("fight")
+	
+	
+	
 	$Moneytimer.start(moneyTime)
 	if thunderTime >0: $Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
 
@@ -101,7 +114,7 @@ func _process(_delta):
 		$Moneytimer.start(moneyTime)
 	$AttackTime/AttackTimeValue.text = str(attackTime)
 
-	match Global.LevelData[Global.Level][0]["levelType"]:
+	match Global.LevelData[Global.NowLevel][0]["levelType"]:
 		Global.LevelType.ATTACK:
 			if attackTime <=0:#loss
 				if Global.MonsterBase.health > 0: Global.StopWindow.text("lose")
@@ -131,8 +144,8 @@ func _on_tree_exited():
 	Global.MonsterDeaths = 0
 	Global.CardBuy = null
 	Global.Contrl = null
-	Global.ChosenCard = [null,null,null,null]
-	Global.ChosenId = [null,null,null,null,null]
+	Global.ChosenCard = [null,null,null,null,null,null]
+	Global.ChosenId = [null,null,null,null,null,null]
 	Global.ChosenCardNum = 0
 	emit_signal("reloadSence")
 	pass
@@ -161,6 +174,13 @@ func _on_tree_entered():
 	Global.skillArea = $skillArea
 	Global.skillArea.visible = false
 	Global.StopON = false
+	
+	$Moneytext.visible = false
+	$Spacetext.visible = false
+	$AttackTime.visible = false
+	$baseMonster.visible = false
+	$baseVillage.visible = false
+
 	pass
 
 

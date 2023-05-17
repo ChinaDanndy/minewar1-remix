@@ -21,19 +21,16 @@ signal reSet
 
 func _ready():
 	cantBuy.visible = false
-	$ExplainBox.visible = false
-
+	#$ExplainBox.visible = false
 	num = int(str(name))-1
-	#cardReSet()
-
 	match cardType:
 		cType.CHOICE:
 			soldier = Global.LevelData[0]["allVillageObject"][num]#获得士兵数据
 			if soldier != null:  display()
 			if Global.LevelData[0]["villObjectHasLevel"][soldier] > Global.Level:
 				visible = false
-			var banCard = Global.LevelData[Global.Level].size()-2
-			if (Global.LevelData[Global.Level][banCard].has(soldier))||(#查看是否为禁用卡BAN
+			var banCard = Global.LevelData[Global.NowLevel].size()-2
+			if (Global.LevelData[Global.NowLevel][banCard].has(soldier))||(#查看是否为禁用卡BAN
 				Global.LevelData[0]["allVillageBuyObject"].has(soldier)&&(#外面没购买的卡也不能选
 					Global.Brought[soldier]==NOHAS))||(soldier == null):
 				self.button_mask = 0
@@ -41,17 +38,13 @@ func _ready():
 				cantBuy.visible = true
 				if soldier == null: cantBuy.visible = true
 		cType.BUY:
-			Global.FightSence.fight.connect(cardReSet)
+			Global.FightSence.fightCard.connect(cardReSet)#特定卡获得数据
+			Global.FightButton.fight.connect(cardReSet)#选卡开始游戏后重置鼠标碰撞层
 			self.button_mask = 0
 			outLine = false
-			if Global.ChoiceWindow.visible == false:#特定卡没有选卡
-				var card = Global.LevelData[Global.Level].size()-1
-				soldier = Global.LevelData[Global.Level][card][num]
-				cardReSet()
-				display()
 		cType.SHOP:
-			if get_parent().name == "Update": 
-				soldier = Global.LevelData[0]["Update"][num]
+			if get_parent().name == "Update":
+				soldier = Global.LevelData[0]["Update"][num]#升级价格和出现关卡第二个要出现两次
 				update = true
 			else: soldier = Global.LevelData[0]["allVillageBuyObject"][num]
 			display()
@@ -80,20 +73,16 @@ func display():
 		cType.CHOICE,cType.BUY:
 			price = Global.STSData[soldier]["price"]#基本属性填充
 		cType.SHOP: 
-			if update == true: 
-				price = Global.LevelData[0]["UpdatePrice"][num][Global.Brought[soldier]]
-				if Global.LevelData[0]["UpdateLevel"][num][Global.Brought[soldier]] > Global.Level:
-					visible = false#升级后两个价格数据一样
-			else: 
-				price = Global.LevelData[0]["villageBuyPrice"][num]
-				if Global.LevelData[0]["villageBuyLevel"][num] > Global.Level:
-					visible = false
-		
+			if update == true: price = Global.LevelData[0]["UpdatePrice"][num][Global.Brought[soldier]]
+			else: price = Global.LevelData[0]["villageBuyPrice"][num]
 		cType.SHOW: 
 			soldier = Global.LevelData[0][Global.Page[Global.PageNow]][num]
-			#print(soldier)
 			if Global.PageNow == true:
-				if Global.LevelData[0]["villObjectHasLevel"][soldier] > Global.Level: visible = false
+				if Global.LevelData[0]["allVillageBuyObject"].has(soldier):#需购买卡没买不显示
+					if Global.Brought[soldier] == NOHAS: visible = false
+				else:
+					if Global.LevelData[0]["villObjectHasLevel"][soldier] > Global.Level: 
+						visible = false
 			else: if !Global.NowMonsterObject.has(soldier): visible = false
 			if soldier == null: visible = false
 			
@@ -102,6 +91,11 @@ func display():
 	pass
 	
 func cardReSet():
+	if Global.ChoiceWindow.visible == false&&cardType == cType.BUY:#特定卡没有选卡
+		var card = Global.LevelData[Global.NowLevel].size()-1
+		soldier = Global.LevelData[Global.NowLevel][card][num]
+		if soldier != null: display()
+		else: visible = false
 	self.button_mask = MOUSE_BUTTON_MASK_LEFT
 	outLine = true
 	cantBuy.visible = false
@@ -113,7 +107,15 @@ func _process(_delta):
 	if Global.ChoiceWindow.visible == true:
 		match cardType:
 			cType.CHOICE:
-				pass
+				if cantBuy.visible == false:
+					if Global.ChosenCard[Global.CardUp-1] == null:
+						outLine = true
+						self.button_mask = MOUSE_BUTTON_MASK_LEFT
+					else:
+						outLine = false
+						material = null
+						self.button_mask = 0
+					pass
 			cType.BUY: 
 				soldier = Global.ChosenCard[num]
 				if soldier != null: 
@@ -127,6 +129,16 @@ func _process(_delta):
 						Global.ChosenId[num] = null
 						$cardPrice.text = ""
 						$cardName.text = ""
+				else:
+					outLine = false
+					material = null
+					self.button_mask = 0
+			cType.SHOP: 
+				if update == true: 
+					if Global.LevelData[0]["UpdateLevel"][num][Global.Brought[soldier]] > Global.Level:
+						visible = false#升级后两个价格数据一样
+				else:  if Global.LevelData[0]["villageBuyLevel"][num] > Global.Level: visible = false
+				
 	pass
 
 func _on_pressed():
