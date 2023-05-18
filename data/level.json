@@ -20,24 +20,52 @@
         "UpdateLevel":[[1,1,1],[1,1,3]]
     },
     [
-        {"levelType":"attack","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[
+        {"levelType":"defence","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[
             {
                 "firstCD":0,
                 "soldier":["zombie"],
                 "soldierCD":0.6,
                 "groupCD":1,
                 "groupCDRand":0,
-                "times":2,
+                "times":1,
                 "stopPos":null,
                 "stopTime":null
             }
-        ],[],["shielder","shoveler","regeneration","projector","freeze",null]
+        ],[],["shielder","shoveler","regeneration","projector","freeze","worm"]
+    ],
+    [
+        {"levelType":"normal","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[
+            {
+                "firstCD":0,
+                "soldier":["creeper"],
+                "soldierCD":0.6,
+                "groupCD":1,
+                "groupCDRand":0,
+                "times":1,
+                "stopPos":null,
+                "stopTime":null
+            }
+        ],[],[]
+    ],
+    [
+        {"levelType":"attack","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[
+            {
+                "firstCD":0,
+                "soldier":["skeleton"],
+                "soldierCD":0.6,
+                "groupCD":1,
+                "groupCDRand":0,
+                "times":1,
+                "stopPos":null,
+                "stopTime":null
+            }
+        ],[],[]
     ],
     [
         {"levelType":1,"attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":1},[
             {
                 "firstCD":0,
-                "soldier":["zombie","creeper","skeleton","sear","witch","ghost","spider","axer"],
+                "soldier":["zombie","creeper","skeleton","sear","witch","ghost"],
                 "soldierCD":2,
                 "groupCD":2,
                 "groupCDRand":0,

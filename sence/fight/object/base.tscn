@@ -15,6 +15,7 @@ offset_bottom = -18.0
 
 [node name="collBox" type="Area2D" parent="."]
 collision_mask = 0
+monitoring = false
 script = ExtResource("1_cefax")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collBox"]

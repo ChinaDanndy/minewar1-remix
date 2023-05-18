@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dc0yoja5iwclo"
-path="res://.godot/imported/Tp9.png-320aeb7706582199ab0ff6495cc47310.ctex"
+uid="uid://we8rxwnpo1fc"
+path="res://.godot/imported/stop1.png-2002f30d57b23d9bfc344a64ca42db9e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/soldier/creeperKing/Tp/Tp9.png"
-dest_files=["res://.godot/imported/Tp9.png-320aeb7706582199ab0ff6495cc47310.ctex"]
+source_file="res://assets/objects/soldier/creeperShield/stop/stop1.png"
+dest_files=["res://.godot/imported/stop1.png-2002f30d57b23d9bfc344a64ca42db9e.ctex"]
 
 [params]
 

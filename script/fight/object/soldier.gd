@@ -35,11 +35,11 @@ func _on_usual_timer_timeout():#平常给予效果
 	pass
 
 func _process(_delta):
-	if Input.is_action_just_pressed("ui_test"):
-		$AnimatedSprite2D.play("attack")
+	#if Input.is_action_just_pressed("ui_test"):
+		#$AnimatedSprite2D.play("attack")
 		#if camp == Global.VILLAGE: health = 0
 		#shield = 0
-		pass
+		
 	#移动控制
 	position.x += speed*camp*speedDirection*speedState
 

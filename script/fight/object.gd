@@ -119,8 +119,9 @@ func firstSetting(soldier):
 	collision_mask = Global.MAsk[camp+1][0]#设置碰撞的笼罩层
 	if ifOnlyAttBase == true:  collision_mask = Global.MAsk[camp+1][2]
 	#把设置过的碰撞层导入射线检测的碰撞层
-	$Collision1.collision_mask = collision_mask
-	$Collision2.collision_mask = collision_mask
+	if type != "skill":
+		$Collision1.collision_mask = collision_mask
+		$Collision2.collision_mask = collision_mask
 	pass
 	
 func reSet(soldier):
@@ -186,7 +187,6 @@ func _process(_delta):#每帧执行的部分
 func testchangeState():
 	$Collision1.force_raycast_update()
 	$Collision2.force_raycast_update()#更新射线碰撞检测
-	
 	#两个攻击范围同时碰到同时进攻,限远程
 	if $Collision1.is_colliding()&&$Collision2.is_colliding()&&animation.has("attackThr")==true:
 		if currentAni != "attackThr": changeState("attackThr",State.ATTACK)
@@ -201,8 +201,8 @@ func testchangeState():
 					tp = false#低血量tp到基地
 				changeState("attack",State.ATTACK)
 		else: 
-			if currentAni == "attack": 
-				changeState(standardAni,standardState)
+			if currentAni == "attack": changeState(standardAni,standardState)
+				
 		if $Collision2.is_colliding()&&currentAni != "attack":#第二碰撞
 			if currentAni != "attackSec": 
 				other = $Collision2.get_collider()
@@ -254,7 +254,6 @@ func changeAnimation(AniName,StaName):
 	pass
 
 func _on_animated_sprite_2d_frame_changed():
-	
 	if $AnimatedSprite2D.frame == animation[$AnimatedSprite2D.animation]-1:
 		match currentState:
 			State.ATTACK: 
@@ -283,8 +282,6 @@ func attack():
 	
 	if projectile == null:
 		if aoeRange[ani[attackAni]] == null:#近战单体
-			
-				
 			Global.damage_Calu(other,Global.damCaluType.ATTEFF,attackType[ani[attackAni]],
 			damage[ani[attackAni]],damagerType[ani[attackAni]],giveEffect[ani[attackAni]],
 			effValue[ani[attackAni]],effTime[ani[attackAni]],effTimes[ani[attackAni]],Global.IfAoeType.NONE)
@@ -343,6 +340,7 @@ func effectTimerTimeout(effName,effKeepTimes,effDam,GoodOrBad):
 	if GoodOrBad == Global.EFFGOOD: this += Global.EffGood
 	if effName == Global.Effect.HOLDAMAGE:
 		if health+effDam<=healthUp: health += effDam
+		else: health = healthUp
 		nowEffect[this] += 1 
 		if nowEffect[this] == effKeepTimes:
 			effTimerId[this].queue_free()

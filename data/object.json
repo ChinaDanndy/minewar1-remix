@@ -81,7 +81,7 @@
     
     "zombie":{
         "type":"soldier",
-        "health":5,
+        "health":1,
         "animation":{"walk":6,"attack":4,"stop":1,"death":1},
         "aniSpeedBasic":1,
         "speedBasic":0.6,
@@ -130,8 +130,8 @@
         "aoeModel":"all",
         "aoeRange":200,
         "ifAoeHold":false,
-        "effValue":[2.5,0,0],
-        "giveEffect":[0,0,0,0,-1,0]
+        "effValue":[0,2.125,0],
+        "giveEffect":[0,0,0,0,0,-1,0]
     },
 
     "snowman":{
@@ -366,5 +366,43 @@
         "speedBasic":1,
         "damageBasic":[2.5,0],
         "attRangeBasic":[20,0]
+    },
+
+
+    "thunderBoss":{
+        "type":"skill",
+        "aoeModel":"all",
+        "aoeRange":100,
+        "ifAoeHold":false,
+        "effValue":[0,2.1725,0],
+        "giveEffect":[0,0,0,0,0,-1,0]
+    },
+    "thunderBossKill":{
+        "type":"skill",
+        "aoeModel":"all",
+        "aoeRange":100,
+        "ifAoeHold":false,
+        "effValue":[0,100,0],
+        "giveEffect":[0,0,0,0,0,-1,0]
+    },
+
+
+    "creeperKing":{
+        "type":"soldier",
+        "health":50,
+
+        "aniSpeedBasic":0.8,
+        "speedBasic":0.5,
+        "attackType":[[false,true,false],[false,true,false]],
+        "damageBasic":[5.175,0],
+        "attRangeBasic":[200,120],
+       
+        "aoeModel":["all","village",null,null],
+        "aoeRange":[80,80,null,null],
+
+        "effTime":[[0,0,0,0,0,0],[0,0,0,0,1,0],[],[]],
+        "effValue":[[0,0,50],[0,0,0],[],[]],
+        "effTimes":[[0,0],[0,0],[],[]],
+        "giveEffect":[[0,0,0,0,0,0,-1],[0,0,0,0,-1,0,0],[],[]]
     }
 }

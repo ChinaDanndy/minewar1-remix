@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bhvrla6g275uy"]
+[gd_scene load_steps=14 format=3 uid="uid://bhvrla6g275uy"]
 
 [ext_resource type="Script" path="res://script/fight/Fight.gd" id="1_0rvy3"]
 [ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="2_1lg06"]
@@ -6,11 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://c6o27yerkolvm" path="res://assets/objects/baseVillage.png" id="4_8miln"]
 [ext_resource type="Texture2D" uid="uid://8dirif2atd8f" path="res://assets/objects/baseMonster.png" id="5_efdka"]
 [ext_resource type="PackedScene" uid="uid://cnnifqydayh65" path="res://sence/fight/ui/card.tscn" id="6_4unhj"]
+[ext_resource type="Texture2D" uid="uid://cyrd7ii3pyc0" path="res://assets/objects/attackBoss.png" id="6_gbug6"]
 [ext_resource type="Texture2D" uid="uid://dk8yspmeqggbm" path="res://assets/UI/button/stop_normal.png" id="6_q5rai"]
 [ext_resource type="PackedScene" uid="uid://cimi287socn0s" path="res://sence/fight/ui/choiceCard.tscn" id="6_qxmrc"]
 [ext_resource type="Texture2D" uid="uid://btaq2lqnicsn" path="res://assets/UI/button/stop_press.png" id="7_a3cl8"]
 [ext_resource type="Script" path="res://script/fight/ui/stopButton.gd" id="9_eg3an"]
 [ext_resource type="PackedScene" uid="uid://bkq2jinug2gf7" path="res://sence/fight/ui/stopWindow.tscn" id="10_jfeyj"]
+[ext_resource type="PackedScene" uid="uid://b6xxxvrvp1wc3" path="res://sence/fight/object/boss.tscn" id="12_jn8mm"]
 
 [node name="Fight" type="Node2D"]
 process_mode = 1
@@ -30,6 +32,13 @@ texture = ExtResource("4_8miln")
 [node name="baseMonster" parent="." instance=ExtResource("3_jxcqd")]
 position = Vector2(787, 263)
 texture = ExtResource("5_efdka")
+
+[node name="bossProtect" parent="." instance=ExtResource("3_jxcqd")]
+position = Vector2(617, 188)
+texture = ExtResource("6_gbug6")
+
+[node name="Boss" parent="." instance=ExtResource("12_jn8mm")]
+position = Vector2(444, 291)
 
 [node name="choiceCard" parent="." instance=ExtResource("6_qxmrc")]
 visible = false
@@ -140,25 +149,33 @@ offset_bottom = 26.0
 text = "1
 "
 
-[node name="MonsterPoint" type="Marker2D" parent="."]
+[node name="position" type="Node2D" parent="."]
+
+[node name="MonsterPoint" type="Marker2D" parent="position"]
 position = Vector2(400, 297)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="VillagePoint" type="Marker2D" parent="."]
+[node name="VillagePoint" type="Marker2D" parent="position"]
 position = Vector2(160, 297)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="sky" type="Marker2D" parent="."]
+[node name="sky" type="Marker2D" parent="position"]
 position = Vector2(0, 120)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="ground" type="Marker2D" parent="."]
+[node name="ground" type="Marker2D" parent="position"]
 position = Vector2(0, 318)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
+
+[node name="bossStop" type="Marker2D" parent="position"]
+position = Vector2(330, 298)
+
+[node name="bossPos" type="Marker2D" parent="position"]
+position = Vector2(530, 302)
 
 [node name="towerArea" type="ColorRect" parent="."]
 visible = false
@@ -193,6 +210,7 @@ texture_hover = ExtResource("7_a3cl8")
 script = ExtResource("9_eg3an")
 
 [node name="StopWindow" parent="." instance=ExtResource("10_jfeyj")]
+layer = 2
 visible = false
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

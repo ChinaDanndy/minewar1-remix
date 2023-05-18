@@ -10,8 +10,6 @@ func firstSetting(soldier):
 	camp = Global.MONSTER
 	super.firstSetting(soldier)
 	if stopTime == 0: Global.SummonEnemy.stopOver.connect(onStopOver)
-
-	#if soldier == "skeleton": $Collision2.position.y = -(position.y-Global.FightSkyY)
 	pass
 	
 func _process(_delta):

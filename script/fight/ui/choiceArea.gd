@@ -30,7 +30,9 @@ func _process(_delta):
 		friend.camp = Global.VILLAGE
 		friend.firstSetting(soldier)
 		friend.position.x = global_position.x
-		friend.position.y = Global.FightGroundY+Global.STSData[soldier]["collBox"].y
+		match which:
+			Global.Tower: friend.position.y = Global.FightGroundY+Global.STSData[soldier]["collBox"].y
+			Global.Skill: friend.position.y = -20
 		area.visible = false
 		Global.NowMoney -= Global.STSData[soldier]["price"]
 		card.button_mask = MOUSE_BUTTON_MASK_LEFT#恢复购买

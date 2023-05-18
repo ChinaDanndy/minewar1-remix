@@ -34,14 +34,14 @@ func _ready():
 				Global.LevelData[0]["allVillageBuyObject"].has(soldier)&&(#外面没购买的卡也不能选
 					Global.Brought[soldier]==NOHAS))||(soldier == null):
 				self.button_mask = 0
-				outLine = false
+				#outLine = false
 				cantBuy.visible = true
 				if soldier == null: cantBuy.visible = true
 		cType.BUY:
 			Global.FightSence.fightCard.connect(cardReSet)#特定卡获得数据
 			Global.FightButton.fight.connect(cardReSet)#选卡开始游戏后重置鼠标碰撞层
 			self.button_mask = 0
-			outLine = false
+			#outLine = false
 		cType.SHOP:
 			if get_parent().name == "Update":
 				soldier = Global.LevelData[0]["Update"][num]#升级价格和出现关卡第二个要出现两次
@@ -50,7 +50,7 @@ func _ready():
 			display()
 			if  Global.Point < price||Global.Brought[soldier] == HAS||Global.Brought[soldier] == 2:
 				self.button_mask = 0
-				outLine = false
+				#outLine = false
 			if Global.Brought[soldier] == HAS||Global.Brought[soldier] == 2: 
 				cantBuy.visible = true
 		cType.SHOW: 
@@ -97,7 +97,7 @@ func cardReSet():
 		if soldier != null: display()
 		else: visible = false
 	self.button_mask = MOUSE_BUTTON_MASK_LEFT
-	outLine = true
+	#outLine = true
 	cantBuy.visible = false
 	if cardType == cType.SHOW||cardType == cType.SHOP: display()
 	pass
@@ -109,17 +109,17 @@ func _process(_delta):
 			cType.CHOICE:
 				if cantBuy.visible == false:
 					if Global.ChosenCard[Global.CardUp-1] == null:
-						outLine = true
+						#outLine = true
 						self.button_mask = MOUSE_BUTTON_MASK_LEFT
 					else:
-						outLine = false
+						#outLine = false
 						material = null
 						self.button_mask = 0
 					pass
 			cType.BUY: 
 				soldier = Global.ChosenCard[num]
 				if soldier != null: 
-					outLine = true
+					#outLine = true
 					self.button_mask = MOUSE_BUTTON_MASK_RIGHT
 					display()
 					if num != 0&&Global.ChosenCard[num-1] == null:#已选卡中中间卡被退回
@@ -130,7 +130,7 @@ func _process(_delta):
 						$cardPrice.text = ""
 						$cardName.text = ""
 				else:
-					outLine = false
+					#outLine = false
 					material = null
 					self.button_mask = 0
 			cType.SHOP: 
@@ -151,7 +151,7 @@ func _on_pressed():
 			cType.BUY:#退卡
 				Global.ChosenId[num].button_mask = MOUSE_BUTTON_MASK_LEFT
 				Global.ChosenId[num].cantBuy.visible = false
-				Global.ChosenId[num].outLine = true
+				#Global.ChosenId[num].outLine = true
 				Global.ChosenCard[num] = null
 				Global.ChosenId[num] = null
 				Global.ChosenCardNum -= 1
@@ -167,14 +167,14 @@ func _on_pressed():
 			cType.SHOW:#展示图鉴
 				if Global.ShowLastId != null:
 					Global.ShowLastId.button_mask = MOUSE_BUTTON_MASK_LEFT
-					Global.ShowLastId.outLine = true
+					#Global.ShowLastId.outLine = true
 					Global.ShowLastId.cantBuy.visible = false
 				Global.ShowName.text = soldier
 				Global.ShowLastId = self
 
 		if cardType != cType.BUY: cantBuy.visible = true
 		self.button_mask = 0
-		outLine = false
+		#outLine = false
 		material = null
 		$ExplainBox.visible = false
 		if cardType == cType.SHOP&&update == true&&Global.Brought[soldier] == 1: 
@@ -226,12 +226,12 @@ func _on_pressed():
 	pass
 
 func _on_mouse_entered():
-	if outLine == true: material = Global.CardOutLine
+	#if outLine == true: material = Global.CardOutLine
 	#await get_tree().create_timer(0.5,false).timeout
 #	if $ExplainBox/Pos/explain.text != "explain": $ExplainBox.visible = true
 	pass
 	
 func _on_mouse_exited():
-	if outLine == true: material = null
+	#if outLine == true: material = null
 #	$ExplainBox.visible = false
 	pass

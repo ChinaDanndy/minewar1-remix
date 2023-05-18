@@ -1,36 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://qynklu6mdhxq"]
+[gd_scene load_steps=4 format=3 uid="uid://qynklu6mdhxq"]
 
-[ext_resource type="PackedScene" uid="uid://3bh0vmtlyfuy" path="res://sence/fight/object.tscn" id="1_me8vb"]
 [ext_resource type="Script" path="res://script/fight/object/skill.gd" id="2_wf2hv"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_44dsc"]
-resource_local_to_scene = true
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(20, 44)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d8lve"]
 
-[node name="object" instance=ExtResource("1_me8vb")]
+[node name="object" type="Area2D"]
 collision_layer = 0
 collision_mask = 0
 input_pickable = false
+monitorable = false
 script = ExtResource("2_wf2hv")
 
-[node name="AnimatedSprite2D" parent="." index="0"]
-sprite_frames = SubResource("SpriteFrames_44dsc")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1")
 
-[node name="Collision1" parent="." index="2"]
-collide_with_areas = false
-collide_with_bodies = false
-
-[node name="Collision2" parent="." index="3"]
-collide_with_bodies = false
-
-[node name="Sprite2D" type="Sprite2D" parent="." index="5"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.988235, 1, 1, 1)
 
-[node name="thunderArea" type="Area2D" parent="." index="6"]
+[node name="thunderArea" type="Area2D" parent="."]
 monitorable = false
 
-[node name="thunderBox" type="CollisionShape2D" parent="thunderArea" index="0"]
+[node name="thunderBox" type="CollisionShape2D" parent="thunderArea"]
 shape = SubResource("RectangleShape2D_d8lve")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

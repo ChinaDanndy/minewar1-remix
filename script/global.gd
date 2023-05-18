@@ -3,7 +3,7 @@ extends Node
 
 const DropSpeed = 20 
 const NormalAOERangeY = 20
-const SkillAOERangeY = 400
+const SkillAOERangeY = 500
 
 const VILLAGE = 1
 const MONSTER = -1
@@ -129,10 +129,15 @@ var FightGroundY
 var FightSkyY
 var VillagePoint
 var MonsterPoint
+var BossStopX
+var BossPosX
+var BossProtect
 var VillageBase
 var MonsterBase
 var towerArea
 var skillArea
+
+var Boss
 
 var SoldierOutLine = preload("res://rescourse/soldierOutLine.tres")
 var ButtonOutLine = preload("res://rescourse/buttonOutLine.tres")
@@ -211,8 +216,9 @@ func _ready():#读入数据
 		match STSData[STSName]["type"]:
 			"soldier": pictureGet = load("res://assets/objects/soldier/%s/walk/walk1.png"% STSName)
 			"tower": pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
-			#"skill": pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
-		if STSData[STSName]["type"] != "skill": STSData[STSName]["collBox"] = pictureGet.get_size()
+			"skill": pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
+		#if STSData[STSName]["type"] != "skill": 
+		STSData[STSName]["collBox"] = pictureGet.get_size()
 	file = null 
 	
 	file = FileAccess.open("res://data/level.json", FileAccess.READ)

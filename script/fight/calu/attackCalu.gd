@@ -40,10 +40,11 @@ func normalAttackCalu(damager):
 
 func effectAttackCalu(damager):	
 	effDefence = damager.effDefence
+
 	for i in Global.Effect.size():
 		if (giveEffect[i] == Global.EFFBAD&&effDefence[i] == false)||(giveEffect[i] == Global.EFFGOOD): 
 			if damager.health>0:
-
+				
 				match i:
 					Global.Effect.ATTDAMAGE,Global.Effect.SPEED,Global.Effect.FREEZE,Global.Effect.ATTRANGE,Global.Effect.HOLDAMAGE:
 						var this = i
@@ -64,6 +65,7 @@ func effectAttackCalu(damager):
 							#新计时器时间是否大于旧的计时器剩余时间
 				match i:
 					Global.Effect.DAMAGE:
+						
 						if (damager.health+effValue[Global.DamValue.DAMAGE]*giveEffect[i])<=damager.healthUp: 
 							damager.health += effValue[Global.DamValue.DAMAGE]*giveEffect[i]
 						else: damager.health = damager.healthUp

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s5b7qypfd6qw"
-path="res://.godot/imported/walk7.png-ab27f455b597cad5643d5b34739035e7.ctex"
+uid="uid://bjjwdejvpwghl"
+path="res://.godot/imported/walk4.png-a6e09bc582b54373946f8bb505463668.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/soldier/creeperKing/walk/walk7.png"
-dest_files=["res://.godot/imported/walk7.png-ab27f455b597cad5643d5b34739035e7.ctex"]
+source_file="res://assets/objects/soldier/creeperShield/walk/walk4.png"
+dest_files=["res://.godot/imported/walk4.png-a6e09bc582b54373946f8bb505463668.ctex"]
 
 [params]
 

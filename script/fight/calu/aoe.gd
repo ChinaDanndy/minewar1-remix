@@ -26,6 +26,9 @@ func _ready():
 			"thunder": 
 				var thunder = load("res://assets/objects/skill/thunder.png")
 				newRange.size = thunder.get_size()
+			"thunderBoss": 
+				var thunder = load("res://assets/objects/skill/thunderBoss.png")
+				newRange.size = thunder.get_size()
 	$CollisionShape2D.shape = newRange
 	if ifAoeHold == true: 
 		if damagerType[0] == "skill":
