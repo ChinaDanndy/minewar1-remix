@@ -20,7 +20,7 @@
         "UpdateLevel":[[1,1,1],[1,1,3]]
     },
     [
-        {"levelType":"defence","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[
+        {"levelType":"boss","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[
             {
                 "firstCD":0,
                 "soldier":["zombie"],

@@ -12,27 +12,18 @@ var shield =0
 var collBox
 
 func firstSetting(Name):
-	AName = Name
 	type = "base"
-	#health = Global.LevelData[Global.Level][0][Name]
-	print(name)
-	health = 5
+	if get_parent().name != "bossProtect": health = Global.LevelData[Global.Level][0][Name]
+	else: health = Global.STSData["creeperKing"]["protectHealth"] 
 	healthUp = health
 	collision_layer = Global.LAyer[camp+1][2]
-	
 	var newBox = RectangleShape2D.new()
 	collBox = get_parent().texture.get_size()
 	newBox.size = collBox
 	$CollisionShape2D.shape = newBox
-
 	pass
 	
 func _ready():
-	if get_parent().name == "bossProtect": 
-		print("aaaaa")
-		get_parent().visible = false
-		monitorable = false
-
 	pass
 
 
@@ -48,5 +39,4 @@ func _process(_delta):
 			get_parent().visible = false
 			monitorable = false
 			emit_signal("ProtectDown")
-
 	pass

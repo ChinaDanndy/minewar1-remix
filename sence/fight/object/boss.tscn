@@ -170,6 +170,7 @@ size = Vector2(20, 46)
 [node name="Boss" type="Area2D"]
 collision_layer = 2
 collision_mask = 0
+monitoring = false
 script = ExtResource("1_ty8c6")
 
 [node name="Normal" type="AnimatedSprite2D" parent="."]

@@ -389,11 +389,11 @@
 
     "creeperKing":{
         "type":"soldier",
-        "health":50,
+        "health":20,
 
         "aniSpeedBasic":0.8,
-        "speedBasic":0.5,
-        "attackType":[[false,true,false],[false,true,false]],
+        "speedBasic":0.3,
+        "attackType":[[false,false,true],[false,true,false]],
         "damageBasic":[5.175,0],
         "attRangeBasic":[200,120],
        
@@ -403,6 +403,9 @@
         "effTime":[[0,0,0,0,0,0],[0,0,0,0,1,0],[],[]],
         "effValue":[[0,0,50],[0,0,0],[],[]],
         "effTimes":[[0,0],[0,0],[],[]],
-        "giveEffect":[[0,0,0,0,0,0,-1],[0,0,0,0,-1,0,0],[],[]]
+        "giveEffect":[[0,0,0,0,0,0,-1],[0,0,0,0,-1,0,0],[],[]],
+        "bossSecHealth":15,
+        "protectHealth":5,
+        "protectCD":6
     }
 }
