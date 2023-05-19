@@ -20,7 +20,7 @@ func _ready():
 	collision_mask = Global.MAsk[Mod[aoeModel]][0]
 	var newRange = RectangleShape2D.new()#AOE范围
 	newRange.size = Vector2(aoeRange,Global.NormalAOERangeY)
-	if damagerType !=null:
+	if !damagerType.is_empty():
 		match damagerType[0]:
 			"skill": newRange.size = Vector2(aoeRange,Global.SkillAOERangeY)#换范围
 			"thunder": 

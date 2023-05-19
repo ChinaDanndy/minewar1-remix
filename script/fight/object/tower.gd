@@ -4,25 +4,28 @@ var towKeepTime#
 
 func firstSetting(soldier):
 	super.SetValue(soldier)
-	currentState = State.STOP
+	currentState = State.FALL
 	currentAni = "stop"
-	standardState = currentState
+	standardState = State.STOP
 	standardAni = currentAni
 	super.SetAnimationAndCollBox(soldier)
 	super.firstSetting(soldier)
 	add_to_group("villageObject")
 	collision_layer = Global.LAyer[camp+1][2]
+	position.y = Global.FightGroundY+collBox.y
+	effDefence[Global.Effect.KNOCK] = true
 	pass
 
 func _process(_delta):
-	if unPeopleFly == true:
-		position.y -= 2
-		if position.y <= Global.FightGroundY-(collBox.y/2):
-			unPeopleFly = false
-			position.y = Global.FightGroundY-(collBox.y/2)
-			if soldierName[0] == "projector": $Collision1.collide_with_areas = true
-			if soldierName[0] == "golder"||soldierName[0] == "cave": $Timer.start(speed)
-			if towKeepTime != null: $DeathTimer.start(towKeepTime)
+#	if unPeopleFly == true:
+#		position.y -= 2
+	if position.y <= Global.FightGroundY-(collBox.y/2)&&dropSpeed != null:
+		currentState = State.STOP
+		dropSpeed = null
+		position.y = Global.FightGroundY-(collBox.y/2)
+		if soldierName[0] == "projector": $Collision1.collide_with_areas = true
+		if soldierName[0] == "golder"||soldierName[0] == "cave": $Timer.start(speed)
+		if towKeepTime != null: $DeathTimer.start(towKeepTime)
 #			if !giveEffect[ani["usual"]].is_empty():
 #				var usual = 1
 #				Global.aoe_create(self,Global.CREATE,aoeModel[usual],aoeRange[usual],ifAoeHold[usual],

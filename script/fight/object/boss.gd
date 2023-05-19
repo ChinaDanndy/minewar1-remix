@@ -4,6 +4,8 @@ extends "res://script/fight/object.gd"
 @onready var collLine = $RayCast2D
 
 var bossSecHealth
+var protectHealth
+var protectCD
 var shoot = preload("res://sence/fight/object/base.tscn")
 var bossLv
 
@@ -30,10 +32,8 @@ func _process(_delta):
 	else:
 		if bossLv == 2: 
 			if norAni.animation == "stop2": norAni.play("walk")
-			if position.x > Global.BossStopX: position.x -= speedBasic
+			if position.x > Global.BossStopX: position.x -= speed
 		$attackTimer.stop()
-
-
 	pass
 
 func _on_attack_timer_timeout():
@@ -51,13 +51,13 @@ func Lv2():
 func Lv3():
 	bossLv = 3
 	$attackTimer.stop()
+	var i = 0
+	Global.aoe_create(self,Global.CREATE,"all",aoeRange[i],ifAoeHold[i],attackType[i],damage[i],
+	damagerType[i],giveEffect[i],effValue[i],effTime[i],effTimes[i])
 	collLine.collide_with_areas = false
 	norAni.visible = false
 	tpAni.visible = true
 	tpAni.play("default")
-	var i = 0
-	Global.aoe_create(self,Global.CREATE,"all",aoeRange[i],ifAoeHold[i],attackType[i],damage[i],
-	damagerType[i],giveEffect[i],effValue[i],effTime[i],effTimes[i])
 	attDefence = [true,true,true]
 	effDefence = [true,true,true,true,true,true,true]
 	pass
@@ -79,9 +79,9 @@ func protectDown():
 	effDefence = [true,true,true,true,false,false,true]
 	norAni.play("stop3")
 	craeteThu("thunderBossKill")
-	await get_tree().create_timer(7,false).timeout
+	await get_tree().create_timer(protectCD,false).timeout
 	norAni.play("stop1")
-	Global.BossProtect.health = 5
+	Global.BossProtect.health = protectHealth
 	Global.BossProtect.picture.visible  = true
 	Global.BossProtect.monitorable = true
 	attDefence = [true,true,true]
@@ -93,8 +93,6 @@ func craeteThu(thu):
 	Global.root.add_child(newthunder)
 	newthunder.camp = Global.MONSTER
 	newthunder.firstSetting(thu)
-	newthunder.position.y = Global.FightGroundY-(
-		Global.STSData["thunder"]["collBox"].y/2)
 	newthunder.position.x = position.x-30
 	pass
 	

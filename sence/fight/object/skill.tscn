@@ -21,6 +21,7 @@ shape = SubResource("1")
 modulate = Color(0.988235, 1, 1, 1)
 
 [node name="thunderArea" type="Area2D" parent="."]
+visible = false
 monitorable = false
 
 [node name="thunderBox" type="CollisionShape2D" parent="thunderArea"]

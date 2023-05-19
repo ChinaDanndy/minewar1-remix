@@ -10,7 +10,7 @@ var soldierName = [null,null]#
 var other
 
 enum State {ATTACK,STOP,DEATH,BACK,PUSH,OUTSEA,FALL}
-const ani = {"attack":0,"attackSec":1,"usual":2,"death":3}#usual = 2
+const ani = {"attack":0,"attackSec":1,"death":2,"usual":3}#usual = 2
 var animation#
 var currentState = State.PUSH
 var currentAni = "walk"
@@ -29,10 +29,10 @@ enum SpeState {STATIC,MOVE}
 var speedState = SpeState.MOVE
 
 var ifOnlyAttBase = false#
-var attackType = [[false,false,false],[false,false,false]]#近 远 爆炸
+var attackType = [[false,false,false],[false,false,false],[false,false,false]]#近 远 爆炸
 #var damageMethod#
-var damagerType=[[null],[null]]#有伤害加成的攻击目标
-var damageBasic = [0,0]#
+var damagerType=[[],[],[]]#有伤害加成的攻击目标
+var damageBasic = [0,0,0]#
 var damage= [0,0]#我方技能传递时此值为-1让aoe范围包括海陆空
 
 var Projectile = preload("res://sence/fight/object/projectiles.tscn")
@@ -63,11 +63,15 @@ var healthEffValue = -100#低血量提升攻击力速度
 var usualTime#
 var shield = 0#
 var tpDistance#
-var tp = true
+var tp = true#
+var dropSpeed#
+var unSee = false#
+var startDrop = false#
+var deathAttType#
+
 var healthTpDistance#
 var attDefOrigin = [false,false,false]#
 var attDefence = attDefOrigin
-var ifJump = false
 
 var usuallyEffect#平时给予状态
 var usualEffValue
@@ -90,6 +94,7 @@ func _ready():
 func SetValue(soldier):
 	for STSDatename in Global.STSData[soldier]:
 		set(STSDatename,Global.STSData[soldier][STSDatename])
+	if dropSpeed != null: dropSpeed = int(dropSpeed)
 	pass
 	
 func SetAnimationAndCollBox(soldier):
@@ -99,8 +104,6 @@ func SetAnimationAndCollBox(soldier):
 		for j in animation[i]:
 			var picture = load("res://assets/objects/%s/%s/%s/%s%s.png"% [type,soldier,i,i,j+1])
 			spirte.add_frame(i,picture)
-
-				
 	$AnimatedSprite2D.sprite_frames = spirte
 	changeAnimation(currentAni,currentState)
 	#填充碰撞箱
@@ -128,12 +131,15 @@ func reSet(soldier):
 	soldierName[0] = null
 	SetValue(soldier)
 	SetAnimationAndCollBox(soldier)
-	changeAnimation(currentAni,currentState)
 	pass
 	
 func _process(_delta):#每帧执行的部分
+	if currentState == State.FALL: 
+		position.y += dropSpeed
 	testchangeState()#状态切换检测	
 	$Label.text = str(health)
+#	if camp == Global.MONSTER:
+#		print(soldierName)
 	#基础数据实时更改/前是负属性后是正属性
 	for i in 2:#攻击和攻击距离有两套随攻击使用的不同
 		damage[i] = (damageBasic[i]+(damageBasic[i]*(nowEffect[Global.Effect.ATTDAMAGE]
@@ -148,35 +154,35 @@ func _process(_delta):#每帧执行的部分
 	aniSpeed = (aniSpeedBasic+(aniSpeedBasic*(nowEffect[Global.Effect.SPEED]
 	+nowEffect[Global.Effect.SPEED+Global.EffGood])))*nowEffect[Global.Effect.FREEZE]
 	
-	$Collision1.target_position = Vector2(attRange[0]*camp,0)
-	#$Collision1.position.y = -20
+	if startDrop == false:
+		$Collision1.position = Vector2(0,0)
+		$Collision1.target_position = Vector2(attRange[0]*camp,0)
+	else:
+		$Collision1.target_position = Vector2(0,attRange[0])
+		$Collision1.position = Vector2(-50,-100)
+		#print($Collision1.collide_with_areas)
 	$Collision2.target_position = Vector2(attRange[1]*camp,0)
 	$AnimatedSprite2D.speed_scale = aniSpeed
 	
 	if health <= 0&&currentState != State.DEATH&&currentState != State.FALL: #死亡判定
 		$Collision1.collide_with_areas = false
 		$Collision2.collide_with_areas = false
-		$AnimatedSprite2D.material = null
+		material = null
 		#死亡特效
-		if animation.has("deathFall"): changeState("deathFall",State.FALL)
+		if animation.has("deathFall"): 
+			changeState("deathFall",State.FALL)
 		else: changeState("death",State.DEATH)
-			
-	if currentState == State.FALL:#活塞虫坠机自爆
-		position.y += 5
-		if position.y >= Global.FightGroundY: 
-			var attackAni = "attackSec"
-			aoeRange[ani[attackAni]] = aoeRange[ani[attackAni]]*1.5#扩大爆炸范围
-			Global.aoe_create(self,Global.CREATE,aoeModel[ani[attackAni]],aoeRange[ani[attackAni]],
-			ifAoeHold[ani[attackAni]],attackType[ani[attackAni]],damage[ani[attackAni]],
-			damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],
-			effTime[ani[attackAni]],effTimes[ani[attackAni]])
-			changeState("death",State.DEATH)
 	
-	if !giveEffect[ani["death"]].is_empty()&&currentState == State.DEATH:#死亡效果
-		var usual = ani["death"]
-		Global.aoe_create(self,Global.CREATE,aoeModel[usual],aoeRange[usual],ifAoeHold[usual],
-		null,null,null,giveEffect[usual],effValue[usual],effTime[usual],effTimes[usual])
-		giveEffect[ani["death"]] = []
+	if currentState == State.DEATH&&deathAttType != null:#死亡效果
+		
+#Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,
+#attackType,damage,damagerType,
+		var i = ani[deathAttType]
+		Global.aoe_create(self,Global.CREATE,aoeModel[i],aoeRange[i],ifAoeHold[i],
+		attackType[i],damageBasic[i],damagerType[i],giveEffect[i],effValue[i],
+		effTime[i],effTimes[i])
+		deathAttType = null
+		#if soldierName[0] == "creeperShield":
 
 	if Input.is_action_just_pressed("ui_select"):#测试用
 		if camp == Global.MONSTER:
@@ -194,31 +200,42 @@ func testchangeState():
 
 	if currentAni != "attackThr":
 		if $Collision1.is_colliding():#第一碰撞
-			if currentAni != "attack": 
-				other = $Collision1.get_collider() #单体攻击时获得对方id 
+			other = $Collision1.get_collider() #单体攻击时获得对方id
+			if currentAni != "attack":
+				changeState("attack",State.ATTACK) 
+				if unSee == true: 
+					collision_layer = Global.LAyer[camp+1][0]
+					$AnimatedSprite2D.modulate.a = 1
 				if tpDistance != null&&tp == true&&other.type != "base": 
 					position.x += tpDistance*camp#末影人瞬移
 					tp = false#低血量tp到基地
-				changeState("attack",State.ATTACK)
+				if startDrop == true:
+					$Collision1.collide_with_areas = false
+					reSet(soldierName[1])
+					changeState("stop",State.FALL)
 		else: 
-			if currentAni == "attack": changeState(standardAni,standardState)
+			if currentAni == "attack": 
+				if unSee == true: 
+					collision_layer = Global.LAyer[camp+1][1]
+					$AnimatedSprite2D.modulate.a = 0.5
+				changeState(standardAni,standardState)
 				
 		if $Collision2.is_colliding()&&currentAni != "attack":#第二碰撞
+			other = $Collision2.get_collider()
 			if currentAni != "attackSec": 
-				other = $Collision2.get_collider()
 				changeState("attackSec",State.ATTACK)
 		else: if currentAni == "attackSec": changeState(standardAni,standardState)
 	pass
 	
 func changeState(AniName,StaName):#入海出海的动作图片在每个动画的前面放
-	if kind == "sea":
-		seaAni = AniName
-		seaState = StaName
-		if (StaName == State.ATTACK&&currentState == State.PUSH):#海军出海
-			collision_layer = Global.LAyer[camp+1][0]#出海后不再入海
-			StaName = State.OUTSEA
-			AniName = "seaOut"
-			$Collision1.collide_with_areas = false
+#	if kind == "sea":
+#		seaAni = AniName
+#		seaState = StaName
+#		if (StaName == State.ATTACK&&currentState == State.PUSH):#海军出海
+#			collision_layer = Global.LAyer[camp+1][0]#出海后不再入海
+#			StaName = State.OUTSEA
+#			AniName = "seaOut"
+#			$Collision1.collide_with_areas = false
 	match StaName:
 		#State.DEATH:#最优先状态
 			#collision_layer = 0#不再能互动
@@ -278,7 +295,8 @@ func _on_animated_sprite_2d_frame_changed():
 func attack():
 	var attackAni = currentAni
 	#第二攻击有数据才换数据否则两组攻击数据一样
-	if attackAni == "attackSec"&&damageBasic[ani["attackSec"]] == null: attackAni = "attack"
+	if attackAni == "attackSec"&&damageBasic[ani["attackSec"]] == null: 
+		attackAni = "attack"
 	
 	if projectile == null:
 		if aoeRange[ani[attackAni]] == null:#近战单体

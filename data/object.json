@@ -47,7 +47,8 @@
         "projectile":["arrow"],
         "proSpeed":[4],
         "proContinueTimes":3,
-        "proSleepTime":2
+        "proSleepTime":2,
+        "dropSpeed":-3
     },
     "regeneration":{
         "price":1,
@@ -58,7 +59,8 @@
         "effTime":[0,0,0,0,0,1],
         "effValue":[0,0.125,0],
         "effTimes":[0,5],
-        "giveEffect":[0,0,0,0,0,1,0]
+        "giveEffect":[0,0,0,0,0,1,0],
+        "dropSpeed":15
     },
     
     "end":{
@@ -81,7 +83,7 @@
     
     "zombie":{
         "type":"soldier",
-        "health":1,
+        "health":3,
         "animation":{"walk":6,"attack":4,"stop":1,"death":1},
         "aniSpeedBasic":1,
         "speedBasic":0.6,
@@ -152,7 +154,6 @@
     "assassinFirst":{
         "price":1,
         "type":"soldier",
-        "kind":"sea",
         "soldierName":[null,"assassin"],
         "health":7,
         "animation":{"walk":4,"attack":3,"seaOut":4,"death":1},
@@ -160,9 +161,10 @@
         "speedBasic":1.4,
         "attackType":[[true,false,false]],
         "damageBasic":[4,0],
-        "attRangeBasic":[30,0],
+        "attRangeBasic":[25,0],
         "aoeModel":["monster"],
-        "aoeRange":[60]
+        "aoeRange":[60],
+        "unSee": true
     },
     "assassin":{
         "type":"soldier",
@@ -172,7 +174,8 @@
         "damageBasic":[2,0],
         "attRangeBasic":[25,0],
         "aoeModel":[null],
-        "aoeRange":[null]
+        "aoeRange":[null],
+        "unSee": true
     },
     "freeze":{
         "price":1,
@@ -215,17 +218,27 @@
         "giveEffect":[[-1,0,0,0,0,0],[],[0,0,0,0,1,0],[]],
         "usualTime":2
     },
-    "sear":{
+    "ballon":{
         "type":"soldier",
-        "kind":"sea",
+        "kind":"sky",
         "health":6,
-        "animation":{"walk":6,"attack":4,"stop":1,"seaOut":4,"death":1},
+        "startDrop":true,
+        "soldierName":[null,"sear"],
+        "animation":{"walk":1,"attack":1,"stop":1,"death":1},
         "aniSpeedBasic":1.2,
         "speedBasic":0.8,
         "attackType":[[true,false,false]],
         "damageBasic":[1.25,0],
-        "attRangeBasic":[10,0],
-        "healthEffValue":3
+        "attRangeBasic":[300,0]
+    },
+    "sear":{
+        "type":"soldier",
+        "animation":{"walk":6,"attack":4,"stop":1,"seaOut":4,"death":1},
+        "aniSpeedBasic":1.2,
+        "speedBasic":0.8,
+        "attRangeBasic":[20,0],
+        "healthEffValue":2,
+        "dropSpeed":5
     },
     "cave":{
         "price":1,
@@ -272,13 +285,15 @@
         "animation":{"walk":1,"attack":1,"attackSec":1,"attackThr":1,"stop":1,"death":1,"deathFall":1},
         "aniSpeedBasic":0.4,
         "speedBasic":0.4,
-        "attackType":[[false,true,false],[false,false,true]],
-        "damageBasic":[2.5,5],
-        "attRangeBasic":[200,80],
-        "aoeModel":[null,"all",null,null],
-        "aoeRange":[null,200,null,null],
+        "attackType":[[false,true,false],[false,false,true],[false,false,true]],
+        "damageBasic":[1,5,7],
+        "attRangeBasic":[200,60],
+        "aoeModel":[null,"all","all",null],
+        "aoeRange":[null,80,100,null],
         "projectile":["arrow","tnt"],
-        "proSpeed":[5,5]
+        "proSpeed":[5,5],
+        "dropSpeed":3,
+        "deathAttType":"death"
     },
     "golder":{
         "price":1,
@@ -312,7 +327,6 @@
         "attackType":[[false,true,false],[false,true,false]],
         "damageBasic":[1,0.5],
         "attRangeBasic":[200,120],
-       
         "aoeModel":["village","village",null,null],
         "aoeRange":[80,80,null,null],
         "projectile":["fireBall","fireBallDown"],
@@ -332,6 +346,24 @@
         "damageBasic":[4,0],
         "attRangeBasic":[20,0]
     },
+    "creeperShield":{
+        "type":"soldier",
+        "health":4,
+        "ifOnlyAttBase":true,
+        "animation":{"walk":6,"attack":2,"stop":1,"death":1},
+        "aniSpeedBasic":0.6,
+        "speedBasic":0.3,
+        "attackType":[[false,false,true],[]],
+        "damageBasic":[2.175,0],
+        "attRangeBasic":[20,0],
+        "aoeModel":["village",null,null,null],
+        "aoeRange":[60,null,null,null],
+        "attDefence":[true,false,false],
+        "effValue":[[0,0,30],[0,0,0],[],[]],
+        "giveEffect":[[0,0,0,0,0,0,-1],[0,0,0,0,0,0,0],[],[]],
+        "deathAttType":"attack"
+    }, 
+
     "zombieShield2":{
         "type":"soldier",
         "health":5,
@@ -392,9 +424,9 @@
         "health":20,
 
         "aniSpeedBasic":0.8,
-        "speedBasic":0.3,
+        "speed":0.3,
         "attackType":[[false,false,true],[false,true,false]],
-        "damageBasic":[5.175,0],
+        "damage":[5.175,0],
         "attRangeBasic":[200,120],
        
         "aoeModel":["all","village",null,null],
@@ -406,6 +438,6 @@
         "giveEffect":[[0,0,0,0,0,0,-1],[0,0,0,0,-1,0,0],[],[]],
         "bossSecHealth":15,
         "protectHealth":5,
-        "protectCD":6
+        "protectCD":3
     }
 }

@@ -3,7 +3,7 @@ var camp = 0
 signal ProtectDown 
 @export var AName:String
 @onready var picture = get_parent()
-var effDefence = [true,true,true,false,false,true]
+var effDefence = [true,true,true,true,false,false,true]
 var attDefence = [false,false,false]
 var type
 var health = 5
@@ -13,7 +13,8 @@ var collBox
 
 func firstSetting(Name):
 	type = "base"
-	if get_parent().name != "bossProtect": health = Global.LevelData[Global.Level][0][Name]
+	if get_parent().name != "bossProtect": 
+		health = Global.LevelData[Global.Level][0][Name]
 	else: health = Global.STSData["creeperKing"]["protectHealth"] 
 	healthUp = health
 	collision_layer = Global.LAyer[camp+1][2]

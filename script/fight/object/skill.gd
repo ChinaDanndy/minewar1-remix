@@ -8,10 +8,13 @@ func firstSetting(soldier):
 	$Sprite2D.texture = load("res://assets/objects/skill/%s.png"% soldier)
 	#collBox = $Sprite2D.texture.get_size()
 	super.firstSetting(soldier)
-	if camp == Global.MONSTER: unPeopleFly = false
+	currentState = State.FALL
+	position.y = -20
+	if camp == Global.MONSTER: currentState = State.STOP
 	
 	match soldier:
 		"thunder","thunderBoss","thunderBossKill": 
+			position.y = Global.FightGroundY-(collBox.y/2)
 			$Sprite2D.modulate.a = 0
 			collision_mask = 2
 			var newBox = RectangleShape2D.new()
@@ -23,14 +26,13 @@ func firstSetting(soldier):
 	pass
 	
 func _process(_delta):
-	if unPeopleFly == true:
-		position.y += Global.DropSpeed 
-		if position.y >= Global.FightGroundY: 
-			position.y = Global.FightGroundY
-			unPeopleFly = false
-			await get_tree().create_timer(0.1,false).timeout
-			Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,null,null,["skill"],giveEffect,effValue,effTime,effTimes)
-			queue_free()
+	if currentState == State.FALL: position.y += dropSpeed
+	if position.y >= Global.FightGroundY&&dropSpeed != null: 
+		currentState = State.STOP
+		position.y = Global.FightGroundY
+		await get_tree().create_timer(0.1,false).timeout
+		Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,null,null,["skill"],giveEffect,effValue,effTime,effTimes)
+		queue_free()
 			
 	match soldierName[0]:
 		"thunder","thunderBoss","thunderBossKill":  

@@ -34,10 +34,12 @@ position = Vector2(787, 263)
 texture = ExtResource("5_efdka")
 
 [node name="bossProtect" parent="." instance=ExtResource("3_jxcqd")]
+visible = false
 position = Vector2(617, 188)
 texture = ExtResource("6_gbug6")
 
 [node name="Boss" parent="." instance=ExtResource("12_jn8mm")]
+visible = false
 position = Vector2(444, 291)
 
 [node name="choiceCard" parent="." instance=ExtResource("6_qxmrc")]
@@ -172,10 +174,14 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="bossStop" type="Marker2D" parent="position"]
+visible = false
 position = Vector2(330, 298)
+gizmo_extents = 40.0
 
 [node name="bossPos" type="Marker2D" parent="position"]
+visible = false
 position = Vector2(530, 302)
+gizmo_extents = 40.0
 
 [node name="towerArea" type="ColorRect" parent="."]
 visible = false

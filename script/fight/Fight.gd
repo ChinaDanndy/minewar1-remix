@@ -61,7 +61,6 @@ func _on_thundertimer_timeout():
 		Global.root.add_child(newthunder)
 		newthunder.camp = Global.MONSTER
 		newthunder.firstSetting("thunder")
-		newthunder.position.y = Global.FightGroundY-(Global.STSData["thunder"]["collBox"].y/2)
 		newthunder.position.x = target.position.x-20
 	$Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
 	pass
@@ -91,7 +90,6 @@ func fightStart():
 	$Moneytimer.start(moneyTime)
 	if thunderTime >0: 
 		$Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
-
 	pass
 	
 func _process(_delta):
@@ -112,23 +110,11 @@ func _process(_delta):
 	if Global.NowMoney != Global.Money&&$Moneytimer.one_shot == true:
 		$Moneytimer.start(moneyTime)
 	$AttackTime/AttackTimeValue.text = str(attackTime)
-	if bossLv == 2:
-		if Global.MonsterBase.health<=Global.MonsterBase.bossSecHealth:
-			Global.NowLevel += 1
-			bossLv = 3
-			summonEnemyID.queue_free()
-			var newEnemy = summonEnemy.new()
-			Global.add_child(newEnemy)
-			summonEnemyID = newEnemy
-			attackTime = Global.LevelData[Global.NowLevel][0]["attackTime"]
-			emit_signal("BossLv3")
+
 	
 	if Global.VillageBase.health <= 0: Global.StopWindow.text("lose")
 	if Global.MonsterBase.health <= 0: Global.StopWindow.text("win")
 	
-	if Global.LevelData[Global.NowLevel][0]["levelType"] == "attack":
-		#if BossLv == null||BossLv == 3: 
-		if attackTime <= 0: Global.VillageBase.health = 0
 	match Global.LevelData[Global.NowLevel][0]["levelType"]:
 		"defence","boss":
 			if Global.LevelOver == true&&get_tree().get_nodes_in_group("monsterSoldier").is_empty(): 
@@ -141,6 +127,20 @@ func _process(_delta):
 					Global.add_child(newEnemy)
 					summonEnemyID = newEnemy
 					emit_signal("BossLv2")
+					
+	if bossLv == 2:
+		if Global.MonsterBase.health<=Global.MonsterBase.bossSecHealth:
+			Global.NowLevel += 1
+			bossLv = 3
+			summonEnemyID.queue_free()
+			var newEnemy = summonEnemy.new()
+			Global.add_child(newEnemy)
+			summonEnemyID = newEnemy
+			attackTime = Global.LevelData[Global.NowLevel][0]["attackTime"]
+			emit_signal("BossLv3")
+					
+	if Global.LevelData[Global.NowLevel][0]["levelType"] == "attack":
+		if attackTime <= 0: Global.VillageBase.health = 0
 	pass
 	
 func _on_attack_timer_timeout():

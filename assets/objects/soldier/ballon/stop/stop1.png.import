@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1e2xj2myt1qd"
-path="res://.godot/imported/attack1.png-3215a6f605a7672125e5562b3376c4ca.ctex"
+uid="uid://crffxe6st018r"
+path="res://.godot/imported/stop1.png-7b8d2f4feeb0f885bbee113337fcce91.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/soldier/creeperShield/attack1/attack1.png"
-dest_files=["res://.godot/imported/attack1.png-3215a6f605a7672125e5562b3376c4ca.ctex"]
+source_file="res://assets/objects/soldier/ballon/stop/stop1.png"
+dest_files=["res://.godot/imported/stop1.png-7b8d2f4feeb0f885bbee113337fcce91.ctex"]
 
 [params]
 
