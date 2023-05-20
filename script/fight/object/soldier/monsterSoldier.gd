@@ -9,6 +9,7 @@ func firstSetting(soldier):
 	position.x = Global.MonsterPoint.x
 	camp = Global.MONSTER
 	super.firstSetting(soldier)
+	
 	if stopTime == 0: Global.SummonEnemy.stopOver.connect(onStopOver)
 	pass
 	
@@ -22,14 +23,21 @@ func _process(_delta):
 		if position.x <= stopPos&&stop == false:
 			stop = true
 			changeState("stop",State.STOP)
-			if stopTime !=0:
-				await get_tree().create_timer(stopTime,false).timeout
-				changeState("walk",State.PUSH)
+			if stopTime > 0:
+				$StopTimer.start(stopTime)
+				
 	pass
 	
+func _on_stop_timer_timeout():
+	changeState("walk",State.PUSH)
+	pass 
+
 func onStopOver():
 	changeState("walk",State.PUSH)
 	pass
+	
+
+	
 #func endTp():
 #	var targetArray = get_tree().get_nodes_in_group("villageObject")
 #	if !targetArray.is_empty():
@@ -50,6 +58,9 @@ func onStopOver():
 #		endTp()
 #		$endTimer.start(endTime)
 #	pass
+
+
+
 
 
 

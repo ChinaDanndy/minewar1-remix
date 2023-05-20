@@ -4,6 +4,8 @@
         "type":"soldier",
         "health":5,
         "animation":{"walk":6,"attack":4,"stop":1,"death":1},
+        "souEffValue":{"hurt":"hurt"},
+        "particlesValue":{"hurt":"hurtRed"},
         "aniSpeedBasic":1.0,
         "speedBasic":0.7,
         "attackType":[[true,false,false]],
@@ -78,13 +80,12 @@
     },
 
 
-
-
-    
     "zombie":{
         "type":"soldier",
-        "health":3,
+        "health":5,
         "animation":{"walk":6,"attack":4,"stop":1,"death":1},
+        "souEffValue":{"hurt":"hurt"},
+        "particlesValue":{"hurt":"hurtRed"},
         "aniSpeedBasic":1,
         "speedBasic":0.6,
         "attackType":[[true,false,false]],

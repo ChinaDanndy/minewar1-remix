@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://cl88sftphpxk6"]
+
+[ext_resource type="Texture2D" uid="uid://crcnc13k8u5mm" path="res://assets/particles/explode.png" id="1_wbmpk"]
+[ext_resource type="Texture2D" uid="uid://bio258hpcdlxp" path="res://assets/objects/soldier/assassin/attack/attack1.png" id="2_k7ab4"]
+[ext_resource type="Shader" path="res://rescourse/cover.gdshader" id="3_fitlx"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xuowd"]
+particles_animation = true
+particles_anim_h_frames = 16
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ghn23"]
+shader = ExtResource("3_fitlx")
+shader_parameter/change_color = Color(1, 0, 0, 0.392157)
+shader_parameter/threshold = 0.1
+
+[node name="Particles" type="Node"]
+
+[node name="explode" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_xuowd")
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("1_wbmpk")
+emission_shape = 1
+emission_sphere_radius = 30.0
+gravity = Vector2(0, 0)
+anim_speed_min = 10.0
+anim_speed_max = 10.0
+
+[node name="bleedRed" type="CPUParticles2D" parent="."]
+visible = false
+emitting = false
+amount = 21
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, 1)
+spread = 50.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 90.0
+initial_velocity_max = 100.0
+color = Color(1, 0, 0, 1)
+
+[node name="hurtRed" type="Sprite2D" parent="."]
+
+[node name="test" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_k7ab4")
+
+[node name="red" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ghn23")
+texture = ExtResource("2_k7ab4")

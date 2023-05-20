@@ -18,9 +18,14 @@ func firstSetting(Name):
 	else: health = Global.STSData["creeperKing"]["protectHealth"] 
 	healthUp = health
 	collision_layer = Global.LAyer[camp+1][2]
+	if get_parent().name == "baseMonster": 
+		match Global.LevelData[Global.NowLevel][0]["levelType"]:
+			"attack": get_parent().texture = load("res://assets/objects/attackNormal.png")
+			"defence": get_parent().texture = load("res://assets/objects/defence.png") 
 	var newBox = RectangleShape2D.new()
 	collBox = get_parent().texture.get_size()
 	newBox.size = collBox
+	get_parent().position.y = Global.FightGroundY-(collBox.y/2)
 	$CollisionShape2D.shape = newBox
 	pass
 	

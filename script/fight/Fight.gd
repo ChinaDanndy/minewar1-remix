@@ -67,21 +67,16 @@ func _on_thundertimer_timeout():
 	
 func fightStart():
 	Global.CardUp = 6
-	emit_signal("fightCard")
+	
 	$monsterShow.visible = false
 	#await get_tree().create_timer(1,false).timeout#开局延迟开始
+	emit_signal("fightCard")
 	$Moneytext.visible = true
 	if bossLv == null: $baseMonster.visible = true
 	$baseVillage.visible = true
 	#$Spacetext.visible = false
 	
-	match Global.LevelData[Global.NowLevel][0]["levelType"]:
-		"attack":
-			$baseVillage/Label.visible = false 
-			attackTime = Global.LevelData[Global.NowLevel][0]["attackTime"]
-			$AttackTime.visible = true
-			$attackTimer.start(1)
-		"defence": $baseMonster/Label.visible = false 
+ 
 		
 	var newEnemy = summonEnemy.new()
 	Global.add_child(newEnemy)

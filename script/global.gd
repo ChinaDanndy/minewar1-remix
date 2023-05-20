@@ -146,7 +146,12 @@ var VillageSoldier = preload("res://sence/fight/object/soldier/villageSoldier.ts
 var MonsterSoldier = preload("res://sence/fight/object/soldier/monsterSoldier.tscn")
 var Tower = preload("res://sence/fight/object/tower.tscn")
 var Skill = preload("res://sence/fight/object/skill.tscn")
-	
+var Particles = ["hurtRed"]
+var ParSence:Dictionary
+
+#= preload("res://sence/particles/hurtRed.tscn")
+
+
 var Point #= 0
 var Brought #= {"freeze":false,"wall":false,"power":false,"golder":false}
 
@@ -161,6 +166,8 @@ const STSDataName = {"price":STSType.INT,"kind":null,
 "endTime":null,"time":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"attDefOrigin":null,"shield":STSType.INT,
 "attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
 
+var SdDB = 1.0
+var BgmDB = 1.0
 var ThunderSpeed
 var MonsterDeaths = 0
 var Money = 10
@@ -243,6 +250,13 @@ func _ready():#读入数据
 	jsonValue.parse(content)
 	TextData = jsonValue.data
 	file = null
+	
+	for i in Particles: ParSence[i] = load("res://sence/particles/%s.tscn"%i)
+	#保存例子效果的场景
+	#var Particles = ["hurtRed"]
+#var ParSence:Dictionary
+
+#= preload("res://sence/particles/hurtRed.tscn")
 	
 	pass
 	

@@ -11,3 +11,12 @@ script = ExtResource("2_sry4h")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_3gaps")
+
+[node name="cover" type="Node" parent="." index="1"]
+
+[node name="StopTimer" type="Timer" parent="." index="6"]
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="8"]
+
+[connection signal="timeout" from="StopTimer" to="." method="_on_stop_timer_timeout"]

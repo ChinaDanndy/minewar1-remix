@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3jivgcdghg5v"]
+
+[ext_resource type="Shader" path="res://rescourse/cover.gdshader" id="1_84ink"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bjki8"]
+resource_local_to_scene = true
+shader = ExtResource("1_84ink")
+shader_parameter/change_color = Color(1, 0, 0, 0.392157)
+shader_parameter/threshold = 0.1
+
+[node name="hurtRed" type="Sprite2D"]
+material = SubResource("ShaderMaterial_bjki8")

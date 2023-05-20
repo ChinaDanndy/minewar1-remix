@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://detljadg4j24r"]
 
-[ext_resource type="PackedScene" uid="uid://3bh0vmtlyfuy" path="res://sence/fight/object.tscn" id="1_6kuqs"]
+[ext_resource type="PackedScene" uid="uid://bnr6hau4agucb" path="res://sence/fight/object.tscn" id="1_6kuqs"]
 [ext_resource type="Script" path="res://script/fight/object/tower.gd" id="2_3fwhs"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0m7md"]
@@ -13,11 +13,11 @@ script = ExtResource("2_3fwhs")
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_0m7md")
 
-[node name="Collision1" parent="." index="2"]
+[node name="Collision1" parent="." index="1"]
 collide_with_areas = false
 collide_with_bodies = false
 
-[node name="Collision2" parent="." index="3"]
+[node name="Collision2" parent="." index="2"]
 collide_with_bodies = false
 
 [node name="SkillTimer" type="Timer" parent="." index="5"]

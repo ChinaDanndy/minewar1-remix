@@ -11,7 +11,13 @@ var other
 
 enum State {ATTACK,STOP,DEATH,BACK,PUSH,OUTSEA,FALL}
 const ani = {"attack":0,"attackSec":1,"death":2,"usual":3}#usual = 2
+var spirte
 var animation#
+var souEff = {"attack":null,"hurt":null,"death":null}
+var souEffValue:Dictionary
+var particles = {"hurt":null,"attack":null,"death":null}
+var particlesValue:Dictionary
+
 var currentState = State.PUSH
 var currentAni = "walk"
 var standardState = State.PUSH
@@ -34,6 +40,7 @@ var attackType = [[false,false,false],[false,false,false],[false,false,false]]#�
 var damagerType=[[],[],[]]#有伤害加成的攻击目标
 var damageBasic = [0,0,0]#
 var damage= [0,0]#我方技能传递时此值为-1让aoe范围包括海陆空
+
 
 var Projectile = preload("res://sence/fight/object/projectiles.tscn")
 var attRangeBasic = [0,0]#
@@ -84,11 +91,9 @@ var satDefValue = 0#
 var attDefState#
 
 func _init():
-	
 	pass
 	
 func _ready():
-	
 	pass
 	
 func SetValue(soldier):
@@ -98,12 +103,27 @@ func SetValue(soldier):
 	pass
 	
 func SetAnimationAndCollBox(soldier):
-	var spirte = SpriteFrames.new()#给动画播放器添加图片
+	if is_instance_valid(spirte) == true: spirte.free()
+	spirte = SpriteFrames.new()#给动画播放器添加图片
 	for i in animation.keys():
 		spirte.add_animation(i)
 		for j in animation[i]:
 			var picture = load("res://assets/objects/%s/%s/%s/%s%s.png"% [type,soldier,i,i,j+1])
 			spirte.add_frame(i,picture)
+
+	for i in souEffValue: 
+		if souEff.has(i):
+			souEff[i] = AudioStreamPlayer.new()
+			souEff[i].stream = load("res://assets/music/se/%s.wav"%souEffValue[i])
+			add_child(souEff[i])
+
+	for i in particlesValue: 
+		if particles.has(i):
+			particles[i] = Global.ParSence[particlesValue[i]].instantiate()
+			if i == "hurt": particles[i].visible = false
+			add_child(particles[i])
+	
+		
 	$AnimatedSprite2D.sprite_frames = spirte
 	changeAnimation(currentAni,currentState)
 	#填充碰撞箱
@@ -140,6 +160,10 @@ func _process(_delta):#每帧执行的部分
 	$Label.text = str(health)
 #	if camp == Global.MONSTER:
 #		print(soldierName)
+
+	for i in souEff: 
+		if souEff[i] != null: souEff[i].set_volume_db(Global.SdDB)#时刻保持音量与全局音量一致
+	
 	#基础数据实时更改/前是负属性后是正属性
 	for i in 2:#攻击和攻击距离有两套随攻击使用的不同
 		damage[i] = (damageBasic[i]+(damageBasic[i]*(nowEffect[Global.Effect.ATTDAMAGE]
@@ -227,6 +251,14 @@ func testchangeState():
 		else: if currentAni == "attackSec": changeState(standardAni,standardState)
 	pass
 	
+func hurt():
+	if particles["hurt"] != null:
+		souEff["hurt"].playing = true
+		particles["hurt"].visible = true
+		await get_tree().create_timer(0.2,false).timeout
+		particles["hurt"].visible = false
+	pass
+	
 func changeState(AniName,StaName):#入海出海的动作图片在每个动画的前面放
 #	if kind == "sea":
 #		seaAni = AniName
@@ -271,6 +303,10 @@ func changeAnimation(AniName,StaName):
 	pass
 
 func _on_animated_sprite_2d_frame_changed():
+	if particles["hurt"] != null:
+		particles["hurt"].texture = spirte.get_frame_texture(currentAni,$AnimatedSprite2D.frame)
+
+	
 	if $AnimatedSprite2D.frame == animation[$AnimatedSprite2D.animation]-1:
 		match currentState:
 			State.ATTACK: 
@@ -280,11 +316,15 @@ func _on_animated_sprite_2d_frame_changed():
 						if proTimes<proContinueTimes:#脉冲箭塔持续射击一会休息一下
 							proTimes +=1
 							attack()
+							if souEff["attack"] != null: souEff["attack"].playing = true
+							if particles["attack"] != null:particles["attack"].Emitting = true
 							if proTimes == proContinueTimes:
 								await get_tree().create_timer(proSleepTime,false).timeout
 								proTimes = 0
 			State.DEATH: 
 				if camp == Global.MONSTER: Global.MonsterDeaths += 1
+				if souEff["death"] != null: souEff["death"].playing = true
+				if particles["death"] != null:particles["death"].Emitting = true
 				queue_free()
 		if currentState == State.OUTSEA: 
 			changeState(seaAni,seaState)
