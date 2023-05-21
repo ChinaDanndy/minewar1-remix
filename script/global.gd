@@ -224,11 +224,11 @@ func _ready():#读入数据
 	LevelData = jsonValue.data
 	file = null
 	
-	for k in Level+1:#记录到目前为止的关卡出现了哪些怪
-		if k > 0:
-			for i in LevelData[k][1].size():
-				for j in LevelData[k][1][i]["soldier"]:
-					if !NowMonsterObject.has(j): NowMonsterObject.append(j)
+#	for k in Level+1:#记录到目前为止的关卡出现了哪些怪
+#		if k > 0:
+#			for i in LevelData[k]["groups"].size():
+#				for j in LevelData[k]["groups"][i]["soldier"]:
+#					if !NowMonsterObject.has(j): NowMonsterObject.append(j)
 
 	file = FileAccess.open("res://data/text.json", FileAccess.READ)
 	content = file.get_as_text()

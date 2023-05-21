@@ -38,8 +38,9 @@
             
         }
     },
-    [
-        {"levelType":"normal","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[
+    {
+        "set":{"levelType":"normal","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},
+        "groups":[
             {
                 "firstCD":0,
                 "soldier":["skeleton"],
@@ -50,8 +51,8 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],[],["assassinFirst","shoveler","snowman","projector","freeze","worm"]
-    ],
+        ],"banCard":[],"chosenCard":[]
+    },
     [
         {"levelType":"defence","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[
             {

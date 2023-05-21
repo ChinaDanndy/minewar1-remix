@@ -17,7 +17,9 @@ func _ready():
 	Global.MiniGameSence.Game1Last.connect(lastSet)
 	pass
 
-func _process(_delta): $AudioStreamPlayer.volume_db = Global.SeDB
+func _process(_delta): 
+	$normal.volume_db = Global.SeDB
+	$well.volume_db = Global.SeDB
 func start(): $moveTimer.start(randi_range(Min,Max))
 func _on_move_timer_timeout():
 	no = false
@@ -54,13 +56,16 @@ func _on_hold_timer_timeout():
 
 func _on_area_2d_input_event(_viewport,event,_shape_idx):
 	if event.is_action_pressed("ui_mouse_left")&&stop == true:
-		$AudioStreamPlayer.play()
 		$holdTimer.stop()
 		match animation:
 			"creeperShow":
+				$clickNormal.emitting = true
+				$normal.play()
 				Global.MiniGameScore += 1
 				play("creeperDeath")
 			"powderShow":
+				$clickWell.emitting = true
+				$well.play()
 				play("powderDeath")
 				Global.MiniGameSence.emit_signal("Game1All")
 	pass

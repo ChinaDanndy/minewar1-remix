@@ -40,8 +40,8 @@ func _ready():
 	if Global.LevelData[Global.NowLevel][-1].is_empty():
 		Global.ChoiceWindow.visible = true
 		var allMonster = []#怪物展示，自动填充目前所有有的怪物
-		for i in Global.LevelData[Global.NowLevel][1].size():
-			for j in Global.LevelData[Global.NowLevel][1][i]["soldier"]:
+		for i in Global.LevelData[Global.NowLevel]["groups"].size():
+			for j in Global.LevelData[Global.NowLevel]["groups"][i]["soldier"]:
 				if !allMonster.has(j): allMonster.append(j)	
 		if !allMonster.is_empty():
 			for i in allMonster.size():
@@ -76,8 +76,6 @@ func fightStart():
 	$baseVillage.visible = true
 	#$Spacetext.visible = false
 	
- 
-		
 	var newEnemy = summonEnemy.new()
 	Global.add_child(newEnemy)
 	summonEnemyID = newEnemy
@@ -106,7 +104,6 @@ func _process(_delta):
 		$Moneytimer.start(moneyTime)
 	$AttackTime/AttackTimeValue.text = str(attackTime)
 
-	
 	if Global.VillageBase.health <= 0: Global.StopWindow.text("lose")
 	if Global.MonsterBase.health <= 0: Global.StopWindow.text("win")
 	

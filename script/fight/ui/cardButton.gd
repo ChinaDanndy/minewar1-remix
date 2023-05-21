@@ -29,8 +29,7 @@ func _ready():
 			if soldier != null:  display()
 			if Global.LevelData[0]["villObjectHasLevel"][soldier] > Global.Level:
 				visible = false
-			var banCard = Global.LevelData[Global.NowLevel].size()-2
-			if (Global.LevelData[Global.NowLevel][banCard].has(soldier))||(#查看是否为禁用卡BAN
+			if (Global.LevelData[Global.NowLevel]["banCard"].has(soldier))||(#查看是否为禁用卡BAN
 				Global.LevelData[0]["allVillageBuyObject"].has(soldier)&&(#外面没购买的卡也不能选
 					Global.Brought[soldier]==NOHAS))||(soldier == null):
 				self.button_mask = 0
@@ -92,8 +91,7 @@ func display():
 	
 func cardReSet():
 	if Global.ChoiceWindow.visible == false&&cardType == cType.BUY:#特定卡没有选卡
-		var card = Global.LevelData[Global.NowLevel].size()-1
-		soldier = Global.LevelData[Global.NowLevel][card][num]
+		soldier = Global.LevelData[Global.NowLevel]["chosenCard"][num]
 		if soldier != null: display()
 		else: visible = false
 	self.button_mask = MOUSE_BUTTON_MASK_LEFT

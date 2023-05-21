@@ -3,28 +3,24 @@
 [ext_resource type="Texture2D" uid="uid://drr1q3d0dq53v" path="res://assets/miniGame/game2/fireworker/firework3.png" id="1_0pq6y"]
 [ext_resource type="Script" path="res://script/miniGame/firework.gd" id="1_fnggh"]
 [ext_resource type="AudioStream" uid="uid://c2x0u1w6b8mv4" path="res://assets/music/se/miniGame/blast.ogg" id="3_my6p3"]
-[ext_resource type="Texture2D" uid="uid://bstyg4hqx7068" path="res://assets/particles/tail.png" id="4_33q3y"]
-[ext_resource type="Texture2D" uid="uid://cn8que663hdb4" path="res://assets/particles/fireworkExplode.png" id="5_856sl"]
+[ext_resource type="Texture2D" uid="uid://dw646fwfmdxyh" path="res://assets/particles/miniGame.png" id="4_fxxm6"]
+[ext_resource type="AudioStream" uid="uid://citiamtqkirsh" path="res://assets/music/se/miniGame/largeBlast.ogg" id="4_jaksr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ow0a"]
 size = Vector2(10, 24)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xsy5f"]
+[sub_resource type="Curve" id="Curve_c6v4g"]
 resource_local_to_scene = true
-particles_animation = true
-particles_anim_h_frames = 5
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0bt4d"]
-resource_local_to_scene = true
-particles_animation = true
-particles_anim_h_frames = 5
-particles_anim_v_frames = 1
-particles_anim_loop = false
+max_value = 2.0
+_data = [Vector2(0.4, 0.4), 0.0, 0.0, 0, 0, Vector2(1, 1.5), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_36wng"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.490196)
+resource_local_to_scene = true
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.607843)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c2kue"]
+size = Vector2(50, 50)
 
 [node name="firework" type="Area2D"]
 collision_layer = 0
@@ -39,11 +35,13 @@ shape = SubResource("RectangleShape2D_4ow0a")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="normal" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_jaksr")
+
+[node name="well" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_my6p3")
 
 [node name="tail" type="CPUParticles2D" parent="."]
-material = SubResource("CanvasItemMaterial_xsy5f")
 position = Vector2(0, 15)
 emitting = false
 amount = 80
@@ -51,34 +49,56 @@ lifetime = 0.78
 one_shot = true
 explosiveness = 0.1
 lifetime_randomness = 0.2
-texture = ExtResource("4_33q3y")
+texture = ExtResource("4_fxxm6")
 direction = Vector2(0, 1)
 spread = 7.0
 gravity = Vector2(0, 1000)
 initial_velocity_min = 600.0
 initial_velocity_max = 700.0
-anim_speed_min = 20.0
-anim_speed_max = 30.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_c6v4g")
 
-[node name="explode" type="CPUParticles2D" parent="."]
-material = SubResource("CanvasItemMaterial_0bt4d")
+[node name="explodeNormal" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 40
 lifetime = 0.4
 one_shot = true
 explosiveness = 1.0
 lifetime_randomness = 0.5
-texture = ExtResource("5_856sl")
+texture = ExtResource("4_fxxm6")
 direction = Vector2(0, -1)
 spread = 130.0
-gravity = Vector2(0, 300)
+gravity = Vector2(0, 200)
 initial_velocity_min = 100.0
 initial_velocity_max = 200.0
-scale_amount_min = 0.2
-scale_amount_max = 1.5
-color = Color(0.388235, 0.388235, 0.388235, 1)
+scale_amount_min = 0.4
+color = Color(0.470588, 0.470588, 0.470588, 1)
 color_ramp = SubResource("Gradient_36wng")
-anim_speed_min = 50.0
-anim_speed_max = 50.0
+
+[node name="explodeWell" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 40
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.5
+texture = ExtResource("4_fxxm6")
+direction = Vector2(0, -1)
+spread = 130.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 0.4
+color = Color(1, 1, 0, 1)
+color_ramp = SubResource("Gradient_36wng")
+
+[node name="AOE" type="Area2D" parent="."]
+collision_layer = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AOE"]
+shape = SubResource("RectangleShape2D_c2kue")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_entered" from="AOE" to="." method="_on_aoe_area_entered"]

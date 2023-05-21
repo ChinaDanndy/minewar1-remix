@@ -94,6 +94,8 @@ func _init():
 	pass
 	
 func _ready():
+	$cover.visible = false
+	$outLine.visible = false
 	pass
 	
 func SetValue(soldier):

@@ -6,19 +6,15 @@ func _ready():
 	var ParentName = get_parent().name
 	if ParentName != "miniGame": 
 		$text.text = str(level)
-#	else:
-#		visible = false
-#		if Global.Level > 4&&level == 1: visible = true
-#		if Global.Level > 8&&level == 2: visible = true
 	material = null
 	pass
 
 func _on_mouse_entered():
-	material = Global.ButtonOutLine
+	#material = Global.ButtonOutLine
 	pass
 
 func _on_mouse_exited():
-	material = null
+	#material = null
 	pass
 
 

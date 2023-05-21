@@ -22,7 +22,6 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="LevelChoiceButton" type="TextureButton" parent="."]
-material = ExtResource("2_i6bem")
 layout_mode = 0
 offset_left = 183.0
 offset_top = 288.0
@@ -37,7 +36,6 @@ metadata/_edit_group_ = true
 visible = false
 
 [node name="BuyCardButton" type="TextureButton" parent="."]
-material = ExtResource("2_i6bem")
 layout_mode = 0
 offset_left = 260.0
 offset_top = 288.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b4smae2p8wcx6"]
+[gd_scene load_steps=18 format=3 uid="uid://b4smae2p8wcx6"]
 
 [ext_resource type="Texture2D" uid="uid://bos5o3mfpwn0h" path="res://assets/miniGame/game1/creeper/creeper6.png" id="1_vc2d1"]
 [ext_resource type="Texture2D" uid="uid://de3yjt8ks1xpo" path="res://assets/miniGame/game1/creeper/creeper7.png" id="2_kp1uj"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://btcsnqkuapbhm" path="res://assets/miniGame/game1/gunpowder/gunpowder2.png" id="10_b6721"]
 [ext_resource type="Texture2D" uid="uid://7f4yf11eax14" path="res://assets/miniGame/game1/gunpowder/gunpowder1.png" id="11_uabhj"]
 [ext_resource type="AudioStream" uid="uid://dl4ahlbm2v8y5" path="res://assets/music/se/miniGame/pop.ogg" id="13_pfn15"]
+[ext_resource type="AudioStream" uid="uid://cw0yg4s3y7uyg" path="res://assets/music/se/miniGame/orb.ogg" id="14_ctfen"]
+[ext_resource type="Texture2D" uid="uid://dw646fwfmdxyh" path="res://assets/particles/miniGame.png" id="14_lhpef"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_swpjy"]
 resource_local_to_scene = true
@@ -120,7 +122,6 @@ animations = [{
 size = Vector2(20, 28)
 
 [node name="game1Tbale" type="AnimatedSprite2D"]
-position = Vector2(199, 295)
 sprite_frames = SubResource("SpriteFrames_swpjy")
 speed_scale = 1.2
 script = ExtResource("9_aw7si")
@@ -139,8 +140,40 @@ one_shot = true
 [node name="holdTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="normal" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_pfn15")
+
+[node name="well" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_ctfen")
+
+[node name="clickNormal" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 30
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("14_lhpef")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+scale_amount_min = 0.8
+scale_amount_max = 0.8
+
+[node name="clickWell" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 30
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("14_lhpef")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 300.0
+initial_velocity_max = 300.0
+scale_amount_min = 0.8
+scale_amount_max = 0.8
+color = Color(1, 1, 0, 1)
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

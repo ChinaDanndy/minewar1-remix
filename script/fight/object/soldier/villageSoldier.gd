@@ -24,7 +24,7 @@ func contrl():#玩家的单位控制
 	if Input.is_action_just_pressed("ui_left"): changeState("walk",State.BACK)
 	pass
 
-func _on_input_event(_viewport, event, _shape_idx):
+func _on_input_event(_viewport,event, _shape_idx):
 	if event.is_action_pressed("ui_mouse_left")&&soldierName[0]!="assassinFirst":
 		Global.Contrl = soldierName[0]
 		material = Global.SoldierOutLine

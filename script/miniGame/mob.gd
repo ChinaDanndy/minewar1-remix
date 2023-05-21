@@ -24,8 +24,6 @@ func _ready():
 	pass
 	
 func _process(_delta):
-	if Input.is_action_just_pressed("ui_test"):
-		print(position)
 	position += speed*dic*pos[randPos]*die
 	match rightLeft:
 		0: if position.x >= 835+40: free()

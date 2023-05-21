@@ -11,9 +11,9 @@ signal stopOver
 
 func _ready(): 
 	name = "summonEnemy"
-	groupCount = Global.LevelData[Global.NowLevel][object].size()#记录有多少组人
+	groupCount = Global.LevelData[Global.NowLevel]["groups"].size()#记录有多少组人
 	for i in groupCount:
-		await get_tree().create_timer(Global.LevelData[Global.NowLevel][object][i]["firstCD"],false).timeout
+		await get_tree().create_timer(Global.LevelData[Global.NowLevel]["groups"][i]["firstCD"],false).timeout
 		times.append(0)
 		summonEnemy(i)
 	pass
@@ -29,26 +29,26 @@ func firstStart():
 	pass
 
 func summonEnemy(group):
-	soldierCount = Global.LevelData[Global.NowLevel][object][group]["soldier"].size()
+	soldierCount = Global.LevelData[Global.NowLevel]["groups"][group]["soldier"].size()
 	for j in soldierCount:
 		var enemy = Global.MonsterSoldier.instantiate()
 		Global.root.add_child(enemy)
-		if Global.LevelData[Global.NowLevel][object][group]["stopPos"] != null:
-			enemy.stopPos = Global.LevelData[Global.NowLevel][object][group]["stopPos"]
-			enemy.stopTime = Global.LevelData[Global.NowLevel][object][group]["stopTime"]
-		enemy.firstSetting(Global.LevelData[Global.NowLevel][object][group]["soldier"][j])
+		if Global.LevelData[Global.NowLevel]["groups"][group]["stopPos"] != null:
+			enemy.stopPos = Global.LevelData[Global.NowLevel]["groups"][group]["stopPos"]
+			enemy.stopTime = Global.LevelData[Global.NowLevel]["groups"][group]["stopTime"]
+		enemy.firstSetting(Global.LevelData[Global.NowLevel]["groups"][group]["soldier"][j])
 		
 		if soldierCount>1: 
-			await get_tree().create_timer(Global.LevelData[Global.NowLevel][object][group]["soldierCD"],false).timeout
+			await get_tree().create_timer(Global.LevelData[Global.NowLevel]["groups"][group]["soldierCD"],false).timeout
 	
 	times[group] += 1
-	if times[group] != Global.LevelData[Global.NowLevel][object][group]["times"]:
-		await get_tree().create_timer(Global.LevelData[Global.NowLevel][object][group]["groupCD"]+randi_range(
-			-Global.LevelData[Global.NowLevel][object][group]["groupCDRand"],
-			Global.LevelData[Global.NowLevel][object][group]["groupCDRand"]),false).timeout
+	if times[group] != Global.LevelData[Global.NowLevel]["groups"][group]["times"]:
+		await get_tree().create_timer(Global.LevelData[Global.NowLevel]["groups"][group]["groupCD"]+randi_range(
+			-Global.LevelData[Global.NowLevel]["groups"][group]["groupCDRand"],
+			Global.LevelData[Global.NowLevel]["groups"][group]["groupCDRand"]),false).timeout
 		summonEnemy(group)
 	else: 
-		if Global.LevelData[Global.NowLevel][object][group]["stopTime"] == -1: emit_signal("stopOver")
+		if Global.LevelData[Global.NowLevel]["groups"][group]["stopTime"] == -1: emit_signal("stopOver")
 		if group == groupCount-1: Global.LevelOver = true
 	#if stage == groupStage: summonEnemy(group,groupStage)#处于本阶段才释放本阶段士兵
 	pass
