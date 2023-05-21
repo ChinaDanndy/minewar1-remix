@@ -26,15 +26,14 @@ var effDefence
 
 func normalAttackCalu(damager):
 	attDefence = damager.attDefence
+	damager.hurt()
 	for i in Global.AttackType.size():
 		if attackType[i] == true&&attDefence[i] == false: 
 			if damager.health>0&&damager.shield <=0: 
 				damager.health -= damage 
-				damager.hurt()
-				if damagerType.has(damager.type) == true: damager.health -= damage*Global.AddDamage
-					#特定目标伤害加成
-			if damager.shield >0:#护盾被破坏时伤害溢出
-				damager.shield -= damage
+				if damagerType.has(damager.type) == true: 
+					damager.health -= damage*Global.AddDamage #特定目标伤害加成
+			if damager.shield >0: damager.shield -= damage#护盾被破坏时伤害溢出
 	effectAttackCalu(damager)
 	pass
 

@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dc2jp2h20etga"]
+
+[ext_resource type="Shader" path="res://rescourse/cover.gdshader" id="1_31lva"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_31lva")
+shader_parameter/change_color = Color(1, 1, 1, 0.392157)
+shader_parameter/threshold = 0.1

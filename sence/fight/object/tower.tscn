@@ -1,10 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://detljadg4j24r"]
+[gd_scene load_steps=6 format=3 uid="uid://detljadg4j24r"]
 
 [ext_resource type="PackedScene" uid="uid://bnr6hau4agucb" path="res://sence/fight/object.tscn" id="1_6kuqs"]
 [ext_resource type="Script" path="res://script/fight/object/tower.gd" id="2_3fwhs"]
+[ext_resource type="Shader" path="res://rescourse/outLine.gdshader" id="3_pmlnq"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0m7md"]
 resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sc2pa"]
+resource_local_to_scene = true
+shader = ExtResource("3_pmlnq")
+shader_parameter/color = Color(1, 1, 0, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = null
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+shader_parameter/visible = true
 
 [node name="object" instance=ExtResource("1_6kuqs")]
 input_pickable = false
@@ -25,6 +36,9 @@ one_shot = true
 
 [node name="DeathTimer" type="Timer" parent="." index="6"]
 one_shot = true
+
+[node name="outLine" parent="." index="7"]
+material = SubResource("ShaderMaterial_sc2pa")
 
 [connection signal="timeout" from="SkillTimer" to="." method="_on_skill_timer_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

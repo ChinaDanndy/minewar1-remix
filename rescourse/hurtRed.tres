@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cdwbq64b3jkc6"]
+
+[ext_resource type="Shader" path="res://rescourse/cover.gdshader" id="1_8w2aw"]
+
+[resource]
+shader = ExtResource("1_8w2aw")
+shader_parameter/change_color = Color(1, 0, 0, 0.392157)
+shader_parameter/threshold = 0.1

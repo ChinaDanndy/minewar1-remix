@@ -135,7 +135,7 @@ var VillageSoldier = preload("res://sence/fight/object/soldier/villageSoldier.ts
 var MonsterSoldier = preload("res://sence/fight/object/soldier/monsterSoldier.tscn")
 var Tower = preload("res://sence/fight/object/tower.tscn")
 var Skill = preload("res://sence/fight/object/skill.tscn")
-var Particles = ["hurtRed"]
+
 var ParSence:Dictionary
 
 #= preload("res://sence/particles/hurtRed.tscn")
@@ -239,13 +239,8 @@ func _ready():#读入数据
 	
 	for i in Particles: ParSence[i] = load("res://sence/particles/%s.tscn"%i)
 	#保存例子效果的场景
-	#var Particles = ["hurtRed"]
-#var ParSence:Dictionary
-
-#= preload("res://sence/particles/hurtRed.tscn")
-	
 	pass
-	
+var Particles = ["smallExplode"]
 func closeWindow():#存储数据
 #	var saveJson = {"Point":Point,"Brought":Brought,"Level":Level}
 #	var json = JSON.new()

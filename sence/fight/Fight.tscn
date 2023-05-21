@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bhvrla6g275uy"]
+[gd_scene load_steps=15 format=3 uid="uid://bhvrla6g275uy"]
 
 [ext_resource type="Script" path="res://script/fight/Fight.gd" id="1_0rvy3"]
 [ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="2_1lg06"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dk8yspmeqggbm" path="res://assets/UI/button/stop_normal.png" id="6_q5rai"]
 [ext_resource type="PackedScene" uid="uid://cimi287socn0s" path="res://sence/fight/ui/choiceCard.tscn" id="6_qxmrc"]
 [ext_resource type="Texture2D" uid="uid://btaq2lqnicsn" path="res://assets/UI/button/stop_press.png" id="7_a3cl8"]
+[ext_resource type="Texture2D" uid="uid://sk6iax281aah" path="res://assets/backgrounds/background1Buttom.png" id="8_qc2hl"]
 [ext_resource type="Script" path="res://script/fight/ui/stopButton.gd" id="9_eg3an"]
 [ext_resource type="PackedScene" uid="uid://bkq2jinug2gf7" path="res://sence/fight/ui/stopWindow.tscn" id="10_jfeyj"]
 [ext_resource type="PackedScene" uid="uid://b6xxxvrvp1wc3" path="res://sence/fight/object/boss.tscn" id="12_jn8mm"]
@@ -41,19 +42,6 @@ texture = ExtResource("6_gbug6")
 [node name="Boss" parent="." instance=ExtResource("12_jn8mm")]
 visible = false
 position = Vector2(444, 291)
-
-[node name="choiceCard" parent="." instance=ExtResource("6_qxmrc")]
-visible = false
-offset_left = 58.0
-offset_top = 19.0
-offset_right = 58.0
-offset_bottom = 19.0
-
-[node name="card" parent="." instance=ExtResource("6_4unhj")]
-offset_left = 69.0
-offset_top = 352.0
-offset_right = 69.0
-offset_bottom = 352.0
 
 [node name="monsterShow" type="Control" parent="."]
 layout_mode = 3
@@ -96,23 +84,6 @@ one_shot = true
 [node name="Moneytimer" type="Timer" parent="."]
 wait_time = 0.5
 
-[node name="Moneytext" type="Label" parent="."]
-process_mode = 1
-offset_left = 9.0
-offset_top = 351.0
-offset_right = 62.0
-offset_bottom = 377.0
-text = "Money"
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
-
-[node name="Moneycount" type="Label" parent="Moneytext"]
-layout_mode = 0
-offset_top = 18.0
-offset_right = 40.0
-offset_bottom = 44.0
-text = "1"
-
 [node name="Spacetext" type="Label" parent="."]
 visible = false
 offset_left = 11.0
@@ -132,24 +103,6 @@ offset_bottom = 48.0
 text = "1"
 
 [node name="attackTimer" type="Timer" parent="."]
-
-[node name="AttackTime" type="Label" parent="."]
-visible = false
-offset_left = 11.0
-offset_top = 320.0
-offset_right = 54.0
-offset_bottom = 346.0
-text = "Time:"
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
-
-[node name="AttackTimeValue" type="Label" parent="AttackTime"]
-layout_mode = 0
-offset_left = 60.0
-offset_right = 100.0
-offset_bottom = 26.0
-text = "1
-"
 
 [node name="position" type="Node2D" parent="."]
 
@@ -203,9 +156,15 @@ color = Color(0, 0, 0, 0.313726)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Up" type="CanvasLayer" parent="."]
 
-[node name="StopButton" type="TextureButton" parent="CanvasLayer"]
+[node name="buttom1" type="TextureRect" parent="Up"]
+offset_top = 312.0
+offset_right = 835.0
+offset_bottom = 450.0
+texture = ExtResource("8_qc2hl")
+
+[node name="StopButton" type="TextureButton" parent="Up"]
 offset_left = 767.0
 offset_top = 21.0
 offset_right = 787.0
@@ -214,6 +173,54 @@ texture_normal = ExtResource("6_q5rai")
 texture_pressed = ExtResource("7_a3cl8")
 texture_hover = ExtResource("7_a3cl8")
 script = ExtResource("9_eg3an")
+
+[node name="card" parent="Up" instance=ExtResource("6_4unhj")]
+offset_left = 69.0
+offset_top = 352.0
+offset_right = 69.0
+offset_bottom = 352.0
+
+[node name="choiceCard" parent="Up" instance=ExtResource("6_qxmrc")]
+visible = false
+offset_left = 58.0
+offset_top = 19.0
+offset_right = 58.0
+offset_bottom = 19.0
+
+[node name="Moneytext" type="Label" parent="Up"]
+process_mode = 1
+offset_left = 9.0
+offset_top = 351.0
+offset_right = 62.0
+offset_bottom = 377.0
+text = "Money"
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Moneycount" type="Label" parent="Up/Moneytext"]
+layout_mode = 0
+offset_top = 18.0
+offset_right = 40.0
+offset_bottom = 44.0
+text = "1"
+
+[node name="AttackTime" type="Label" parent="Up"]
+visible = false
+offset_left = 11.0
+offset_top = 320.0
+offset_right = 54.0
+offset_bottom = 346.0
+text = "Time:"
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="AttackTimeValue" type="Label" parent="Up/AttackTime"]
+layout_mode = 0
+offset_left = 60.0
+offset_right = 100.0
+offset_bottom = 26.0
+text = "1
+"
 
 [node name="StopWindow" parent="." instance=ExtResource("10_jfeyj")]
 layer = 2
@@ -224,7 +231,7 @@ visible = false
 [connection signal="timeout" from="Thundertimer" to="." method="_on_thundertimer_timeout"]
 [connection signal="timeout" from="Moneytimer" to="." method="_on_moneytimer_timeout"]
 [connection signal="timeout" from="attackTimer" to="." method="_on_attack_timer_timeout"]
-[connection signal="mouse_entered" from="CanvasLayer/StopButton" to="CanvasLayer/StopButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/StopButton" to="CanvasLayer/StopButton" method="_on_mouse_exited"]
-[connection signal="pressed" from="CanvasLayer/StopButton" to="CanvasLayer/StopButton" method="_on_pressed"]
-[connection signal="tree_entered" from="CanvasLayer/StopButton" to="CanvasLayer/StopButton" method="_on_tree_entered"]
+[connection signal="mouse_entered" from="Up/StopButton" to="Up/StopButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Up/StopButton" to="Up/StopButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="Up/StopButton" to="Up/StopButton" method="_on_pressed"]
+[connection signal="tree_entered" from="Up/StopButton" to="Up/StopButton" method="_on_tree_entered"]

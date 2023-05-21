@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://sw52nar1no4d"]
+[gd_scene load_steps=5 format=3 uid="uid://sw52nar1no4d"]
 
 [ext_resource type="Script" path="res://script/fight/object/base.gd" id="1_cefax"]
+[ext_resource type="AudioStream" uid="uid://c85opu8am5gpn" path="res://assets/music/se/tower/wood4.ogg" id="2_l2eaf"]
+[ext_resource type="Material" uid="uid://dc2jp2h20etga" path="res://rescourse/hurtWhite.tres" id="2_l07fi"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(20, 44)
@@ -20,3 +22,9 @@ script = ExtResource("1_cefax")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collBox"]
 shape = SubResource("1")
+
+[node name="hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_l2eaf")
+
+[node name="cover" type="Sprite2D" parent="."]
+material = ExtResource("2_l07fi")

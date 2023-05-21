@@ -18,7 +18,8 @@ signal BossLv3
 
 func _ready():
 	Global.NowLevel = 1
-	if Global.LevelData[Global.NowLevel][0]["levelType"] != "boss": 
+	
+	if Global.LevelData[Global.NowLevel]["set"]["levelType"] != "boss": 
 		$Boss.free()
 		$bossProtect.free()
 		Global.MonsterBase.camp = Global.MONSTER
@@ -34,10 +35,10 @@ func _ready():
 
 	moneyTime = Global.LevelData[0]["moneySpeed"]
 	Global.ThunderSpeed = Global.LevelData[0]["thunderSpeed"]
-	thunderTime = Global.LevelData[Global.NowLevel][0]["thunderTime"]
-	thunderTimeRand = Global.LevelData[Global.NowLevel][0]["thunderTimeRand"]	
+	thunderTime = Global.LevelData[Global.NowLevel]["set"]["thunderTime"]
+	thunderTimeRand = Global.LevelData[Global.NowLevel]["set"]["thunderTimeRand"]	
 	
-	if Global.LevelData[Global.NowLevel][-1].is_empty():
+	if Global.LevelData[Global.NowLevel]["chosenCard"].is_empty():
 		Global.ChoiceWindow.visible = true
 		var allMonster = []#怪物展示，自动填充目前所有有的怪物
 		for i in Global.LevelData[Global.NowLevel]["groups"].size():
@@ -71,7 +72,7 @@ func fightStart():
 	$monsterShow.visible = false
 	#await get_tree().create_timer(1,false).timeout#开局延迟开始
 	emit_signal("fightCard")
-	$Moneytext.visible = true
+	$Up/Moneytext.visible = true
 	if bossLv == null: $baseMonster.visible = true
 	$baseVillage.visible = true
 	#$Spacetext.visible = false
@@ -99,15 +100,15 @@ func _process(_delta):
 #		tower.firstSetting("cave")
 #		Global.MonsterDeaths = 0
 
-	$Moneytext/Moneycount.text = str(Global.NowMoney) +"/"+ str(Global.Money)
+	$Up/Moneytext/Moneycount.text = str(Global.NowMoney) +"/"+ str(Global.Money)
 	if Global.NowMoney != Global.Money&&$Moneytimer.one_shot == true:
 		$Moneytimer.start(moneyTime)
-	$AttackTime/AttackTimeValue.text = str(attackTime)
+	$Up/AttackTime/AttackTimeValue.text = str(attackTime)
 
 	if Global.VillageBase.health <= 0: Global.StopWindow.text("lose")
 	if Global.MonsterBase.health <= 0: Global.StopWindow.text("win")
 	
-	match Global.LevelData[Global.NowLevel][0]["levelType"]:
+	match Global.LevelData[Global.NowLevel]["set"]["levelType"]:
 		"defence","boss":
 			if Global.LevelOver == true&&get_tree().get_nodes_in_group("monsterSoldier").is_empty(): 
 				if bossLv !=  1: Global.MonsterBase.health = 0
@@ -128,10 +129,10 @@ func _process(_delta):
 			var newEnemy = summonEnemy.new()
 			Global.add_child(newEnemy)
 			summonEnemyID = newEnemy
-			attackTime = Global.LevelData[Global.NowLevel][0]["attackTime"]
+			attackTime = Global.LevelData[Global.NowLevel]["set"]["attackTime"]
 			emit_signal("BossLv3")
 					
-	if Global.LevelData[Global.NowLevel][0]["levelType"] == "attack":
+	if Global.LevelData[Global.NowLevel]["set"]["levelType"] == "attack":
 		if attackTime <= 0: Global.VillageBase.health = 0
 	pass
 	
@@ -160,14 +161,14 @@ func _on_tree_exited():
 	
 func _on_tree_entered():
 	Global.FightSence = self
-	Global.ChoiceWindow = $choiceCard
-	Global.FightButton = $choiceCard/fightButton
+	Global.ChoiceWindow = $Up/choiceCard
+	Global.FightButton = $Up/choiceCard/fightButton
 	Global.FightButton.fight.connect(fightStart)
 	
-	if Global.CardUp == 4:
-		$card/HBoxContainer/CardButton5.visible = false
-		$card/HBoxContainer/CardButton6.visible = false
-	if Global.CardUp == 5: $card/HBoxContainer/CardButton6.visible = false
+#	if Global.CardUp == 4:
+#		$card/HBoxContainer/CardButton5.visible = false
+#		$card/HBoxContainer/CardButton6.visible = false
+#	if Global.CardUp == 5: $card/HBoxContainer/CardButton6.visible = false
 	#Global.StopWindowLayer = $StopWindowLayer
 	
 	Global.FightGroundY = $position/ground.position.y
@@ -188,9 +189,9 @@ func _on_tree_entered():
 	Global.skillArea.visible = false
 	Global.StopON = false
 	
-	$Moneytext.visible = false
+	$Up/Moneytext.visible = false
 	$Spacetext.visible = false
-	$AttackTime.visible = false
+	$Up/AttackTime.visible = false
 	$baseMonster.visible = false
 	$baseVillage.visible = false
 	$bossProtect.visible = false

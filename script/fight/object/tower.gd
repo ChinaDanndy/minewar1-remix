@@ -48,5 +48,5 @@ func _on_skill_timer_timeout():
 	pass 
 
 func _on_death_timer_timeout():
-	queue_free()
+	health = 0
 	pass

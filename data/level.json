@@ -43,7 +43,7 @@
         "groups":[
             {
                 "firstCD":0,
-                "soldier":["skeleton"],
+                "soldier":["zombie"],
                 "soldierCD":0.6,
                 "groupCD":0.4,
                 "groupCDRand":0,
@@ -51,7 +51,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":[]
+        ],"banCard":[],"chosenCard":["shielder","shoveler","regeneration","projector","freeze","worm"]
     },
     [
         {"levelType":"defence","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[

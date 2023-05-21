@@ -30,6 +30,7 @@ shader_parameter/add_margins = true
 shader_parameter/visible = true
 
 [node name="object" type="Area2D"]
+monitoring = false
 script = ExtResource("1_cj46x")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -46,6 +47,7 @@ target_position = Vector2(30, 0)
 shape = SubResource("1")
 
 [node name="cover" type="Sprite2D" parent="."]
+texture = ExtResource("3_phlj8")
 
 [node name="outLine" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ix7wu")
@@ -56,9 +58,5 @@ offset_top = -32.0
 offset_right = 31.0
 offset_bottom = -18.0
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-emitting = false
-
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

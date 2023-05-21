@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfqflpq488a1p"]
+
+[ext_resource type="Texture2D" uid="uid://crcnc13k8u5mm" path="res://assets/particles/explode.png" id="1_w0xsb"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wrjem"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 16
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[node name="smallExplode" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_wrjem")
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("1_w0xsb")
+emission_shape = 1
+emission_sphere_radius = 40.0
+gravity = Vector2(0, 0)
+anim_speed_min = 4.0
+anim_speed_max = 4.0
