@@ -98,6 +98,9 @@ var MiniGame2FireworkReloadTime = 1.5
 var MiniGame2FireworkSpeed = Vector2(0,-6)
 var MiniGame2GhostSpeed = 2
 var MiniGame2ZombieSpeed = 4
+
+var MiniGame2PosY:Array
+
 var MiniGame2Pos1Y
 var MiniGame2Pos2Y
 var MiniGame2Pos3Y
@@ -240,10 +243,7 @@ func _ready():#读入数据
 			for i in LevelData[k][1].size():
 				for j in LevelData[k][1][i]["soldier"]:
 					if !NowMonsterObject.has(j): NowMonsterObject.append(j)
-	#print(NowMonsterObject)
-	#print(Level)
 
-	
 	file = FileAccess.open("res://data/text.json", FileAccess.READ)
 	content = file.get_as_text()
 	jsonValue = JSON.new()

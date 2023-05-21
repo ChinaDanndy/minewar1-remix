@@ -1,13 +1,10 @@
 extends Area2D
 var firework = preload("res://sence/miniGame/firework.tscn")
+var reloadTime = Global.LevelData[0]["miniGame2"]["reloadTime"]
 
 func _ready():
 	$fireworkHas.visible = true
 	$fireworkNo.visible = false
-	pass
-
-func _process(_delta):
-	
 	pass
 
 func _on_input_event(_viewport,event,_shape_idx):
@@ -17,10 +14,11 @@ func _on_input_event(_viewport,event,_shape_idx):
 		newFirework.position = position
 		$fireworkHas.visible = false
 		$fireworkNo.visible = true
-		$reloadTimer.start(Global.MiniGame2FireworkReloadTime)
-		pass
+		await get_tree().create_timer(reloadTime,false).timeout
+		$fireworkHas.visible = true
+		$fireworkNo.visible = false
+		#$reloadTimer.start(Global.MiniGame2FireworkReloadTime)
 	pass
-
 
 func _on_reload_timer_timeout():
 	$fireworkHas.visible = true

@@ -10,8 +10,8 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_sk8oc")
 }],
-"loop": true,
-"name": &"default",
+"loop": false,
+"name": &"walk",
 "speed": 5.0
 }]
 
@@ -24,6 +24,8 @@ script = ExtResource("1_wrtss")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ebk3r")
+animation = &"walk"
+autoplay = "walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 12)
