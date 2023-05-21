@@ -2,7 +2,6 @@ extends Node2D
 var keepTime = 0
 var firstTime = 0
 var lastTime = 0
-var score = 0
 var game
 signal GameStart
 signal Game1All
@@ -15,16 +14,11 @@ var zombie = preload("res://sence/miniGame/zombie.tscn")
 var zomMin = Global.LevelData[0]["miniGame2"]["timeRand"]["zombie"]["Min"]
 var zomMax = Global.LevelData[0]["miniGame2"]["timeRand"]["zombie"]["Max"]
 
-
 func _ready():
 	match Global.MiniGame:
 		1: 
 			$game2.free()
 			$game1.visible = true
-			Global.MiniGame1RandMin = 3
-			Global.MiniGame1RandMax = 1
-			Global.MiniGame1HoldTime = 1
-			Global.MiniGame1RandGunpowder = 4
 			game = "miniGame1"
 		2:  
 			$game1.free()
@@ -40,13 +34,13 @@ func _ready():
 
 func start():
 	$overTimer.start(1)
-	if is_instance_valid($game1) == true:
+	if game == "miniGame1":
 		await get_tree().create_timer(firstTime,false).timeout
 		emit_signal("Game1First")
 		await get_tree().create_timer(lastTime,false).timeout
 		emit_signal("Game1Last")
 		pass
-	if is_instance_valid($game2) == true:
+	if game == "miniGame2":
 		game2GhostCreate()
 		await get_tree().create_timer(firstTime,false).timeout
 		game2GhostCreate()
@@ -75,8 +69,8 @@ func game2GhostCreate():
 	pass
 
 func _process(_delta):
-	$VBoxContainer/HBoxContainer1/ScoreVallue.text = str(Global.MiniGameScore)
-	$VBoxContainer/HBoxContainer2/TimeValue.text = str(keepTime)
+	$CanvasLayer2/VBoxContainer/HBoxContainer1/ScoreVallue.text = str(Global.MiniGameScore)
+	$CanvasLayer2/VBoxContainer/HBoxContainer2/TimeValue.text = str(keepTime)
 	if keepTime <= 0: Global.StopWindow.text("over")
 	pass
 

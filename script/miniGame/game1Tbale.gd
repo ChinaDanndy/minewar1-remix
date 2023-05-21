@@ -3,7 +3,6 @@ var last
 var stop = false
 var no = true
 
-
 var GoodRand = Global.LevelData[0]["miniGame1"]["gunpowderRand"]
 var GoodOn = 0
 var Min = Global.LevelData[0]["miniGame1"]["timeRand"]["Min"]
@@ -18,6 +17,7 @@ func _ready():
 	Global.MiniGameSence.Game1Last.connect(lastSet)
 	pass
 
+func _process(_delta): $AudioStreamPlayer.volume_db = Global.SeDB
 func start(): $moveTimer.start(randi_range(Min,Max))
 func _on_move_timer_timeout():
 	no = false
@@ -54,6 +54,7 @@ func _on_hold_timer_timeout():
 
 func _on_area_2d_input_event(_viewport,event,_shape_idx):
 	if event.is_action_pressed("ui_mouse_left")&&stop == true:
+		$AudioStreamPlayer.play()
 		$holdTimer.stop()
 		match animation:
 			"creeperShow":

@@ -6,6 +6,6 @@ func _ready():
 
 func _on_area_entered(area):
 	Global.MiniGameScore += 1
-	area.queue_free()
+	area.death()
 	queue_free()
 	pass

@@ -88,22 +88,8 @@ var BookWindow
 var MiniGame = 2#0
 var MiniGameWindow
 var MiniGameSence
-
 var MiniGameScore
-var MiniGame1RandMin
-var MiniGame1RandMax
-var MiniGame1HoldTime
-var MiniGame1RandGunpowder
-var MiniGame2FireworkReloadTime = 1.5
-var MiniGame2FireworkSpeed = Vector2(0,-6)
-var MiniGame2GhostSpeed = 2
-var MiniGame2ZombieSpeed = 4
-
 var MiniGame2PosY:Array
-
-var MiniGame2Pos1Y
-var MiniGame2Pos2Y
-var MiniGame2Pos3Y
 
 var ChangePageButton
 var ShowLastId
@@ -169,7 +155,7 @@ const STSDataName = {"price":STSType.INT,"kind":null,
 "endTime":null,"time":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"attDefOrigin":null,"shield":STSType.INT,
 "attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
 
-var SdDB = 1.0
+var SeDB = 1.0
 var BgmDB = 1.0
 var ThunderSpeed
 var MonsterDeaths = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b4smae2p8wcx6"]
+[gd_scene load_steps=16 format=3 uid="uid://b4smae2p8wcx6"]
 
 [ext_resource type="Texture2D" uid="uid://bos5o3mfpwn0h" path="res://assets/miniGame/game1/creeper/creeper6.png" id="1_vc2d1"]
 [ext_resource type="Texture2D" uid="uid://de3yjt8ks1xpo" path="res://assets/miniGame/game1/creeper/creeper7.png" id="2_kp1uj"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dby22qk3728hy" path="res://assets/miniGame/game1/gunpowder/gunpowder3.png" id="9_vyc1w"]
 [ext_resource type="Texture2D" uid="uid://btcsnqkuapbhm" path="res://assets/miniGame/game1/gunpowder/gunpowder2.png" id="10_b6721"]
 [ext_resource type="Texture2D" uid="uid://7f4yf11eax14" path="res://assets/miniGame/game1/gunpowder/gunpowder1.png" id="11_uabhj"]
+[ext_resource type="AudioStream" uid="uid://dl4ahlbm2v8y5" path="res://assets/music/se/miniGame/pop.ogg" id="13_pfn15"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_swpjy"]
 resource_local_to_scene = true
@@ -116,12 +117,11 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pc4yv"]
-size = Vector2(32, 32)
+size = Vector2(20, 28)
 
 [node name="game1Tbale" type="AnimatedSprite2D"]
 position = Vector2(199, 295)
 sprite_frames = SubResource("SpriteFrames_swpjy")
-animation = &"powderOut"
 speed_scale = 1.2
 script = ExtResource("9_aw7si")
 
@@ -132,14 +132,15 @@ monitoring = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -3)
 shape = SubResource("RectangleShape2D_pc4yv")
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
 
 [node name="moveTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="holdTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_pfn15")
 
 [connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
 [connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

@@ -1,12 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsnaen6v7ef5g"]
+[gd_scene load_steps=10 format=3 uid="uid://bsnaen6v7ef5g"]
 
 [ext_resource type="Texture2D" uid="uid://drr1q3d0dq53v" path="res://assets/miniGame/game2/fireworker/firework3.png" id="1_0pq6y"]
 [ext_resource type="Script" path="res://script/miniGame/firework.gd" id="1_fnggh"]
+[ext_resource type="AudioStream" uid="uid://c2x0u1w6b8mv4" path="res://assets/music/se/miniGame/blast.ogg" id="3_my6p3"]
+[ext_resource type="Texture2D" uid="uid://bstyg4hqx7068" path="res://assets/particles/tail.png" id="4_33q3y"]
+[ext_resource type="Texture2D" uid="uid://cn8que663hdb4" path="res://assets/particles/fireworkExplode.png" id="5_856sl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ow0a"]
 size = Vector2(10, 24)
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xsy5f"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0bt4d"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_36wng"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.490196)
+
 [node name="firework" type="Area2D"]
+collision_layer = 0
 monitorable = false
 script = ExtResource("1_fnggh")
 
@@ -17,5 +38,47 @@ texture = ExtResource("1_0pq6y")
 shape = SubResource("RectangleShape2D_4ow0a")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_my6p3")
+
+[node name="tail" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_xsy5f")
+position = Vector2(0, 15)
+emitting = false
+amount = 80
+lifetime = 0.78
+one_shot = true
+explosiveness = 0.1
+lifetime_randomness = 0.2
+texture = ExtResource("4_33q3y")
+direction = Vector2(0, 1)
+spread = 7.0
+gravity = Vector2(0, 1000)
+initial_velocity_min = 600.0
+initial_velocity_max = 700.0
+anim_speed_min = 20.0
+anim_speed_max = 30.0
+
+[node name="explode" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_0bt4d")
+emitting = false
+amount = 40
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.5
+texture = ExtResource("5_856sl")
+direction = Vector2(0, -1)
+spread = 130.0
+gravity = Vector2(0, 300)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 0.2
+scale_amount_max = 1.5
+color = Color(0.388235, 0.388235, 0.388235, 1)
+color_ramp = SubResource("Gradient_36wng")
+anim_speed_min = 50.0
+anim_speed_max = 50.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

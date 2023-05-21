@@ -5,6 +5,7 @@ const  pos = [Vector2(1,0.05),Vector2(1,0),Vector2(1,-0.05),Vector2(1,0)]
 var dic
 var Name
 var speed
+var die = Vector2(1,1)
 var speRand = Global.LevelData[0]["miniGame2"]["mobSpeed"]["rand"]
 #const rightLeft 
 
@@ -25,10 +26,18 @@ func _ready():
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
 		print(position)
-	position += speed*dic*pos[randPos]
+	position += speed*dic*pos[randPos]*die
 	match rightLeft:
 		0: if position.x >= 835+40: free()
 		1: if position.x <= -40: free()
+	pass
+	
+func death():
+	die = Vector2(0,0)
+	$AnimatedSprite2D.play("death")
+	await get_tree().create_timer(0.3,false).timeout
+	
+	queue_free()
 	pass
 
 
