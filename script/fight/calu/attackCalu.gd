@@ -65,7 +65,8 @@ func effectAttackCalu(damager):
 							#新计时器时间是否大于旧的计时器剩余时间
 				match i:
 					Global.Effect.DAMAGE:
-						
+						if giveEffect[i] == Global.EFFGOOD&&damager.health != damager.healthUp: 
+							damager.regenerationSet()
 						if (damager.health+effValue[Global.DamValue.DAMAGE]*giveEffect[i])<=damager.healthUp: 
 							damager.health += effValue[Global.DamValue.DAMAGE]*giveEffect[i]
 						else: damager.health = damager.healthUp

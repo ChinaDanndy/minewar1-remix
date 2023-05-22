@@ -11,6 +11,23 @@ var which
 func _ready(): 
 	colorBox.color = choiceColor
 	Global.FightSence.reloadSence.connect(reload)
+	position.y = Global.FightGroundY-(Global.STSData[soldier]["collBox"].y/2)-6
+	#更新选择盒子尺寸#防止塔堆叠放置
+	if Global.STSData[soldier]["type"] == "tower":#选塔位置
+		colorBox.size = Global.STSData[soldier]["collBox"]
+		colorBox.position = Global.STSData[soldier]["collBox"]/-2
+		collLine.target_position = Vector2(Global.STSData[soldier]["collBox"].x*2,0)
+		collLine.position = Vector2(-((Global.STSData[soldier]["collBox"].x*2)-(Global.STSData[soldier]["collBox"].x/2)),0)
+		Global.towerArea.visible = true
+		area = Global.towerArea
+		which = Global.Tower
+	if Global.STSData[soldier]["type"] == "skill":#选技能位置
+		colorBox.size = Vector2(Global.STSData[soldier]["aoeRange"],Global.NormalAOERangeY)
+		colorBox.position = Vector2(Global.STSData[soldier]["aoeRange"]/-2,Global.NormalAOERangeY/-2)
+		collLine.collide_with_areas = false
+		Global.skillArea.visible = true
+		area = Global.skillArea
+		which = Global.Skill
 	#Global.towerArea.visible = true
 	#collLine.collision_mask = Global.MAsk[0][2]
 	#$ColorRect.set_anchors_preset(PRESET_CENTER)
@@ -30,6 +47,7 @@ func _process(_delta):
 		friend.camp = Global.VILLAGE
 		friend.firstSetting(soldier)
 		friend.position.x = global_position.x
+		
 		area.visible = false
 		Global.NowMoney -= Global.STSData[soldier]["price"]
 		card.button_mask = MOUSE_BUTTON_MASK_LEFT#恢复购买

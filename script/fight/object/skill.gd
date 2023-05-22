@@ -3,11 +3,11 @@ var unPeopleFly = true
 var thunderAphla = 0
 
 func firstSetting(soldier):
-
 	super.SetValue(soldier)
 	$Sprite2D.texture = load("res://assets/objects/skill/%s.png"% soldier)
 	#collBox = $Sprite2D.texture.get_size()
-	super.firstSetting(soldier)
+	name = soldier
+	soldierName[0] = soldier
 	currentState = State.FALL
 	position.y = -20
 	if camp == Global.MONSTER: currentState = State.STOP
@@ -31,7 +31,8 @@ func _process(_delta):
 		currentState = State.STOP
 		position.y = Global.FightGroundY
 		await get_tree().create_timer(0.1,false).timeout
-		Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,null,null,["skill"],giveEffect,effValue,effTime,effTimes)
+		Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,null,null,[soldierName[0]],giveEffect,effValue,effTime,effTimes)
+		
 		queue_free()
 			
 	match soldierName[0]:

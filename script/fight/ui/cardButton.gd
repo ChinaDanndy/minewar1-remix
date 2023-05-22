@@ -182,7 +182,8 @@ func _on_pressed():
 			if Global.CardBuy == null&&Global.NowMoney>=price:#士兵
 				if Global.STSData[soldier]["type"] == "soldier":
 					Global.NowMoney -= price
-					var friend = Global.VillageSoldier.instantiate()
+					var friend = Global.Soldier.instantiate()
+					friend.camp = Global.VILLAGE
 					Global.root.add_child(friend)
 					friend.firstSetting(soldier)
 				#塔和技能有区域选择
@@ -191,28 +192,9 @@ func _on_pressed():
 						MOUSE_BUTTON_MASK_LEFT:#左键
 							Global.CardBuy = soldier
 							var Area = choiceArea.instantiate()
-							Global.root.add_child(Area)
-							#更新选择盒子尺寸
-							if Global.STSData[soldier]["type"] == "tower":#选塔位置
-								Area.colorBox.size = Global.STSData[soldier]["collBox"]
-								Area.colorBox.position = Global.STSData[soldier]["collBox"]/-2
-								Area.collLine.target_position = Vector2(Global.STSData[soldier]["collBox"].x*2,0)
-								Area.collLine.position = Vector2(-((Global.STSData[soldier]["collBox"].x*2)-(Global.STSData[soldier]["collBox"].x/2)),0)
-								Global.towerArea.visible = true
-								Area.area = Global.towerArea
-								Area.which = Global.Tower
-							if Global.STSData[soldier]["type"] == "skill":#选技能位置
-								Area.colorBox.size = Vector2(Global.STSData[soldier]["aoeRange"],Global.NormalAOERangeY)
-								Area.colorBox.position = Vector2(Global.STSData[soldier]["aoeRange"]/-2,Global.NormalAOERangeY/-2)
-								Area.collLine.collide_with_areas = false
-								#Area.collLine.
-								Global.skillArea.visible = true
-								Area.area = Global.skillArea
-								Area.which = Global.Skill
-							#防止塔堆叠放置
-							Area.position = Global.VillagePoint
 							Area.soldier = soldier
 							Area.card = self
+							Global.root.add_child(Area)
 							areaId = Area#传递创建的选择区域id
 							self.button_mask = MOUSE_BUTTON_MASK_RIGHT
 						MOUSE_BUTTON_MASK_RIGHT:#右键

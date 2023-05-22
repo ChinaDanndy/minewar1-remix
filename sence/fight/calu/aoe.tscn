@@ -1,9 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjif1didrmvxo"]
+[gd_scene load_steps=6 format=3 uid="uid://bjif1didrmvxo"]
 
 [ext_resource type="Script" path="res://script/fight/calu/aoe.gd" id="1"]
+[ext_resource type="AudioStream" uid="uid://dc7rf53b1s20d" path="res://assets/music/se/other/broke.ogg" id="2_i4utn"]
+[ext_resource type="Texture2D" uid="uid://djceor6p7vn8d" path="res://assets/particles/water.png" id="2_n2f3b"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(100, 20)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dar0y"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [node name="aoe" type="Area2D"]
 collision_layer = 0
@@ -17,19 +26,83 @@ shape = SubResource("1")
 
 [node name="holdTimer" type="Timer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.309804, 0.929412, 0.2, 0.392157)
+[node name="broke" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_i4utn")
+
+[node name="regeneration" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_dar0y")
+position = Vector2(0, -10)
+emitting = false
+amount = 100
+lifetime = 5.0
+one_shot = true
+explosiveness = 0.3
+randomness = 0.5
+lifetime_randomness = 1.0
+texture = ExtResource("2_n2f3b")
+emission_shape = 3
+emission_rect_extents = Vector2(50, 1)
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+linear_accel_min = 3.0
+linear_accel_max = 3.0
+scale_amount_max = 1.5
+color = Color(1, 0, 1, 1)
+anim_speed_min = 1.0
+anim_speed_max = 3.0
+
+[node name="power" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_dar0y")
+position = Vector2(0, -10)
+emitting = false
+amount = 80
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.5
+randomness = 0.8
+lifetime_randomness = 1.0
+texture = ExtResource("2_n2f3b")
+emission_shape = 3
+emission_rect_extents = Vector2(50, 1)
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 220.0
+linear_accel_min = 3.0
+linear_accel_max = 3.0
+scale_amount_max = 1.5
+color = Color(1, 0, 0, 1)
+anim_speed_min = 5.0
+anim_speed_max = 7.0
+
+[node name="weakness" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_dar0y")
+position = Vector2(0, -20)
+emitting = false
+amount = 60
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.5
+randomness = 0.8
+lifetime_randomness = 1.0
+texture = ExtResource("2_n2f3b")
+emission_shape = 3
+emission_rect_extents = Vector2(40, 1)
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 170.0
+linear_accel_min = 2.0
+linear_accel_max = 2.0
+scale_amount_max = 1.5
+color = Color(0.235294, 0, 0.235294, 1)
+anim_speed_min = 5.0
+anim_speed_max = 7.0
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="holdTimer" to="." method="_on_hold_timer_timeout"]

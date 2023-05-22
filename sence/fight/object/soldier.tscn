@@ -1,10 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://q05lgu8j1nu8"]
+[gd_scene load_steps=6 format=3 uid="uid://q05lgu8j1nu8"]
 
 [ext_resource type="PackedScene" uid="uid://bnr6hau4agucb" path="res://sence/fight/object.tscn" id="1_p63ko"]
 [ext_resource type="Script" path="res://script/fight/object/soldier.gd" id="2_sxvfl"]
+[ext_resource type="Texture2D" uid="uid://cwhgp52t110xs" path="res://assets/particles/heart.png" id="3_klkv3"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_at3e2"]
 resource_local_to_scene = true
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_w3h0f"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 16
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [node name="object" instance=ExtResource("1_p63ko")]
 script = ExtResource("2_sxvfl")
@@ -14,4 +22,33 @@ sprite_frames = SubResource("SpriteFrames_at3e2")
 
 [node name="UsualTimer" type="Timer" parent="." index="5"]
 
+[node name="stopTimer" type="Timer" parent="." index="8"]
+
+[node name="se" type="Node2D" parent="." index="9"]
+
+[node name="ballonBreak" type="AudioStreamPlayer" parent="se" index="0"]
+
+[node name="smallExplode" parent="particles" index="0"]
+material = SubResource("CanvasItemMaterial_w3h0f")
+anim_speed_min = 2.0
+anim_speed_max = 2.0
+
+[node name="regeneration" type="CPUParticles2D" parent="particles" index="2"]
+position = Vector2(0, 6)
+emitting = false
+amount = 6
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("3_klkv3")
+emission_shape = 3
+emission_rect_extents = Vector2(10, 10)
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="UsualTimer" to="." method="_on_usual_timer_timeout"]
+[connection signal="timeout" from="stopTimer" to="." method="_on_stop_timer_timeout"]

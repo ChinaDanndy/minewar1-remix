@@ -31,7 +31,8 @@ func firstStart():
 func summonEnemy(group):
 	soldierCount = Global.LevelData[Global.NowLevel]["groups"][group]["soldier"].size()
 	for j in soldierCount:
-		var enemy = Global.MonsterSoldier.instantiate()
+		var enemy = Global.Soldier.instantiate()
+		enemy.camp = Global.MONSTER
 		Global.root.add_child(enemy)
 		if Global.LevelData[Global.NowLevel]["groups"][group]["stopPos"] != null:
 			enemy.stopPos = Global.LevelData[Global.NowLevel]["groups"][group]["stopPos"]

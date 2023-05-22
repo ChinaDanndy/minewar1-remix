@@ -13,7 +13,7 @@ enum State {ATTACK,STOP,DEATH,BACK,PUSH,OUTSEA,FALL}
 const ani = {"attack":0,"attackSec":1,"death":2,"usual":3}#usual = 2
 var spirte
 var animation#
-var souEff = {"attack":null,"hurt":null,"attackSec":null,"death":null}
+var souEff = {"attack":null,"hurt":null,"attackSec":null,"walk":null,"death":null}
 var souEffValue:Dictionary
 var stepSe=[null,null,null,null]
 var particles = {"hurt":null,"attack":null,"attackSec":null,"death":null}
@@ -38,7 +38,7 @@ var speedState = SpeState.MOVE
 var ifOnlyAttBase = false#
 var attackType = [[false,false,false],[false,false,false],[false,false,false]]#近 远 爆炸
 #var damageMethod#
-var damagerType=[[],[],[]]#有伤害加成的攻击目标
+var damagerType=[[null],[null],[null]]#有伤害加成的攻击目标
 var damageBasic = [0,0,0]#
 var damage= [0,0]#我方技能传递时此值为-1让aoe范围包括海陆空
 
@@ -61,12 +61,12 @@ var ifAoeHold = [false,false,false,false]#
 var effTimerId = [null,null,null,null,null,null,null,null,null]
 #var holdDamageTimes = {}
 var nowEffect = [0,0,0,0,0,0,0,0,0]#记录伤害，速度，射程当前的效果值，区分好坏
-var effTime = [[0,0,0,0,0,0],[0,0,0,0,0,0],[],[]]#后两个为平时，攻击持续效果的间隔给予数值的时间
-var effValue = [[0,0,0],[0,0,0],[],[]]#平时效果保持伤害,攻击效果保持伤害,击退距离
+var effTime = [[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]#后两个为平时，攻击持续效果的间隔给予数值的时间
+var effValue = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]#平时效果保持伤害,攻击效果保持伤害,击退距离
 var effTimes = [[0,0],[0,0],[0,0],[0,0]]#效果持续：平时次数，攻击次数
 var ifAoe##仅用于伤害判定给予效果时分辨效果来源
 var effDefence = [false,false,false,false,false,false,false]#
-var giveEffect = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[],[]]#攻击给予状态同时表示好坏
+var giveEffect = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]]#攻击给予状态同时表示好坏
 var healthEffValue = -100#低血量提升攻击力速度
 var usualTime#
 var shield = 0#
@@ -95,13 +95,6 @@ func _init():
 	pass
 	
 func _ready():
-	$cover.visible = false
-	$outLine.visible = false
-	if kind == "land":
-		for i in 4:
-			stepSe[i] =  AudioStreamPlayer.new()
-			stepSe[i].stream = load("res://assets/music/se/soldier/step/1/grass%s.ogg"%(i+1))
-			add_child(stepSe[i])
 	pass
 	
 func SetValue(soldier):
@@ -111,7 +104,7 @@ func SetValue(soldier):
 	pass
 	
 func SetAnimationAndCollBox(soldier):
-	if is_instance_valid(spirte) == true: spirte.free()
+	#if is_instance_valid(spirte) == true: spirte.free()
 	spirte = SpriteFrames.new()#给动画播放器添加图片
 	for i in animation.keys():
 		spirte.add_animation(i)
@@ -126,11 +119,8 @@ func SetAnimationAndCollBox(soldier):
 			add_child(souEff[i])
 	for i in particlesValue: 
 		if particles.has(i):
-			if i == "hurt": $cover.material = load("res://rescourse/%s.tres"%particlesValue[i])
-			else:
-				particles[i] = Global.ParSence[particlesValue[i]].instantiate()
-				add_child(particles[i])
-	
+			if i == "hurt": $cover.material = load("res://rescourse/%s.tres"%particlesValue[i]) 
+			else: particles[i] = get_node("particles/%s"%particlesValue[i])
 	$AnimatedSprite2D.sprite_frames = spirte
 	changeAnimation(currentAni,currentState)
 	#填充碰撞箱
@@ -140,6 +130,13 @@ func SetAnimationAndCollBox(soldier):
 	pass
 	
 func firstSetting(soldier):
+	$cover.visible = false
+#	if kind == "land":
+#		for i in 4:
+#			stepSe[i] =  AudioStreamPlayer.new()
+#			stepSe[i].stream = load("res://assets/music/se/soldier/step/1/grass%s.ogg"%(i+1))
+#			add_child(stepSe[i])
+	#$outLine.visible = false
 	Global.FightSence.reloadSence.connect(reload)
 	name = soldier
 	soldierName[0] = soldier
@@ -170,7 +167,7 @@ func _process(_delta):#每帧执行的部分
 
 	for i in souEff: 
 		if souEff[i] != null: souEff[i].set_volume_db(Global.SeDB)#时刻保持音量与全局音量一致
-	if kind == "land": for i in stepSe: i.set_volume_db(Global.SeDB/4)
+#	if kind == "land": for i in stepSe: i.set_volume_db(Global.SeDB/4)
 	#基础数据实时更改/前是负属性后是正属性
 	for i in 2:#攻击和攻击距离有两套随攻击使用的不同
 		damage[i] = (damageBasic[i]+(damageBasic[i]*(nowEffect[Global.Effect.ATTDAMAGE]
@@ -200,15 +197,6 @@ func _process(_delta):#每帧执行的部分
 		#死亡特效
 		if animation.has("deathFall"): changeState("deathFall",State.FALL)
 		else: changeState("death",State.DEATH)
-	if currentState == State.DEATH&&deathAttType != null:#死亡效果
-#Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,
-#attackType,damage,damagerType,
-		var i = ani[deathAttType]
-		Global.aoe_create(self,Global.CREATE,aoeModel[i],aoeRange[i],ifAoeHold[i],
-		attackType[i],damageBasic[i],damagerType[i],giveEffect[i],effValue[i],
-		effTime[i],effTimes[i])
-		deathAttType = null
-
 	if Input.is_action_just_pressed("ui_select"):#测试用
 		if camp == Global.MONSTER:
 			#print(speedEffect)
@@ -259,6 +247,8 @@ func hurt():
 	$cover.visible = false
 	pass
 	
+
+	
 func changeState(AniName,StaName):#入海出海的动作图片在每个动画的前面放
 #	if kind == "sea":
 #		seaAni = AniName
@@ -269,7 +259,8 @@ func changeState(AniName,StaName):#入海出海的动作图片在每个动画的
 #			AniName = "seaOut"
 #			$Collision1.collide_with_areas = false
 	match StaName:
-		#State.DEATH:#最优先状态
+		State.DEATH:#最优先状态
+			aniSpeedBasic = 1
 			#collision_layer = 0#不再能互动
 			#changeTime = 0.6#标准死亡等待消失时间(总共0.6s)
 		#State.ATTACK:if currentState == State.PUSH||currentState == State.STOP:pass
@@ -298,25 +289,29 @@ func changeAnimation(AniName,StaName):
 		State.BACK: speedDirection = -1
 	currentAni = AniName
 	currentState = StaName#记录当前切换状态
-
 	$AnimatedSprite2D.play(AniName)
 	pass
 
 func _on_animated_sprite_2d_frame_changed():
 	$cover.texture = spirte.get_frame_texture(currentAni,$AnimatedSprite2D.frame)
-	$outLine.texture = spirte.get_frame_texture(currentAni,$AnimatedSprite2D.frame)
+	#$outLine.texture = spirte.get_frame_texture(currentAni,$AnimatedSprite2D.frame)
 	if $AnimatedSprite2D.frame == animation[$AnimatedSprite2D.animation]-1:
-		match currentState:
-			State.PUSH,State.BACK:
-				var stepRand = randf_range(0,3)
-				stepSe[stepRand].playing = true
+#		match currentState:
+#			State.PUSH,State.BACK:
+#				var stepRand = randf_range(0,3)
+#				stepSe[stepRand].playing = true
 		match currentState:
 			State.ATTACK: 
 				if is_instance_valid(other): 
 					if proContinueTimes == null:  
 						attack()
-						if souEff["attack"] != null: souEff["attack"].playing = true
-						if particles["attack"] != null: particles["attack"].emitting = true
+						var nowAni = currentAni
+						if currentAni == "attackThr": 
+							nowAni = "attack"
+							if souEff["attackSec"] != null: souEff["attackSec"].playing = true
+							if particles["attackSec"] != null: particles["attackSec"].emitting = true
+						if souEff[nowAni] != null: souEff[nowAni].playing = true
+						if particles[nowAni] != null: particles[nowAni].emitting = true
 					else: 
 						if proTimes<proContinueTimes:#脉冲箭塔持续射击一会休息一下
 							proTimes +=1
@@ -333,11 +328,19 @@ func _on_animated_sprite_2d_frame_changed():
 	pass
 
 func _on_animated_sprite_2d_animation_finished():
+	if deathAttType != null:#死亡效果
+#Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,
+#attackType,damage,damagerType,
+		var i = ani[deathAttType]
+		Global.aoe_create(self,Global.CREATE,aoeModel[i],aoeRange[i],ifAoeHold[i],
+		attackType[i],damageBasic[i],damagerType[i],giveEffect[i],effValue[i],
+		effTime[i],effTimes[i])
+		deathAttType = null
 	if camp == Global.MONSTER: Global.MonsterDeaths += 1
 	$AnimatedSprite2D.visible = false
 	souEff["death"].playing = true
+	if particles["death"] != null: particles["death"].emitting = true
 	await get_tree().create_timer(2,false).timeout
-				#if particles["death"] != null: particles["death"].Emitting = true
 	queue_free()
 	pass
 
@@ -386,7 +389,6 @@ func attack():
 			ifAoeHold[ani[attackAni]],attackType[ani[attackAni]],damage[ani[attackAni]],
 			damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],
 			effTime[ani[attackAni]],effTimes[ani[attackAni]])
-			
 			newPro.position = position
 			Global.root.add_child(newPro)
 	pass

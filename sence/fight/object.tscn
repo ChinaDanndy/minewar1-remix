@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bnr6hau4agucb"]
+[gd_scene load_steps=8 format=3 uid="uid://bnr6hau4agucb"]
 
 [ext_resource type="Script" path="res://script/fight/object.gd" id="1_cj46x"]
+[ext_resource type="Texture2D" uid="uid://bo6ctx4gg7xqn" path="res://assets/objects/tower/projector/attack/attack1.png" id="3_gaky7"]
 [ext_resource type="Texture2D" uid="uid://bio258hpcdlxp" path="res://assets/objects/soldier/assassin/attack/attack1.png" id="3_phlj8"]
-[ext_resource type="Shader" path="res://rescourse/outLine.gdshader" id="3_w6d8c"]
+[ext_resource type="PackedScene" uid="uid://dfqflpq488a1p" path="res://sence/particles/smallExplode.tscn" id="4_nb6nl"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fq6p3"]
 resource_local_to_scene = true
@@ -19,15 +20,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(20, 44)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ix7wu"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vqb8t"]
 resource_local_to_scene = true
-shader = ExtResource("3_w6d8c")
-shader_parameter/color = Color(1, 1, 0, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = null
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/visible = true
+particles_animation = true
+particles_anim_h_frames = 16
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [node name="object" type="Area2D"]
 monitoring = false
@@ -46,17 +44,39 @@ target_position = Vector2(30, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
 
-[node name="cover" type="Sprite2D" parent="."]
-texture = ExtResource("3_phlj8")
-
 [node name="outLine" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_ix7wu")
+visible = false
+
+[node name="cover" type="Sprite2D" parent="."]
+texture = ExtResource("3_gaky7")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -5.0
 offset_top = -32.0
 offset_right = 31.0
-offset_bottom = -18.0
+offset_bottom = -9.0
+
+[node name="particles" type="Node2D" parent="."]
+
+[node name="smallExplode" parent="particles" instance=ExtResource("4_nb6nl")]
+material = SubResource("CanvasItemMaterial_vqb8t")
+amount = 30
+emission_sphere_radius = 30.0
+
+[node name="towerDeath" type="CPUParticles2D" parent="particles"]
+emitting = false
+amount = 40
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.8
+direction = Vector2(0, -1)
+spread = 120.0
+gravity = Vector2(0, 300)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color = Color(0.141176, 0.141176, 0.141176, 1)
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

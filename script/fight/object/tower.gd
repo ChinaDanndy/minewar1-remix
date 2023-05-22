@@ -14,9 +14,12 @@ func firstSetting(soldier):
 	collision_layer = Global.LAyer[camp+1][2]
 	position.y = Global.FightGroundY+collBox.y
 	effDefence[Global.Effect.KNOCK] = true
+	$out.emitting = true
+	$outSe.play()
 	pass
 
 func _process(_delta):
+	$outSe.volume_db = Global.SeDB
 #	if unPeopleFly == true:
 #		position.y -= 2
 	if position.y <= Global.FightGroundY-(collBox.y/2)&&dropSpeed != null:

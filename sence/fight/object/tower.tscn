@@ -2,20 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://bnr6hau4agucb" path="res://sence/fight/object.tscn" id="1_6kuqs"]
 [ext_resource type="Script" path="res://script/fight/object/tower.gd" id="2_3fwhs"]
-[ext_resource type="Shader" path="res://rescourse/outLine.gdshader" id="3_pmlnq"]
+[ext_resource type="AudioStream" uid="uid://dtu08ucrvtl2w" path="res://assets/music/se/tower/out.ogg" id="3_ecexi"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0m7md"]
 resource_local_to_scene = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_sc2pa"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_daec4"]
 resource_local_to_scene = true
-shader = ExtResource("3_pmlnq")
-shader_parameter/color = Color(1, 1, 0, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = null
-shader_parameter/inside = false
-shader_parameter/add_margins = true
-shader_parameter/visible = true
+particles_animation = true
+particles_anim_h_frames = 16
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [node name="object" instance=ExtResource("1_6kuqs")]
 input_pickable = false
@@ -29,6 +26,7 @@ collide_with_areas = false
 collide_with_bodies = false
 
 [node name="Collision2" parent="." index="2"]
+enabled = false
 collide_with_bodies = false
 
 [node name="SkillTimer" type="Timer" parent="." index="5"]
@@ -37,8 +35,29 @@ one_shot = true
 [node name="DeathTimer" type="Timer" parent="." index="6"]
 one_shot = true
 
-[node name="outLine" parent="." index="7"]
-material = SubResource("ShaderMaterial_sc2pa")
+[node name="out" type="CPUParticles2D" parent="." index="9"]
+position = Vector2(0, 16)
+emitting = false
+amount = 40
+lifetime = 0.3
+one_shot = true
+randomness = 0.2
+emission_shape = 3
+emission_rect_extents = Vector2(18, 8)
+direction = Vector2(0, -1)
+spread = 10.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 80.0
+initial_velocity_max = 120.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color = Color(0.235294, 0.156863, 0.0784314, 1)
+
+[node name="outSe" type="AudioStreamPlayer" parent="." index="10"]
+stream = ExtResource("3_ecexi")
+
+[node name="smallExplode" parent="particles" index="0"]
+material = SubResource("CanvasItemMaterial_daec4")
 
 [connection signal="timeout" from="SkillTimer" to="." method="_on_skill_timer_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
