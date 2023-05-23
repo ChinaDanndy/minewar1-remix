@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://binvlwclrexig"
-path="res://.godot/imported/walk3.png-642fd07c4ff2674609dce2fe05a3bf77.ctex"
+uid="uid://c0qnfoofsncas"
+path="res://.godot/imported/stop1.png-c566ced0caee5a267dedb18fae6991c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/soldier/spdier/walk/walk3.png"
-dest_files=["res://.godot/imported/walk3.png-642fd07c4ff2674609dce2fe05a3bf77.ctex"]
+source_file="res://assets/objects/soldier/spider/stop/stop1.png"
+dest_files=["res://.godot/imported/stop1.png-c566ced0caee5a267dedb18fae6991c5.ctex"]
 
 [params]
 

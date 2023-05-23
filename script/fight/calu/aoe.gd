@@ -18,8 +18,7 @@ func _ready():
 	Global.FightSence.reloadSence.connect(reload)
 	collision_mask = Global.MAsk[Mod[aoeModel]][0]
 	var newRange = RectangleShape2D.new()#AOE范围
-	newRange.size = Vector2(aoeRange,Global.NormalAOERangeY)
-	
+	newRange.size = Vector2(aoeRange,20)
 	if damagerType[0] == "regenerationDo": 
 		collision_mask = Global.MAsk[Mod[aoeModel]][3]
 	match damagerType[0]:
@@ -30,11 +29,9 @@ func _ready():
 		"regeneration": $regeneration.emitting = true
 		"power": $power.emitting = true
 		"weakness": $weakness.emitting = true
-
+		"thunder": newRange.size.y = Global.STSData["thunder"]["collBox"].y
 ##			"skill": newRange.size = Vector2(aoeRange,Global.SkillAOERangeY)#换范围
-#			"thunder": 
-#				var thunder = load("res://assets/objects/skill/thunder.png")
-#				newRange.size = thunder.get_size()
+
 #			"thunderBoss": 
 #				var thunder = load("res://assets/objects/skill/thunderBoss.png")
 #				newRange.size = thunder.get_size()

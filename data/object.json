@@ -1,7 +1,7 @@
 {
     "shoveler":{
         "price":0,
-        "cd":0,
+        "cd":0.5,
         "type":"soldier",
         "health":5,
         "animation":{"walk":6,"attack":4,"stop":1,"death":1},
@@ -74,6 +74,19 @@
         "towKeepTime":10,
         "dropSpeed":-3
     },
+    "cave":{
+        "price":1,
+        "type":"tower",
+        "health":5,
+        "animation":{"attack":1,"stop":1,"death":1},
+        "souEffValue":{"hurt":"wood1","death":"towerDeath"},
+        "particlesValue":{"hurt":"hurtWhite","death":"towerDeath"},
+        "aniSpeedBasic":1.5,
+        "speedBasic":1,
+        "projectile":["spider"],
+        "towKeepTime":3,
+        "dropSpeed":-3
+    },
     "regeneration":{
         "price":3,
         "cd":5,
@@ -90,7 +103,7 @@
 
     "zombie":{
         "type":"soldier",
-        "health":10,
+        "health":5,
         "animation":{"walk":6,"attack":4,"stop":1,"death":1},
         "souEffValue":{"hurt":"hurt1","death":"zombieDeath"},
         "particlesValue":{"hurt":"hurtRed"},
@@ -247,20 +260,12 @@
         "healthEffValue":2,
         "dropSpeed":5
     },
-    "cave":{
-        "price":1,
-        "type":"tower",
-        "health":5,
-        "animation":{"attack":1,"stop":1,"death":1},
-        "aniSpeedBasic":1.5,
-        "speedBasic":1,
-        "projectile":["spdier"]
-    },
-    "spdier":{
+
+    "spider":{
         "type":"soldier",
-        "health":5,
+        "health":1,
         "animation":{"walk":5,"attack":4,"stop":1,"death":1},
-        "souEffValue":{"hurt":"hurt1","death":"spdierDeath"},
+        "souEffValue":{"hurt":"hurt1","death":"spiderDeath"},
         "particlesValue":{"hurt":"hurtRed"},
         "aniSpeedBasic":1.8,
         "speedBasic":1.6,
@@ -361,7 +366,7 @@
     "thunder":{
         "type":"skill",
         "aoeModel":"all",
-        "aoeRange":200,
+        "aoeRange":80,
         "ifAoeHold":false,
         "effValue":[0,2.125,0],
         "giveEffect":[0,0,0,0,0,-1,0]

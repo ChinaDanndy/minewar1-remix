@@ -101,6 +101,7 @@ func SetValue(soldier):
 	for STSDatename in Global.STSData[soldier]:
 		set(STSDatename,Global.STSData[soldier][STSDatename])
 	if dropSpeed != null: dropSpeed = int(dropSpeed)
+	soldierName = soldierName.duplicate()
 	pass
 	
 func SetAnimationAndCollBox(soldier):
@@ -370,6 +371,7 @@ func attack():
 				deathSet()
 				changeState("death",State.DEATH)
 				$AnimatedSprite2D.visible = false
+				remove_from_group("creeper")
 				#await get_tree().create_timer(2,false).timeout
 				#queue_free()#近战AOE且是爆炸伤害类型->只有自爆
 			if soldierName[0] == "assassinFirst": reSet(soldierName[1])
@@ -438,6 +440,7 @@ func deathSet():
 	$outLine.visible = false
 	monitorable = false
 	collision_layer = 0
+	if soldierName[0]=="cave": Global.CaveHas = false
 	pass
 	
 func reload():

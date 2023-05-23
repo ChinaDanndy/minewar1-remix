@@ -23,9 +23,11 @@ func firstSetting(soldier):
 			$CollisionShape2D.shape = newBox
 			$CollisionShape2D.position.x = position.x
 			$CollisionShape2D.position.y = 0
+			$thunder.play()
 	pass
 	
 func _process(_delta):
+	$thunder.volume_db = Global.SeDB
 	if currentState == State.FALL: position.y += dropSpeed
 	if position.y >= Global.FightGroundY&&dropSpeed != null: 
 		currentState = State.STOP
@@ -39,16 +41,22 @@ func _process(_delta):
 		"thunder","thunderBoss","thunderBossKill":  
 			if thunderAphla == 0: $Sprite2D.modulate.a += Global.ThunderSpeed
 			if $Sprite2D.modulate.a >= 1&&thunderAphla == 0:
-				thunderAphla += 1
-				Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false,null,null,["thunder"],giveEffect,effValue,effTime,effTimes)
 				$CollisionShape2D.position.y = collBox.y/2-10
+				thunderAphla += 1
+				Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false,null,
+				null,["thunder"],giveEffect,effValue,effTime,effTimes)
+				
 				await get_tree().create_timer(0.05,false).timeout 
 				$CollisionShape2D.position.y = 0 
+				
 			if thunderAphla > 0:
 				$Sprite2D.modulate.a -= Global.ThunderSpeed
-				if $Sprite2D.modulate.a <= 0: queue_free()
+				if $Sprite2D.modulate.a <= 0: 
+					collision_mask = 0
+					await get_tree().create_timer(1,false).timeout 
+					queue_free()
 	pass
 
 func _on_area_entered(area):
-	if area.soldierName[0] == "creeper": area.reSet(area.soldierName[1])
+	if area.soldierName[0] == "creeper": area.call_deferred("reSet",area.soldierName[1])
 	pass

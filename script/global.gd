@@ -159,6 +159,7 @@ const STSDataName = {"price":STSType.INT,"kind":null,
 var SeDB = 1.0
 var BgmDB = 1.0
 var ThunderSpeed
+var CaveHas = false
 var MonsterDeaths = 0
 var Money = 10
 var CardUp = 4

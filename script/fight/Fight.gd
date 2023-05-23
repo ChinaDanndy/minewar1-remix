@@ -9,6 +9,8 @@ var attackTime
 var moneyTime
 var thunderTime
 var thunderTimeRand
+var caveTime
+var caveTimeRand
 
 #signal cardMessage
 signal reloadSence
@@ -37,7 +39,9 @@ func _ready():
 	moneyTime = Global.LevelData[0]["moneySpeed"]
 	Global.ThunderSpeed = Global.LevelData[0]["thunderSpeed"]
 	thunderTime = Global.LevelData[Global.NowLevel]["set"]["thunderTime"]
-	thunderTimeRand = Global.LevelData[Global.NowLevel]["set"]["thunderTimeRand"]	
+	thunderTimeRand = Global.LevelData[Global.NowLevel]["set"]["thunderTimeRand"]
+	caveTime = Global.LevelData[Global.NowLevel]["set"]["caveTime"]
+	caveTimeRand = Global.LevelData[Global.NowLevel]["set"]["caveTimeRand"]	
 	
 	if Global.LevelData[Global.NowLevel]["chosenCard"].is_empty():
 		Global.ChoiceWindow.visible = true
@@ -64,8 +68,21 @@ func _on_thundertimer_timeout():
 		newthunder.camp = Global.MONSTER
 		newthunder.firstSetting("thunder")
 		newthunder.position.x = target.position.x-20
-	$Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
+	$Timer/Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
 	pass
+	
+func _on_cave_timer_timeout():
+	if Global.CaveHas == false:
+		var tower = Global.Tower.instantiate()
+		tower.camp = Global.MONSTER
+		tower.firstSetting("cave")
+		var pos = $monnsterTowerArea.position.x
+		var size = $monnsterTowerArea.size.x/2
+		tower.position.x = randi_range(pos-size,pos+size)
+		Global.root.add_child(tower)
+		Global.CaveHas = true
+	$Timer/CaveTimer.start(caveTime+randi_range(-caveTimeRand,caveTimeRand))
+	pass 
 	
 func fightStart():
 	Global.CardUp = 6
@@ -83,9 +100,11 @@ func fightStart():
 	Global.add_child(newEnemy)
 	summonEnemyID = newEnemy
 	
-	$Moneytimer.start(moneyTime)
+	$Timer/Moneytimer.start(moneyTime)
 	if thunderTime >0: 
-		$Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
+		$Timer/Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
+	if caveTime >0: 
+		$Timer/CaveTimer.start(caveTime+randi_range(-caveTimeRand,caveTimeRand))
 	pass
 	
 func _process(_delta):
@@ -93,18 +112,9 @@ func _process(_delta):
 		Global.MonsterBase.health = 0
 		pass
 
-#	if Global.MonsterDeaths >= 1:#怪物死一定数量生成蜘蛛笼
-#		var tower = Global.Tower.instantiate()
-#		Global.root.add_child(tower)
-#		tower.camp = Global.MONSTER
-#		tower.unPeopleFly = false
-#		tower.position = Global.MonsterPoint
-#		tower.firstSetting("cave")
-#		Global.MonsterDeaths = 0
-
 	$Up/Moneytext/Moneycount.text = str(Global.NowMoney) +"/"+ str(Global.Money)
-	if Global.NowMoney != Global.Money&&$Moneytimer.one_shot == true:
-		$Moneytimer.start(moneyTime)
+	if Global.NowMoney != Global.Money&&$Timer/Moneytimer.one_shot == true:
+		$Timer/Moneytimer.start(moneyTime)
 	$Up/AttackTime/AttackTimeValue.text = str(attackTime)
 
 	if Global.VillageBase.health <= 0: Global.StopWindow.text("lose")
@@ -145,7 +155,7 @@ func _on_attack_timer_timeout():
 func _on_moneytimer_timeout():
 	if Global.NowMoney < Global.Money:
 		Global.NowMoney += 1
-	if Global.NowMoney == (Global.Money-1): $Moneytimer.one_shot = true
+	if Global.NowMoney == (Global.Money-1): $Timer/Moneytimer.one_shot = true
 	pass 
 
 func _on_tree_exited():
@@ -200,6 +210,9 @@ func _on_tree_entered():
 	Global.BossProtect.monitorable = false
 	$Boss.visible = false
 	pass
+
+
+
 
 
 

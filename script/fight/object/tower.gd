@@ -14,7 +14,11 @@ func firstSetting(soldier):
 	add_to_group("villageObject")
 	collision_layer = Global.LAyer[camp+1][2]
 	position.y = Global.FightGroundY+collBox.y
+	
 	effDefence[Global.Effect.KNOCK] = true
+	pass
+
+func _ready():
 	$particles/out.emitting = true
 	$particles/gold.visible = false
 	$se/outSe.volume_db = Global.SeDB
@@ -23,6 +27,7 @@ func firstSetting(soldier):
 
 func _process(_delta):
 	$se/gold.volume_db = Global.SeDB
+	$se/cave.volume_db = Global.SeDB
 #	if unPeopleFly == true:
 #		position.y -= 2
 	if position.y <= Global.FightGroundY-(collBox.y/2)&&dropSpeed != null:
@@ -44,17 +49,20 @@ func _on_skill_timer_timeout():
 	if soldierName[0] == "golder": 
 		if Global.NowMoney+damageBasic[0] <= Global.Money: 
 			Global.NowMoney += damageBasic[0]
-		else: Global.NowMoney == Global.Money
-	if Global.NowMoney != Global.Money:
-		goldShow()
-		$se/gold.play()
+		else: Global.NowMoney = Global.Money
+		if Global.NowMoney != Global.Money:
+			goldShow()
+			$se/gold.play()
 	#蜘蛛笼
 	if soldierName[0] == "cave":  
-			var enemy = Global.MonsterSoldier.instantiate()
-			Global.root.add_child(enemy)
-			enemy.firstSetting(projectile[0])
-			enemy.position = position
-			pass
+		var enemy = Global.Soldier.instantiate()
+		enemy.camp = Global.MONSTER
+		enemy.firstSetting(projectile[0])
+		enemy.position.x = global_position.x
+		
+		Global.root.add_child(enemy)
+		$particles/cave.emitting = true
+		$se/cave.play()
 	$SkillTimer.start(speed)
 	pass 
 	
@@ -68,4 +76,8 @@ func goldShow():
 
 func _on_death_timer_timeout():
 	health = 0
+	$SkillTimer.stop()
+	$particles/gold.visible = false
+	$goldplayer.stop()
+	$particles/cave.emitting = false
 	pass

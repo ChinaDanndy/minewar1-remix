@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1hjam06f461y"
-path="res://.godot/imported/attack4.png-42c9808c5b5b30161c9647fd823657f7.ctex"
+uid="uid://ojct8o8fc7kx"
+path="res://.godot/imported/death1.png-5f7ee9b9ac7e4c6c0cec2797bd3a7df3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/soldier/spdier/attack/attack4.png"
-dest_files=["res://.godot/imported/attack4.png-42c9808c5b5b30161c9647fd823657f7.ctex"]
+source_file="res://assets/objects/soldier/spider/death/death1.png"
+dest_files=["res://.godot/imported/death1.png-5f7ee9b9ac7e4c6c0cec2797bd3a7df3.ctex"]
 
 [params]
 

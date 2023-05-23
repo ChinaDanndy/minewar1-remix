@@ -7,7 +7,8 @@ func firstSetting(soldier):
 	super.SetValue(soldier)
 	super.SetAnimationAndCollBox(soldier)
 	super.firstSetting(soldier)
-	
+	if soldier == "creeper": add_to_group("creeper")#获得苦力怕id给劈闪电用
+
 	match camp:
 		Global.VILLAGE: position.x = Global.VillagePoint.x
 		Global.MONSTER: position.x = Global.MonsterPoint.x
@@ -46,8 +47,8 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
 		if camp == Global.VILLAGE: health = 0
 		#$AnimatedSprite2D.play("attack")
-
-	position.x = clamp(position.x,Global.VillagePoint.x-16,Global.MonsterPoint.x+16)#限制移动范围
+	if camp == Global.VILLAGE: 
+		position.x = clamp(position.x,Global.VillagePoint.x-16,Global.MonsterPoint.x+16)#限制移动范围
 	if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&currentState != State.FALL: 
 		#if (collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
 		contrl()

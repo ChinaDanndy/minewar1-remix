@@ -24,6 +24,8 @@ var effTimes
 
 var effDefence
 
+func _ready(): 	Global.FightSence.reloadSence.connect(reload)
+
 func normalAttackCalu(damager):
 	attDefence = damager.attDefence
 	damager.hurt()
@@ -75,4 +77,5 @@ func effectAttackCalu(damager):
 	queue_free()
 	pass
 	
+func reload(): queue_free()
 	

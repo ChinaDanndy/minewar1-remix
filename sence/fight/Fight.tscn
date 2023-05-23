@@ -76,10 +76,17 @@ layout_mode = 2
 [node name="mShow7" type="TextureRect" parent="monsterShow/HBoxContainer"]
 layout_mode = 2
 
-[node name="Thundertimer" type="Timer" parent="."]
+[node name="Timer" type="Node" parent="."]
+
+[node name="Thundertimer" type="Timer" parent="Timer"]
 one_shot = true
 
-[node name="Moneytimer" type="Timer" parent="."]
+[node name="CaveTimer" type="Timer" parent="Timer"]
+one_shot = true
+
+[node name="attackTimer" type="Timer" parent="Timer"]
+
+[node name="Moneytimer" type="Timer" parent="Timer"]
 wait_time = 0.5
 
 [node name="Spacetext" type="Label" parent="."]
@@ -99,8 +106,6 @@ offset_top = 22.0
 offset_right = 39.0
 offset_bottom = 48.0
 text = "1"
-
-[node name="attackTimer" type="Timer" parent="."]
 
 [node name="position" type="Node2D" parent="."]
 
@@ -135,10 +140,19 @@ position = Vector2(530, 302)
 gizmo_extents = 40.0
 
 [node name="towerArea" type="ColorRect" parent="."]
-visible = false
 offset_left = 148.0
 offset_top = 286.0
 offset_right = 348.0
+offset_bottom = 318.0
+color = Color(0, 0, 0, 0.313726)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="monnsterTowerArea" type="ColorRect" parent="."]
+visible = false
+offset_left = 540.0
+offset_top = 286.0
+offset_right = 740.0
 offset_bottom = 318.0
 color = Color(0, 0, 0, 0.313726)
 metadata/_edit_lock_ = true
@@ -226,9 +240,10 @@ visible = false
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
-[connection signal="timeout" from="Thundertimer" to="." method="_on_thundertimer_timeout"]
-[connection signal="timeout" from="Moneytimer" to="." method="_on_moneytimer_timeout"]
-[connection signal="timeout" from="attackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="Timer/Thundertimer" to="." method="_on_thundertimer_timeout"]
+[connection signal="timeout" from="Timer/CaveTimer" to="." method="_on_cave_timer_timeout"]
+[connection signal="timeout" from="Timer/attackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="Timer/Moneytimer" to="." method="_on_moneytimer_timeout"]
 [connection signal="mouse_entered" from="Up/StopButton" to="Up/StopButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Up/StopButton" to="Up/StopButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="Up/StopButton" to="Up/StopButton" method="_on_pressed"]

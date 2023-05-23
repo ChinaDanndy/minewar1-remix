@@ -26,6 +26,7 @@ var effTime
 var effTimes
 
 func _ready():
+	Global.FightSence.reloadSence.connect(reload)
 	match projectile:
 		"tnt","fireBall","fireBallDown": voice = true
 	$se/tntExplode.volume_db = Global.SeDB
@@ -93,6 +94,10 @@ func _on_animation_timer_timeout():
 	if frame == Global.ProPicture[projectile]+1: 
 		frame = 0
 		$Sprite2D.frame = 0
+	pass 
+	
+func reload():
+	queue_free()
 	pass 
 	
 

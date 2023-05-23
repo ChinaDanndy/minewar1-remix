@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ea8emibbj1qs"
-path="res://.godot/imported/walk1.png-a1e0f73b12a0d560e5c39e8d41857c52.ctex"
+uid="uid://durpldsk7rg6x"
+path="res://.godot/imported/walk2.png-d54ae751d49699f7e7318e695c7173b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/soldier/spdier/walk/walk1.png"
-dest_files=["res://.godot/imported/walk1.png-a1e0f73b12a0d560e5c39e8d41857c52.ctex"]
+source_file="res://assets/objects/soldier/spider/walk/walk2.png"
+dest_files=["res://.godot/imported/walk2.png-d54ae751d49699f7e7318e695c7173b4.ctex"]
 
 [params]
 
