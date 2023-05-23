@@ -30,7 +30,7 @@ func firstSetting(soldier):
 			$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
 		"skyLine":#活塞虫
 			$Collision2.position.y = (distanceLandSky)
-			$Collision2.position.x = -(attRangeBasic[1]/2)
+			$Collision2.position.x = +(attRangeBasic[1]/4)
 	if coll2Pos != null: $Collision2.collide_with_areas = true
 	if usualTime != null: $UsualTimer.start(usualTime)
 	pass
@@ -78,8 +78,8 @@ func _process(_delta):
 	
 	if position.y >= Global.FightGroundY&&dropSpeed != null: 
 		dropSpeed = null
+		position.y = Global.FightGroundY-(collBox.y/2)
 		if startDrop == true:
-			position.y = Global.FightGroundY-(collBox.y/2)
 			changeState("walk",State.PUSH)
 			$Collision1.collide_with_areas = true
 			startDrop = false
@@ -97,7 +97,6 @@ func contrl():#玩家的单位控制
 
 func regenerationSet():  $particles/regeneration.emitting = true
 
-
 func _on_input_event(_viewport,event, _shape_idx):
 	if event.is_action_pressed("ui_mouse_left")&&camp == Global.VILLAGE: #soldierName[0]!="assassinFirst":
 		Global.Contrl = soldierName[0]
@@ -106,7 +105,6 @@ func _on_input_event(_viewport,event, _shape_idx):
 func _on_stop_timer_timeout():
 	changeState("walk",State.PUSH)
 	pass 
-	
 func onStopOver():
 	changeState("walk",State.PUSH)
 	pass

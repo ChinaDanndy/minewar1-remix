@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://q05lgu8j1nu8"]
+[gd_scene load_steps=7 format=3 uid="uid://q05lgu8j1nu8"]
 
 [ext_resource type="PackedScene" uid="uid://bnr6hau4agucb" path="res://sence/fight/object.tscn" id="1_p63ko"]
 [ext_resource type="Script" path="res://script/fight/object/soldier.gd" id="2_sxvfl"]
@@ -8,6 +8,13 @@
 resource_local_to_scene = true
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_w3h0f"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 16
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q02gy"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
@@ -48,6 +55,9 @@ spread = 0.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 20.0
 initial_velocity_max = 20.0
+
+[node name="bigExplode" parent="particles" index="3"]
+material = SubResource("CanvasItemMaterial_q02gy")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="UsualTimer" to="." method="_on_usual_timer_timeout"]

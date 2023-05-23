@@ -107,7 +107,7 @@ text = "1"
 [node name="position" type="Node2D" parent="."]
 
 [node name="MonsterPoint" type="Marker2D" parent="position"]
-position = Vector2(400, 297)
+position = Vector2(500, 297)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 

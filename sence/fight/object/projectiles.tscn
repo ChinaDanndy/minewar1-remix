@@ -1,20 +1,70 @@
-[gd_scene load_steps=3 format=3 uid="uid://blywjm6u1kp4j"]
+[gd_scene load_steps=8 format=3 uid="uid://blywjm6u1kp4j"]
 
 [ext_resource type="Script" path="res://script/fight/object/projectiles.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://b7snukr8riraw" path="res://assets/objects/projectiles/arrow.png" id="2_2mrq2"]
+[ext_resource type="AudioStream" uid="uid://cpmis154pn2ap" path="res://assets/music/se/soldier/explode3.ogg" id="2_p0tj5"]
+[ext_resource type="AudioStream" uid="uid://f7vjgp6bn6tv" path="res://assets/music/se/soldier/explode4.ogg" id="3_1jvnx"]
+[ext_resource type="Texture2D" uid="uid://crcnc13k8u5mm" path="res://assets/particles/explode.png" id="3_yuhbl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rfhmw"]
 size = Vector2(26, 10)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_12l3x"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 16
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [node name="projectiles" type="Area2D"]
 collision_layer = 0
 script = ExtResource("2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_2mrq2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_rfhmw")
 
 [node name="animationTimer" type="Timer" parent="."]
+
+[node name="particles" type="Node2D" parent="."]
+
+[node name="tntExplode" type="CPUParticles2D" parent="particles"]
+material = SubResource("CanvasItemMaterial_12l3x")
+emitting = false
+amount = 30
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("3_yuhbl")
+emission_shape = 3
+emission_rect_extents = Vector2(30, 10)
+gravity = Vector2(0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="fireballExplode" type="CPUParticles2D" parent="particles"]
+material = SubResource("CanvasItemMaterial_12l3x")
+emitting = false
+amount = 25
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("3_yuhbl")
+emission_shape = 1
+emission_sphere_radius = 25.0
+gravity = Vector2(0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="se" type="Node" parent="."]
+
+[node name="fireballExplode" type="AudioStreamPlayer" parent="se"]
+stream = ExtResource("3_1jvnx")
+
+[node name="tntExplode" type="AudioStreamPlayer" parent="se"]
+stream = ExtResource("2_p0tj5")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="animationTimer" to="." method="_on_animation_timer_timeout"]

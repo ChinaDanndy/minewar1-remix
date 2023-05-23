@@ -16,7 +16,7 @@ var animation#
 var souEff = {"attack":null,"hurt":null,"attackSec":null,"walk":null,"death":null}
 var souEffValue:Dictionary
 var stepSe=[null,null,null,null]
-var particles = {"hurt":null,"attack":null,"attackSec":null,"death":null}
+var particles = {"hurt":null,"attack":null,"attackSec":null,"walk":null,"death":null}
 var particlesValue:Dictionary
 
 var currentState = State.PUSH
@@ -296,8 +296,10 @@ func _on_animated_sprite_2d_frame_changed():
 	$cover.texture = spirte.get_frame_texture(currentAni,$AnimatedSprite2D.frame)
 	#$outLine.texture = spirte.get_frame_texture(currentAni,$AnimatedSprite2D.frame)
 	if $AnimatedSprite2D.frame == animation[$AnimatedSprite2D.animation]-1:
-#		match currentState:
-#			State.PUSH,State.BACK:
+		match currentState:
+			State.PUSH,State.BACK:
+				if souEff["walk"] != null: souEff["walk"].playing = true
+				if particles["walk"] != null: particles["walk"].emitting = true
 #				var stepRand = randf_range(0,3)
 #				stepSe[stepRand].playing = true
 		match currentState:

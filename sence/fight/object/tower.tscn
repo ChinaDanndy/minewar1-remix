@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://detljadg4j24r"]
+[gd_scene load_steps=7 format=3 uid="uid://detljadg4j24r"]
 
 [ext_resource type="PackedScene" uid="uid://bnr6hau4agucb" path="res://sence/fight/object.tscn" id="1_6kuqs"]
 [ext_resource type="Script" path="res://script/fight/object/tower.gd" id="2_3fwhs"]
@@ -8,6 +8,13 @@
 resource_local_to_scene = true
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_daec4"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 16
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_j8qi2"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
@@ -58,6 +65,24 @@ stream = ExtResource("3_ecexi")
 
 [node name="smallExplode" parent="particles" index="0"]
 material = SubResource("CanvasItemMaterial_daec4")
+
+[node name="bigExplode" parent="particles" index="1"]
+material = SubResource("CanvasItemMaterial_j8qi2")
+
+[node name="towerDeath" type="CPUParticles2D" parent="particles" index="2"]
+emitting = false
+amount = 40
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.8
+direction = Vector2(0, -1)
+spread = 120.0
+gravity = Vector2(0, 300)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color = Color(0.141176, 0.141176, 0.141176, 1)
 
 [connection signal="timeout" from="SkillTimer" to="." method="_on_skill_timer_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

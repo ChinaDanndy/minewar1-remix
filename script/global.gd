@@ -11,7 +11,7 @@ const MIDDLE = 0
 #MONSTER,ALL,VILLAGE
 const LAyer = [[2,8,32],[1+2+16+32],[1,4,16]]
 #碰撞层：敌方普通，敌方海,敌方基地,敌友全部除海,全部，我方普通，我方海，我方基地
-const MAsk = [[1+16,1+4+16,16,1],[1+2+16+32],[2+32,2+8+32,32,2]]
+const MAsk = [[1+16,1+4+16,16,1+4],[1+2+16+32],[2+32,2+8+32,32,2+8]]
 #const deathLayer = 32
 enum AttackType {NEAR,FAR,EXPLODE}
 const AddDamage = 1.5
