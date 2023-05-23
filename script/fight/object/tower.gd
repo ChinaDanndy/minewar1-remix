@@ -1,6 +1,7 @@
 extends "res://script/fight/object.gd"
 var unPeopleFly = true
 var towKeepTime#
+var goldPos = -20
 
 func firstSetting(soldier):
 	super.SetValue(soldier)
@@ -14,12 +15,14 @@ func firstSetting(soldier):
 	collision_layer = Global.LAyer[camp+1][2]
 	position.y = Global.FightGroundY+collBox.y
 	effDefence[Global.Effect.KNOCK] = true
-	$out.emitting = true
-	$outSe.play()
+	$particles/out.emitting = true
+	$particles/gold.visible = false
+	$se/outSe.volume_db = Global.SeDB
+	$se/outSe.play()
 	pass
 
 func _process(_delta):
-	$outSe.volume_db = Global.SeDB
+	$se/gold.volume_db = Global.SeDB
 #	if unPeopleFly == true:
 #		position.y -= 2
 	if position.y <= Global.FightGroundY-(collBox.y/2)&&dropSpeed != null:
@@ -27,7 +30,7 @@ func _process(_delta):
 		dropSpeed = null
 		position.y = Global.FightGroundY-(collBox.y/2)
 		if soldierName[0] == "projector": $Collision1.collide_with_areas = true
-		if soldierName[0] == "golder"||soldierName[0] == "cave": $Timer.start(speed)
+		if soldierName[0] == "golder"||soldierName[0] == "cave": $SkillTimer.start(speed)
 		if towKeepTime != null: $DeathTimer.start(towKeepTime)
 #			if !giveEffect[ani["usual"]].is_empty():
 #				var usual = 1
@@ -39,7 +42,12 @@ pass
 
 func _on_skill_timer_timeout():
 	if soldierName[0] == "golder": 
-		if Global.NowMoney+damageBasic[0] <= Global.Money: Global.NowMoney += damageBasic[0]
+		if Global.NowMoney+damageBasic[0] <= Global.Money: 
+			Global.NowMoney += damageBasic[0]
+		else: Global.NowMoney == Global.Money
+	if Global.NowMoney != Global.Money:
+		goldShow()
+		$se/gold.play()
 	#蜘蛛笼
 	if soldierName[0] == "cave":  
 			var enemy = Global.MonsterSoldier.instantiate()
@@ -49,6 +57,14 @@ func _on_skill_timer_timeout():
 			pass
 	$SkillTimer.start(speed)
 	pass 
+	
+func goldShow():
+	$particles/gold.visible = true
+	$goldplayer.play("gold")
+	await get_tree().create_timer(0.4,false).timeout
+	$goldplayer.stop()
+	$particles/gold.visible = false 
+	pass
 
 func _on_death_timer_timeout():
 	health = 0

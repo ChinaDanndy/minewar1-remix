@@ -36,6 +36,13 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.588235)
 
+[node name="CD" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 76.0
+color = Color(0, 0, 0, 0.588235)
+
 [node name="ExplainBox" type="CanvasLayer" parent="."]
 layer = 2
 visible = false
@@ -66,6 +73,9 @@ theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = ExtResource("5_ds83k")
 text = "explain"
 autowrap_mode = 2
+
+[node name="CDTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

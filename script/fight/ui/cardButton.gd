@@ -10,6 +10,10 @@ var update = false
 var explainText
 var explainName
 var outLine = true
+var cd
+var cdAll
+var cdStart = false
+var originSize
 
 var soldier
 var price
@@ -20,7 +24,9 @@ var cardNum
 signal reSet
 
 func _ready():
+	originSize = size.y
 	cantBuy.visible = false
+	$CD.visible = false
 	#$ExplainBox.visible = false
 	num = int(str(name))-1
 	match cardType:
@@ -38,7 +44,9 @@ func _ready():
 				if soldier == null: cantBuy.visible = true
 		cType.BUY:
 			Global.FightSence.fightCard.connect(cardReSet)#特定卡获得数据
-			Global.FightButton.fight.connect(cardReSet)#选卡开始游戏后重置鼠标碰撞层
+			Global.FightButton.fight.connect(buyCardReSet)#选卡开始游戏后重置鼠标碰撞层
+			Global.FightSence.cardCD.connect(cardCDStart)#特定卡获得数据
+
 			self.button_mask = 0
 			#outLine = false
 		cType.SHOP:
@@ -56,9 +64,6 @@ func _ready():
 			display()
 			Global.ChangePageButton.reSetAll.connect(cardReSet)
 			
-
-
-	
 #	if Global.TextData.has(soldier)&&cardType == cType.SHOP:
 #		$ExplainBox/Pos/name.text = Global.TextData[soldier]["name"]
 #		$ExplainBox/Pos/explain.text = Global.TextData[soldier]["explain"]
@@ -71,6 +76,8 @@ func display():
 	match cardType:
 		cType.CHOICE,cType.BUY:
 			price = Global.STSData[soldier]["price"]#基本属性填充
+			cd = Global.STSData[soldier]["cd"]
+			cdAll = cd
 		cType.SHOP: 
 			if update == true: price = Global.LevelData[0]["UpdatePrice"][num][Global.Brought[soldier]]
 			else: price = Global.LevelData[0]["villageBuyPrice"][num]
@@ -94,11 +101,27 @@ func cardReSet():
 		soldier = Global.LevelData[Global.NowLevel]["chosenCard"][num]
 		if soldier != null: display()
 		else: visible = false
-	self.button_mask = MOUSE_BUTTON_MASK_LEFT
-	#outLine = true
-	cantBuy.visible = false
-	if cardType == cType.SHOW||cardType == cType.SHOP: display()
+		buyCardReSet()
+	if cardType == cType.SHOW||cardType == cType.SHOP: 
+		self.button_mask = MOUSE_BUTTON_MASK_LEFT
+		#outLine = true
+		cantBuy.visible = false
+		display()
 	pass
+
+func buyCardReSet():
+	self.button_mask = 0#等待冷却
+	cantBuy.visible = true
+	$CD.visible = true
+	if cdStart == true: $CDTimer.start(cd)
+	pass
+
+func cardCDStart(): 
+	$CDTimer.start(cd)
+	cdStart = true
+	pass
+
+
 
 func _process(_delta):
 	$ExplainBox/Pos.position = global_position
@@ -113,7 +136,6 @@ func _process(_delta):
 						#outLine = false
 						material = null
 						self.button_mask = 0
-					pass
 			cType.BUY: 
 				soldier = Global.ChosenCard[num]
 				if soldier != null: 
@@ -135,9 +157,20 @@ func _process(_delta):
 				if update == true: 
 					if Global.LevelData[0]["UpdateLevel"][num][Global.Brought[soldier]] > Global.Level:
 						visible = false#升级后两个价格数据一样
-				else:  if Global.LevelData[0]["villageBuyLevel"][num] > Global.Level: visible = false
-				
+				else:  
+					if Global.LevelData[0]["villageBuyLevel"][num] > Global.Level: visible = false
+	else:
+		if cardType == cType.BUY:
+			if Global.NowMoney >= price&&$CDTimer.time_left == 0&&self.button_mask == 0:
+				self.button_mask = MOUSE_BUTTON_MASK_LEFT
+				cantBuy.visible = false
+				$CD.visible = false
+				$CD.size.y = originSize
+			if $CDTimer.time_left > 0:	
+				$CD.size.y = (originSize*($CDTimer.time_left/cd)) 
+			
 	pass
+
 
 func _on_pressed():
 	if Global.ChoiceWindow.visible == true:
@@ -179,30 +212,36 @@ func _on_pressed():
 			cardReSet()
 	else:
 		if cardType == cType.BUY:#战斗开始买卡
-			if Global.CardBuy == null&&Global.NowMoney>=price:#士兵
-				if Global.STSData[soldier]["type"] == "soldier":
+			if Global.NowMoney>=price&&$CDTimer.time_left == 0:#士兵
+				if Global.STSData[soldier]["type"] == "soldier"&&Global.CardBuy == null:
 					Global.NowMoney -= price
 					var friend = Global.Soldier.instantiate()
 					friend.camp = Global.VILLAGE
 					Global.root.add_child(friend)
 					friend.firstSetting(soldier)
+					buyCardReSet()
 				#塔和技能有区域选择
 				if (Global.STSData[soldier]["type"] == "tower")||(Global.STSData[soldier]["type"] == "skill"):
-					match self.button_mask:
-						MOUSE_BUTTON_MASK_LEFT:#左键
-							Global.CardBuy = soldier
-							var Area = choiceArea.instantiate()
-							Area.soldier = soldier
-							Area.card = self
-							Global.root.add_child(Area)
-							areaId = Area#传递创建的选择区域id
-							self.button_mask = MOUSE_BUTTON_MASK_RIGHT
-						MOUSE_BUTTON_MASK_RIGHT:#右键
-							Global.CardBuy = null
-							areaId.queue_free()
-							Global.towerArea.visible = false
-							Global.skillArea.visible = false
-							self.button_mask = MOUSE_BUTTON_MASK_LEFT
+					
+					if (self.button_mask == MOUSE_BUTTON_MASK_LEFT&&Global.CardBuy == null)||(
+					self.button_mask == MOUSE_BUTTON_MASK_RIGHT&&Global.CardBuy == soldier):
+						match self.button_mask:
+							MOUSE_BUTTON_MASK_LEFT:#左键
+								Global.CardBuy = soldier
+								var Area = choiceArea.instantiate()
+								Area.soldier = soldier
+								Area.card = self
+								Global.root.add_child(Area)
+								areaId = Area#传递创建的选择区域id
+								self.button_mask = MOUSE_BUTTON_MASK_RIGHT
+								material = Global.CardOutLine
+							MOUSE_BUTTON_MASK_RIGHT:#右键
+								Global.CardBuy = null
+								areaId.queue_free()
+								Global.towerArea.visible = false
+								Global.skillArea.visible = false
+								self.button_mask = MOUSE_BUTTON_MASK_LEFT
+								material = null
 	pass
 
 func _on_mouse_entered():
@@ -215,3 +254,8 @@ func _on_mouse_exited():
 	#if outLine == true: material = null
 #	$ExplainBox.visible = false
 	pass
+
+
+
+
+

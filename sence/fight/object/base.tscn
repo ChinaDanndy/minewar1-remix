@@ -1,15 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://sw52nar1no4d"]
+[gd_scene load_steps=7 format=3 uid="uid://sw52nar1no4d"]
 
+[ext_resource type="Texture2D" uid="uid://8dirif2atd8f" path="res://assets/objects/baseMonster.png" id="1_70xc8"]
 [ext_resource type="Script" path="res://script/fight/object/base.gd" id="1_cefax"]
 [ext_resource type="AudioStream" uid="uid://c85opu8am5gpn" path="res://assets/music/se/tower/wood4.ogg" id="2_l2eaf"]
 [ext_resource type="Material" uid="uid://dc2jp2h20etga" path="res://rescourse/hurtWhite.tres" id="2_l07fi"]
+[ext_resource type="Texture2D" uid="uid://bicq700yypgy1" path="res://assets/UI/others/healthNormal.png" id="5_tqx4h"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(20, 44)
 
 [node name="object" type="Sprite2D"]
+texture = ExtResource("1_70xc8")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -5.0
 offset_top = -32.0
 offset_right = 31.0
@@ -28,3 +32,28 @@ stream = ExtResource("2_l2eaf")
 
 [node name="cover" type="Sprite2D" parent="."]
 material = ExtResource("2_l07fi")
+
+[node name="healthLine" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -67.0
+offset_bottom = -67.0
+
+[node name="health" type="TextureRect" parent="healthLine"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.5
+offset_right = 45.5
+offset_bottom = 10.0
+grow_horizontal = 2
+texture = ExtResource("5_tqx4h")
+
+[node name="ColorRect" type="ColorRect" parent="healthLine/health"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 89.0
+offset_bottom = 8.0
+color = Color(0.627451, 0.627451, 0.627451, 1)

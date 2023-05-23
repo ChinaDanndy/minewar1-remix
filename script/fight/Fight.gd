@@ -13,6 +13,7 @@ var thunderTimeRand
 #signal cardMessage
 signal reloadSence
 signal fightCard
+signal cardCD
 signal BossLv2
 signal BossLv3
 
@@ -70,8 +71,9 @@ func fightStart():
 	Global.CardUp = 6
 	
 	$monsterShow.visible = false
-	#await get_tree().create_timer(1,false).timeout#开局延迟开始
 	emit_signal("fightCard")
+	#await get_tree().create_timer(1,false).timeout#开局延迟开始
+	emit_signal("cardCD")
 	$Up/Moneytext.visible = true
 	if bossLv == null: $baseMonster.visible = true
 	$baseVillage.visible = true

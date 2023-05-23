@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://bhvrla6g275uy"]
+[gd_scene load_steps=14 format=3 uid="uid://bhvrla6g275uy"]
 
 [ext_resource type="Script" path="res://script/fight/Fight.gd" id="1_0rvy3"]
 [ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="2_1lg06"]
 [ext_resource type="PackedScene" uid="uid://sw52nar1no4d" path="res://sence/fight/object/base.tscn" id="3_jxcqd"]
 [ext_resource type="Texture2D" uid="uid://c6o27yerkolvm" path="res://assets/objects/baseVillage.png" id="4_8miln"]
-[ext_resource type="Texture2D" uid="uid://8dirif2atd8f" path="res://assets/objects/baseMonster.png" id="5_efdka"]
 [ext_resource type="PackedScene" uid="uid://cnnifqydayh65" path="res://sence/fight/ui/card.tscn" id="6_4unhj"]
 [ext_resource type="Texture2D" uid="uid://cyrd7ii3pyc0" path="res://assets/objects/attackBoss.png" id="6_gbug6"]
 [ext_resource type="Texture2D" uid="uid://dk8yspmeqggbm" path="res://assets/UI/button/stop_normal.png" id="6_q5rai"]
@@ -32,7 +31,6 @@ texture = ExtResource("4_8miln")
 
 [node name="baseMonster" parent="." instance=ExtResource("3_jxcqd")]
 position = Vector2(787, 263)
-texture = ExtResource("5_efdka")
 
 [node name="bossProtect" parent="." instance=ExtResource("3_jxcqd")]
 visible = false
@@ -107,7 +105,7 @@ text = "1"
 [node name="position" type="Node2D" parent="."]
 
 [node name="MonsterPoint" type="Marker2D" parent="position"]
-position = Vector2(500, 297)
+position = Vector2(400, 297)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 

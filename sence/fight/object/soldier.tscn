@@ -40,6 +40,9 @@ material = SubResource("CanvasItemMaterial_w3h0f")
 anim_speed_min = 2.0
 anim_speed_max = 2.0
 
+[node name="bigExplode" parent="particles" index="1"]
+material = SubResource("CanvasItemMaterial_q02gy")
+
 [node name="regeneration" type="CPUParticles2D" parent="particles" index="2"]
 position = Vector2(0, 6)
 emitting = false
@@ -55,9 +58,6 @@ spread = 0.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 20.0
 initial_velocity_max = 20.0
-
-[node name="bigExplode" parent="particles" index="3"]
-material = SubResource("CanvasItemMaterial_q02gy")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="UsualTimer" to="." method="_on_usual_timer_timeout"]

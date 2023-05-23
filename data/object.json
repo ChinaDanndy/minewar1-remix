@@ -1,6 +1,7 @@
 {
     "shoveler":{
         "price":0,
+        "cd":0,
         "type":"soldier",
         "health":5,
         "animation":{"walk":6,"attack":4,"stop":1,"death":1},
@@ -15,6 +16,7 @@
     },
     "shielder":{
         "price":1,
+        "cd":50,
         "type":"soldier",
         "health":5,
         "soldierName":[null,"shielderNo"],
@@ -41,10 +43,11 @@
     },
     "projector":{
         "price":1,
+        "cd":2,
         "type":"tower",
         "health":5,
         "animation":{"attack":1,"stop":1,"death":1},
-        "souEffValue":{"hurt":"wood1","death":"towerDeath"},
+        "souEffValue":{"hurt":"wood1","attack":"arrowShoot","death":"towerDeath"},
         "particlesValue":{"hurt":"hurtWhite","death":"towerDeath"},
         "aniSpeedBasic":0.8,
         "towKeepTime":10,
@@ -57,8 +60,23 @@
         "proSleepTime":2,
         "dropSpeed":-3
     },
-    "regeneration":{
+    "golder":{
         "price":1,
+        "cd":2,
+        "type":"tower",
+        "health":5,
+        "animation":{"attack":1,"stop":1,"death":1},
+        "souEffValue":{"hurt":"wood1","death":"towerDeath"},
+        "particlesValue":{"hurt":"hurtWhite","death":"towerDeath"},
+        "aniSpeedBasic":1.5,
+        "speedBasic":1,
+        "damageBasic":[1.5,0],
+        "towKeepTime":10,
+        "dropSpeed":-3
+    },
+    "regeneration":{
+        "price":3,
+        "cd":5,
         "type":"skill",
         "ifAoeHold":true,
         "aoeModel":"village",
@@ -126,6 +144,7 @@
     },
     "snowman":{
         "price":1,
+        "cd":5,
         "type":"soldier",
         "health":5,
         "animation":{"walk":1,"attack":3,"stop":1,"death":1},
@@ -143,6 +162,7 @@
     },   
     "assassinFirst":{
         "price":1,
+        "cd":5,
         "type":"soldier",
         "soldierName":[null,"assassin"],
         "health":7,
@@ -171,6 +191,7 @@
     },
     "power":{
         "price":1,
+        "cd":5,
         "type":"skill",
         "ifAoeHold":false,
         "aoeModel":"village",
@@ -251,6 +272,7 @@
     "iron":
     {
         "price":1,
+        "cd":5,
         "type":"soldier",
         "health":50,
         "animation":{"walk":1,"attack":10,"stop":1,"death":1},
@@ -267,7 +289,8 @@
         "giveEffect":[[0,0,0,0,0,0,-1],[],[],[]]
     },
     "worm":{
-        "price":1,
+        "price":8,
+        "cd":5,
         "kind":"sky",
         "coll2Pos":"skyLine",
         "type":"soldier",
@@ -286,16 +309,6 @@
         "proSpeed":[5,5],
         "dropSpeed":3,
         "deathAttType":"death"
-    },
-    "golder":{
-        "price":1,
-        "type":"tower",
-        "health":5,
-        "animation":{"attack":1,"stop":1,"death":1},
-        "aniSpeedBasic":1.5,
-        "speedBasic":1,
-        "damageBasic":[1.5,0],
-        "towKeepTime":10
     },
 
     "ghost":{
@@ -397,6 +410,7 @@
 
     "freeze":{
         "price":1,
+        "cd":5,
         "type":"skill",
         "ifAoeHold":false,
         "aoeModel":"monster",
@@ -408,6 +422,7 @@
     },    
     "wall":{
         "price":1,
+        "cd":5,
         "type":"tower",
         "health":5,
         "animation":{"attack":1,"stop":1,"death":1},

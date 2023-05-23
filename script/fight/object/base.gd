@@ -3,6 +3,8 @@ var camp = 0
 signal ProtectDown 
 @export var AName:String
 @onready var picture = get_parent()
+@onready var healthColor = get_parent().get_node("healthLine/health/ColorRect")
+var originSize
 var effDefence = [true,true,true,true,false,false,true]
 var attDefence = [false,false,false]
 var type
@@ -17,6 +19,7 @@ func firstSetting(Name):
 		health = Global.LevelData[Global.NowLevel]["set"][Name]
 	else: health = Global.STSData["creeperKing"]["protectHealth"] 
 	healthUp = health
+	originSize = healthColor.size.x
 	collision_layer = Global.LAyer[camp+1][2]
 	if get_parent().name == "baseMonster": 
 		match Global.LevelData[Global.NowLevel]["set"]["levelType"]:
@@ -30,6 +33,8 @@ func firstSetting(Name):
 	get_parent().position.y = Global.FightGroundY-(collBox.y/2)
 	get_parent().get_node("cover").texture = get_parent().texture
 	get_parent().get_node("cover").visible = false
+	
+	get_parent().get_node("healthLine").position.y = (-collBox.y/2-16)
 	pass
 	
 func _ready():
@@ -43,7 +48,7 @@ func hurt():
 	pass
 	
 func _process(_delta):
-
+	healthColor.size.x = originSize*(health/healthUp)
 	get_parent().get_node("Label").text = str(health)
 	if get_parent().name == "bossProtect":
 		if Input.is_action_just_pressed("ui_test"):

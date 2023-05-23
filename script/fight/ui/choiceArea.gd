@@ -47,10 +47,11 @@ func _process(_delta):
 		friend.camp = Global.VILLAGE
 		friend.firstSetting(soldier)
 		friend.position.x = global_position.x
-		
 		area.visible = false
 		Global.NowMoney -= Global.STSData[soldier]["price"]
 		card.button_mask = MOUSE_BUTTON_MASK_LEFT#恢复购买
+		card.material = null
+		card.buyCardReSet()
 		Global.CardBuy = null
 		queue_free()
 	if area == Global.towerArea:

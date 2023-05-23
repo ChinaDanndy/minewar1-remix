@@ -305,21 +305,22 @@ func _on_animated_sprite_2d_frame_changed():
 		match currentState:
 			State.ATTACK: 
 				if is_instance_valid(other): 
-					if proContinueTimes == null:  
-						attack()
-						var nowAni = currentAni
-						if currentAni == "attackThr": 
-							nowAni = "attack"
-							if souEff["attackSec"] != null: souEff["attackSec"].playing = true
-							if particles["attackSec"] != null: particles["attackSec"].emitting = true
-						if souEff[nowAni] != null: souEff[nowAni].playing = true
-						if particles[nowAni] != null: particles[nowAni].emitting = true
+					var nowAni = currentAni
+					if currentAni == "attackThr": 
+						nowAni = "attack"
+						if souEff["attackSec"] != null: souEff["attackSec"].playing = true
+						if particles["attackSec"] != null: particles["attackSec"].emitting = true
+					if souEff[nowAni] != null: souEff[nowAni].playing = true
+					if particles[nowAni] != null: particles[nowAni].emitting = true
+					if proContinueTimes == null:  attack()
 					else: 
 						if proTimes<proContinueTimes:#脉冲箭塔持续射击一会休息一下
 							proTimes +=1
 							attack()
 							if proTimes == proContinueTimes:
+								currentState = State.STOP
 								await get_tree().create_timer(proSleepTime,false).timeout
+								currentState = State.ATTACK
 								proTimes = 0
 			#State.DEATH: 
 
