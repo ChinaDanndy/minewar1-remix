@@ -13,10 +13,10 @@ enum State {ATTACK,STOP,DEATH,BACK,PUSH,OUTSEA,FALL}
 const ani = {"attack":0,"attackSec":1,"death":2,"usual":3}#usual = 2
 var spirte
 var animation#
-var souEff = {"attack":null,"hurt":null,"attackSec":null,"walk":null,"death":null}
+var souEff = {"attack":null,"hurt":null,"attackSec":null,"walk":null,"stop":null,"death":null}
 var souEffValue:Dictionary
 var stepSe=[null,null,null,null]
-var particles = {"hurt":null,"attack":null,"attackSec":null,"walk":null,"death":null}
+var particles = {"hurt":null,"attack":null,"attackSec":null,"walk":null,"stop":null,"death":null}
 var particlesValue:Dictionary
 
 var currentState = State.PUSH
@@ -159,8 +159,8 @@ func reSet(soldier):
 	pass
 	
 func _process(_delta):#每帧执行的部分
-	if currentState == State.FALL: 
-		position.y += dropSpeed
+	
+	if currentState == State.FALL:  position.y += dropSpeed
 	testchangeState()#状态切换检测	
 	$Label.text = str(health)
 #	if camp == Global.MONSTER:
@@ -189,15 +189,16 @@ func _process(_delta):#每帧执行的部分
 	else:
 		$Collision1.target_position = Vector2(0,attRange[0])
 		$Collision1.position = Vector2(-50,-100)
-		#print($Collision1.collide_with_areas)
 	$Collision2.target_position = Vector2(attRange[1]*camp,0)
 	$AnimatedSprite2D.speed_scale = aniSpeed
 	
 	if health <= 0&&currentState != State.DEATH&&currentState != State.FALL: #死亡判定
 		deathSet()
+		
 		#死亡特效
 		if animation.has("deathFall"): changeState("deathFall",State.FALL)
 		else: changeState("death",State.DEATH)
+		
 	if Input.is_action_just_pressed("ui_select"):#测试用
 		if camp == Global.MONSTER:
 			#print(speedEffect)
@@ -305,23 +306,23 @@ func _on_animated_sprite_2d_frame_changed():
 #				stepSe[stepRand].playing = true
 		match currentState:
 			State.ATTACK: 
-				if is_instance_valid(other): 
-					var nowAni = currentAni
-					if currentAni == "attackThr": 
-						nowAni = "attack"
-						if souEff["attackSec"] != null: souEff["attackSec"].playing = true
-						if particles["attackSec"] != null: particles["attackSec"].emitting = true
-					if souEff[nowAni] != null: souEff[nowAni].playing = true
-					if particles[nowAni] != null: particles[nowAni].emitting = true
+				if is_instance_valid(other) == true: 
+					if proTimes!=proContinueTimes:
+						var nowAni = currentAni
+						if currentAni == "attackThr": 
+							nowAni = "attack"
+							if souEff["attackSec"] != null: souEff["attackSec"].playing = true
+							if particles["attackSec"] != null: particles["attackSec"].emitting = true
+						if souEff[nowAni] != null: souEff[nowAni].playing = true
+						if particles[nowAni] != null: particles[nowAni].emitting = true
+					
 					if proContinueTimes == null:  attack()
 					else: 
 						if proTimes<proContinueTimes:#脉冲箭塔持续射击一会休息一下
 							proTimes +=1
 							attack()
 							if proTimes == proContinueTimes:
-								currentState = State.STOP
 								await get_tree().create_timer(proSleepTime,false).timeout
-								currentState = State.ATTACK
 								proTimes = 0
 			#State.DEATH: 
 
@@ -434,6 +435,7 @@ func effectTimerTimeout(effName,effKeepTimes,effDam,GoodOrBad):
 	pass
 
 func deathSet():
+	$AnimatedSprite2D.material = null
 	$Collision1.collide_with_areas = false
 	$Collision2.collide_with_areas = false
 	$cover.visible = false
@@ -441,6 +443,7 @@ func deathSet():
 	monitorable = false
 	collision_layer = 0
 	if soldierName[0]=="cave": Global.CaveHas = false
+	if is_in_group("monsterSoldier"): remove_from_group("monsterSoldier")
 	pass
 	
 func reload():

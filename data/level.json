@@ -9,7 +9,6 @@
         "villObjectHasLevel":{"shoveler":1,"shielder":1,"projector":1,"regeneration":1,
         "snowman":1,"assassinFirst":1,"freeze":1,"wall":1,
         "iron":1,"worm":1,"power":1,"golder":1},
-
         "allMonsterObject":["zombie","creeper","skeleton","sear","witch","ghost","spider","axer",
         null,null,null,null,null,null,null,null],
         "allVillageBuyObject":["freeze","wall","power","golder"],
@@ -25,7 +24,6 @@
             "lastTime":10,
             "gunpowderRand":5,
             "timeRand":{"Min":1,"Max":3,"Cut":0.5}
-
         },
         "miniGame2":{
             "keepTime":30,
@@ -34,14 +32,82 @@
             "reloadTime":1,
             "fireworkSpeed":8,
             "mobSpeed":{"zombie":4,"ghost":2,"rand":0.5},
-            "timeRand":{"zombie":{"Min":3,"Max":5},"ghost":{"Min":0.5,"Max":3}}
-            
+            "timeRand":{"zombie":{"Min":3,"Max":5},"ghost":{"Min":0.5,"Max":3}}  
         }
+    },
+    {
+        "set":{"levelType":"defence","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "thunderTime":0,"thunderTimeRand":0,
+        "caveTime":0,"caveTimeRand":0},
+        "groups":[
+            {
+                "firstCD":0,
+                "firstCDNum":null,
+                "soldier":["creeper","zombie","zombie","zombie"],
+                "soldierCD":1,
+                "groupCD":4,
+                "groupCDRand":1,
+                "times":3,
+                "stopPos":null,
+                "stopTime":null
+            }
+        ],"banCard":[],"chosenCard":["shielder","shoveler","projector","regeneration","iron","worm"]
+    },
+    {
+        "set":{"levelType":"defence","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "thunderTime":0,"thunderTimeRand":0,
+        "caveTime":0,"caveTimeRand":0},
+        "groups":[
+            {
+                "firstCD":5,
+                "firstCDNum":[],
+                "soldier":["skeleton"],
+                "soldierCD":0,
+                "groupCD":12,
+                "groupCDRand":0,
+                "times":2,
+                "stopPos":null,
+                "stopTime":null
+            },
+            {
+                "firstCD":0,
+                "firstCDNum":[],
+                "soldier":["creeper","zombie","zombie"],
+                "soldierCD":1.6,
+                "groupCD":3.5,
+                "groupCDRand":0.2,
+                "times":1,
+                "stopPos":null,
+                "stopTime":null
+            },
+            {
+                "firstCD":4,
+                "firstCDNum":[2,2],
+                "soldier":["zombie","zombie","skeleton"],
+                "soldierCD":1,
+                "groupCD":3,
+                "groupCDRand":0.2,
+                "times":2,
+                "stopPos":null,
+                "stopTime":null
+            },
+            {
+                "firstCD":3,
+                "firstCDNum":[2,3],
+                "soldier":["creeper","zombie","zombie","zombie","skeleton","skeleton"],
+                "soldierCD":1.4,
+                "groupCD":1,
+                "groupCDRand":0,
+                "times":1,
+                "stopPos":null,
+                "stopTime":null
+            }
+        ],"banCard":[],"chosenCard":["shielder","shoveler","projector","regeneration","iron","worm"]
     },
     {
         "set":{"levelType":"normal","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,
         "thunderTime":0,"thunderTimeRand":0,
-        "caveTime":1,"caveTimeRand":0},
+        "caveTime":0,"caveTimeRand":0},
         "groups":[
             {
                 "firstCD":0,
@@ -53,51 +119,93 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["assassinFirst","shoveler","snowman","projector","freeze","golder"]
+        ],"banCard":[],"chosenCard":[]
     },
-    [
-        {"levelType":"defence","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[
+    {
+        "set":{"levelType":"normal","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "thunderTime":0,"thunderTimeRand":0,
+        "caveTime":0,"caveTimeRand":0},
+        "groups":[
             {
                 "firstCD":0,
-                "soldier":["zombie","creeper"],
-                "soldierCD":0.6,
-                "groupCD":0.4,
+                "soldier":["zombie"],
+                "soldierCD":0.8,
+                "groupCD":1,
                 "groupCDRand":0,
-                "times":1,
+                "times":3,
                 "stopPos":null,
                 "stopTime":null
             }
-        ],[],["assassinFirst","shoveler","snowman","projector","freeze","golder"]
-    ],
-    [
-        {"levelType":"defence","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[
+        ],"banCard":[],"chosenCard":[]
+    },
+    {
+        "set":{"levelType":"normal","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "thunderTime":0,"thunderTimeRand":0,
+        "caveTime":0,"caveTimeRand":0},
+        "groups":[
             {
                 "firstCD":0,
-                "soldier":["zombie","creeper","skeleton"],
-                "soldierCD":0.6,
-                "groupCD":0.4,
+                "soldier":["zombie"],
+                "soldierCD":0.8,
+                "groupCD":1,
                 "groupCDRand":0,
-                "times":1,
+                "times":3,
                 "stopPos":null,
                 "stopTime":null
             }
-        ],[],["assassinFirst","shoveler","snowman","projector","freeze","worm"]
-    ],
-    [
-        {"levelType":"defence","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[
+        ],"banCard":[],"chosenCard":[]
+    },
+    {
+        "set":{"levelType":"normal","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "thunderTime":0,"thunderTimeRand":0,
+        "caveTime":0,"caveTimeRand":0},
+        "groups":[
             {
                 "firstCD":0,
-                "soldier":["zombie","creeper","skeleton"],
-                "soldierCD":0.6,
-                "groupCD":0.4,
+                "soldier":["zombie"],
+                "soldierCD":0.8,
+                "groupCD":1,
                 "groupCDRand":0,
-                "times":1,
+                "times":3,
                 "stopPos":null,
                 "stopTime":null
             }
-        ],[],["assassinFirst","shoveler","snowman","projector","freeze","worm"]
-    ],
-
+        ],"banCard":[],"chosenCard":[]
+    },
+    {
+        "set":{"levelType":"normal","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "thunderTime":0,"thunderTimeRand":0,
+        "caveTime":0,"caveTimeRand":0},
+        "groups":[
+            {
+                "firstCD":0,
+                "soldier":["zombie"],
+                "soldierCD":0.8,
+                "groupCD":1,
+                "groupCDRand":0,
+                "times":3,
+                "stopPos":null,
+                "stopTime":null
+            }
+        ],"banCard":[],"chosenCard":[]
+    },
+    {
+        "set":{"levelType":"boss","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "thunderTime":0,"thunderTimeRand":0,
+        "caveTime":0,"caveTimeRand":0},
+        "groups":[
+            {
+                "firstCD":0,
+                "soldier":["zombie"],
+                "soldierCD":0.8,
+                "groupCD":1,
+                "groupCDRand":0,
+                "times":3,
+                "stopPos":null,
+                "stopTime":null
+            }
+        ],"banCard":[],"chosenCard":[]
+    },
     [
         {"levelType":"boss","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,"thunderTime":0,"thunderTimeRand":0},[
             {

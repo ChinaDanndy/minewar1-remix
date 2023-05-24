@@ -12,11 +12,11 @@ func _ready():
 	pass
 
 func _on_mouse_entered():
-	material = Global.ButtonOutLine
+	#material = Global.ButtonOutLine
 	pass
 
 func _on_mouse_exited():
-	material = null
+	#material = null
 	pass
 
 func _on_pressed():

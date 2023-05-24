@@ -11,7 +11,9 @@ func firstSetting(soldier):
 
 	match camp:
 		Global.VILLAGE: position.x = Global.VillagePoint.x
-		Global.MONSTER: position.x = Global.MonsterPoint.x
+		Global.MONSTER: 
+			position.x = Global.MonsterPoint.x
+			add_to_group("monsterSoldier")
 	
 	if stopTime == 0: Global.SummonEnemy.stopOver.connect(onStopOver)
 	collision_layer = Global.LAyer[camp+1][0]
@@ -72,11 +74,12 @@ func _process(_delta):
 #			$Collision1.collide_with_areas = false
 #			reSet(soldierName[1])
 #			changeState("stop",State.FALL)
-#		else:
-		nowEffect[Global.Effect.ATTDAMAGE+Global.EffGood] = Global.EffValue[Global.Effect.ATTDAMAGE]
-		nowEffect[Global.Effect.SPEED+Global.EffGood] = Global.EffValue[Global.Effect.SPEED]
+		if tp == null:
+			nowEffect[Global.Effect.ATTDAMAGE+Global.EffGood] = Global.EffValue[Global.Effect.ATTDAMAGE]
+			nowEffect[Global.Effect.SPEED+Global.EffGood] = Global.EffValue[Global.Effect.SPEED]
+		else: position.x = Global.VillagePoint.x+50#末影人二次传送
 		healthEffValue = -1000
-	
+		
 	if position.y >= Global.FightGroundY&&dropSpeed != null: 
 		dropSpeed = null
 		position.y = Global.FightGroundY-(collBox.y/2)
@@ -99,9 +102,9 @@ func contrl():#玩家的单位控制
 func regenerationSet():  $particles/regeneration.emitting = true
 
 func _on_input_event(_viewport,event, _shape_idx):
-	if event.is_action_pressed("ui_mouse_left")&&camp == Global.VILLAGE: #soldierName[0]!="assassinFirst":
+	if event.is_action_pressed("ui_mouse_left")&&camp == Global.VILLAGE&&soldierName[0]!="assassinFirst"&&soldierName[1]!="assassin":
 		Global.Contrl = soldierName[0]
-		material = Global.SoldierOutLine
+		$AnimatedSprite2D.material = Global.SoldierOutLine
 	pass 
 func _on_stop_timer_timeout():
 	changeState("walk",State.PUSH)

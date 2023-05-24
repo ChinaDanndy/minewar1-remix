@@ -30,7 +30,7 @@ position = Vector2(72, 258)
 texture = ExtResource("4_8miln")
 
 [node name="baseMonster" parent="." instance=ExtResource("3_jxcqd")]
-position = Vector2(787, 263)
+position = Vector2(780, 263)
 
 [node name="bossProtect" parent="." instance=ExtResource("3_jxcqd")]
 visible = false
@@ -110,12 +110,12 @@ text = "1"
 [node name="position" type="Node2D" parent="."]
 
 [node name="MonsterPoint" type="Marker2D" parent="position"]
-position = Vector2(400, 297)
+position = Vector2(700, 297)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="VillagePoint" type="Marker2D" parent="position"]
-position = Vector2(160, 297)
+position = Vector2(110, 297)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 

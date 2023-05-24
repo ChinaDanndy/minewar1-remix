@@ -37,6 +37,13 @@ func _process(_delta):
 		if soldierName[0] == "projector": $Collision1.collide_with_areas = true
 		if soldierName[0] == "golder"||soldierName[0] == "cave": $SkillTimer.start(speed)
 		if towKeepTime != null: $DeathTimer.start(towKeepTime)
+	#currentAni = "attack"
+
+	if health <= 0:
+		$SkillTimer.stop()
+		$particles/gold.visible = false
+		$goldplayer.stop()
+		$particles/cave.emitting = false
 #			if !giveEffect[ani["usual"]].is_empty():
 #				var usual = 1
 #				Global.aoe_create(self,Global.CREATE,aoeModel[usual],aoeRange[usual],ifAoeHold[usual],
@@ -75,9 +82,5 @@ func goldShow():
 	pass
 
 func _on_death_timer_timeout():
-	health = 0
-	$SkillTimer.stop()
-	$particles/gold.visible = false
-	$goldplayer.stop()
-	$particles/cave.emitting = false
+	if health > 0: health = -10
 	pass

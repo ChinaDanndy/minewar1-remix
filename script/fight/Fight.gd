@@ -20,7 +20,7 @@ signal BossLv2
 signal BossLv3
 
 func _ready():
-	Global.NowLevel = 1
+	#Global.NowLevel = 1
 	
 	if Global.LevelData[Global.NowLevel]["set"]["levelType"] != "boss": 
 		$Boss.free()
@@ -49,10 +49,10 @@ func _ready():
 		for i in Global.LevelData[Global.NowLevel]["groups"].size():
 			for j in Global.LevelData[Global.NowLevel]["groups"][i]["soldier"]:
 				if !allMonster.has(j): allMonster.append(j)	
-		if !allMonster.is_empty():
-			for i in allMonster.size():
-				var mShow = get_node("monsterShow/HBoxContainer/mShow%s"%(i+1))
-				mShow.texture = load("res://assets/objects/soldier/%s/walk/walk1.png"%allMonster[i])
+#		if !allMonster.is_empty():
+#			for i in allMonster.size():
+#				var mShow = get_node("monsterShow/HBoxContainer/mShow%s"%(i+1))
+#				mShow.texture = load("res://assets/objects/soldier/%s/walk/walk1.png"%allMonster[i])
 		$monsterShow.visible = true
 	else:
 		Global.ChoiceWindow.visible =false#有给定卡不开选卡
@@ -86,7 +86,7 @@ func _on_cave_timer_timeout():
 	
 func fightStart():
 	Global.CardUp = 6
-	
+	print(Global.NowLevel)
 	$monsterShow.visible = false
 	emit_signal("fightCard")
 	#await get_tree().create_timer(1,false).timeout#开局延迟开始

@@ -191,6 +191,7 @@ func _ready():#读入数据
 	if Brought["card"] == 2: CardUp = 6
 	if Brought["gold"] == 1: Money = 20
 	if Brought["gold"] == 2: Money = 30
+	Money = 10
 
 	var file = FileAccess.open("res://data/object.json", FileAccess.READ)#user:
 	var content = file.get_as_text()#读取所有士兵数据

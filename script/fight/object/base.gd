@@ -14,10 +14,11 @@ var shield =0
 var collBox
 
 func firstSetting(Name):
+
 	type = "base"
 	if get_parent().name != "bossProtect": 
 		health = Global.LevelData[Global.NowLevel]["set"][Name]
-	else: health = Global.STSData["creeperKing"]["protectHealth"] 
+	else: health = Global.STSData["creeperKing"]["protectHealth"]
 	healthUp = health
 	originSize = healthColor.size.x
 	collision_layer = Global.LAyer[camp+1][2]
@@ -48,6 +49,7 @@ func hurt():
 	pass
 	
 func _process(_delta):
+	if Input.is_action_just_pressed("ui_test"): print(health)
 	healthColor.size.x = originSize*(health/healthUp)
 	get_parent().get_node("Label").text = str(health)
 	if get_parent().name == "bossProtect":
