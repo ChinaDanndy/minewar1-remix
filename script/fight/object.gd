@@ -42,7 +42,6 @@ var damagerType=[[null],[null],[null]]#有伤害加成的攻击目标
 var damageBasic = [0,0,0]#
 var damage= [0,0]#我方技能传递时此值为-1让aoe范围包括海陆空
 
-
 var Projectile = preload("res://sence/fight/object/projectiles.tscn")
 var attRangeBasic = [0,0]#
 var attRange = [0,0]
@@ -76,7 +75,6 @@ var dropSpeed#
 var unSee = false#
 var startDrop = false#
 var deathAttType#
-
 var healthTpDistance#
 var attDefOrigin = [false,false,false]#
 var attDefence = attDefOrigin
@@ -102,9 +100,11 @@ func SetValue(soldier):
 		set(STSDatename,Global.STSData[soldier][STSDatename])
 	if dropSpeed != null: dropSpeed = int(dropSpeed)
 	soldierName = soldierName.duplicate()
+
 	pass
 	
 func SetAnimationAndCollBox(soldier):
+	addSoundAndParticles()
 	#if is_instance_valid(spirte) == true: spirte.free()
 	spirte = SpriteFrames.new()#给动画播放器添加图片
 	for i in animation.keys():
@@ -113,6 +113,15 @@ func SetAnimationAndCollBox(soldier):
 		for j in animation[i]:
 			var picture = load("res://assets/objects/%s/%s/%s/%s%s.png"% [type,soldier,i,i,j+1])
 			spirte.add_frame(i,picture)
+	$AnimatedSprite2D.sprite_frames = spirte
+	changeAnimation(currentAni,currentState)
+	#填充碰撞箱
+	var newBox = RectangleShape2D.new()
+	newBox.size = collBox
+	$CollisionShape2D.shape = newBox
+	pass
+	
+func addSoundAndParticles():
 	for i in souEffValue: 
 		if souEff.has(i):
 			souEff[i] = AudioStreamPlayer.new()
@@ -122,12 +131,6 @@ func SetAnimationAndCollBox(soldier):
 		if particles.has(i):
 			if i == "hurt": $cover.material = load("res://rescourse/%s.tres"%particlesValue[i]) 
 			else: particles[i] = get_node("particles/%s"%particlesValue[i])
-	$AnimatedSprite2D.sprite_frames = spirte
-	changeAnimation(currentAni,currentState)
-	#填充碰撞箱
-	var newBox = RectangleShape2D.new()
-	newBox.size = collBox
-	$CollisionShape2D.shape = newBox
 	pass
 	
 func firstSetting(soldier):
@@ -143,28 +146,27 @@ func firstSetting(soldier):
 	soldierName[0] = soldier
 	nowEffect[Global.Effect.FREEZE] = SpeState.MOVE
 	healthUp = health#记录血量上限
-	if attDefShield != null: attDefence = attDefShield
+	collMask()
+	pass
+	
+func collMask():
 	collision_mask = Global.MAsk[camp+1][0]#设置碰撞的笼罩层
 	if ifOnlyAttBase == true:  collision_mask = Global.MAsk[camp+1][2]
-	#把设置过的碰撞层导入射线检测的碰撞层
-	if type != "skill":
-		$Collision1.collision_mask = collision_mask
-		$Collision2.collision_mask = collision_mask
+	$Collision1.collision_mask = collision_mask
+	$Collision2.collision_mask = collision_mask
 	pass
 	
 func reSet(soldier):
 	soldierName[0] = null
 	SetValue(soldier)
 	SetAnimationAndCollBox(soldier)
+	collMask()
 	pass
 	
 func _process(_delta):#每帧执行的部分
-	
 	if currentState == State.FALL:  position.y += dropSpeed
 	testchangeState()#状态切换检测	
 	$Label.text = str(health)
-#	if camp == Global.MONSTER:
-#		print(soldierName)
 
 	for i in souEff: 
 		if souEff[i] != null: souEff[i].set_volume_db(Global.SeDB)#时刻保持音量与全局音量一致
@@ -183,18 +185,17 @@ func _process(_delta):#每帧执行的部分
 	aniSpeed = (aniSpeedBasic+(aniSpeedBasic*(nowEffect[Global.Effect.SPEED]
 	+nowEffect[Global.Effect.SPEED+Global.EffGood])))*nowEffect[Global.Effect.FREEZE]
 	
-	if startDrop == false:
-		$Collision1.position = Vector2(0,0)
-		$Collision1.target_position = Vector2(attRange[0]*camp,0)
-	else:
-		$Collision1.target_position = Vector2(0,attRange[0])
-		$Collision1.position = Vector2(-50,-100)
+#	if startDrop == false:
+	if soldierName[0] != "spider": $Collision1.position = Vector2(0,7)
+	$Collision1.target_position = Vector2(attRange[0]*camp,0)
+#	else:
+#	$Collision1.target_position = Vector2(0,attRange[0])
+#	$Collision1.position = Vector2(-50,-100)
 	$Collision2.target_position = Vector2(attRange[1]*camp,0)
 	$AnimatedSprite2D.speed_scale = aniSpeed
 	
 	if health <= 0&&currentState != State.DEATH&&currentState != State.FALL: #死亡判定
 		deathSet()
-		
 		#死亡特效
 		if animation.has("deathFall"): changeState("deathFall",State.FALL)
 		else: changeState("death",State.DEATH)
@@ -221,9 +222,10 @@ func testchangeState():
 				if unSee == true: 
 					collision_layer = Global.LAyer[camp+1][0]
 					$AnimatedSprite2D.modulate.a = 1
-				if tpDistance != null&&tp == true&&other.type != "base": 
-					position.x += tpDistance*camp#末影人瞬移
-					tp = false#低血量tp到基地
+				if tpDistance != null&&other.type != "base"&&health>0: 
+					if tpDistance > 0:
+						position.x += tpDistance*camp#末影人瞬移
+						tpDistance = 0#低血量tp到基地
 				if startDrop == true:
 					$Collision1.collide_with_areas = false
 					reSet(soldierName[1])
@@ -340,8 +342,8 @@ func _on_animated_sprite_2d_animation_finished():
 		Global.aoe_create(self,Global.CREATE,aoeModel[i],aoeRange[i],ifAoeHold[i],
 		attackType[i],damageBasic[i],damagerType[i],giveEffect[i],effValue[i],
 		effTime[i],effTimes[i])
-		deathAttType = null
-	if camp == Global.MONSTER: Global.MonsterDeaths += 1
+		#deathAttType = null
+	#if camp == Global.MONSTER: Global.MonsterDeaths += 1
 	$AnimatedSprite2D.visible = false
 	souEff["death"].playing = true
 	if particles["death"] != null: particles["death"].emitting = true
@@ -446,9 +448,8 @@ func deathSet():
 	if is_in_group("monsterSoldier"): remove_from_group("monsterSoldier")
 	pass
 	
-func reload():
-	queue_free()
-	pass 
+func reload(): queue_free()
+
 
 
 

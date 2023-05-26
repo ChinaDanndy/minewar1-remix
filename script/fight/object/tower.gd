@@ -35,7 +35,9 @@ func _process(_delta):
 		dropSpeed = null
 		position.y = Global.FightGroundY-(collBox.y/2)
 		if soldierName[0] == "projector": $Collision1.collide_with_areas = true
-		if soldierName[0] == "golder"||soldierName[0] == "cave": $SkillTimer.start(speed)
+		if soldierName[0] == "golder"||soldierName[0] == "cave": 
+			$SkillTimer.start(speedBasic)
+			if soldierName[0] == "cave": _on_skill_timer_timeout()
 		if towKeepTime != null: $DeathTimer.start(towKeepTime)
 	#currentAni = "attack"
 

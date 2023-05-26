@@ -14,14 +14,8 @@ var shield =0
 var collBox
 
 func firstSetting(Name):
-
 	type = "base"
-	if get_parent().name != "bossProtect": 
-		health = Global.LevelData[Global.NowLevel]["set"][Name]
-	else: health = Global.STSData["creeperKing"]["protectHealth"]
-	healthUp = health
-	originSize = healthColor.size.x
-	collision_layer = Global.LAyer[camp+1][2]
+
 	if get_parent().name == "baseMonster": 
 		match Global.LevelData[Global.NowLevel]["set"]["levelType"]:
 			"attack": get_parent().texture = load("res://assets/objects/attackNormal.png")
@@ -31,13 +25,22 @@ func firstSetting(Name):
 	collBox = get_parent().texture.get_size()
 	newBox.size = collBox
 	$CollisionShape2D.shape = newBox
-	get_parent().position.y = Global.FightGroundY-(collBox.y/2)
+	
 	get_parent().get_node("cover").texture = get_parent().texture
 	get_parent().get_node("cover").visible = false
-	
 	get_parent().get_node("healthLine").position.y = (-collBox.y/2-16)
-	pass
 	
+	if get_parent().name != "bossProtect": 
+		health = Global.LevelData[Global.NowLevel]["set"][Name]
+		get_parent().position.y = Global.FightGroundY-(collBox.y/2)
+	else: 
+		health = Global.STSData["creeperKing"]["protectHealth"]
+		get_parent().position.y = Global.FightSkyY
+	healthUp = health
+	originSize = healthColor.size.x
+	collision_layer = Global.LAyer[camp+1][2]
+	
+	pass
 func _ready():
 	pass
 
@@ -58,5 +61,6 @@ func _process(_delta):
 		if health <= 0&&get_parent().visible == true:
 			get_parent().visible = false
 			monitorable = false
+			collision_layer = 0
 			emit_signal("ProtectDown")
 	pass

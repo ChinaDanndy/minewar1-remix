@@ -20,14 +20,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(20, 44)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rwoas"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cu3dl"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_t4ljm"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1m7jt"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
@@ -66,12 +66,12 @@ offset_bottom = -9.0
 [node name="particles" type="Node2D" parent="."]
 
 [node name="smallExplode" parent="particles" instance=ExtResource("4_nb6nl")]
-material = SubResource("CanvasItemMaterial_rwoas")
+material = SubResource("CanvasItemMaterial_cu3dl")
 amount = 30
 emission_sphere_radius = 30.0
 
 [node name="bigExplode" parent="particles" instance=ExtResource("4_nb6nl")]
-material = SubResource("CanvasItemMaterial_t4ljm")
+material = SubResource("CanvasItemMaterial_1m7jt")
 amount = 50
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

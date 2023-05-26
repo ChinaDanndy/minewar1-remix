@@ -46,7 +46,6 @@ func _ready():
 			Global.FightSence.fightCard.connect(cardReSet)#特定卡获得数据
 			Global.FightButton.fight.connect(buyCardReSet)#选卡开始游戏后重置鼠标碰撞层
 			Global.FightSence.cardCD.connect(cardCDStart)#特定卡获得数据
-
 			self.button_mask = 0
 			#outLine = false
 		cType.SHOP:
@@ -117,8 +116,9 @@ func buyCardReSet():
 	pass
 
 func cardCDStart(): 
-	$CDTimer.start(cd)
-	cdStart = true
+	if soldier != null:
+		$CDTimer.start(cd)
+		cdStart = true
 	pass
 
 
@@ -160,7 +160,7 @@ func _process(_delta):
 				else:  
 					if Global.LevelData[0]["villageBuyLevel"][num] > Global.Level: visible = false
 	else:
-		if cardType == cType.BUY:
+		if cardType == cType.BUY&&soldier != null:
 			if Global.NowMoney >= price&&$CDTimer.time_left == 0&&self.button_mask == 0:
 				self.button_mask = MOUSE_BUTTON_MASK_LEFT
 				cantBuy.visible = false
@@ -168,6 +168,9 @@ func _process(_delta):
 				$CD.size.y = originSize
 			if $CDTimer.time_left > 0:	
 				$CD.size.y = (originSize*($CDTimer.time_left/cd)) 
+			if Global.NowMoney < price:
+				self.button_mask = 0
+				cantBuy.visible = true
 			
 	pass
 

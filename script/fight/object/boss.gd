@@ -11,6 +11,7 @@ var bossLv
 
 func _ready():
 	super.SetValue("creeperKing")
+	super.addSoundAndParticles()
 	camp = Global.MONSTER
 	attDefence = [true,true,true]
 	effDefence = [true,true,true,true,true,true,true]
@@ -23,22 +24,26 @@ func _ready():
 	pass
 
 func _process(_delta):
+	#$cover.texture = $Normal.sprite_frames.get_frame_texture(
+	#$Normal.animation,$Normal.frame)
+
 	Global.MonsterPoint.x = global_position.x
 	$RayCast2D.force_raycast_update()
 	$Label.text = str(health)
+	if position.x <= Global.BossStopX&&bossLv == 2&&norAni.animation != "stop2":
+			norAni.play("stop2")
 	if $RayCast2D.is_colliding():
 		if norAni.animation != "stop2"&&bossLv == 2: norAni.play("stop2")
 		if $attackTimer.time_left == 0: $attackTimer.start(1)
 	else:
 		if bossLv == 2: 
-			if norAni.animation == "stop2": norAni.play("walk")
+			if norAni.animation != "walk"&&position.x > Global.BossStopX: norAni.play("walk")
 			if position.x > Global.BossStopX: position.x -= speed
 		$attackTimer.stop()
 	pass
 
-func _on_attack_timer_timeout():
-	craeteThu("thunderBoss")
-	pass
+func _on_attack_timer_timeout(): craeteThu("thunder")
+	
 	
 func Lv2():
 	bossLv = 2
@@ -52,8 +57,9 @@ func Lv3():
 	bossLv = 3
 	$attackTimer.stop()
 	var i = 0
-	Global.aoe_create(self,Global.CREATE,"all",aoeRange[i],ifAoeHold[i],attackType[i],damage[i],
+	Global.aoe_create(self,Global.CREATE,aoeModel[i],aoeRange[i],ifAoeHold[i],attackType[i],damage[i],
 	damagerType[i],giveEffect[i],effValue[i],effTime[i],effTimes[i])
+	
 	collLine.collide_with_areas = false
 	norAni.visible = false
 	tpAni.visible = true
@@ -78,7 +84,7 @@ func protectDown():
 	attDefence = [false,false,true]
 	effDefence = [true,true,true,true,false,false,true]
 	norAni.play("stop3")
-	craeteThu("thunderBossKill")
+	craeteThu("thunder")
 	await get_tree().create_timer(protectCD,false).timeout
 	norAni.play("stop1")
 	Global.BossProtect.health = protectHealth
@@ -93,7 +99,7 @@ func craeteThu(thu):
 	Global.root.add_child(newthunder)
 	newthunder.camp = Global.MONSTER
 	newthunder.firstSetting(thu)
-	newthunder.position.x = position.x-30
+	newthunder.position.x = global_position.x-45
 	pass
 	
 

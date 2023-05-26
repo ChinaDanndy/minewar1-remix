@@ -2,15 +2,17 @@ extends Node2D
 var count = 0
 var summonEnemy = preload("res://script/fight/calu/summonEnemy.gd")
 var summonEnemyID
-const lvType = {}
-var bossLv
+var bossLv = 0
 
-var attackTime
-var moneyTime
-var thunderTime
-var thunderTimeRand
-var caveTime
-var caveTimeRand
+var attackTime = 0
+var moneyTime = 0
+var thunderTime = 0
+var thunderTimeRand = 0
+var caveTime = 0
+var caveTimeRand = 0
+
+var minute = 0
+var second = 0
 
 #signal cardMessage
 signal reloadSence
@@ -21,7 +23,7 @@ signal BossLv3
 
 func _ready():
 	#Global.NowLevel = 1
-	
+	$Up/Leveltext/LeveltextValue.text = str(Global.NowLevel)
 	if Global.LevelData[Global.NowLevel]["set"]["levelType"] != "boss": 
 		$Boss.free()
 		$bossProtect.free()
@@ -38,10 +40,7 @@ func _ready():
 
 	moneyTime = Global.LevelData[0]["moneySpeed"]
 	Global.ThunderSpeed = Global.LevelData[0]["thunderSpeed"]
-	thunderTime = Global.LevelData[Global.NowLevel]["set"]["thunderTime"]
-	thunderTimeRand = Global.LevelData[Global.NowLevel]["set"]["thunderTimeRand"]
-	caveTime = Global.LevelData[Global.NowLevel]["set"]["caveTime"]
-	caveTimeRand = Global.LevelData[Global.NowLevel]["set"]["caveTimeRand"]	
+	attackTime = Global.LevelData[Global.NowLevel]["set"]["attackTime"]
 	
 	if Global.LevelData[Global.NowLevel]["chosenCard"].is_empty():
 		Global.ChoiceWindow.visible = true
@@ -68,7 +67,7 @@ func _on_thundertimer_timeout():
 		newthunder.camp = Global.MONSTER
 		newthunder.firstSetting("thunder")
 		newthunder.position.x = target.position.x-20
-	$Timer/Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
+	$Timer/Thundertimer.start(thunderTime+randf_range(-thunderTimeRand,thunderTimeRand))
 	pass
 	
 func _on_cave_timer_timeout():
@@ -81,18 +80,19 @@ func _on_cave_timer_timeout():
 		tower.position.x = randi_range(pos-size,pos+size)
 		Global.root.add_child(tower)
 		Global.CaveHas = true
-	$Timer/CaveTimer.start(caveTime+randi_range(-caveTimeRand,caveTimeRand))
+	$Timer/CaveTimer.start(caveTime+randf_range(-caveTimeRand,caveTimeRand))
 	pass 
 	
 func fightStart():
-	Global.CardUp = 6
-	print(Global.NowLevel)
+	Global.CardUp = 5
+
 	$monsterShow.visible = false
 	emit_signal("fightCard")
 	#await get_tree().create_timer(1,false).timeout#开局延迟开始
 	emit_signal("cardCD")
+	time()
 	$Up/Moneytext.visible = true
-	if bossLv == null: $baseMonster.visible = true
+	if bossLv < 0: $baseMonster.visible = true
 	$baseVillage.visible = true
 	#$Spacetext.visible = false
 	
@@ -100,12 +100,17 @@ func fightStart():
 	Global.add_child(newEnemy)
 	summonEnemyID = newEnemy
 	
+	if attackTime >0:
+		$Up/AttackTime.visible = true
+		$Timer/attackTimer.start(1)
 	$Timer/Moneytimer.start(moneyTime)
-	if thunderTime >0: 
-		$Timer/Thundertimer.start(thunderTime+randi_range(-thunderTimeRand,thunderTimeRand))
-	if caveTime >0: 
-		$Timer/CaveTimer.start(caveTime+randi_range(-caveTimeRand,caveTimeRand))
+	if Global.LevelData[Global.NowLevel]["set"]["thunderTime"] > 0: 
+		$Timer/Thundertimer.start(Global.LevelData[Global.NowLevel]["set"]["thunderTime"])
+	if Global.LevelData[Global.NowLevel]["set"]["caveTime"] > 0: 
+		$Timer/CaveTimer.start(Global.LevelData[Global.NowLevel]["set"]["caveTime"])
 	pass
+	
+
 	
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_select"):
@@ -113,13 +118,20 @@ func _process(_delta):
 		pass
 
 	$Up/Moneytext/Moneycount.text = str(Global.NowMoney) +"/"+ str(Global.Money)
-	if Global.NowMoney != Global.Money&&$Timer/Moneytimer.one_shot == true:
+	if Global.NowMoney < Global.Money&&$Timer/Moneytimer.paused == true:
+		$Timer/Moneytimer.paused = false
 		$Timer/Moneytimer.start(moneyTime)
-	$Up/AttackTime/AttackTimeValue.text = str(attackTime)
-
+	$Up/TestTime/TestTimeValue.text = ("%sm%ss"%[minute,second])
+	
+	thunderTime = Global.LevelData[Global.NowLevel]["set"]["thunderTime"]
+	thunderTimeRand = Global.LevelData[Global.NowLevel]["set"]["thunderTimeRand"]
+	caveTime = Global.LevelData[Global.NowLevel]["set"]["caveTime"]
+	caveTimeRand = Global.LevelData[Global.NowLevel]["set"]["caveTimeRand"]
+	
+	if bossLv > 0:
+		$monnsterTowerArea.position.x = $Boss.global_position.x-$monnsterTowerArea.size.x-20
 	if Global.VillageBase.health <= 0: Global.StopWindow.text("lose")
 	if Global.MonsterBase.health <= 0: Global.StopWindow.text("win")
-	
 	match Global.LevelData[Global.NowLevel]["set"]["levelType"]:
 		"defence","boss":
 			if Global.LevelOver == true&&get_tree().get_nodes_in_group("monsterSoldier").is_empty(): 
@@ -131,8 +143,9 @@ func _process(_delta):
 					var newEnemy = summonEnemy.new()
 					Global.add_child(newEnemy)
 					summonEnemyID = newEnemy
+					$Timer/CaveTimer.stop()
+					$Timer/Thundertimer.start(thunderTime)
 					emit_signal("BossLv2")
-					
 	if bossLv == 2:
 		if Global.MonsterBase.health<=Global.MonsterBase.bossSecHealth:
 			Global.NowLevel += 1
@@ -142,20 +155,29 @@ func _process(_delta):
 			Global.add_child(newEnemy)
 			summonEnemyID = newEnemy
 			attackTime = Global.LevelData[Global.NowLevel]["set"]["attackTime"]
+			$Timer/CaveTimer.start(caveTime)
+			$Timer/Thundertimer.start(thunderTime)
 			emit_signal("BossLv3")
 					
 	if Global.LevelData[Global.NowLevel]["set"]["levelType"] == "attack":
+		$Up/AttackTime/AttackTimeValue.text = str(attackTime)
 		if attackTime <= 0: Global.VillageBase.health = 0
 	pass
 	
-func _on_attack_timer_timeout():
-	if attackTime>0: attackTime -= 1
+func time():
+	second += 1
+	if second == 60: 
+		second = 0
+		minute +=1
+	await get_tree().create_timer(1,false).timeout
+	time()
 	pass
+	
+func _on_attack_timer_timeout(): attackTime -= 1
 
 func _on_moneytimer_timeout():
-	if Global.NowMoney < Global.Money:
-		Global.NowMoney += 1
-	if Global.NowMoney == (Global.Money-1): $Timer/Moneytimer.one_shot = true
+	if Global.NowMoney < Global.Money: Global.NowMoney += 1
+	if Global.NowMoney == (Global.Money): $Timer/Moneytimer.paused = true
 	pass 
 
 func _on_tree_exited():
@@ -168,6 +190,7 @@ func _on_tree_exited():
 	Global.ChosenCard = [null,null,null,null,null,null]
 	Global.ChosenId = [null,null,null,null,null,null]
 	Global.ChosenCardNum = 0
+	if bossLv > 0: Global.NowLevel = 8
 	emit_signal("reloadSence")
 	pass
 	
@@ -180,7 +203,7 @@ func _on_tree_entered():
 #	if Global.CardUp == 4:
 #		$card/HBoxContainer/CardButton5.visible = false
 #		$card/HBoxContainer/CardButton6.visible = false
-#	if Global.CardUp == 5: $card/HBoxContainer/CardButton6.visible = false
+	if Global.CardUp == 5: $Up/card/HBoxContainer/CardButton6.visible = false
 	#Global.StopWindowLayer = $StopWindowLayer
 	
 	Global.FightGroundY = $position/ground.position.y

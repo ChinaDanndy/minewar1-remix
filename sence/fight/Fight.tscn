@@ -38,8 +38,7 @@ position = Vector2(617, 188)
 texture = ExtResource("6_gbug6")
 
 [node name="Boss" parent="." instance=ExtResource("12_jn8mm")]
-visible = false
-position = Vector2(444, 291)
+position = Vector2(760, 291)
 
 [node name="monsterShow" type="Control" parent="."]
 layout_mode = 3
@@ -89,6 +88,8 @@ one_shot = true
 [node name="Moneytimer" type="Timer" parent="Timer"]
 wait_time = 0.5
 
+[node name="Timer" type="Timer" parent="Timer"]
+
 [node name="Spacetext" type="Label" parent="."]
 visible = false
 offset_left = 11.0
@@ -110,7 +111,7 @@ text = "1"
 [node name="position" type="Node2D" parent="."]
 
 [node name="MonsterPoint" type="Marker2D" parent="position"]
-position = Vector2(700, 297)
+position = Vector2(780, 297)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
@@ -130,13 +131,11 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="bossStop" type="Marker2D" parent="position"]
-visible = false
-position = Vector2(330, 298)
+position = Vector2(540, 298)
 gizmo_extents = 40.0
 
 [node name="bossPos" type="Marker2D" parent="position"]
-visible = false
-position = Vector2(530, 302)
+position = Vector2(700, 302)
 gizmo_extents = 40.0
 
 [node name="towerArea" type="ColorRect" parent="."]
@@ -149,7 +148,6 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="monnsterTowerArea" type="ColorRect" parent="."]
-visible = false
 offset_left = 540.0
 offset_top = 286.0
 offset_right = 740.0
@@ -187,9 +185,9 @@ texture_hover = ExtResource("7_a3cl8")
 script = ExtResource("9_eg3an")
 
 [node name="card" parent="Up" instance=ExtResource("6_4unhj")]
-offset_left = 69.0
+offset_left = 96.0
 offset_top = 352.0
-offset_right = 69.0
+offset_right = 96.0
 offset_bottom = 352.0
 
 [node name="choiceCard" parent="Up" instance=ExtResource("6_qxmrc")]
@@ -217,7 +215,6 @@ offset_bottom = 44.0
 text = "1"
 
 [node name="AttackTime" type="Label" parent="Up"]
-visible = false
 offset_left = 11.0
 offset_top = 320.0
 offset_right = 54.0
@@ -233,6 +230,35 @@ offset_right = 100.0
 offset_bottom = 26.0
 text = "1
 "
+
+[node name="TestTime" type="Label" parent="Up"]
+offset_left = 9.0
+offset_top = 388.0
+offset_right = 48.0
+offset_bottom = 414.0
+text = "Time"
+
+[node name="TestTimeValue" type="Label" parent="Up/TestTime"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 22.0
+offset_right = 36.0
+offset_bottom = 48.0
+text = "1"
+
+[node name="Leveltext" type="Label" parent="Up"]
+offset_right = 45.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Level:"
+
+[node name="LeveltextValue" type="Label" parent="Up/Leveltext"]
+layout_mode = 0
+offset_left = 50.0
+offset_right = 60.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1"
 
 [node name="StopWindow" parent="." instance=ExtResource("10_jfeyj")]
 layer = 2

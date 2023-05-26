@@ -3,6 +3,7 @@ var unPeopleFly = true
 var thunderAphla = 0
 
 func firstSetting(soldier):
+	Global.FightSence.reloadSence.connect(reload)
 	super.SetValue(soldier)
 	$Sprite2D.texture = load("res://assets/objects/skill/%s.png"% soldier)
 	#collBox = $Sprite2D.texture.get_size()
@@ -58,5 +59,10 @@ func _process(_delta):
 	pass
 
 func _on_area_entered(area):
-	if area.soldierName[0] == "creeper": area.call_deferred("reSet",area.soldierName[1])
+	if area.soldierName[0] == "creeper": 
+		area.call_deferred("reSet",area.soldierName[1])
+		area.remove_from_group("creeper")
 	pass
+	
+func reload(): queue_free()
+

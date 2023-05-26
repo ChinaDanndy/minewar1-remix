@@ -19,7 +19,7 @@ func _ready():
 	collision_mask = Global.MAsk[Mod[aoeModel]][0]
 	var newRange = RectangleShape2D.new()#AOE范围
 	newRange.size = Vector2(aoeRange,20)
-	if damagerType[0] == "regenerationDo": 
+	if damagerType[0] == "regenerationDo":#防御塔不能回血
 		collision_mask = Global.MAsk[Mod[aoeModel]][3]
 	match damagerType[0]:
 		"regeneration","power","weakness":

@@ -2,15 +2,17 @@ extends "res://script/fight/object.gd"
 var stopPos
 var stopTime
 var stop = false
+@onready var Ani = $AnimatedSprite2D
 
 func firstSetting(soldier):
 	super.SetValue(soldier)
-	super.SetAnimationAndCollBox(soldier)
 	super.firstSetting(soldier)
-	if soldier == "creeper": add_to_group("creeper")#获得苦力怕id给劈闪电用
-
+	super.SetAnimationAndCollBox(soldier)
 	match camp:
-		Global.VILLAGE: position.x = Global.VillagePoint.x
+		Global.VILLAGE: 
+			if soldier == Global.Contrl: Ani.material = Global.SoldierOutLine
+			position.x = Global.VillagePoint.x
+			add_to_group(soldier)
 		Global.MONSTER: 
 			position.x = Global.MonsterPoint.x
 			add_to_group("monsterSoldier")
@@ -33,22 +35,27 @@ func firstSetting(soldier):
 			$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
 		"skyLine":#活塞虫
 			$Collision2.position.y = (distanceLandSky)
-			$Collision2.position.x = +(attRangeBasic[1]/4)
+			$Collision2.position.x = +(attRangeBasic[1]/2)
 	if coll2Pos != null: $Collision2.collide_with_areas = true
 	if usualTime != null: $UsualTimer.start(usualTime)
 	pass
 
-
 func _on_usual_timer_timeout():#平常给予效果
 	var usual = 3
+	var newdamagerType = [null]
+	if giveEffect[usual][Global.Effect.DAMAGE] == Global.EFFGOOD:
+		newdamagerType = ["regenerationDo"]
 	Global.aoe_create(self,Global.CREATE,aoeModel[usual],aoeRange[usual],ifAoeHold[usual]
-	,null,null,[null],giveEffect[usual],effValue[usual],effTime[usual],effTimes[usual])
+	,null,null,newdamagerType,giveEffect[usual],effValue[usual],effTime[usual],effTimes[usual])
 	pass
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
 		if camp == Global.VILLAGE: health = 0
 		#$AnimatedSprite2D.play("attack")
+	if camp == Global.MONSTER:
+		if Global.MonsterBase.position.x - position.x>50&&soldierName[0] == "creeper"&&!is_in_group("creeper"):
+			add_to_group("creeper")#获得苦力怕id给劈闪电用
 	if camp == Global.VILLAGE: 
 		position.x = clamp(position.x,Global.VillagePoint.x-16,Global.MonsterPoint.x+16)#限制移动范围
 	if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&currentState != State.FALL: 
@@ -74,10 +81,11 @@ func _process(_delta):
 #			$Collision1.collide_with_areas = false
 #			reSet(soldierName[1])
 #			changeState("stop",State.FALL)
-		if tp == null:
+		if tpDistance == null:
 			nowEffect[Global.Effect.ATTDAMAGE+Global.EffGood] = Global.EffValue[Global.Effect.ATTDAMAGE]
 			nowEffect[Global.Effect.SPEED+Global.EffGood] = Global.EffValue[Global.Effect.SPEED]
-		else: position.x = Global.VillagePoint.x+50#末影人二次传送
+		else: 
+			if health > 0: position.x = Global.VillagePoint.x+50#末影人二次传送
 		healthEffValue = -1000
 		
 	if position.y >= Global.FightGroundY&&dropSpeed != null: 
@@ -104,7 +112,10 @@ func regenerationSet():  $particles/regeneration.emitting = true
 func _on_input_event(_viewport,event, _shape_idx):
 	if event.is_action_pressed("ui_mouse_left")&&camp == Global.VILLAGE&&soldierName[0]!="assassinFirst"&&soldierName[1]!="assassin":
 		Global.Contrl = soldierName[0]
-		$AnimatedSprite2D.material = Global.SoldierOutLine
+		#$AnimatedSprite2D.material = Global.SoldierOutLine
+		var group = get_tree().get_nodes_in_group(soldierName[0])
+		for i in group: i.Ani.material = Global.SoldierOutLine
+			
 	pass 
 func _on_stop_timer_timeout():
 	changeState("walk",State.PUSH)
