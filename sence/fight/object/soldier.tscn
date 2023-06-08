@@ -27,7 +27,7 @@ script = ExtResource("2_sxvfl")
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_at3e2")
 
-[node name="UsualTimer" type="Timer" parent="." index="5"]
+[node name="UsualTimer" type="Timer" parent="." index="7"]
 
 [node name="stopTimer" type="Timer" parent="." index="8"]
 

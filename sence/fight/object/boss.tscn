@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://b6xxxvrvp1wc3"]
+[gd_scene load_steps=36 format=3]
 
 [ext_resource type="Texture2D" uid="uid://dxk72on6n5lf6" path="res://assets/objects/soldier/creeperKing/stop/stop1.png" id="1_g75yq"]
 [ext_resource type="Script" path="res://script/fight/object/boss.gd" id="1_ty8c6"]
@@ -28,7 +28,8 @@
 [ext_resource type="Texture2D" uid="uid://xrslj4e0idmr" path="res://assets/objects/soldier/creeperKing/walk/walk4.png" id="17_vfbue"]
 [ext_resource type="Texture2D" uid="uid://dbr0utxh0b6q8" path="res://assets/objects/soldier/creeperKing/walk/walk5.png" id="18_6gokx"]
 [ext_resource type="Texture2D" uid="uid://brycx5rmpa2od" path="res://assets/objects/soldier/creeperKing/walk/walk6.png" id="19_80gph"]
-[ext_resource type="PackedScene" uid="uid://dfqflpq488a1p" path="res://sence/particles/smallExplode.tscn" id="29_6ji3e"]
+[ext_resource type="PackedScene" uid="uid://dfqflpq488a1p" path="res://sence/particles/Explode.tscn" id="29_6ji3e"]
+[ext_resource type="Texture2D" uid="uid://bdu731lbkv8u4" path="res://assets/UI/others/healthBoss.png" id="29_fxtgj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vbb08"]
 resource_local_to_scene = true
@@ -168,14 +169,14 @@ animations = [{
 resource_local_to_scene = true
 size = Vector2(20, 46)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ry528"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rtauo"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sl7uc"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gkqg3"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
@@ -196,6 +197,7 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="Tp" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(0, -58)
 sprite_frames = SubResource("SpriteFrames_3ooom")
 frame = 14
@@ -210,29 +212,51 @@ visible = false
 shape = SubResource("RectangleShape2D_riqql")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(-20, 0)
+position = Vector2(-25, -300)
+target_position = Vector2(0, 300)
 
-[node name="Label" type="Label" parent="."]
-offset_left = -19.0
-offset_top = -48.0
-offset_right = 21.0
-offset_bottom = -25.0
-text = "1
-"
+[node name="healthLine" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -40.0
+offset_bottom = -40.0
+
+[node name="health" type="TextureRect" parent="healthLine"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.5
+offset_right = 45.5
+offset_bottom = 10.0
+grow_horizontal = 2
+texture = ExtResource("29_fxtgj")
+
+[node name="ColorRect" type="ColorRect" parent="healthLine/health"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 89.0
+offset_bottom = 8.0
+color = Color(0.470588, 0.196078, 0.588235, 1)
 
 [node name="attackTimer" type="Timer" parent="."]
 
 [node name="particles" type="Node2D" parent="."]
 
 [node name="smallExplode" parent="particles" instance=ExtResource("29_6ji3e")]
-material = SubResource("CanvasItemMaterial_ry528")
+material = SubResource("CanvasItemMaterial_rtauo")
 amount = 30
 emission_sphere_radius = 30.0
 
 [node name="bigExplode" parent="particles" instance=ExtResource("29_6ji3e")]
-material = SubResource("CanvasItemMaterial_sl7uc")
-amount = 80
-emission_sphere_radius = 80.0
+material = SubResource("CanvasItemMaterial_gkqg3")
+position = Vector2(0, -80)
+amount = 140
+lifetime = 0.5
+emission_sphere_radius = 110.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
 
 [connection signal="animation_finished" from="Tp" to="." method="_on_tp_animation_finished"]
 [connection signal="frame_changed" from="Tp" to="." method="_on_tp_frame_changed"]

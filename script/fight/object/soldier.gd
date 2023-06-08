@@ -34,7 +34,7 @@ func firstSetting(soldier):
 			$Collision2.position.y = (distanceLandSky)
 			$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
 		"skyLine":#活塞虫
-			$Collision2.position.y = (distanceLandSky)
+			$Collision2.position.y = (distanceLandSky)-20
 			$Collision2.position.x = +(attRangeBasic[1]/2)
 	if coll2Pos != null: $Collision2.collide_with_areas = true
 	if usualTime != null: $UsualTimer.start(usualTime)
@@ -51,10 +51,11 @@ func _on_usual_timer_timeout():#平常给予效果
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
-		if camp == Global.VILLAGE: health = 0
+		print(Global.MonsterBase.position)
+		#if camp == Global.VILLAGE: health = 0
 		#$AnimatedSprite2D.play("attack")
 	if camp == Global.MONSTER:
-		if Global.MonsterBase.position.x - position.x>50&&soldierName[0] == "creeper"&&!is_in_group("creeper"):
+		if Global.MonsterPoint.x - position.x>50&&soldierName[0] == "creeper"&&!is_in_group("creeper"):
 			add_to_group("creeper")#获得苦力怕id给劈闪电用
 	if camp == Global.VILLAGE: 
 		position.x = clamp(position.x,Global.VillagePoint.x-16,Global.MonsterPoint.x+16)#限制移动范围
@@ -88,9 +89,9 @@ func _process(_delta):
 			if health > 0: position.x = Global.VillagePoint.x+50#末影人二次传送
 		healthEffValue = -1000
 		
-	if position.y >= Global.FightGroundY&&dropSpeed != null: 
+	if position.y+(collBox.y/2) >= Global.FightGroundY&&dropSpeed != null: 
 		dropSpeed = null
-		position.y = Global.FightGroundY-(collBox.y/2)
+		#position.y = Global.FightGroundY-(collBox.y/2)
 		if startDrop == true:
 			changeState("walk",State.PUSH)
 			$Collision1.collide_with_areas = true

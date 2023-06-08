@@ -311,14 +311,14 @@
     },
     {
         "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,
-        "thunderTime":3,"thunderTimeRand":0,
+        "thunderTime":2,"thunderTimeRand":0,
         "caveTime":0,"caveTimeRand":0},
         "groups":[
             {
                 "firstCD":0,
                 "firstCDNum":[],
                 "soldier":["creeper"],
-                "soldierCD":0,
+                "soldierCD":8,
                 "groupCD":4,
                 "groupCDRand":1,
                 "times":0,
@@ -329,53 +329,53 @@
     },
     {
         "set":{"levelType":"boss","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,
-        "thunderTime":0,"thunderTimeRand":0,
-        "caveTime":2,"caveTimeRand":0},
-        "groups":[
-            {
-                "firstCD":0,
-                "soldier":["zombie"],
-                "firstCDNum":[],
-                "soldierCD":0,
-                "groupCD":2,
-                "groupCDRand":0,
-                "times":1,
-                "stopPos":null,
-                "stopTime":null
-            }
-        ],"banCard":[],"chosenCard":["shoveler","projector","regeneration","shielder","snowman",null ]
-    },
-    {
-        "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,
-        "thunderTime":2 ,"thunderTimeRand":0,
+        "thunderTime":2,"thunderTimeRand":0,
         "caveTime":0,"caveTimeRand":0},
         "groups":[
             {
                 "firstCD":0,
                 "soldier":["creeper"],
                 "firstCDNum":[],
-                "soldierCD":0,
+                "soldierCD":10,
+                "groupCD":2,
+                "groupCDRand":0,
+                "times":0,
+                "stopPos":null,
+                "stopTime":null
+            }
+        ],"banCard":[],"chosenCard":["shoveler","power","projector","assassinFirst","snowman","worm"]
+    },
+    {
+        "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "thunderTime":1 ,"thunderTimeRand":0,
+        "caveTime":0,"caveTimeRand":0},
+        "groups":[
+            {
+                "firstCD":0,
+                "soldier":["creeper"],
+                "firstCDNum":[],
+                "soldierCD":8,
                 "groupCD":3,
                 "groupCDRand":0,
-                "times":1,
+                "times":0,
                 "stopPos":null,
                 "stopTime":null
             }
         ],"banCard":[],"chosenCard":[]
     },
     {
-        "set":{"levelType":"attack","attackTime":200,"baseMonsterHealth":10,"baseVillageHealth":10,
-        "thunderTime":0,"thunderTimeRand":0,
+        "set":{"levelType":"attack","attackTime":500,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "thunderTime":5,"thunderTimeRand":0,
         "caveTime":0,"caveTimeRand":0},
         "groups":[
             {
                 "firstCD":0,
-                "soldier":["creeper"],
+                "soldier":["skeleton"],
                 "firstCDNum":[],
                 "soldierCD":0.8,
                 "groupCD":1,
                 "groupCDRand":0,
-                "times":3,
+                "times":1,
                 "stopPos":null,
                 "stopTime":null
             }

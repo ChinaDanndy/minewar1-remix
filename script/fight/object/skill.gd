@@ -22,8 +22,6 @@ func firstSetting(soldier):
 			newBox.size.x = aoeRange
 			newBox.size.y = 20
 			$CollisionShape2D.shape = newBox
-			$CollisionShape2D.position.x = position.x
-			$CollisionShape2D.position.y = 0
 			$thunder.play()
 	pass
 	
@@ -34,22 +32,19 @@ func _process(_delta):
 		currentState = State.STOP
 		position.y = Global.FightGroundY
 		await get_tree().create_timer(0.1,false).timeout
-		Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,null,null,[soldierName[0]],giveEffect,effValue,effTime,effTimes)
-		
+		#Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,null,null,[soldierName[0]],giveEffect,effValue,effTime,effTimes)
 		queue_free()
 			
 	match soldierName[0]:
 		"thunder","thunderBoss","thunderBossKill":  
 			if thunderAphla == 0: $Sprite2D.modulate.a += Global.ThunderSpeed
 			if $Sprite2D.modulate.a >= 1&&thunderAphla == 0:
-				$CollisionShape2D.position.y = collBox.y/2-10
 				thunderAphla += 1
-				Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false,null,
-				null,["thunder"],giveEffect,effValue,effTime,effTimes)
-				
+				$CollisionShape2D.position.y = collBox.y/2-20
 				await get_tree().create_timer(0.05,false).timeout 
 				$CollisionShape2D.position.y = 0 
-				
+				Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false,null,
+				null,["thunder"],giveEffect,effValue,effTime,effTimes)
 			if thunderAphla > 0:
 				$Sprite2D.modulate.a -= Global.ThunderSpeed
 				if $Sprite2D.modulate.a <= 0: 

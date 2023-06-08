@@ -100,7 +100,6 @@ func SetValue(soldier):
 		set(STSDatename,Global.STSData[soldier][STSDatename])
 	if dropSpeed != null: dropSpeed = int(dropSpeed)
 	soldierName = soldierName.duplicate()
-
 	pass
 	
 func SetAnimationAndCollBox(soldier):
@@ -161,6 +160,7 @@ func reSet(soldier):
 	SetValue(soldier)
 	SetAnimationAndCollBox(soldier)
 	collMask()
+	if soldierName[1] == "creeperThunder": health += 7
 	pass
 	
 func _process(_delta):#每帧执行的部分
@@ -251,8 +251,6 @@ func hurt():
 	$cover.visible = false
 	pass
 	
-
-	
 func changeState(AniName,StaName):#入海出海的动作图片在每个动画的前面放
 #	if kind == "sea":
 #		seaAni = AniName
@@ -317,7 +315,6 @@ func _on_animated_sprite_2d_frame_changed():
 							if particles["attackSec"] != null: particles["attackSec"].emitting = true
 						if souEff[nowAni] != null: souEff[nowAni].playing = true
 						if particles[nowAni] != null: particles[nowAni].emitting = true
-					
 					if proContinueTimes == null:  attack()
 					else: 
 						if proTimes<proContinueTimes:#脉冲箭塔持续射击一会休息一下
@@ -326,8 +323,7 @@ func _on_animated_sprite_2d_frame_changed():
 							if proTimes == proContinueTimes:
 								await get_tree().create_timer(proSleepTime,false).timeout
 								proTimes = 0
-			#State.DEATH: 
-
+			#State.DEATH:
 #		if currentState == State.OUTSEA: 
 #			changeState(seaAni,seaState)
 #			$Collision1.collide_with_areas = true
@@ -374,7 +370,7 @@ func attack():
 				deathSet()
 				changeState("death",State.DEATH)
 				$AnimatedSprite2D.visible = false
-				remove_from_group("creeper")
+				
 				#await get_tree().create_timer(2,false).timeout
 				#queue_free()#近战AOE且是爆炸伤害类型->只有自爆
 			if soldierName[0] == "assassinFirst": reSet(soldierName[1])
@@ -442,10 +438,10 @@ func deathSet():
 	$Collision2.collide_with_areas = false
 	$cover.visible = false
 	$outLine.visible = false
-	monitorable = false
 	collision_layer = 0
 	if soldierName[0]=="cave": Global.CaveHas = false
 	if is_in_group("monsterSoldier"): remove_from_group("monsterSoldier")
+	if is_in_group("creeper"): remove_from_group("creeper")
 	pass
 	
 func reload(): queue_free()

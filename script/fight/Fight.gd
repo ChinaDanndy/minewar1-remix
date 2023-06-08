@@ -22,7 +22,7 @@ signal BossLv2
 signal BossLv3
 
 func _ready():
-	#Global.NowLevel = 1
+	Global.NowLevel = 7
 	$Up/Leveltext/LeveltextValue.text = str(Global.NowLevel)
 	if Global.LevelData[Global.NowLevel]["set"]["levelType"] != "boss": 
 		$Boss.free()
@@ -58,18 +58,6 @@ func _ready():
 		fightStart()#monseter 680
 	pass
 	
-func _on_thundertimer_timeout():
-	var targetArray = get_tree().get_nodes_in_group("creeper")
-	if !targetArray.is_empty(): 
-		var target = targetArray[randi_range(0,targetArray.size()-1)]
-		var newthunder = Global.Skill.instantiate()
-		Global.root.add_child(newthunder)
-		newthunder.camp = Global.MONSTER
-		newthunder.firstSetting("thunder")
-		newthunder.position.x = target.position.x-20
-	$Timer/Thundertimer.start(thunderTime+randf_range(-thunderTimeRand,thunderTimeRand))
-	pass
-	
 func _on_cave_timer_timeout():
 	if Global.CaveHas == false:
 		var tower = Global.Tower.instantiate()
@@ -83,34 +71,56 @@ func _on_cave_timer_timeout():
 	$Timer/CaveTimer.start(caveTime+randf_range(-caveTimeRand,caveTimeRand))
 	pass 
 	
+func _on_thundertimer_timeout():
+	
+	var targetArray = get_tree().get_nodes_in_group("creeper")
+	if !targetArray.is_empty(): 
+		var target = targetArray[randi_range(0,targetArray.size()-1)]
+		var newthunder = Global.Skill.instantiate()
+		Global.root.add_child(newthunder)
+		newthunder.position.x = target.position.x-20
+		newthunder.camp = Global.MONSTER
+		newthunder.firstSetting("thunder")
+		
+	if bossLv == 3:#boss战第三阶段多一次纯劈一道闪电
+		var newthunder = Global.Skill.instantiate()
+		Global.root.add_child(newthunder)
+		newthunder.camp = Global.MONSTER
+		newthunder.firstSetting("thunder")
+		newthunder.position.x = randi_range(Global.VillagePoint.x,$Boss.position.x)
+		
+	$Timer/Thundertimer.start(thunderTime+randf_range(-thunderTimeRand,thunderTimeRand))
+	pass
+	
 func fightStart():
 	Global.CardUp = 5
-
 	$monsterShow.visible = false
 	emit_signal("fightCard")
 	#await get_tree().create_timer(1,false).timeout#开局延迟开始
 	emit_signal("cardCD")
 	time()
+	SummonEnemy()
 	$Up/Moneytext.visible = true
-	if bossLv < 0: $baseMonster.visible = true
-	$baseVillage.visible = true
-	#$Spacetext.visible = false
-	
-	var newEnemy = summonEnemy.new()
-	Global.add_child(newEnemy)
-	summonEnemyID = newEnemy
+	if bossLv < 1: $baseMonster.visible = true
+	$baseVillage.visible = true#$Spacetext.visible = false
 	
 	if attackTime >0:
 		$Up/AttackTime.visible = true
 		$Timer/attackTimer.start(1)
 	$Timer/Moneytimer.start(moneyTime)
-	if Global.LevelData[Global.NowLevel]["set"]["thunderTime"] > 0: 
-		$Timer/Thundertimer.start(Global.LevelData[Global.NowLevel]["set"]["thunderTime"])
 	if Global.LevelData[Global.NowLevel]["set"]["caveTime"] > 0: 
 		$Timer/CaveTimer.start(Global.LevelData[Global.NowLevel]["set"]["caveTime"])
+	if Global.LevelData[Global.NowLevel]["set"]["thunderTime"] > 0: 
+		
+		$Timer/Thundertimer.start(Global.LevelData[Global.NowLevel]["set"]["thunderTime"])
+
 	pass
 	
-
+func SummonEnemy():
+	var newEnemy = summonEnemy.new()
+	Global.add_child(newEnemy)
+	summonEnemyID = newEnemy
+	pass
 	
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_select"):
@@ -140,10 +150,7 @@ func _process(_delta):
 					Global.NowLevel += 1
 					bossLv = 2
 					summonEnemyID.queue_free()
-					var newEnemy = summonEnemy.new()
-					Global.add_child(newEnemy)
-					summonEnemyID = newEnemy
-					$Timer/CaveTimer.stop()
+					SummonEnemy()
 					$Timer/Thundertimer.start(thunderTime)
 					emit_signal("BossLv2")
 	if bossLv == 2:
@@ -151,16 +158,14 @@ func _process(_delta):
 			Global.NowLevel += 1
 			bossLv = 3
 			summonEnemyID.queue_free()
-			var newEnemy = summonEnemy.new()
-			Global.add_child(newEnemy)
-			summonEnemyID = newEnemy
+			SummonEnemy()
 			attackTime = Global.LevelData[Global.NowLevel]["set"]["attackTime"]
-			$Timer/CaveTimer.start(caveTime)
-			$Timer/Thundertimer.start(thunderTime)
+			#$Timer/CaveTimer.start(caveTime)
+			#$Timer/Thundertimer.start(thunderTime)
 			emit_signal("BossLv3")
 					
 	if Global.LevelData[Global.NowLevel]["set"]["levelType"] == "attack":
-		$Up/AttackTime/AttackTimeValue.text = str(attackTime)
+		#$Up/AttackTime/AttackTimeValue.text = str(attackTime)
 		if attackTime <= 0: Global.VillageBase.health = 0
 	pass
 	
@@ -230,7 +235,6 @@ func _on_tree_entered():
 	$baseMonster.visible = false
 	$baseVillage.visible = false
 	$bossProtect.visible = false
-	Global.BossProtect.monitorable = false
 	$Boss.visible = false
 	pass
 

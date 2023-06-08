@@ -2,6 +2,9 @@ extends "res://script/fight/object.gd"
 @onready var norAni = $Normal
 @onready var tpAni = $Tp
 @onready var collLine = $RayCast2D
+@onready var healthColor = $healthLine/health/ColorRect
+
+var originSize
 
 var bossSecHealth
 var protectHealth
@@ -12,12 +15,16 @@ var bossLv
 func _ready():
 	super.SetValue("creeperKing")
 	super.addSoundAndParticles()
+	healthUp = health
+	originSize = healthColor.size.x
+	
 	camp = Global.MONSTER
 	attDefence = [true,true,true]
 	effDefence = [true,true,true,true,true,true,true]
 	position.y = Global.FightGroundY-(collBox.y/2)
 	norAni.visible = true
 	tpAni.visible = false
+	
 	Global.FightSence.BossLv2.connect(Lv2)
 	Global.FightSence.BossLv3.connect(Lv3)
 	Global.BossProtect.ProtectDown.connect(protectDown)
@@ -26,15 +33,15 @@ func _ready():
 func _process(_delta):
 	#$cover.texture = $Normal.sprite_frames.get_frame_texture(
 	#$Normal.animation,$Normal.frame)
-
+	healthColor.size.x = originSize*(health/healthUp)
 	Global.MonsterPoint.x = global_position.x
 	$RayCast2D.force_raycast_update()
-	$Label.text = str(health)
+
 	if position.x <= Global.BossStopX&&bossLv == 2&&norAni.animation != "stop2":
 			norAni.play("stop2")
 	if $RayCast2D.is_colliding():
 		if norAni.animation != "stop2"&&bossLv == 2: norAni.play("stop2")
-		if $attackTimer.time_left == 0: $attackTimer.start(1)
+		if $attackTimer.time_left == 0: $attackTimer.start(aniSpeedBasic)
 	else:
 		if bossLv == 2: 
 			if norAni.animation != "walk"&&position.x > Global.BossStopX: norAni.play("walk")
@@ -43,7 +50,6 @@ func _process(_delta):
 	pass
 
 func _on_attack_timer_timeout(): craeteThu("thunder")
-	
 	
 func Lv2():
 	bossLv = 2
@@ -56,10 +62,7 @@ func Lv2():
 func Lv3():
 	bossLv = 3
 	$attackTimer.stop()
-	var i = 0
-	Global.aoe_create(self,Global.CREATE,aoeModel[i],aoeRange[i],ifAoeHold[i],attackType[i],damage[i],
-	damagerType[i],giveEffect[i],effValue[i],effTime[i],effTimes[i])
-	
+	explode()
 	collLine.collide_with_areas = false
 	norAni.visible = false
 	tpAni.visible = true
@@ -70,28 +73,31 @@ func Lv3():
 	
 func _on_tp_frame_changed():
 	if tpAni.frame == 7&&tpAni.visible == true: position.x = Global.BossPosX
-	pass
+
 func _on_tp_animation_finished():
 	norAni.visible = true
 	tpAni.visible = false
 	collLine.collide_with_areas = true
 	norAni.play("stop1")
-	Global.BossProtect.picture.visible  = true
-	Global.BossProtect.monitorable = true
+	protectReset()
 	pass
 
 func protectDown():
 	attDefence = [false,false,true]
 	effDefence = [true,true,true,true,false,false,true]
 	norAni.play("stop3")
-	craeteThu("thunder")
+	explode()
 	await get_tree().create_timer(protectCD,false).timeout
 	norAni.play("stop1")
 	Global.BossProtect.health = protectHealth
-	Global.BossProtect.picture.visible  = true
-	Global.BossProtect.monitorable = true
+	protectReset()
 	attDefence = [true,true,true]
 	effDefence = [true,true,true,true,true,true,true]
+	pass
+	
+func protectReset():
+	Global.BossProtect.picture.visible  = true
+	Global.BossProtect.collision_layer = Global.LAyer[camp+1][2]
 	pass
 
 func craeteThu(thu):
@@ -102,6 +108,13 @@ func craeteThu(thu):
 	newthunder.position.x = global_position.x-45
 	pass
 	
+func explode():
+	var i = 0
+	Global.aoe_create(self,Global.CREATE,aoeModel[i],aoeRange[i],ifAoeHold[i],attackType[i],damage[i],
+	["crpeerKingExplode"],giveEffect[i],effValue[i],effTime[i],effTimes[i])
+	souEff["attack"].playing = true
+	particles["attack"].emitting = true
+	pass
 
 
 

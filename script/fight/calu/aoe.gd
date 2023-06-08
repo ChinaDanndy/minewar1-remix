@@ -30,6 +30,7 @@ func _ready():
 		"power": $power.emitting = true
 		"weakness": $weakness.emitting = true
 		"thunder": newRange.size.y = Global.STSData["thunder"]["collBox"].y
+		"crpeerKingExplode": newRange.size.y = 600 
 ##			"skill": newRange.size = Vector2(aoeRange,Global.SkillAOERangeY)#换范围
 
 #			"thunderBoss": 

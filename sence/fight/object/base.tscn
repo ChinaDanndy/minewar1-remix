@@ -20,6 +20,7 @@ offset_right = 31.0
 offset_bottom = -18.0
 
 [node name="collBox" type="Area2D" parent="."]
+collision_layer = 0
 collision_mask = 0
 monitoring = false
 script = ExtResource("1_cefax")
