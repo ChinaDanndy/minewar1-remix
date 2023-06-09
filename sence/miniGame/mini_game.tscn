@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://cibbw5x1bo5te" path="res://assets/miniGame/game1/creeper/creeper5.png" id="13_oinab"]
 [ext_resource type="Texture2D" uid="uid://7f4yf11eax14" path="res://assets/miniGame/game1/gunpowder/gunpowder1.png" id="14_i6vvu"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_q35qb"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_85t6x"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -123,7 +123,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_mq236"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_hiafb"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -225,7 +225,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_5khtt"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_crdtf"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -327,7 +327,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_34vh5"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_8eaix"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -429,7 +429,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_w7tsq"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_mwra4"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -531,7 +531,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_bjl03"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_y3qav"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -633,7 +633,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ipvqi"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_qceig"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -747,31 +747,31 @@ metadata/_edit_group_ = true
 
 [node name="game1Tbale6" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(237.5, 295)
-sprite_frames = SubResource("SpriteFrames_q35qb")
+sprite_frames = SubResource("SpriteFrames_85t6x")
 
 [node name="game1Tbale1" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(297.5, 295)
-sprite_frames = SubResource("SpriteFrames_mq236")
+sprite_frames = SubResource("SpriteFrames_hiafb")
 
 [node name="game1Tbale2" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(357.5, 295)
-sprite_frames = SubResource("SpriteFrames_5khtt")
+sprite_frames = SubResource("SpriteFrames_crdtf")
 
 [node name="game1Tbale3" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(417.5, 295)
-sprite_frames = SubResource("SpriteFrames_34vh5")
+sprite_frames = SubResource("SpriteFrames_8eaix")
 
 [node name="game1Tbale4" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(477.5, 295)
-sprite_frames = SubResource("SpriteFrames_w7tsq")
+sprite_frames = SubResource("SpriteFrames_mwra4")
 
 [node name="game1Tbale5" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(537.5, 295)
-sprite_frames = SubResource("SpriteFrames_bjl03")
+sprite_frames = SubResource("SpriteFrames_y3qav")
 
 [node name="game1Tbale7" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(597.5, 295)
-sprite_frames = SubResource("SpriteFrames_ipvqi")
+sprite_frames = SubResource("SpriteFrames_qceig")
 
 [node name="game2" type="Node2D" parent="."]
 visible = false

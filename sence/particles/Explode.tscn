@@ -9,15 +9,14 @@ particles_anim_h_frames = 16
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[node name="smallExplode" type="CPUParticles2D"]
+[node name="Explode" type="CPUParticles2D"]
 material = SubResource("CanvasItemMaterial_wrjem")
 emitting = false
-amount = 20
+amount = 1
+lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 texture = ExtResource("1_w0xsb")
-emission_shape = 1
-emission_sphere_radius = 40.0
 gravity = Vector2(0, 0)
-anim_speed_min = 4.0
-anim_speed_max = 4.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0

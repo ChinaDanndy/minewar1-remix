@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3]
+[gd_scene load_steps=35 format=3 uid="uid://8lvpjn1tlm2g"]
 
 [ext_resource type="Texture2D" uid="uid://dxk72on6n5lf6" path="res://assets/objects/soldier/creeperKing/stop/stop1.png" id="1_g75yq"]
 [ext_resource type="Script" path="res://script/fight/object/boss.gd" id="1_ty8c6"]
@@ -169,14 +169,7 @@ animations = [{
 resource_local_to_scene = true
 size = Vector2(20, 46)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rtauo"]
-resource_local_to_scene = true
-particles_animation = true
-particles_anim_h_frames = 16
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gkqg3"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r1ia3"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
@@ -244,19 +237,12 @@ color = Color(0.470588, 0.196078, 0.588235, 1)
 
 [node name="particles" type="Node2D" parent="."]
 
-[node name="smallExplode" parent="particles" instance=ExtResource("29_6ji3e")]
-material = SubResource("CanvasItemMaterial_rtauo")
-amount = 30
-emission_sphere_radius = 30.0
-
-[node name="bigExplode" parent="particles" instance=ExtResource("29_6ji3e")]
-material = SubResource("CanvasItemMaterial_gkqg3")
+[node name="Explode" parent="particles" instance=ExtResource("29_6ji3e")]
+material = SubResource("CanvasItemMaterial_r1ia3")
 position = Vector2(0, -80)
-amount = 140
-lifetime = 0.5
-emission_sphere_radius = 110.0
-anim_speed_min = 1.0
-anim_speed_max = 1.0
+amount = 80
+emission_shape = 1
+emission_sphere_radius = 100.0
 
 [connection signal="animation_finished" from="Tp" to="." method="_on_tp_animation_finished"]
 [connection signal="frame_changed" from="Tp" to="." method="_on_tp_frame_changed"]

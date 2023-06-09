@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://qynklu6mdhxq"]
+[gd_scene load_steps=4 format=3 uid="uid://qynklu6mdhxq"]
 
-[ext_resource type="AudioStream" uid="uid://bm5hr5xn8fiwb" path="res://assets/music/se/other/lightning_attack.ogg" id="2_p4l0s"]
 [ext_resource type="Script" path="res://script/fight/object/skill.gd" id="2_wf2hv"]
 
 [sub_resource type="RectangleShape2D" id="1"]
@@ -27,8 +26,5 @@ monitorable = false
 
 [node name="thunderBox" type="CollisionShape2D" parent="thunderArea"]
 shape = SubResource("RectangleShape2D_d8lve")
-
-[node name="thunder" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_p4l0s")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -83,7 +83,7 @@ func _on_tp_animation_finished():
 	pass
 
 func protectDown():
-	attDefence = [false,false,true]
+	attDefence = [false,false,false]
 	effDefence = [true,true,true,true,false,false,true]
 	norAni.play("stop3")
 	explode()

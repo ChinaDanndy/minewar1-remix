@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://detljadg4j24r"]
+[gd_scene load_steps=13 format=3 uid="uid://detljadg4j24r"]
 
-[ext_resource type="PackedScene" uid="uid://bnr6hau4agucb" path="res://sence/fight/object.tscn" id="1_6kuqs"]
+[ext_resource type="PackedScene" uid="uid://cakdgdywehft0" path="res://sence/fight/object.tscn" id="1_6kuqs"]
 [ext_resource type="Script" path="res://script/fight/object/tower.gd" id="2_3fwhs"]
+[ext_resource type="Texture2D" uid="uid://bswddpngapoib" path="res://assets/objects/tower/golder/attack/attack1.png" id="3_2fb2o"]
 [ext_resource type="AudioStream" uid="uid://dtu08ucrvtl2w" path="res://assets/music/se/tower/out.ogg" id="3_ecexi"]
 [ext_resource type="AudioStream" uid="uid://cjco8qxp3umws" path="res://assets/music/se/tower/eat1.ogg" id="4_2pew6"]
 [ext_resource type="AudioStream" uid="uid://bj80iq7c0g184" path="res://assets/music/se/tower/cave.ogg" id="5_qoljd"]
@@ -11,35 +12,6 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0m7md"]
 resource_local_to_scene = true
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_daec4"]
-resource_local_to_scene = true
-particles_animation = true
-particles_anim_h_frames = 16
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_j8qi2"]
-resource_local_to_scene = true
-particles_animation = true
-particles_anim_h_frames = 16
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="Animation" id="Animation_ocuv0"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("particles/gold:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_mc0le"]
 resource_name = "gold"
@@ -70,7 +42,6 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bikfg"]
 _data = {
-"RESET": SubResource("Animation_ocuv0"),
 "gold": SubResource("Animation_mc0le")
 }
 
@@ -95,24 +66,10 @@ one_shot = true
 [node name="DeathTimer" type="Timer" parent="." index="6"]
 one_shot = true
 
-[node name="se" type="Node" parent="." index="9"]
+[node name="cover" parent="." index="7"]
+texture = ExtResource("3_2fb2o")
 
-[node name="outSe" type="AudioStreamPlayer" parent="se" index="0"]
-stream = ExtResource("3_ecexi")
-
-[node name="gold" type="AudioStreamPlayer" parent="se" index="1"]
-stream = ExtResource("4_2pew6")
-
-[node name="cave" type="AudioStreamPlayer" parent="se" index="2"]
-stream = ExtResource("5_qoljd")
-
-[node name="smallExplode" parent="particles" index="0"]
-material = SubResource("CanvasItemMaterial_daec4")
-
-[node name="bigExplode" parent="particles" index="1"]
-material = SubResource("CanvasItemMaterial_j8qi2")
-
-[node name="towerDeath" type="CPUParticles2D" parent="particles" index="2"]
+[node name="towerDeath" type="CPUParticles2D" parent="particles" index="0"]
 emitting = false
 amount = 40
 lifetime = 0.2
@@ -127,7 +84,7 @@ scale_amount_min = 4.0
 scale_amount_max = 4.0
 color = Color(0.141176, 0.141176, 0.141176, 1)
 
-[node name="out" type="CPUParticles2D" parent="particles" index="3"]
+[node name="out" type="CPUParticles2D" parent="particles" index="1"]
 position = Vector2(0, 16)
 emitting = false
 amount = 40
@@ -145,7 +102,7 @@ scale_amount_min = 4.0
 scale_amount_max = 4.0
 color = Color(0.235294, 0.156863, 0.0784314, 1)
 
-[node name="cave" type="CPUParticles2D" parent="particles" index="4"]
+[node name="cave" type="CPUParticles2D" parent="particles" index="2"]
 position = Vector2(0, -6)
 emitting = false
 amount = 10
@@ -164,15 +121,14 @@ initial_velocity_max = 20.0
 angular_velocity_min = 1.0
 angular_velocity_max = 4.0
 
-[node name="gold" type="HBoxContainer" parent="particles" index="5"]
-visible = false
+[node name="gold" type="HBoxContainer" parent="particles" index="3"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -21.0
-offset_top = -30.0
+offset_top = -20.0
 offset_right = 21.0
-offset_bottom = -12.0
+offset_bottom = -2.0
 grow_horizontal = 2
 
 [node name="Label" type="Label" parent="particles/gold" index="0"]
@@ -185,6 +141,15 @@ vertical_alignment = 2
 [node name="TextureRect" type="TextureRect" parent="particles/gold" index="1"]
 layout_mode = 2
 texture = ExtResource("6_gkxnc")
+
+[node name="outSe" type="AudioStreamPlayer" parent="se" index="0"]
+stream = ExtResource("3_ecexi")
+
+[node name="gold" type="AudioStreamPlayer" parent="se" index="1"]
+stream = ExtResource("4_2pew6")
+
+[node name="cave" type="AudioStreamPlayer" parent="se" index="2"]
+stream = ExtResource("5_qoljd")
 
 [node name="goldplayer" type="AnimationPlayer" parent="." index="11"]
 libraries = {

@@ -69,8 +69,8 @@ func game2GhostCreate():
 	pass
 
 func _process(_delta):
-	$CanvasLayer2/VBoxContainer/HBoxContainer1/ScoreVallue.text = str(Global.MiniGameScore)
-	$CanvasLayer2/VBoxContainer/HBoxContainer2/TimeValue.text = str(keepTime)
+	$CanvasLayer/VBoxContainer/HBoxContainer1/ScoreVallue.text = str(Global.MiniGameScore)
+	$CanvasLayer/VBoxContainer/HBoxContainer2/TimeValue.text = str(keepTime)
 	if keepTime <= 0: Global.StopWindow.text("over")
 	pass
 

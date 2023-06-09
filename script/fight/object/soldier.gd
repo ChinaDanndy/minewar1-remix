@@ -35,7 +35,7 @@ func firstSetting(soldier):
 			$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
 		"skyLine":#活塞虫
 			$Collision2.position.y = (distanceLandSky)-20
-			$Collision2.position.x = +(attRangeBasic[1]/2)
+			$Collision2.position.x = -(attRangeBasic[1]/2)
 	if coll2Pos != null: $Collision2.collide_with_areas = true
 	if usualTime != null: $UsualTimer.start(usualTime)
 	pass

@@ -23,14 +23,32 @@ func _ready():
 		collision_mask = Global.MAsk[Mod[aoeModel]][3]
 	match damagerType[0]:
 		"regeneration","power","weakness":
-			$broke.volume_db = Global.SeDB
-			$broke.play()
+			$se/broke.volume_db = Global.SeDB
+			$sebroke.play()
+		"tnt","fireBall","fireBallDown":
+			$se/explode.volume_db = Global.SeDB
+			$se/explode.play()
 	match damagerType[0]:
-		"regeneration": $regeneration.emitting = true
-		"power": $power.emitting = true
-		"weakness": $weakness.emitting = true
-		"thunder": newRange.size.y = Global.STSData["thunder"]["collBox"].y
+		"regeneration": $particles/regeneration.emitting = true
+		"power":  $particles/power.emitting = true
+		"weakness":  $particles/weakness.emitting = true
+		"thunder": 
+			newRange.size.y = Global.STSData["thunder"]["collBox"].y
+			$se/thunder.volume_db = Global.SeDB
+			$se/thunder.play()
 		"crpeerKingExplode": newRange.size.y = 600 
+		"tnt": $particles/tntExplode.emitting = true
+	match damagerType[0]:
+		"fireBall","fireBallDown": $particles/fireballExplode.emitting = true
+		
+#	match projectile:
+#		"fireBall","fireBallDown":
+#			$particles/fireballExplode.emitting = true
+#			$se/fireballExplode.play()
+#	if projectile == "tnt":
+#		$particles/tntExplode.emitting = true
+#		$se/tntExplode.play()
+		
 ##			"skill": newRange.size = Vector2(aoeRange,Global.SkillAOERangeY)#换范围
 
 #			"thunderBoss": 
@@ -47,9 +65,10 @@ func _ready():
 		await get_tree().create_timer(effTime[Global.Effect.DAMAGE]*effTimes[Global.DamValue.DAMAGE],false).timeout
 		queue_free()
 	else:
-		if damagerType[0] == "power"||damagerType[0] == "weakness":
+		if damagerType[0] == "power"||damagerType[0] == "weakness"||(
+			damagerType[0] == "thunder")||damagerType[0] == "tnt"||(
+				damagerType[0] == "fireBall")||damagerType[0] == "fireBallDown":
 			await get_tree().create_timer(0.04,false).timeout
-			monitoring = false
 			collision_mask = 0
 			await get_tree().create_timer(0.8,false).timeout
 			queue_free()

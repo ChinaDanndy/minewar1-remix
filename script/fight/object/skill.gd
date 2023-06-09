@@ -22,11 +22,11 @@ func firstSetting(soldier):
 			newBox.size.x = aoeRange
 			newBox.size.y = 20
 			$CollisionShape2D.shape = newBox
-			$thunder.play()
+			
 	pass
 	
 func _process(_delta):
-	$thunder.volume_db = Global.SeDB
+
 	if currentState == State.FALL: position.y += dropSpeed
 	if position.y >= Global.FightGroundY&&dropSpeed != null: 
 		currentState = State.STOP

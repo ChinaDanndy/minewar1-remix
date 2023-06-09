@@ -22,7 +22,7 @@ signal BossLv2
 signal BossLv3
 
 func _ready():
-	Global.NowLevel = 7
+	#Global.NowLevel = 8
 	$Up/Leveltext/LeveltextValue.text = str(Global.NowLevel)
 	if Global.LevelData[Global.NowLevel]["set"]["levelType"] != "boss": 
 		$Boss.free()
@@ -72,7 +72,6 @@ func _on_cave_timer_timeout():
 	pass 
 	
 func _on_thundertimer_timeout():
-	
 	var targetArray = get_tree().get_nodes_in_group("creeper")
 	if !targetArray.is_empty(): 
 		var target = targetArray[randi_range(0,targetArray.size()-1)]
@@ -87,7 +86,7 @@ func _on_thundertimer_timeout():
 		Global.root.add_child(newthunder)
 		newthunder.camp = Global.MONSTER
 		newthunder.firstSetting("thunder")
-		newthunder.position.x = randi_range(Global.VillagePoint.x,$Boss.position.x)
+		newthunder.position.x = randi_range(Global.VillagePoint.x+($baseVillage.collBox.x/2),$Boss.position.x)
 		
 	$Timer/Thundertimer.start(thunderTime+randf_range(-thunderTimeRand,thunderTimeRand))
 	pass
@@ -152,6 +151,8 @@ func _process(_delta):
 					summonEnemyID.queue_free()
 					SummonEnemy()
 					$Timer/Thundertimer.start(thunderTime)
+					$Up/AttackTime.visible = true
+					$Timer/attackTimer.start(1)
 					emit_signal("BossLv2")
 	if bossLv == 2:
 		if Global.MonsterBase.health<=Global.MonsterBase.bossSecHealth:
@@ -160,12 +161,10 @@ func _process(_delta):
 			summonEnemyID.queue_free()
 			SummonEnemy()
 			attackTime = Global.LevelData[Global.NowLevel]["set"]["attackTime"]
-			#$Timer/CaveTimer.start(caveTime)
-			#$Timer/Thundertimer.start(thunderTime)
 			emit_signal("BossLv3")
 					
 	if Global.LevelData[Global.NowLevel]["set"]["levelType"] == "attack":
-		#$Up/AttackTime/AttackTimeValue.text = str(attackTime)
+		$Up/AttackTime/AttackTimeValue.text = str(attackTime)
 		if attackTime <= 0: Global.VillageBase.health = 0
 	pass
 	

@@ -1,7 +1,6 @@
 extends "res://script/fight/object.gd"
 var unPeopleFly = true
 var towKeepTime#
-var goldPos = -20
 
 func firstSetting(soldier):
 	super.SetValue(soldier)
@@ -14,15 +13,14 @@ func firstSetting(soldier):
 	add_to_group("villageObject")
 	collision_layer = Global.LAyer[camp+1][2]
 	position.y = Global.FightGroundY+collBox.y
-	
 	effDefence[Global.Effect.KNOCK] = true
 	pass
 
 func _ready():
-	$particles/out.emitting = true
 	$particles/gold.visible = false
 	$se/outSe.volume_db = Global.SeDB
 	$se/outSe.play()
+	$particles/out.emitting = true
 	pass
 
 func _process(_delta):
@@ -68,7 +66,6 @@ func _on_skill_timer_timeout():
 		enemy.camp = Global.MONSTER
 		enemy.firstSetting(projectile[0])
 		enemy.position.x = global_position.x
-		
 		Global.root.add_child(enemy)
 		$particles/cave.emitting = true
 		$se/cave.play()
@@ -83,6 +80,5 @@ func goldShow():
 	$particles/gold.visible = false 
 	pass
 
-func _on_death_timer_timeout():
-	if health > 0: health = -10
-	pass
+func _on_death_timer_timeout(): if health > 0: health = -10
+

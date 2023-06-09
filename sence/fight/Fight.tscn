@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://sk6iax281aah" path="res://assets/backgrounds/background1Buttom.png" id="8_qc2hl"]
 [ext_resource type="Script" path="res://script/fight/ui/stopButton.gd" id="9_eg3an"]
 [ext_resource type="PackedScene" uid="uid://bkq2jinug2gf7" path="res://sence/fight/ui/stopWindow.tscn" id="10_jfeyj"]
-[ext_resource type="PackedScene" path="res://sence/fight/object/boss.tscn" id="12_jn8mm"]
+[ext_resource type="PackedScene" uid="uid://8lvpjn1tlm2g" path="res://sence/fight/object/boss.tscn" id="12_jn8mm"]
 
 [node name="Fight" type="Node2D"]
 process_mode = 1
@@ -147,6 +147,7 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="monnsterTowerArea" type="ColorRect" parent="."]
+visible = false
 offset_left = 540.0
 offset_top = 286.0
 offset_right = 740.0
@@ -156,7 +157,6 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="skillArea" type="ColorRect" parent="."]
-visible = false
 offset_left = 148.0
 offset_top = 286.0
 offset_right = 748.0

@@ -194,7 +194,7 @@ func _ready():#读入数据
 	Money = 10
 	CardUp = 5
 
-	var file = FileAccess.open("res://data/object.json", FileAccess.READ)#user:
+	var file = FileAccess.open("user://object.json", FileAccess.READ)#user:
 	var content = file.get_as_text()#读取所有士兵数据
 	var jsonValue = JSON.new()
 	jsonValue.parse(content)
@@ -221,7 +221,7 @@ func _ready():#读入数据
 		STSData[STSName]["collBox"] = pictureGet.get_size()
 	file = null 
 	
-	file = FileAccess.open("res://data/level.json", FileAccess.READ)
+	file = FileAccess.open("user://level.json", FileAccess.READ)#res://data
 	content = file.get_as_text()
 	jsonValue = JSON.new()
 	jsonValue.parse(content)
@@ -234,17 +234,16 @@ func _ready():#读入数据
 #				for j in LevelData[k]["groups"][i]["soldier"]:
 #					if !NowMonsterObject.has(j): NowMonsterObject.append(j)
 
-	file = FileAccess.open("res://data/text.json", FileAccess.READ)
-	content = file.get_as_text()
-	jsonValue = JSON.new()
-	jsonValue.parse(content)
-	TextData = jsonValue.data
-	file = null
+#	file = FileAccess.open("user://text.json", FileAccess.READ)#res://data
+#	content = file.get_as_text()
+#	jsonValue = JSON.new()
+#	jsonValue.parse(content)
+#	TextData = jsonValue.data
+#	file = null
 	
-	for i in Particles: ParSence[i] = load("res://sence/particles/%s.tscn"%i)
 	#保存例子效果的场景
 	pass
-var Particles = ["smallExplode"]
+
 func closeWindow():#存储数据
 #	var saveJson = {"Point":Point,"Brought":Brought,"Level":Level}
 #	var json = JSON.new()

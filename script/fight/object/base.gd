@@ -29,10 +29,11 @@ func firstSetting(Name):
 		collision_layer = Global.LAyer[camp+1][2]
 		health = Global.LevelData[Global.NowLevel]["set"][Name]
 		get_parent().position.y = Global.FightGroundY-(collBox.y/2)
-#		if get_parent().name == "baseMonster": 
-#			match Global.LevelData[Global.NowLevel]["set"]["levelType"]:
+		if get_parent().name == "baseMonster": 
+			match Global.LevelData[Global.NowLevel]["set"]["levelType"]:
 #				"attack": get_parent().texture = load("res://assets/objects/attackNormal.png")
-#				"defence": get_parent().texture = load("res://assets/objects/defence.png") 
+				"defence": get_parent().get_node("healthLine").visible = false
+					#get_parent().texture = load("res://assets/objects/defence.png") 
 	healthUp = health
 	originSize = healthColor.size.x
 
