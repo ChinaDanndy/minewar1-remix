@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsb20dqiimav3"]
+
+[ext_resource type="Texture2D" uid="uid://cff6qvysicflb" path="res://assets/UI/button/smallButtonNormal.png" id="1_i25vd"]
+[ext_resource type="Texture2D" uid="uid://5800a47dpa4q" path="res://assets/UI/button/smallButtonPress.png" id="2_r7xl8"]
+[ext_resource type="Script" path="res://script/start/mainUIButton.gd" id="3_0r36k"]
+[ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="4_1jwmc"]
+
+[node name="LevelChoiceButton" type="TextureButton"]
+offset_left = 105.0
+offset_top = 128.0
+offset_right = 169.0
+offset_bottom = 152.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("1_i25vd")
+texture_pressed = ExtResource("2_r7xl8")
+texture_hover = ExtResource("2_r7xl8")
+script = ExtResource("3_0r36k")
+
+[node name="text" type="Label" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 61.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("4_1jwmc")
+theme_override_font_sizes/font_size = 14
+text = "开始游戏"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -121,8 +121,6 @@ func cardCDStart():
 		cdStart = true
 	pass
 
-
-
 func _process(_delta):
 	$ExplainBox/Pos.position = global_position
 	if Global.ChoiceWindow.visible == true:
@@ -171,7 +169,6 @@ func _process(_delta):
 			if Global.NowMoney < price:
 				self.button_mask = 0
 				cantBuy.visible = true
-			
 	pass
 
 

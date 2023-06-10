@@ -13,9 +13,10 @@ config_version=5
 config/name="Minewar 1重置版"
 run/main_scene="res://sence/start/Start.tscn"
 config/features=PackedStringArray("4.0")
-boot_splash/image="res://loading.png"
+boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
+boot_splash/image="res://assets/UI/others/loading.png"
 boot_splash/fullsize=false
-config/icon="res://icon.png"
+config/icon="res://assets/UI/others/icon.png"
 
 [autoload]
 
