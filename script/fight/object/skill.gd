@@ -11,10 +11,10 @@ func firstSetting(soldier):
 	soldierName[0] = soldier
 	currentState = State.FALL
 	position.y = -20
-	if camp == Global.MONSTER: currentState = State.STOP
 	
 	match soldier:
 		"thunder","thunderBoss","thunderBossKill": 
+			currentState = State.STOP
 			position.y = Global.FightGroundY-(collBox.y/2)
 			$Sprite2D.modulate.a = 0
 			collision_mask = 2
@@ -26,13 +26,14 @@ func firstSetting(soldier):
 	pass
 	
 func _process(_delta):
-
 	if currentState == State.FALL: position.y += dropSpeed
 	if position.y >= Global.FightGroundY&&dropSpeed != null: 
 		currentState = State.STOP
+		dropSpeed = null
 		position.y = Global.FightGroundY
 		await get_tree().create_timer(0.1,false).timeout
-		#Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,null,null,[soldierName[0]],giveEffect,effValue,effTime,effTimes)
+		Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,null,null,
+		[soldierName[0]],giveEffect,effValue,effTime,effTimes)
 		queue_free()
 			
 	match soldierName[0]:

@@ -19,15 +19,17 @@ func _ready():
 	collision_mask = Global.MAsk[Mod[aoeModel]][0]
 	var newRange = RectangleShape2D.new()#AOE范围
 	newRange.size = Vector2(aoeRange,20)
-	if damagerType[0] == "regenerationDo":#防御塔不能回血
-		collision_mask = Global.MAsk[Mod[aoeModel]][3]
+#	if damagerType[0] == "regenerationDo":#防御塔不能回血
+#		collision_mask = Global.MAsk[Mod[aoeModel]][3]
 	match damagerType[0]:
 		"regeneration","power","weakness":
+			collision_mask = Global.MAsk[Mod[aoeModel]][3]
 			$se/broke.volume_db = Global.SeDB
-			$sebroke.play()
+			$se/broke.play()
 		"tnt","fireBall","fireBallDown":
 			$se/explode.volume_db = Global.SeDB
 			$se/explode.play()
+			
 	match damagerType[0]:
 		"regeneration": $particles/regeneration.emitting = true
 		"power":  $particles/power.emitting = true
@@ -36,7 +38,7 @@ func _ready():
 			newRange.size.y = Global.STSData["thunder"]["collBox"].y
 			$se/thunder.volume_db = Global.SeDB
 			$se/thunder.play()
-		"crpeerKingExplode": newRange.size.y = 600 
+		#"crpeerKingExplode": newRange.size.y = 600 
 		"tnt": $particles/tntExplode.emitting = true
 	match damagerType[0]:
 		"fireBall","fireBallDown": $particles/fireballExplode.emitting = true
@@ -48,9 +50,7 @@ func _ready():
 #	if projectile == "tnt":
 #		$particles/tntExplode.emitting = true
 #		$se/tntExplode.play()
-		
 ##			"skill": newRange.size = Vector2(aoeRange,Global.SkillAOERangeY)#换范围
-
 #			"thunderBoss": 
 #				var thunder = load("res://assets/objects/skill/thunderBoss.png")
 #				newRange.size = thunder.get_size()
@@ -78,6 +78,7 @@ func _ready():
 	pass
 
 func _on_area_entered(area):
+
 	if ifAoeHold == false:
 		if damage == null:
 			Global.damage_Calu(area,Global.damCaluType.EFF,null,null,null,giveEffect,

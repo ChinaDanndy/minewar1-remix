@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://8lvpjn1tlm2g"]
+[gd_scene load_steps=36 format=3 uid="uid://8lvpjn1tlm2g"]
 
 [ext_resource type="Texture2D" uid="uid://dxk72on6n5lf6" path="res://assets/objects/soldier/creeperKing/stop/stop1.png" id="1_g75yq"]
 [ext_resource type="Script" path="res://script/fight/object/boss.gd" id="1_ty8c6"]
@@ -29,7 +29,8 @@
 [ext_resource type="Texture2D" uid="uid://dbr0utxh0b6q8" path="res://assets/objects/soldier/creeperKing/walk/walk5.png" id="18_6gokx"]
 [ext_resource type="Texture2D" uid="uid://brycx5rmpa2od" path="res://assets/objects/soldier/creeperKing/walk/walk6.png" id="19_80gph"]
 [ext_resource type="PackedScene" uid="uid://dfqflpq488a1p" path="res://sence/particles/Explode.tscn" id="29_6ji3e"]
-[ext_resource type="Texture2D" uid="uid://bdu731lbkv8u4" path="res://assets/UI/others/healthBoss.png" id="29_fxtgj"]
+[ext_resource type="Texture2D" uid="uid://b76fc4qjj4xu6" path="res://assets/UI/others/healthLine2.png" id="29_w73w2"]
+[ext_resource type="Texture2D" uid="uid://bjhvii103cqrp" path="res://assets/UI/others/healthLine1.png" id="30_fotlh"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vbb08"]
 resource_local_to_scene = true
@@ -169,7 +170,7 @@ animations = [{
 resource_local_to_scene = true
 size = Vector2(20, 46)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r1ia3"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tduey"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
@@ -207,38 +208,24 @@ shape = SubResource("RectangleShape2D_riqql")
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(-25, -300)
 target_position = Vector2(0, 300)
-
-[node name="healthLine" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_top = -40.0
-offset_bottom = -40.0
-
-[node name="health" type="TextureRect" parent="healthLine"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -45.5
-offset_right = 45.5
-offset_bottom = 10.0
-grow_horizontal = 2
-texture = ExtResource("29_fxtgj")
-
-[node name="ColorRect" type="ColorRect" parent="healthLine/health"]
-layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 89.0
-offset_bottom = 8.0
-color = Color(0.470588, 0.196078, 0.588235, 1)
+collision_mask = 5
+collide_with_areas = true
 
 [node name="attackTimer" type="Timer" parent="."]
+
+[node name="healthLine" type="Sprite2D" parent="."]
+position = Vector2(0, -40)
+texture = ExtResource("29_w73w2")
+
+[node name="Sprite2D" type="Sprite2D" parent="healthLine"]
+texture = ExtResource("30_fotlh")
+region_enabled = true
+region_rect = Rect2(0, 0, 112, 10)
 
 [node name="particles" type="Node2D" parent="."]
 
 [node name="Explode" parent="particles" instance=ExtResource("29_6ji3e")]
-material = SubResource("CanvasItemMaterial_r1ia3")
+material = SubResource("CanvasItemMaterial_tduey")
 position = Vector2(0, -80)
 amount = 80
 emission_shape = 1

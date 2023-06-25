@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bemoh5pjkswqf" path="res://assets/backgrounds/levelBackground.png" id="1_ru38w"]
 [ext_resource type="PackedScene" uid="uid://cluf3870eyfa3" path="res://sence/start/levelButton.tscn" id="2_uk15b"]
-[ext_resource type="Texture2D" uid="uid://cetr57d7eqdcg" path="res://assets/UI/button/level3.png" id="3_newxj"]
+[ext_resource type="Texture2D" uid="uid://dkqyj2g7aw6tn" path="res://assets/UI/button/level2.png" id="3_qxdje"]
 [ext_resource type="Texture2D" uid="uid://rpyqwom4dpsa" path="res://assets/UI/button/cancel_normal.png" id="3_w51yo"]
 [ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="4_pk3dp"]
 [ext_resource type="Script" path="res://script/start/cancelButton.gd" id="5_nhy6r"]
@@ -66,19 +66,19 @@ theme_override_constants/separation = 24
 
 [node name="Level5" parent="MainMove/SecondMove/LevelContainer/HBoxContainer2" instance=ExtResource("2_uk15b")]
 layout_mode = 2
-texture_normal = ExtResource("3_newxj")
+texture_normal = ExtResource("3_qxdje")
 
 [node name="Level6" parent="MainMove/SecondMove/LevelContainer/HBoxContainer2" instance=ExtResource("2_uk15b")]
 layout_mode = 2
-texture_normal = ExtResource("3_newxj")
+texture_normal = ExtResource("3_qxdje")
 
 [node name="Level7" parent="MainMove/SecondMove/LevelContainer/HBoxContainer2" instance=ExtResource("2_uk15b")]
 layout_mode = 2
-texture_normal = ExtResource("3_newxj")
+texture_normal = ExtResource("3_qxdje")
 
 [node name="Level8" parent="MainMove/SecondMove/LevelContainer/HBoxContainer2" instance=ExtResource("2_uk15b")]
 layout_mode = 2
-texture_normal = ExtResource("3_newxj")
+texture_normal = ExtResource("3_qxdje")
 
 [node name="levelCancelButton" type="TextureButton" parent="MainMove"]
 layout_mode = 2

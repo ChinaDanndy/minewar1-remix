@@ -17,14 +17,14 @@ particles_anim_h_frames = 8
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_y4vev"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hlf4p"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0u8ac"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p0dgo"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
@@ -132,13 +132,13 @@ anim_speed_min = 5.0
 anim_speed_max = 7.0
 
 [node name="tntExplode" parent="particles" instance=ExtResource("5_xa4uk")]
-material = SubResource("CanvasItemMaterial_y4vev")
+material = SubResource("CanvasItemMaterial_hlf4p")
 amount = 20
 emission_shape = 3
 emission_rect_extents = Vector2(34, 20)
 
 [node name="fireballExplode" parent="particles" instance=ExtResource("5_xa4uk")]
-material = SubResource("CanvasItemMaterial_0u8ac")
+material = SubResource("CanvasItemMaterial_p0dgo")
 amount = 20
 emission_shape = 2
 emission_sphere_radius = 36.0

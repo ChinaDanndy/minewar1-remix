@@ -3,13 +3,15 @@ var count = 0
 var summonEnemy = preload("res://script/fight/calu/summonEnemy.gd")
 var summonEnemyID
 var bossLv = 0
+var bossShineSet = 0
+var bossUp = 0
 
 var attackTime = 0
 var moneyTime = 0
 var thunderTime = 0
 var thunderTimeRand = 0
-var caveTime = 0
-var caveTimeRand = 0
+var iceTime = 0
+var iceTimeRand = 0
 
 var minute = 0
 var second = 0
@@ -22,7 +24,8 @@ signal BossLv2
 signal BossLv3
 
 func _ready():
-	#Global.NowLevel = 8
+	Global.NowLevel = 8
+	
 	$Up/Leveltext/LeveltextValue.text = str(Global.NowLevel)
 	if Global.LevelData[Global.NowLevel]["set"]["levelType"] != "boss": 
 		$Boss.free()
@@ -40,7 +43,7 @@ func _ready():
 
 	moneyTime = Global.LevelData[0]["moneySpeed"]
 	Global.ThunderSpeed = Global.LevelData[0]["thunderSpeed"]
-	attackTime = Global.LevelData[Global.NowLevel]["set"]["attackTime"]
+	#attackTime = Global.LevelData[Global.NowLevel]["set"]["attackTime"]
 	
 	if Global.LevelData[Global.NowLevel]["chosenCard"].is_empty():
 		Global.ChoiceWindow.visible = true
@@ -59,36 +62,34 @@ func _ready():
 	pass
 	
 func _on_cave_timer_timeout():
-	if Global.CaveHas == false:
-		var tower = Global.Tower.instantiate()
-		tower.camp = Global.MONSTER
-		tower.firstSetting("cave")
-		var pos = $monnsterTowerArea.position.x
-		var size = $monnsterTowerArea.size.x/2
-		tower.position.x = randi_range(pos-size,pos+size)
-		Global.root.add_child(tower)
-		Global.CaveHas = true
-	$Timer/CaveTimer.start(caveTime+randf_range(-caveTimeRand,caveTimeRand))
+	var targetArray = get_tree().get_nodes_in_group("villageSoldier")
+	if !targetArray.is_empty(): 
+		var target = targetArray[randi_range(0,targetArray.size()-1)]
+		var newIce = Global.Skill.instantiate()
+		newIce.position.x = target.position.x
+		newIce.camp = Global.MONSTER
+		Global.root.add_child(newIce)
+		newIce.firstSetting("ice")
+	$Timer/CaveTimer.start(iceTime+randf_range(-iceTimeRand,iceTimeRand))
 	pass 
 	
 func _on_thundertimer_timeout():
 	var targetArray = get_tree().get_nodes_in_group("creeper")
 	if !targetArray.is_empty(): 
 		var target = targetArray[randi_range(0,targetArray.size()-1)]
-		var newthunder = Global.Skill.instantiate()
-		Global.root.add_child(newthunder)
-		newthunder.position.x = target.position.x-20
-		newthunder.camp = Global.MONSTER
-		newthunder.firstSetting("thunder")
+		var newtThunder = Global.Skill.instantiate()
+		newtThunder.position.x = target.position.x-20
+		newtThunder.camp = Global.MONSTER
+		Global.root.add_child(newtThunder)
+		newtThunder.firstSetting("thunder")
 		
-	if bossLv == 3:#boss战第三阶段多一次纯劈一道闪电
-		var newthunder = Global.Skill.instantiate()
-		Global.root.add_child(newthunder)
-		newthunder.camp = Global.MONSTER
-		newthunder.firstSetting("thunder")
-		newthunder.position.x = randi_range(Global.VillagePoint.x+($baseVillage.collBox.x/2),$Boss.position.x)
-		
-	$Timer/Thundertimer.start(thunderTime+randf_range(-thunderTimeRand,thunderTimeRand))
+#	if bossLv == 3:#boss战第三阶段多一次纯劈一道闪电
+#		var newtThunder = Global.Skill.instantiate()
+#		newtThunder.camp = Global.MONSTER
+#		newtThunder.position.x = randi_range(Global.VillagePoint.x+($baseVillage.collBox.x/2),$Boss.position.x)
+#		Global.root.add_child(newtThunder)
+#		newtThunder.firstSetting("thunder")
+	$Timer/ThunderTimer.start(thunderTime+randf_range(-thunderTimeRand,thunderTimeRand))
 	pass
 	
 func fightStart():
@@ -103,16 +104,14 @@ func fightStart():
 	if bossLv < 1: $baseMonster.visible = true
 	$baseVillage.visible = true#$Spacetext.visible = false
 	
-	if attackTime >0:
-		$Up/AttackTime.visible = true
-		$Timer/attackTimer.start(1)
+#	if attackTime >0:
+#		$Up/AttackTime.visible = true
+#		$Timer/attackTimer.start(1)
 	$Timer/Moneytimer.start(moneyTime)
-	if Global.LevelData[Global.NowLevel]["set"]["caveTime"] > 0: 
-		$Timer/CaveTimer.start(Global.LevelData[Global.NowLevel]["set"]["caveTime"])
+	if Global.LevelData[Global.NowLevel]["set"]["iceTime"] > 0: 
+		$Timer/CaveTimer.start(Global.LevelData[Global.NowLevel]["set"]["iceTime"])
 	if Global.LevelData[Global.NowLevel]["set"]["thunderTime"] > 0: 
-		
-		$Timer/Thundertimer.start(Global.LevelData[Global.NowLevel]["set"]["thunderTime"])
-
+		$Timer/ThunderTimer.start(Global.LevelData[Global.NowLevel]["set"]["thunderTime"])
 	pass
 	
 func SummonEnemy():
@@ -134,13 +133,17 @@ func _process(_delta):
 	
 	thunderTime = Global.LevelData[Global.NowLevel]["set"]["thunderTime"]
 	thunderTimeRand = Global.LevelData[Global.NowLevel]["set"]["thunderTimeRand"]
-	caveTime = Global.LevelData[Global.NowLevel]["set"]["caveTime"]
-	caveTimeRand = Global.LevelData[Global.NowLevel]["set"]["caveTimeRand"]
+	iceTime = Global.LevelData[Global.NowLevel]["set"]["iceTime"]
+	iceTimeRand = Global.LevelData[Global.NowLevel]["set"]["iceTimeRand"]
 	
+	if Global.VillageBase.health <= 0: 
+		await get_tree().create_timer(0.8).timeout
+		Global.StopWindow.text("lose")
+	if Global.MonsterBase.health <= 0: 
+		await get_tree().create_timer(0.8).timeout
+		Global.StopWindow.text("win")
 	if bossLv > 0:
 		$monnsterTowerArea.position.x = $Boss.global_position.x-$monnsterTowerArea.size.x-20
-	if Global.VillageBase.health <= 0: Global.StopWindow.text("lose")
-	if Global.MonsterBase.health <= 0: Global.StopWindow.text("win")
 	match Global.LevelData[Global.NowLevel]["set"]["levelType"]:
 		"defence","boss":
 			if Global.LevelOver == true&&get_tree().get_nodes_in_group("monsterSoldier").is_empty(): 
@@ -150,9 +153,8 @@ func _process(_delta):
 					bossLv = 2
 					summonEnemyID.queue_free()
 					SummonEnemy()
-					$Timer/Thundertimer.start(thunderTime)
-					$Up/AttackTime.visible = true
-					$Timer/attackTimer.start(1)
+					#$Timer/CaveTimer.start(iceTime)
+					#$Up/AttackTime.visible = true
 					emit_signal("BossLv2")
 	if bossLv == 2:
 		if Global.MonsterBase.health<=Global.MonsterBase.bossSecHealth:
@@ -160,12 +162,31 @@ func _process(_delta):
 			bossLv = 3
 			summonEnemyID.queue_free()
 			SummonEnemy()
+			#$Timer/ThunderTimer.start(thunderTime)
 			attackTime = Global.LevelData[Global.NowLevel]["set"]["attackTime"]
+			$Timer/attackTimer.start(1)
+			
 			emit_signal("BossLv3")
+	if bossLv == 3:
+		if bossUp >= (attackTime/6)&&$bossSkill.frame!=6: 
+			bossUp = 0
+			$bossSkill.frame += 1
+		if bossShineSet == 0: $bossSkill.modulate.a -= 0.01
+		if $bossSkill.modulate.a <=0: bossShineSet = 1
+		if bossShineSet == 1: $bossSkill.modulate.a += 0.01
+		if $bossSkill.modulate.a >= 1: bossShineSet = 0
+		pass
 					
 	if Global.LevelData[Global.NowLevel]["set"]["levelType"] == "attack":
-		$Up/AttackTime/AttackTimeValue.text = str(attackTime)
-		if attackTime <= 0: Global.VillageBase.health = 0
+		#$Up/AttackTime/AttackTimeValue.text = str(attackTime)
+		
+		if attackTime <= 0: 
+			var newtThunder = Global.Skill.instantiate()
+			newtThunder.position.x = $baseVillage.position.x
+			newtThunder.camp = Global.MONSTER
+			Global.root.add_child(newtThunder)
+			newtThunder.firstSetting("thunder")
+			Global.VillageBase.health = 0
 	pass
 	
 func time():
@@ -177,7 +198,10 @@ func time():
 	time()
 	pass
 	
-func _on_attack_timer_timeout(): attackTime -= 1
+
+func _on_attack_timer_timeout(): 
+	attackTime -= 1
+	bossUp += 1
 
 func _on_moneytimer_timeout():
 	if Global.NowMoney < Global.Money: Global.NowMoney += 1
@@ -219,6 +243,9 @@ func _on_tree_entered():
 	
 	Global.BossProtect = $bossProtect/collBox
 	Global.BossProtect.camp = Global.MONSTER
+	Global.BossSkill = $bossSkill
+	Global.BossSkill.position.y = Global.FightSkyY
+	Global.BossSkill.frame = 0
 	Global.BossStopX = $position/bossStop.position.x
 	Global.BossPosX = $position/bossPos.position.x
 	
@@ -235,6 +262,7 @@ func _on_tree_entered():
 	$baseVillage.visible = false
 	$bossProtect.visible = false
 	$Boss.visible = false
+	$bossSkill.visible = false
 	pass
 
 

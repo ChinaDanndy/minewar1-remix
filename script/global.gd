@@ -121,6 +121,7 @@ var MonsterPoint
 var BossStopX
 var BossPosX
 var BossProtect
+var BossSkill
 var VillageBase
 var MonsterBase
 var towerArea
@@ -194,7 +195,7 @@ func _ready():#读入数据
 	Money = 10
 	CardUp = 5
 
-	var file = FileAccess.open("user://object.json", FileAccess.READ)#user:
+	var file = FileAccess.open("res://data/object.json", FileAccess.READ)#user:
 	var content = file.get_as_text()#读取所有士兵数据
 	var jsonValue = JSON.new()
 	jsonValue.parse(content)
@@ -213,15 +214,16 @@ func _ready():#读入数据
 #							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
 		
 		var pictureGet#提前根据图片得到单位碰撞箱尺寸
+		var cut = 0
 		match STSData[STSName]["type"]:
 			"soldier": pictureGet = load("res://assets/objects/soldier/%s/walk/walk1.png"% STSName)
 			"tower": pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
 			"skill": pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
-		#if STSData[STSName]["type"] != "skill": 
-		STSData[STSName]["collBox"] = pictureGet.get_size()
+		if STSData[STSName].has("collBoxCut"): cut = STSData[STSName]["collBoxCut"]
+		STSData[STSName]["collBox"] = pictureGet.get_size()-Vector2(cut,0)
 	file = null 
 	
-	file = FileAccess.open("user://level.json", FileAccess.READ)#res://data
+	file = FileAccess.open("res://data/level.json", FileAccess.READ)#res://data
 	content = file.get_as_text()
 	jsonValue = JSON.new()
 	jsonValue.parse(content)

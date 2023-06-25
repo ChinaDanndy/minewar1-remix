@@ -3,7 +3,7 @@ var camp = 0
 signal ProtectDown 
 @export var AName:String
 @onready var picture = get_parent()
-@onready var healthColor = get_parent().get_node("healthLine/health/ColorRect")
+@onready var healthColor = get_parent().get_node("healthLine/Sprite2D")
 var originSize
 var effDefence = [true,true,true,true,false,false,true]
 var attDefence = [false,false,false]
@@ -14,13 +14,6 @@ var shield =0
 var collBox
 
 func firstSetting(Name):
-	var newBox = RectangleShape2D.new()
-	collBox = get_parent().texture.get_size()
-	newBox.size = collBox
-	$CollisionShape2D.shape = newBox
-	get_parent().get_node("cover").texture = get_parent().texture
-	get_parent().get_node("cover").visible = false
-	get_parent().get_node("healthLine").position.y = (-collBox.y/2-16)
 	if get_parent().name == "bossProtect": 
 		health = Global.STSData["creeperKing"]["protectHealth"]
 		get_parent().position.y = Global.FightSkyY
@@ -28,15 +21,25 @@ func firstSetting(Name):
 	else: 
 		collision_layer = Global.LAyer[camp+1][2]
 		health = Global.LevelData[Global.NowLevel]["set"][Name]
-		get_parent().position.y = Global.FightGroundY-(collBox.y/2)
 		if get_parent().name == "baseMonster": 
 			match Global.LevelData[Global.NowLevel]["set"]["levelType"]:
 #				"attack": get_parent().texture = load("res://assets/objects/attackNormal.png")
-				"defence": get_parent().get_node("healthLine").visible = false
-					#get_parent().texture = load("res://assets/objects/defence.png") 
+				"defence": 
+					get_parent().get_node("healthLine").visible = false
+					get_parent().texture = load("res://assets/objects/defence.png") 
+					
+	var newBox = RectangleShape2D.new()
+	collBox = get_parent().texture.get_size()
+	newBox.size = collBox
+	$CollisionShape2D.shape = newBox
+	if !get_parent().name == "bossProtect": 
+		get_parent().position.y = Global.FightGroundY-(collBox.y/2)
+		
 	healthUp = health
-	originSize = healthColor.size.x
-
+	originSize = healthColor.texture.get_size().x
+	get_parent().get_node("cover").texture = get_parent().texture
+	get_parent().get_node("cover").visible = false
+	get_parent().get_node("healthLine").position.y = (-collBox.y/2-16)
 	pass
 	
 func _ready():
@@ -51,9 +54,8 @@ func hurt():
 	
 func _process(_delta):
 	#if Input.is_action_just_pressed("ui_test"): print(health)
-	
-	healthColor.size.x = originSize*(health/healthUp)
-	
+	healthColor.region_rect = Rect2(0,0,originSize*(health/healthUp),10)
+	healthColor.position.x = -((originSize-(originSize*(health/healthUp)))/2)
 	get_parent().get_node("Label").text = str(health)
 	if get_parent().name == "bossProtect":
 		if Input.is_action_just_pressed("ui_test"): 

@@ -1,11 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://qynklu6mdhxq"]
+[gd_scene load_steps=3 format=3 uid="uid://qynklu6mdhxq"]
 
 [ext_resource type="Script" path="res://script/fight/object/skill.gd" id="2_wf2hv"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(20, 44)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8lve"]
 
 [node name="object" type="Area2D"]
 collision_layer = 0
@@ -19,12 +17,5 @@ shape = SubResource("1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0.988235, 1, 1, 1)
-
-[node name="thunderArea" type="Area2D" parent="."]
-visible = false
-monitorable = false
-
-[node name="thunderBox" type="CollisionShape2D" parent="thunderArea"]
-shape = SubResource("RectangleShape2D_d8lve")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

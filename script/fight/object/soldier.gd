@@ -12,7 +12,8 @@ func firstSetting(soldier):
 		Global.VILLAGE: 
 			if soldier == Global.Contrl: Ani.material = Global.SoldierOutLine
 			position.x = Global.VillagePoint.x
-			add_to_group(soldier)
+			#add_to_group(soldier)
+			add_to_group("villageSoldier")
 		Global.MONSTER: 
 			position.x = Global.MonsterPoint.x
 			add_to_group("monsterSoldier")
@@ -20,21 +21,25 @@ func firstSetting(soldier):
 	if stopTime == 0: Global.SummonEnemy.stopOver.connect(onStopOver)
 	collision_layer = Global.LAyer[camp+1][0]
 	position.y = Global.FightGroundY-(collBox.y/2)
+#	if projectile.is_empty(): 
+#	else: $Collision1.position.y = (collBox.y/2)-25
+		
 	if unSee == true: 
 		collision_layer = Global.LAyer[camp+1][1]
 		$AnimatedSprite2D.modulate.a = 0.5
-	if kind == "sky": 
-		position.y = Global.FightSkyY
+	if kind == "sky": position.y = Global.FightSkyY
+	else: $Collision1.position.y = (collBox.y/2)-10
+		
 	var distanceLandSky = Global.FightGroundY - Global.FightSkyY
 	match coll2Pos:
 		"landSky":#骷髅
 			$Collision2.position.y = -(distanceLandSky)
 			$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
 		"skyLand":#恶魂
-			$Collision2.position.y = (distanceLandSky)
+			$Collision2.position.y = (distanceLandSky)-10
 			$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
 		"skyLine":#活塞虫
-			$Collision2.position.y = (distanceLandSky)-20
+			$Collision2.position.y = (distanceLandSky)-10
 			$Collision2.position.x = -(attRangeBasic[1]/2)
 	if coll2Pos != null: $Collision2.collide_with_areas = true
 	if usualTime != null: $UsualTimer.start(usualTime)
@@ -51,9 +56,10 @@ func _on_usual_timer_timeout():#平常给予效果
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
-		print(Global.MonsterBase.position)
+		#print(Global.MonsterBase.position)
 		#if camp == Global.VILLAGE: health = 0
 		#$AnimatedSprite2D.play("attack")
+		pass
 	if camp == Global.MONSTER:
 		if Global.MonsterPoint.x - position.x>50&&soldierName[0] == "creeper"&&!is_in_group("creeper"):
 			add_to_group("creeper")#获得苦力怕id给劈闪电用
@@ -62,6 +68,7 @@ func _process(_delta):
 	if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&currentState != State.FALL: 
 		#if (collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
 		contrl()
+		
 	position.x += speed*camp*speedDirection*speedState#移动控制
 
 	if stopPos != null&&ifOnlyAttBase == false:#敌方的行动与暂停

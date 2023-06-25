@@ -5,6 +5,7 @@ var kind = "land"#land sea sky
 var coll2Pos#landSky Skyland SkyLine
 var health = 1#
 var healthUp = health
+var collBoxCut#
 var collBox:Vector2##不用记录根据已读入数据推算
 var soldierName = [null,null]#
 var other
@@ -46,8 +47,9 @@ var Projectile = preload("res://sence/fight/object/projectiles.tscn")
 var attRangeBasic = [0,0]#
 var attRange = [0,0]
 var proSpeed = [0,0]#
+var proPos = [0,0]#
 var ifPriece = [false,false]#
-var projectile#
+var projectile = []#
 var proSleepTime#
 var proContinueTimes#
 var proTimes = 0
@@ -73,6 +75,7 @@ var tpDistance#
 var tp = true#
 var dropSpeed#
 var unSee = false#
+var firstAttack = false#
 var startDrop = false#
 var deathAttType#
 var healthTpDistance#
@@ -108,7 +111,7 @@ func SetAnimationAndCollBox(soldier):
 	spirte = SpriteFrames.new()#给动画播放器添加图片
 	for i in animation.keys():
 		spirte.add_animation(i)
-		if i == "death": spirte.set_animation_loop(i,false)
+		if i == "death": spirte.set_animation_loop(i,false)#设置死亡停留动画
 		for j in animation[i]:
 			var picture = load("res://assets/objects/%s/%s/%s/%s%s.png"% [type,soldier,i,i,j+1])
 			spirte.add_frame(i,picture)
@@ -156,11 +159,10 @@ func collMask():
 	pass
 	
 func reSet(soldier):
-	soldierName[0] = null
+	#soldierName[0] = null
 	SetValue(soldier)
 	SetAnimationAndCollBox(soldier)
 	collMask()
-	if soldierName[1] == "creeperThunder": health += 7
 	pass
 	
 func _process(_delta):#每帧执行的部分
@@ -179,26 +181,28 @@ func _process(_delta):#每帧执行的部分
 		attRange[i] = attRangeBasic[i]+(attRangeBasic[i]*(nowEffect[Global.Effect.ATTRANGE]
 		+nowEffect[Global.Effect.ATTRANGE+Global.EffGood]))
 		
-	speed = speedBasic+(speedBasic*(nowEffect[Global.Effect.SPEED]
-	+nowEffect[Global.Effect.SPEED+Global.EffGood]))*nowEffect[Global.Effect.FREEZE]
+	speed = (speedBasic+(speedBasic*(nowEffect[Global.Effect.SPEED]
+	+nowEffect[Global.Effect.SPEED+Global.EffGood])))*nowEffect[Global.Effect.FREEZE]
 	
 	aniSpeed = (aniSpeedBasic+(aniSpeedBasic*(nowEffect[Global.Effect.SPEED]
 	+nowEffect[Global.Effect.SPEED+Global.EffGood])))*nowEffect[Global.Effect.FREEZE]
 	
 #	if startDrop == false:
-	if soldierName[0] != "spider": $Collision1.position = Vector2(0,7)
-	$Collision1.target_position = Vector2(attRange[0]*camp,0)
 #	else:
 #	$Collision1.target_position = Vector2(0,attRange[0])
 #	$Collision1.position = Vector2(-50,-100)
+	#if soldierName[0] != "spider": $Collision1.position = Vector2(0,7)
+	$Collision1.target_position = Vector2(attRange[0]*camp,0)
 	$Collision2.target_position = Vector2(attRange[1]*camp,0)
 	$AnimatedSprite2D.speed_scale = aniSpeed
 	
 	if health <= 0&&currentState != State.DEATH&&currentState != State.FALL: #死亡判定
 		deathSet()
+		aniSpeedBasic = 0.5
 		#死亡特效
-		if animation.has("deathFall"): changeState("deathFall",State.FALL)
-		else: changeState("death",State.DEATH)
+		#if animation.has("deathFall"): changeState("deathFall",State.FALL)
+		#else: 
+		changeState("death",State.DEATH)
 		
 	if Input.is_action_just_pressed("ui_select"):#测试用
 		if camp == Global.MONSTER:
@@ -349,16 +353,14 @@ func _on_animated_sprite_2d_animation_finished():
 
 func attack():
 	var attackAni = currentAni
-	#第二攻击有数据才换数据否则两组攻击数据一样
 	if attackAni == "attackSec"&&damageBasic[ani["attackSec"]] == null: 
-		attackAni = "attack"
+		attackAni = "attack"#第二攻击有数据才换数据否则两组攻击数据一样
 	
-	if projectile == null:
+	if projectile.is_empty():
 		if aoeRange[ani[attackAni]] == null:#近战单体
 			Global.damage_Calu(other,Global.damCaluType.ATTEFF,attackType[ani[attackAni]],
 			damage[ani[attackAni]],damagerType[ani[attackAni]],giveEffect[ani[attackAni]],
 			effValue[ani[attackAni]],effTime[ani[attackAni]],effTimes[ani[attackAni]],Global.IfAoeType.NONE)
-		
 		else:#近战AOE
 			#Global.damage_Calu(body,Global.TRANSFER,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,null)
 			if attackType[ani[attackAni]][Global.AttackType.EXPLODE] == true: other = self
@@ -370,10 +372,11 @@ func attack():
 				deathSet()
 				changeState("death",State.DEATH)
 				$AnimatedSprite2D.visible = false
-				
 				#await get_tree().create_timer(2,false).timeout
 				#queue_free()#近战AOE且是爆炸伤害类型->只有自爆
-			if soldierName[0] == "assassinFirst": reSet(soldierName[1])
+			if firstAttack == true: 
+				reSet(soldierName[1])
+				firstAttack = false
 	else:#远程
 		var attTimes = 1
 		if currentAni == "attackThr":#第三情况为同时攻击两个目标，限空军
@@ -393,7 +396,7 @@ func attack():
 			ifAoeHold[ani[attackAni]],attackType[ani[attackAni]],damage[ani[attackAni]],
 			damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],
 			effTime[ani[attackAni]],effTimes[ani[attackAni]])
-			newPro.position = position
+			newPro.position = position+Vector2(0,proPos[ani[attackAni]])
 			Global.root.add_child(newPro)
 	pass
 	

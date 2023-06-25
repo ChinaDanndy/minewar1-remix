@@ -1,14 +1,15 @@
 {
     "shoveler":{
-        "price":2,
-        "cd":2,
+        "price":1,
+        "cd":1,
         "type":"soldier",
         "health":4,
+        "collBoxCut":20,
         "animation":{"walk":6,"attack":4,"stop":1,"death":1},
         "souEffValue":{"hurt":"hurt1","death":"steveDeath"},
         "particlesValue":{"hurt":"hurtRed"},
-        "aniSpeedBasic":1,
-        "speedBasic":0.8,
+        "aniSpeedBasic":1.2,
+        "speedBasic":1,
         "attackType":[[true,false,false]],
         "damageBasic":[1,0],
         "damagerType":[["tower","base"]],
@@ -20,8 +21,8 @@
         "animation":{"walk":6,"attack":4,"stop":1,"death":1},
         "souEffValue":{"hurt":"hurt1","death":"zombieDeath"},
         "particlesValue":{"hurt":"hurtRed"},
-        "aniSpeedBasic":1.05,
-        "speedBasic":0.85,
+        "aniSpeedBasic":1.2,
+        "speedBasic":0.8,
         "attackType":[[true,false,false]],
         "damageBasic":[1,0],
         "attRangeBasic":[10,0]
@@ -29,7 +30,7 @@
     "axer":{
         "type":"soldier",
         "health":4,
-        "animation":{"walk":6,"attack":6,"stop":1,"death":1},
+        "animation":{"walk":6,"attack":5,"stop":1,"death":1},
         "souEffValue":{"hurt":"hurt1","death":"zombieDeath"},
         "particlesValue":{"hurt":"hurtRed"},
         "aniSpeedBasic":0.85,
@@ -38,21 +39,9 @@
         "damageBasic":[4,0,0],
         "attRangeBasic":[20,0]
     },
-    "spider":{
-        "type":"soldier",
-        "health":2,
-        "animation":{"walk":5,"attack":4,"stop":1,"death":1},
-        "souEffValue":{"hurt":"hurt1","death":"spiderDeath"},
-        "particlesValue":{"hurt":"hurtRed"},
-        "aniSpeedBasic":1.5,
-        "speedBasic":1.3,
-        "attackType":[[true,false,false]],
-        "damageBasic":[0.75,0],
-        "attRangeBasic":[20,0]
-    },
     "shielder":{
-        "price":4,
-        "cd":5,
+        "price":1,
+        "cd":1,
         "type":"soldier",
         "health":4,
         "soldierName":[null,"shielderNo"],
@@ -78,28 +67,29 @@
         "attRangeBasic":[10,0]
     }, 
     "assassinFirst":{
-        "price":5,
-        "cd":5,
+        "price":1,
+        "cd":1,
         "type":"soldier",
         "soldierName":[null,"assassin"],
         "health":7,
         "animation":{"walk":4,"attack":3,"death":1},
         "souEffValue":{"hurt":"hurt1","death":"steveDeath"},
         "particlesValue":{"hurt":"hurtRed"},
-        "aniSpeedBasic":1.6,
-        "speedBasic":1.4,
+        "aniSpeedBasic":2,
+        "speedBasic":3.2,
         "attackType":[[true,false,false]],
         "damageBasic":[5,0],
         "attRangeBasic":[25,0],
         "aoeModel":["monster"],
         "aoeRange":[50],
-        "unSee": true
+        "unSee": true,
+        "firstAttack":true
     },
     "assassin":{
         "type":"soldier",
         "animation":{"walk":6,"attack":6,"stop":1,"death":1},
-        "aniSpeedBasic":1.2,
-        "speedBasic":1,
+        "aniSpeedBasic":1.4,
+        "speedBasic":2.6,
         "damageBasic":[1.5,0],
         "attRangeBasic":[25,0],
         "aoeModel":[null],
@@ -108,22 +98,36 @@
     },
     "iron":
     {
-        "price":6,
-        "cd":7,
+        "price":1,
+        "cd":1,
         "type":"soldier",
         "health":9,
-        "animation":{"walk":1,"attack":10,"stop":1,"death":1},
+        "animation":{"walk":10,"attack":5,"stop":1,"death":1},
         "souEffValue":{"hurt":"hurt1","death":"irongolemDeath"},
         "particlesValue":{"hurt":"hurtRed"},
         "aniSpeedBasic":0.6,
-        "speedBasic":0.5,
+        "speedBasic":0.9,
         "attackType":[[true,false,false],[],[]],
-        "damageBasic":[4,0,0],
-        "attRangeBasic":[50,0],
+        "damageBasic":[1,0,0],
+        "attRangeBasic":[40,0],
         "aoeModel":["monster",null,null,null],
-        "aoeRange":[40,0,0,0],
-        "effValue":[[0,0,80],[],[],[]],
+        "aoeRange":[30,0,0,0],
+        "effValue":[[0,0,60],[],[],[]],
         "giveEffect":[[0,0,0,0,0,0,-1],[],[],[]]
+    },
+    "spider":{
+        "type":"soldier",
+        "health":5,
+        "animation":{"walk":5,"attack":4,"stop":1,"death":1},
+        "souEffValue":{"hurt":"hurt1","death":"spiderDeath"},
+        "particlesValue":{"hurt":"hurtRed"},
+        "aniSpeedBasic":1.6,
+        "speedBasic":1.4,
+        "attackType":[[true,false,false]],
+        "damageBasic":[0.75,0],
+        "attRangeBasic":[20,0],
+        "tpDistance":40,
+        "healthEffValue":3
     },
     "end":{
         "type":"soldier",
@@ -138,7 +142,6 @@
         "attRangeBasic":[10,0],
         "tpDistance":40,
         "healthEffValue":3
-
     },
     "projector":{
         "price":1,
@@ -173,6 +176,8 @@
         "towKeepTime":20,
         "dropSpeed":-3
     },
+
+
     "cave":{
         "price":1,
         "type":"tower",
@@ -187,8 +192,8 @@
         "dropSpeed":-3
     },
     "regeneration":{
-        "price":3,
-        "cd":5,
+        "price":1,
+        "cd":1,
         "type":"skill",
         "ifAoeHold":true,
         "aoeModel":"village",
@@ -200,8 +205,8 @@
         "dropSpeed":20
     },
     "power":{
-        "price":4,
-        "cd":5,
+        "price":1,
+        "cd":1,
         "type":"skill",
         "ifAoeHold":false,
         "aoeModel":"village",
@@ -210,6 +215,18 @@
         "effTimes":[0,0],
         "giveEffect":[1,0,1,0,0,0,0],
         "dropSpeed":20
+    },
+    "ice":{
+        "price":1,
+        "cd":1,
+        "type":"skill",
+        "ifAoeHold":false,
+        "aoeModel":"village",
+        "aoeRange":80,
+        "effTime":[0,0,0,2,0],
+        "effTimes":[0,0],
+        "giveEffect":[0,0,0,-1,0,0,0],
+        "dropSpeed":8
     },
     "skeleton":{
         "coll2Pos":"landSky",
@@ -227,8 +244,8 @@
         "proSpeed":[4,3]
     },
     "snowman":{
-        "price":4,
-        "cd":5,
+        "price":1,
+        "cd":1,
         "type":"soldier",
         "health":5,
         "animation":{"walk":1,"attack":3,"stop":1,"death":1},
@@ -241,6 +258,7 @@
         "attRangeBasic":[140,0],
         "projectile":["snowBall",null],
         "proSpeed":[3,0],
+        "proPos":[-10,0],
         "effTime":[[0,0,2,0,0],[],[],[]],
         "giveEffect":[[0,0,-1,0,0,0,0],[],[],[]]
     },
@@ -265,27 +283,25 @@
         "giveEffect":[[-1,0,0,0,0,0,0],[],[],[0,0,0,0,0,1,0]],
         "usualTime":3
     },
-    "worm":{
+    "flyer":{
         "price":1,
         "cd":1,
         "kind":"sky",
         "coll2Pos":"skyLine",
         "type":"soldier",
-        "health":12,
-        "animation":{"walk":1,"attack":1,"attackSec":1,"attackThr":1,"stop":1,"death":1,"deathFall":1},
+        "health":4,
+        "animation":{"walk":4,"attack":4,"attackSec":4,"attackThr":4,"stop":4,"death":1,"deathFall":1},
         "souEffValue":{"hurt":"hurt1","attack":"arrowShoot","attackSec":"fuse","attackThr":"arrowShoot","death":"explode2"},
-        "particlesValue":{"hurt":"hurtWhite","death":"selfExplode"},
-        "aniSpeedBasic":0.2,
-        "speedBasic":1.4,
-        "attackType":[[false,true,false],[false,false,true],[false,false,true]],
-        "damageBasic":[3,5,7],
-        "attRangeBasic":[180,40],
-        "aoeModel":[null,"all","all",null],
-        "aoeRange":[null,40,100,null],
+        "particlesValue":{"hurt":"hurtRed","death":"selfExplode"},
+        "aniSpeedBasic":1.1,
+        "speedBasic":0.9,
+        "attackType":[[false,true,false],[false,false,true]],
+        "damageBasic":[1,5],
+        "attRangeBasic":[180,4],
+        "aoeModel":[null,"all",null,null],
+        "aoeRange":[null,41,null,null],
         "projectile":["arrow","tnt"],
-        "proSpeed":[5,5],
-        "dropSpeed":3,
-        "deathAttType":"death"
+        "proSpeed":[5,5]
     },
     "ghost":{
         "kind":"sky",
@@ -316,8 +332,8 @@
         "animation":{"walk":6,"attack":6,"stop":1,"death":1},
         "souEffValue":{"hurt":"hurt1","attack":"explode1","death":"creeperDeath"},
         "particlesValue":{"hurt":"hurtRed","attack":"smallExplode"},
-        "aniSpeedBasic":1.1,
-        "speedBasic":0.9,
+        "aniSpeedBasic":1.3,
+        "speedBasic":1.1,
         "attackType":[[false,false,true],[],[]],
         "damageBasic":[6,0,0],
         "attRangeBasic":[20,0],
@@ -326,12 +342,12 @@
     },
     "creeperThunder":{
         "type":"soldier",
-        "health":1,
+        "health":6,
         "animation":{"walk":6,"attack":4,"death":1,"stop":1},
         "souEffValue":{"hurt":"hurt1","attack":"explode1","death":"explode1"},
         "particlesValue":{"hurt":"hurtRed","attack":"bigExplode","death":"bigExplode"},
-        "aniSpeedBasic":1.2,
-        "speedBasic":0.9,
+        "aniSpeedBasic":1.4,
+        "speedBasic":1.2,
         "damageBasic":[10,0],
         "aoeRange":[60],
         "ifOnlyAttBase":true,
@@ -341,8 +357,8 @@
     },
     "thunder":{
         "type":"skill",
-        "aoeModel":"all",
-        "aoeRange":30,
+        "aoeModel":"village",
+        "aoeRange":40,
         "ifAoeHold":false,
         "effValue":[0,7,0],
         "giveEffect":[0,0,0,0,0,-1,0]
@@ -365,7 +381,7 @@
         "giveEffect":[[0,0,0,0,0,0,-1],[0,0,0,0,-1,0,0],[],[]],
         "bossSecHealth":18,
         "protectHealth":2,
-        "protectCD":15
+        "protectCD":5
     },
     "thunderBoss":{
         "type":"skill",
