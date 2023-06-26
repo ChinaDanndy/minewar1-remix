@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://citiamtqkirsh" path="res://assets/music/se/miniGame/largeBlast.ogg" id="4_jaksr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ow0a"]
-size = Vector2(10, 24)
+size = Vector2(20, 30)
 
 [sub_resource type="Curve" id="Curve_c6v4g"]
 resource_local_to_scene = true
@@ -93,6 +93,7 @@ color = Color(1, 1, 0, 1)
 color_ramp = SubResource("Gradient_36wng")
 
 [node name="AOE" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 monitoring = false
 monitorable = false

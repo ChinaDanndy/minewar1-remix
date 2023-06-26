@@ -1,6 +1,6 @@
 extends Node
-const soldierCD = [1.5,1,0.5]
-enum  CDtype {WIDE,MIDDLE,TIGHT}
+#const soldierCD = [1.5,1,0.5]
+#enum  CDtype {WIDE,MIDDLE,TIGHT}
 
 var object = 1
 var times:Array
@@ -9,8 +9,6 @@ var groupCount = 0
 var soldierCount = 0
 signal stopOver
 
-
-
 func _ready(): 
 	name = "summonEnemy"
 	times.clear()
@@ -18,13 +16,14 @@ func _ready():
 	groupCount = Global.LevelData[Global.NowLevel]["groups"].size()#记录有多少组人
 	for i in groupCount: 
 		times.append(0)
-		allTime.append((((Global.LevelData[Global.NowLevel]["groups"][i]["soldierCD"]*
-		(Global.LevelData[Global.NowLevel]["groups"][i]["soldier"].size()-1))+
-		Global.LevelData[Global.NowLevel]["groups"][i]["groupCD"]+
-		Global.LevelData[Global.NowLevel]["groups"][i]["groupCDRand"])*
-		(Global.LevelData[Global.NowLevel]["groups"][i]["times"]-1))+
-		(Global.LevelData[Global.NowLevel]["groups"][i]["soldierCD"]*
-		(Global.LevelData[Global.NowLevel]["groups"][i]["soldier"].size()-1)))
+		var firstCD = Global.LevelData[Global.NowLevel]["groups"][i]["firstCD"]
+		var soldierCountCalu = Global.LevelData[Global.NowLevel]["groups"][i]["soldier"].size()-1
+		var soldierCD = Global.LevelData[Global.NowLevel]["groups"][i]["soldierCD"]
+		var groupCD = Global.LevelData[Global.NowLevel]["groups"][i]["groupCD"]
+		var groupCDRand = Global.LevelData[Global.NowLevel]["groups"][i]["groupCDRand"]
+		var groupTimes = Global.LevelData[Global.NowLevel]["groups"][i]["groupTimes"]-1
+		allTime.append(firstCD+((soldierCountCalu*soldierCD)+(groupCD+groupCDRand))
+		*groupTimes+(soldierCountCalu*soldierCD))
 		firstStart(i)
 	pass
 	
@@ -57,11 +56,13 @@ func summonEnemy(group):
 			enemy.stopTime = Global.LevelData[Global.NowLevel]["groups"][group]["stopTime"]
 		enemy.firstSetting(Global.LevelData[Global.NowLevel]["groups"][group]["soldier"][j])
 		if soldierCount>1: 
-			await get_tree().create_timer(Global.LevelData[Global.NowLevel]["groups"][group]["soldierCD"],false).timeout
+			await get_tree().create_timer(Global.LevelData[Global.NowLevel]["groups"][group]
+			["soldierCD"],false).timeout
 	times[group] += 1
-	if Global.LevelData[Global.NowLevel]["groups"][group]["times"] == 0: againWait(group)#
+	
+	if Global.LevelData[Global.NowLevel]["groups"][group]["groupTimes"] == 0: againWait(group)#永久持续出兵
 	else:
-		if times[group] != Global.LevelData[Global.NowLevel]["groups"][group]["times"]: againWait(group)
+		if times[group] != Global.LevelData[Global.NowLevel]["groups"][group]["groupTimes"]: againWait(group)
 		else: 
 			if Global.LevelData[Global.NowLevel]["groups"][group]["stopTime"] == -1: emit_signal("stopOver")
 			if group == groupCount-1: Global.LevelOver = true

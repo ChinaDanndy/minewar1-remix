@@ -9,6 +9,7 @@ var collBoxCut#
 var collBox:Vector2##不用记录根据已读入数据推算
 var soldierName = [null,null]#
 var other
+var Death = false
 
 enum State {ATTACK,STOP,DEATH,BACK,PUSH,OUTSEA,FALL}
 const ani = {"attack":0,"attackSec":1,"death":2,"usual":3}#usual = 2
@@ -47,7 +48,7 @@ var Projectile = preload("res://sence/fight/object/projectiles.tscn")
 var attRangeBasic = [0,0]#
 var attRange = [0,0]
 var proSpeed = [0,0]#
-var proPos = [0,0]#
+var proPos = [0,0,0,0]#
 var ifPriece = [false,false]#
 var projectile = []#
 var proSleepTime#
@@ -111,7 +112,7 @@ func SetAnimationAndCollBox(soldier):
 	spirte = SpriteFrames.new()#给动画播放器添加图片
 	for i in animation.keys():
 		spirte.add_animation(i)
-		if i == "death": spirte.set_animation_loop(i,false)#设置死亡停留动画
+		#if i == "death": spirte.set_animation_loop(i,false)#设置死亡停留动画
 		for j in animation[i]:
 			var picture = load("res://assets/objects/%s/%s/%s/%s%s.png"% [type,soldier,i,i,j+1])
 			spirte.add_frame(i,picture)
@@ -159,7 +160,7 @@ func collMask():
 	pass
 	
 func reSet(soldier):
-	#soldierName[0] = null
+	soldierName[0] = null
 	SetValue(soldier)
 	SetAnimationAndCollBox(soldier)
 	collMask()
@@ -167,7 +168,6 @@ func reSet(soldier):
 	
 func _process(_delta):#每帧执行的部分
 	if currentState == State.FALL:  position.y += dropSpeed
-	testchangeState()#状态切换检测	
 	$Label.text = str(health)
 
 	for i in souEff: 
@@ -184,26 +184,19 @@ func _process(_delta):#每帧执行的部分
 	speed = (speedBasic+(speedBasic*(nowEffect[Global.Effect.SPEED]
 	+nowEffect[Global.Effect.SPEED+Global.EffGood])))*nowEffect[Global.Effect.FREEZE]
 	
-	aniSpeed = (aniSpeedBasic+(aniSpeedBasic*(nowEffect[Global.Effect.SPEED]
-	+nowEffect[Global.Effect.SPEED+Global.EffGood])))*nowEffect[Global.Effect.FREEZE]
+	#aniSpeed = (aniSpeedBasic+(aniSpeedBasic*(nowEffect[Global.Effect.SPEED]
+	#+nowEffect[Global.Effect.SPEED+Global.EffGood])))*nowEffect[Global.Effect.FREEZE]
 	
-#	if startDrop == false:
-#	else:
-#	$Collision1.target_position = Vector2(0,attRange[0])
-#	$Collision1.position = Vector2(-50,-100)
-	#if soldierName[0] != "spider": $Collision1.position = Vector2(0,7)
 	$Collision1.target_position = Vector2(attRange[0]*camp,0)
 	$Collision2.target_position = Vector2(attRange[1]*camp,0)
-	$AnimatedSprite2D.speed_scale = aniSpeed
+	if type == "soldier": aniSpeedBasic = speed+0.2
+	$AnimatedSprite2D.speed_scale = aniSpeedBasic
 	
-	if health <= 0&&currentState != State.DEATH&&currentState != State.FALL: #死亡判定
-		deathSet()
-		aniSpeedBasic = 0.5
-		#死亡特效
+	if health <= 0&&currentState != State.DEATH: #死亡判定
+		#&&currentState != State.FALL
+		firstDeathSet()
 		#if animation.has("deathFall"): changeState("deathFall",State.FALL)
-		#else: 
-		changeState("death",State.DEATH)
-		
+	else: testchangeState()#状态切换检测
 	if Input.is_action_just_pressed("ui_select"):#测试用
 		if camp == Global.MONSTER:
 			#print(speedEffect)
@@ -227,9 +220,9 @@ func testchangeState():
 					collision_layer = Global.LAyer[camp+1][0]
 					$AnimatedSprite2D.modulate.a = 1
 				if tpDistance != null&&other.type != "base"&&health>0: 
-					if tpDistance > 0:
-						position.x += tpDistance*camp#末影人瞬移
-						tpDistance = 0#低血量tp到基地
+#					if tpDistance > 0:
+					position.x += tpDistance*camp#末影人瞬移
+					tpDistance = 0#低血量tp到基地
 				if startDrop == true:
 					$Collision1.collide_with_areas = false
 					reSet(soldierName[1])
@@ -265,8 +258,10 @@ func changeState(AniName,StaName):#入海出海的动作图片在每个动画的
 #			AniName = "seaOut"
 #			$Collision1.collide_with_areas = false
 	match StaName:
-		State.DEATH:#最优先状态
-			aniSpeedBasic = 1
+#		State.DEATH:#最优先状态
+#			firstDeathSet()
+#			finalDeathSet()
+			#aniSpeedBasic = 1
 			#collision_layer = 0#不再能互动
 			#changeTime = 0.6#标准死亡等待消失时间(总共0.6s)
 		#State.ATTACK:if currentState == State.PUSH||currentState == State.STOP:pass
@@ -274,12 +269,13 @@ func changeState(AniName,StaName):#入海出海的动作图片在每个动画的
 			if currentState != State.DEATH: 
 				standardState = State.STOP
 				standardAni = "stop"
+				proTimes = 0
 	match StaName:
 		State.PUSH,State.BACK:
 			if currentState != State.DEATH&&currentState != StaName:
 				standardState = State.PUSH
 				standardAni = "walk"
-				proTimes = 0#归零多次射击的计数,避免射击不到最高次数就冷却
+				#proTimes = 0#归零多次射击的计数,避免射击不到最高次数就冷却
 	changeAnimation(AniName,StaName)
 	pass
 	
@@ -334,23 +330,6 @@ func _on_animated_sprite_2d_frame_changed():
 #			kind = "land"
 	pass
 
-func _on_animated_sprite_2d_animation_finished():
-	if deathAttType != null:#死亡效果
-#Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,
-#attackType,damage,damagerType,
-		var i = ani[deathAttType]
-		Global.aoe_create(self,Global.CREATE,aoeModel[i],aoeRange[i],ifAoeHold[i],
-		attackType[i],damageBasic[i],damagerType[i],giveEffect[i],effValue[i],
-		effTime[i],effTimes[i])
-		#deathAttType = null
-	#if camp == Global.MONSTER: Global.MonsterDeaths += 1
-	$AnimatedSprite2D.visible = false
-	souEff["death"].playing = true
-	if particles["death"] != null: particles["death"].emitting = true
-	await get_tree().create_timer(2,false).timeout
-	queue_free()
-	pass
-
 func attack():
 	var attackAni = currentAni
 	if attackAni == "attackSec"&&damageBasic[ani["attackSec"]] == null: 
@@ -369,9 +348,9 @@ func attack():
 			damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],
 			effTime[ani[attackAni]],effTimes[ani[attackAni]])
 			if attackType[ani[attackAni]][Global.AttackType.EXPLODE] == true:
-				deathSet()
-				changeState("death",State.DEATH)
 				$AnimatedSprite2D.visible = false
+				firstDeathSet()
+				
 				#await get_tree().create_timer(2,false).timeout
 				#queue_free()#近战AOE且是爆炸伤害类型->只有自爆
 			if firstAttack == true: 
@@ -396,8 +375,40 @@ func attack():
 			ifAoeHold[ani[attackAni]],attackType[ani[attackAni]],damage[ani[attackAni]],
 			damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],
 			effTime[ani[attackAni]],effTimes[ani[attackAni]])
-			newPro.position = position+Vector2(0,proPos[ani[attackAni]])
+			newPro.position = position+Vector2(proPos[ani[attackAni]],proPos[ani[attackAni]+2])
 			Global.root.add_child(newPro)
+	pass
+	
+func firstDeathSet():
+	$AnimatedSprite2D.material = null
+	$Collision1.collide_with_areas = false
+	$Collision2.collide_with_areas = false
+	$cover.visible = false
+	$outLine.visible = false
+	collision_layer = 0
+	#if soldierName[0]=="cave": Global.CaveHas = false
+	if is_in_group("villageSoldier"): remove_from_group("villageSoldier")
+	if is_in_group("monsterSoldier"): remove_from_group("monsterSoldier")
+	if is_in_group("creeper"): remove_from_group("creeper")
+	souEff["death"].playing = true
+	changeState("death",State.DEATH)
+	finalDeathSet()
+	pass
+	
+func finalDeathSet():
+	if type=="soldier": await get_tree().create_timer(0.8,false).timeout
+	if particles["death"] != null: particles["death"].emitting = true
+	$AnimatedSprite2D.visible = false
+	if deathAttType != null:#死亡效果
+#Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,
+#attackType,damage,damagerType,
+		var i = ani[deathAttType]
+		Global.aoe_create(self,Global.CREATE,aoeModel[i],aoeRange[i],ifAoeHold[i],
+		attackType[i],damageBasic[i],damagerType[i],giveEffect[i],effValue[i],
+		effTime[i],effTimes[i])
+	#if camp == Global.MONSTER: Global.MonsterDeaths += 1
+	await get_tree().create_timer(2,false).timeout
+	queue_free()
 	pass
 	
 func effectTimer(effName,effKeepTime,effKeepTimes,effDam,GoodOrBad):
@@ -435,18 +446,6 @@ func effectTimerTimeout(effName,effKeepTimes,effDam,GoodOrBad):
 		if effTimerId[this] != null: effTimerId[this].queue_free()
 	pass
 
-func deathSet():
-	$AnimatedSprite2D.material = null
-	$Collision1.collide_with_areas = false
-	$Collision2.collide_with_areas = false
-	$cover.visible = false
-	$outLine.visible = false
-	collision_layer = 0
-	if soldierName[0]=="cave": Global.CaveHas = false
-	if is_in_group("monsterSoldier"): remove_from_group("monsterSoldier")
-	if is_in_group("creeper"): remove_from_group("creeper")
-	pass
-	
 func reload(): queue_free()
 
 

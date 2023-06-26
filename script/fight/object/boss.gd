@@ -41,8 +41,9 @@ func _process(_delta):
 		pass
 	#$cover.texture = $Normal.sprite_frames.get_frame_texture(
 	#$Normal.animation,$Normal.frame)
-	healthColor.region_rect = Rect2(0,0,originSize*(health/healthUp),10)
-	healthColor.position.x = -((originSize-(originSize*(health/healthUp)))/2)
+	if health >0:
+		healthColor.region_rect = Rect2(0,0,originSize*(health/healthUp),10)
+		healthColor.position.x = -((originSize-(originSize*(health/healthUp)))/2)
 	#size.x = originSize*(health/healthUp)
 	Global.MonsterPoint.x = global_position.x
 	#$RayCast2D.force_raycast_update()
@@ -92,7 +93,6 @@ func _on_tp_frame_changed():
 		explode()
 		position.x = Global.BossPosX
 	
-
 func _on_tp_animation_finished():
 	norAni.visible = true
 	tpAni.visible = false

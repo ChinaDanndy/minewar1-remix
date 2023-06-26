@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bjif1didrmvxo"]
+[gd_scene load_steps=10 format=3 uid="uid://bjif1didrmvxo"]
 
 [ext_resource type="Script" path="res://script/fight/calu/aoe.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://dc7rf53b1s20d" path="res://assets/music/se/other/broke.ogg" id="2_i4utn"]
@@ -17,14 +17,7 @@ particles_anim_h_frames = 8
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hlf4p"]
-resource_local_to_scene = true
-particles_animation = true
-particles_anim_h_frames = 16
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p0dgo"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lo5pc"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
@@ -131,14 +124,51 @@ color = Color(0.235294, 0, 0.235294, 1)
 anim_speed_min = 5.0
 anim_speed_max = 7.0
 
-[node name="tntExplode" parent="particles" instance=ExtResource("5_xa4uk")]
-material = SubResource("CanvasItemMaterial_hlf4p")
-amount = 20
+[node name="ice" type="CPUParticles2D" parent="particles"]
+position = Vector2(0, -10)
+emitting = false
+amount = 40
+lifetime = 0.3
+one_shot = true
+randomness = 0.2
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, -1)
+spread = 100.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 80.0
+initial_velocity_max = 100.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color = Color(0.509804, 0.627451, 1, 1)
+
+[node name="tntExplode" type="CPUParticles2D" parent="particles"]
+material = SubResource("CanvasItemMaterial_dar0y")
+position = Vector2(0, -20)
+emitting = false
+amount = 25
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.5
+randomness = 0.8
+lifetime_randomness = 1.0
+texture = ExtResource("2_n2f3b")
 emission_shape = 3
-emission_rect_extents = Vector2(34, 20)
+emission_rect_extents = Vector2(20, 1)
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 170.0
+linear_accel_min = 2.0
+linear_accel_max = 2.0
+scale_amount_max = 1.5
+color = Color(0.156863, 0.0784314, 0.352941, 1)
+anim_speed_min = 5.0
+anim_speed_max = 7.0
 
 [node name="fireballExplode" parent="particles" instance=ExtResource("5_xa4uk")]
-material = SubResource("CanvasItemMaterial_p0dgo")
+material = SubResource("CanvasItemMaterial_lo5pc")
 amount = 20
 emission_shape = 2
 emission_sphere_radius = 36.0

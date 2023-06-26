@@ -22,7 +22,6 @@ func firstSetting(soldier):
 			newBox.size.x = aoeRange
 			newBox.size.y = 20
 			$CollisionShape2D.shape = newBox
-			
 	pass
 	
 func _process(_delta):
@@ -31,7 +30,7 @@ func _process(_delta):
 		currentState = State.STOP
 		dropSpeed = null
 		position.y = Global.FightGroundY
-		await get_tree().create_timer(0.1,false).timeout
+		await get_tree().create_timer(0.04,false).timeout
 		Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,null,null,
 		[soldierName[0]],giveEffect,effValue,effTime,effTimes)
 		queue_free()

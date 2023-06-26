@@ -16,7 +16,6 @@ var iceTimeRand = 0
 var minute = 0
 var second = 0
 
-#signal cardMessage
 signal reloadSence
 signal fightCard
 signal cardCD
@@ -24,7 +23,7 @@ signal BossLv2
 signal BossLv3
 
 func _ready():
-	Global.NowLevel = 8
+	#Global.NowLevel = 7
 	
 	$Up/Leveltext/LeveltextValue.text = str(Global.NowLevel)
 	if Global.LevelData[Global.NowLevel]["set"]["levelType"] != "boss": 
@@ -42,6 +41,7 @@ func _ready():
 	Global.VillageBase.firstSetting("baseVillageHealth")#"baseVillageHealth"
 
 	moneyTime = Global.LevelData[0]["moneySpeed"]
+	Global.Money = Global.LevelData[0]["moneyUp"]
 	Global.ThunderSpeed = Global.LevelData[0]["thunderSpeed"]
 	#attackTime = Global.LevelData[Global.NowLevel]["set"]["attackTime"]
 	
@@ -66,7 +66,7 @@ func _on_cave_timer_timeout():
 	if !targetArray.is_empty(): 
 		var target = targetArray[randi_range(0,targetArray.size()-1)]
 		var newIce = Global.Skill.instantiate()
-		newIce.position.x = target.position.x
+		newIce.position.x = target.position.x+40
 		newIce.camp = Global.MONSTER
 		Global.root.add_child(newIce)
 		newIce.firstSetting("ice")
@@ -93,7 +93,7 @@ func _on_thundertimer_timeout():
 	pass
 	
 func fightStart():
-	Global.CardUp = 5
+	#Global.CardUp = 6
 	$monsterShow.visible = false
 	emit_signal("fightCard")
 	#await get_tree().create_timer(1,false).timeout#开局延迟开始
@@ -202,6 +202,7 @@ func time():
 func _on_attack_timer_timeout(): 
 	attackTime -= 1
 	bossUp += 1
+	pass
 
 func _on_moneytimer_timeout():
 	if Global.NowMoney < Global.Money: Global.NowMoney += 1
@@ -231,7 +232,7 @@ func _on_tree_entered():
 #	if Global.CardUp == 4:
 #		$card/HBoxContainer/CardButton5.visible = false
 #		$card/HBoxContainer/CardButton6.visible = false
-	if Global.CardUp == 5: $Up/card/HBoxContainer/CardButton6.visible = false
+	#if Global.CardUp == 5: $Up/card/HBoxContainer/CardButton6.visible = false
 	#Global.StopWindowLayer = $StopWindowLayer
 	
 	Global.FightGroundY = $position/ground.position.y

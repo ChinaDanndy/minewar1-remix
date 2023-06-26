@@ -123,10 +123,11 @@ var BossPosX
 var BossProtect
 var BossSkill
 var VillageBase
+#var VillageBaseOpen = load("res://assets/objects/baseVillage2.png")
+#var VillageBaseClose = load("res://assets/objects/baseVillage1.png")
 var MonsterBase
 var towerArea
 var skillArea
-
 var Boss
 
 var SoldierOutLine = preload("res://rescourse/soldierOutLine.tres")
@@ -139,10 +140,7 @@ var Tower = preload("res://sence/fight/object/tower.tscn")
 var Skill = preload("res://sence/fight/object/skill.tscn")
 
 var ParSence:Dictionary
-
 #= preload("res://sence/particles/hurtRed.tscn")
-
-
 var Point #= 0
 var Brought #= {"freeze":false,"wall":false,"power":false,"golder":false}
 
@@ -163,7 +161,7 @@ var ThunderSpeed
 var CaveHas = false
 var MonsterDeaths = 0
 var Money = 10
-var CardUp = 4
+var CardUp = 6
 var NowMoney = 0
 
 var CardBuy = null
@@ -177,23 +175,23 @@ var LevelOver = false
 var TextData
 
 func _ready():#读入数据
-	var json = JSON.new()
-	var loadData = FileAccess.open("user://playerData.json",FileAccess.READ)
-	var waitJson = loadData.get_as_text()
-	json.parse(waitJson)
+#	var json = JSON.new()
+#	var loadData = FileAccess.open("user://playerData.json",FileAccess.READ)
+#	var waitJson = loadData.get_as_text()
+#	json.parse(waitJson)
+#
+#	Point = json.data["Point"]
+#	Brought = json.data["Brought"]
+#	Level = json.data["Level"]
+#	loadData = null
+#	root.close_requested.connect(closeWindow)
 	
-	Point = json.data["Point"]
-	Brought = json.data["Brought"]
-	Level = json.data["Level"]
-	loadData = null
-	root.close_requested.connect(closeWindow)
-	
-	if Brought["card"] == 1: CardUp = 5
-	if Brought["card"] == 2: CardUp = 6
-	if Brought["gold"] == 1: Money = 20
-	if Brought["gold"] == 2: Money = 30
-	Money = 10
-	CardUp = 5
+#	if Brought["card"] == 1: CardUp = 5
+#	if Brought["card"] == 2: CardUp = 6
+#	if Brought["gold"] == 1: Money = 20
+#	if Brought["gold"] == 2: Money = 30
+#	Money = 10
+#	CardUp = 6
 
 	var file = FileAccess.open("res://data/object.json", FileAccess.READ)#user:
 	var content = file.get_as_text()#读取所有士兵数据

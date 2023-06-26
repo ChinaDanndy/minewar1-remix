@@ -22,11 +22,12 @@ func _ready():
 #	if damagerType[0] == "regenerationDo":#防御塔不能回血
 #		collision_mask = Global.MAsk[Mod[aoeModel]][3]
 	match damagerType[0]:
-		"regeneration","power","weakness":
+		"regeneration","power","weakness","tnt","ice","regenerationDo":
 			collision_mask = Global.MAsk[Mod[aoeModel]][3]
-			$se/broke.volume_db = Global.SeDB
-			$se/broke.play()
-		"tnt","fireBall","fireBallDown":
+			if damagerType[0] != "regenerationDo":
+				$se/broke.volume_db = Global.SeDB
+				$se/broke.play()
+		"fireBall","fireBallDown":
 			$se/explode.volume_db = Global.SeDB
 			$se/explode.play()
 			
@@ -34,15 +35,17 @@ func _ready():
 		"regeneration": $particles/regeneration.emitting = true
 		"power":  $particles/power.emitting = true
 		"weakness":  $particles/weakness.emitting = true
+		"ice": $particles/ice.emitting = true
 		"thunder": 
 			newRange.size.y = Global.STSData["thunder"]["collBox"].y
 			$se/thunder.volume_db = Global.SeDB
 			$se/thunder.play()
 		#"crpeerKingExplode": newRange.size.y = 600 
-		"tnt": $particles/tntExplode.emitting = true
+		"tnt": 
+			collision_mask = Global.MAsk[Mod[aoeModel]][0]
+			$particles/tntExplode.emitting = true
 	match damagerType[0]:
 		"fireBall","fireBallDown": $particles/fireballExplode.emitting = true
-		
 #	match projectile:
 #		"fireBall","fireBallDown":
 #			$particles/fireballExplode.emitting = true
@@ -67,7 +70,8 @@ func _ready():
 	else:
 		if damagerType[0] == "power"||damagerType[0] == "weakness"||(
 			damagerType[0] == "thunder")||damagerType[0] == "tnt"||(
-				damagerType[0] == "fireBall")||damagerType[0] == "fireBallDown":
+			damagerType[0] == "fireBall")||damagerType[0] == "fireBallDown"||(
+			damagerType[0] == "ice"):
 			await get_tree().create_timer(0.04,false).timeout
 			collision_mask = 0
 			await get_tree().create_timer(0.8,false).timeout
@@ -78,7 +82,6 @@ func _ready():
 	pass
 
 func _on_area_entered(area):
-
 	if ifAoeHold == false:
 		if damage == null:
 			Global.damage_Calu(area,Global.damCaluType.EFF,null,null,null,giveEffect,

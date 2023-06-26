@@ -1,31 +1,39 @@
-[gd_scene load_steps=9 format=3 uid="uid://q05lgu8j1nu8"]
+[gd_scene load_steps=11 format=3 uid="uid://q05lgu8j1nu8"]
 
 [ext_resource type="PackedScene" uid="uid://cakdgdywehft0" path="res://sence/fight/object.tscn" id="1_p63ko"]
 [ext_resource type="Script" path="res://script/fight/object/soldier.gd" id="2_sxvfl"]
 [ext_resource type="Texture2D" uid="uid://cwhgp52t110xs" path="res://assets/particles/heart.png" id="3_klkv3"]
 [ext_resource type="PackedScene" uid="uid://dfqflpq488a1p" path="res://sence/particles/Explode.tscn" id="4_58kts"]
+[ext_resource type="PackedScene" uid="uid://cdijfduu8yjm6" path="res://sence/particles/smoke.tscn" id="5_13qt8"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_at3e2"]
 resource_local_to_scene = true
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_okkuh"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vt222"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2j608"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_j1l12"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mxdkp"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8e53i"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_crn6g"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 8
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
@@ -38,6 +46,7 @@ sprite_frames = SubResource("SpriteFrames_at3e2")
 [node name="UsualTimer" type="Timer" parent="." index="7"]
 
 [node name="stopTimer" type="Timer" parent="." index="8"]
+one_shot = true
 
 [node name="regeneration" type="CPUParticles2D" parent="particles" index="0"]
 position = Vector2(0, 6)
@@ -55,26 +64,48 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 20.0
 initial_velocity_max = 20.0
 
-[node name="smallExplode" parent="particles" index="1" instance=ExtResource("4_58kts")]
-material = SubResource("CanvasItemMaterial_okkuh")
+[node name="monsterSummon" type="CPUParticles2D" parent="particles" index="1"]
+emitting = false
+amount = 60
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.8
+emission_shape = 2
+emission_sphere_radius = 4.0
+direction = Vector2(0, -1)
+spread = 100.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 120.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+color = Color(0.27451, 0.0784314, 0.313726, 1)
+
+[node name="smallExplode" parent="particles" index="2" instance=ExtResource("4_58kts")]
+material = SubResource("CanvasItemMaterial_vt222")
 position = Vector2(0, -16)
 amount = 20
 emission_shape = 2
 emission_sphere_radius = 26.0
 
-[node name="bigExplode" parent="particles" index="2" instance=ExtResource("4_58kts")]
-material = SubResource("CanvasItemMaterial_2j608")
+[node name="bigExplode" parent="particles" index="3" instance=ExtResource("4_58kts")]
+material = SubResource("CanvasItemMaterial_j1l12")
 position = Vector2(0, -30)
 amount = 30
 emission_shape = 2
 emission_sphere_radius = 40.0
 
-[node name="selfExplode" parent="particles" index="3" instance=ExtResource("4_58kts")]
-material = SubResource("CanvasItemMaterial_mxdkp")
+[node name="selfExplode" parent="particles" index="4" instance=ExtResource("4_58kts")]
+material = SubResource("CanvasItemMaterial_8e53i")
 position = Vector2(0, -20)
 amount = 40
 emission_shape = 3
 emission_rect_extents = Vector2(60, 40)
+
+[node name="deathSmoke" parent="particles" index="5" instance=ExtResource("5_13qt8")]
+material = SubResource("CanvasItemMaterial_crn6g")
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
 
 [node name="ballonBreak" type="AudioStreamPlayer" parent="se" index="0"]
 

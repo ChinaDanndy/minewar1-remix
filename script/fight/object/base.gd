@@ -3,6 +3,7 @@ var camp = 0
 signal ProtectDown 
 @export var AName:String
 @onready var picture = get_parent()
+#@onready var bossProctectShow = get_parent()
 @onready var healthColor = get_parent().get_node("healthLine/Sprite2D")
 var originSize
 var effDefence = [true,true,true,true,false,false,true]
@@ -27,11 +28,13 @@ func firstSetting(Name):
 				"defence": 
 					get_parent().get_node("healthLine").visible = false
 					get_parent().texture = load("res://assets/objects/defence.png") 
-					
+					effDefence = [true,true,true,true,true,true,true]
+					attDefence = [true,true,true]
 	var newBox = RectangleShape2D.new()
 	collBox = get_parent().texture.get_size()
 	newBox.size = collBox
 	$CollisionShape2D.shape = newBox
+	
 	if !get_parent().name == "bossProtect": 
 		get_parent().position.y = Global.FightGroundY-(collBox.y/2)
 		
@@ -54,8 +57,9 @@ func hurt():
 	
 func _process(_delta):
 	#if Input.is_action_just_pressed("ui_test"): print(health)
-	healthColor.region_rect = Rect2(0,0,originSize*(health/healthUp),10)
-	healthColor.position.x = -((originSize-(originSize*(health/healthUp)))/2)
+	if health >0:
+		healthColor.region_rect = Rect2(0,0,originSize*(health/healthUp),10)
+		healthColor.position.x = -((originSize-(originSize*(health/healthUp)))/2)
 	get_parent().get_node("Label").text = str(health)
 	if get_parent().name == "bossProtect":
 		if Input.is_action_just_pressed("ui_test"): 
@@ -63,6 +67,7 @@ func _process(_delta):
 		
 		if health <= 0&&get_parent().visible == true:
 			get_parent().visible = false
+			Global.BossSkill.visible = false
 			collision_layer = 0
 			emit_signal("ProtectDown")
 	pass

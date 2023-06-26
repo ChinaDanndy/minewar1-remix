@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdijfduu8yjm6"]
+
+[ext_resource type="Texture2D" uid="uid://dguddetsa7hib" path="res://assets/particles/smoke.png" id="1_7c6ks"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tft1h"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[node name="Smoke" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_tft1h")
+emitting = false
+amount = 1
+one_shot = true
+texture = ExtResource("1_7c6ks")
+gravity = Vector2(0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0

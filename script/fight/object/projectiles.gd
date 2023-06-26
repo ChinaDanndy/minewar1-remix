@@ -14,7 +14,7 @@ var proSpeed = 0
 var ifPriece = false
 
 var aoeModel
-var aoeRange
+var aoeRange = 0
 var ifAoeHold
 
 var attackType
@@ -37,16 +37,17 @@ func _ready():
 		$Sprite2D.hframes = Global.ProPicture[projectile]
 		$Sprite2D.frame = 0
 		$animationTimer.start(Global.ProAniTime[projectile])
+	
 	pass
 
 func _process(_delta):
+
 	position += Vector2(camp,1)*Global.ProDire[projectile]*proSpeed*stop
 	currentPos = position.x
 	if (currentPos - startPos) >= proRange: queue_free()#超过射程直接自己销毁
-	if position.y > Global.FightGroundY:#落地物体
+	if position.y >= Global.FightGroundY&&aoeRange != null:#落地物体
 		position.y = Global.FightGroundY-20
-		Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,
-		giveEffect,effValue,effTime,effTimes)
+		aoeCreate()
 		queue_free()
 	pass
 
@@ -55,13 +56,16 @@ func _on_area_entered(area):
 		Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,
 		effTime,effTimes,Global.IfAoeType.NONE)
 		#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	
-	else:#AOE
-		match projectile:
-			"tnt","fireBall","fireBallDown": damagerType[0] = projectile
-		Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,
-		giveEffect,effValue,effTime,effTimes)
+	else:aoeCreate()#AOE
 	if ifPriece == false: queue_free()
 	pass 
+	
+func aoeCreate():
+	match projectile:
+		"tnt","fireBall","fireBallDown": damagerType[0] = projectile
+	Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,
+	giveEffect,effValue,effTime,effTimes)
+	pass
 
 
 func _on_animation_timer_timeout():

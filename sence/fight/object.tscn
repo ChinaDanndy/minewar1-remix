@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cakdgdywehft0"]
 
 [ext_resource type="Script" path="res://script/fight/object.gd" id="1_cj46x"]
-[ext_resource type="Texture2D" uid="uid://cho3re5v3qykf" path="res://assets/objects/soldier/flyer/attack/attack1.png" id="2_8o5bn"]
+[ext_resource type="Texture2D" uid="uid://bjedgswgdn5c3" path="res://assets/objects/soldier/spider/attack/attack1.png" id="2_o5c3k"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_migks"]
 resource_local_to_scene = true
@@ -30,7 +30,7 @@ shape = SubResource("1")
 visible = false
 
 [node name="cover" type="Sprite2D" parent="."]
-texture = ExtResource("2_8o5bn")
+texture = ExtResource("2_o5c3k")
 region_rect = Rect2(-35, -12, 0, 0)
 
 [node name="Label" type="Label" parent="."]
@@ -43,5 +43,4 @@ offset_bottom = -9.0
 
 [node name="se" type="Node" parent="."]
 
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

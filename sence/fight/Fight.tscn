@@ -88,12 +88,12 @@ one_shot = true
 [node name="CaveTimer" type="Timer" parent="Timer"]
 one_shot = true
 
-[node name="attackTimer" type="Timer" parent="Timer"]
-
 [node name="Moneytimer" type="Timer" parent="Timer"]
 wait_time = 0.5
 
 [node name="Timer" type="Timer" parent="Timer"]
+
+[node name="attackTimer" type="Timer" parent="Timer"]
 
 [node name="Spacetext" type="Label" parent="."]
 visible = false
@@ -273,8 +273,8 @@ visible = false
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="timeout" from="Timer/ThunderTimer" to="." method="_on_thundertimer_timeout"]
 [connection signal="timeout" from="Timer/CaveTimer" to="." method="_on_cave_timer_timeout"]
-[connection signal="timeout" from="Timer/attackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="Timer/Moneytimer" to="." method="_on_moneytimer_timeout"]
+[connection signal="timeout" from="Timer/attackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="mouse_entered" from="Up/StopButton" to="Up/StopButton" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Up/StopButton" to="Up/StopButton" method="_on_mouse_exited"]
 [connection signal="pressed" from="Up/StopButton" to="Up/StopButton" method="_on_pressed"]

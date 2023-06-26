@@ -8,6 +8,8 @@ func firstSetting(soldier):
 	super.SetValue(soldier)
 	super.firstSetting(soldier)
 	super.SetAnimationAndCollBox(soldier)
+	aniSpeedBasic = speedBasic+0.2
+	
 	match camp:
 		Global.VILLAGE: 
 			if soldier == Global.Contrl: Ani.material = Global.SoldierOutLine
@@ -37,14 +39,14 @@ func firstSetting(soldier):
 			$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
 		"skyLand":#恶魂
 			$Collision2.position.y = (distanceLandSky)-10
-			$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
+			$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/3))
 		"skyLine":#活塞虫
 			$Collision2.position.y = (distanceLandSky)-10
 			$Collision2.position.x = -(attRangeBasic[1]/2)
 	if coll2Pos != null: $Collision2.collide_with_areas = true
 	if usualTime != null: $UsualTimer.start(usualTime)
 	pass
-
+	
 func _on_usual_timer_timeout():#平常给予效果
 	var usual = 3
 	var newdamagerType = [null]
@@ -65,12 +67,14 @@ func _process(_delta):
 			add_to_group("creeper")#获得苦力怕id给劈闪电用
 	if camp == Global.VILLAGE: 
 		position.x = clamp(position.x,Global.VillagePoint.x-16,Global.MonsterPoint.x+16)#限制移动范围
-	if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&currentState != State.FALL: 
+	if Global.Contrl == soldierName[0]&&currentState != State.DEATH:
+		#&&currentState != State.FALL: 
 		#if (collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
+		$AnimatedSprite2D.material = Global.SoldierOutLine
 		contrl()
-		
 	position.x += speed*camp*speedDirection*speedState#移动控制
-
+	
+	
 	if stopPos != null&&ifOnlyAttBase == false:#敌方的行动与暂停
 		if position.x <= stopPos&&stop == false:
 			stop = true
@@ -84,17 +88,17 @@ func _process(_delta):
 		attDefShield = null
 		reSet(soldierName[1])
 		
-	if health <= healthEffValue: #低血量狂暴永久效果
-#		if soldierName[0] == "ballon":
-#			$Collision1.collide_with_areas = false
-#			reSet(soldierName[1])
-#			changeState("stop",State.FALL)
-		if tpDistance == null:
-			nowEffect[Global.Effect.ATTDAMAGE+Global.EffGood] = Global.EffValue[Global.Effect.ATTDAMAGE]
-			nowEffect[Global.Effect.SPEED+Global.EffGood] = Global.EffValue[Global.Effect.SPEED]
-		else: 
-			if health > 0: position.x = Global.VillagePoint.x+50#末影人二次传送
-		healthEffValue = -1000
+#	if health <= healthEffValue: #低血量狂暴永久效果
+##		if soldierName[0] == "ballon":
+##			$Collision1.collide_with_areas = false
+##			reSet(soldierName[1])
+##			changeState("stop",State.FALL)
+#		if tpDistance == null:
+#			nowEffect[Global.Effect.ATTDAMAGE+Global.EffGood] = Global.EffValue[Global.Effect.ATTDAMAGE]
+#			nowEffect[Global.Effect.SPEED+Global.EffGood] = Global.EffValue[Global.Effect.SPEED]
+#		else: 
+#			if health > 0: position.x = Global.VillagePoint.x+50#末影人二次传送
+#		healthEffValue = -1000
 		
 	if position.y+(collBox.y/2) >= Global.FightGroundY&&dropSpeed != null: 
 		dropSpeed = null
@@ -118,12 +122,8 @@ func contrl():#玩家的单位控制
 func regenerationSet():  $particles/regeneration.emitting = true
 
 func _on_input_event(_viewport,event, _shape_idx):
-	if event.is_action_pressed("ui_mouse_left")&&camp == Global.VILLAGE&&soldierName[0]!="assassinFirst"&&soldierName[1]!="assassin":
+	if event.is_action_pressed("ui_mouse_left")&&camp == Global.VILLAGE&&firstAttack == false:
 		Global.Contrl = soldierName[0]
-		#$AnimatedSprite2D.material = Global.SoldierOutLine
-		var group = get_tree().get_nodes_in_group(soldierName[0])
-		for i in group: i.Ani.material = Global.SoldierOutLine
-			
 	pass 
 func _on_stop_timer_timeout():
 	changeState("walk",State.PUSH)
