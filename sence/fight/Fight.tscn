@@ -126,7 +126,7 @@ metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="sky" type="Marker2D" parent="position"]
-position = Vector2(0, 120)
+position = Vector2(0, 140)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
@@ -252,8 +252,10 @@ offset_bottom = 48.0
 text = "1"
 
 [node name="Leveltext" type="Label" parent="Up"]
-offset_right = 45.0
-offset_bottom = 26.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 46.0
+offset_bottom = 28.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Level:"
 

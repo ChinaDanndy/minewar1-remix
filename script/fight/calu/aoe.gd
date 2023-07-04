@@ -30,22 +30,22 @@ func _ready():
 		"fireBall","fireBallDown":
 			$se/explode.volume_db = Global.SeDB
 			$se/explode.play()
-			
+	match damagerType[0]:
+		"fireBall","fireBallDown": $particles/fireballExplode.emitting = true
 	match damagerType[0]:
 		"regeneration": $particles/regeneration.emitting = true
 		"power":  $particles/power.emitting = true
 		"weakness":  $particles/weakness.emitting = true
 		"ice": $particles/ice.emitting = true
+		"tnt": 
+			collision_mask = Global.MAsk[Mod[aoeModel]][0]
+			$particles/tntExplode.emitting = true
 		"thunder": 
 			newRange.size.y = Global.STSData["thunder"]["collBox"].y
 			$se/thunder.volume_db = Global.SeDB
 			$se/thunder.play()
-		#"crpeerKingExplode": newRange.size.y = 600 
-		"tnt": 
-			collision_mask = Global.MAsk[Mod[aoeModel]][0]
-			$particles/tntExplode.emitting = true
-	match damagerType[0]:
-		"fireBall","fireBallDown": $particles/fireballExplode.emitting = true
+		"crpeerKingExplode": newRange.size.y = 600 
+
 #	match projectile:
 #		"fireBall","fireBallDown":
 #			$particles/fireballExplode.emitting = true

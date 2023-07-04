@@ -19,13 +19,8 @@ func firstSetting(soldier):
 		Global.MONSTER: 
 			position.x = Global.MonsterPoint.x
 			add_to_group("monsterSoldier")
-	
-	if stopTime == 0: Global.SummonEnemy.stopOver.connect(onStopOver)
 	collision_layer = Global.LAyer[camp+1][0]
 	position.y = Global.FightGroundY-(collBox.y/2)
-#	if projectile.is_empty(): 
-#	else: $Collision1.position.y = (collBox.y/2)-25
-		
 	if unSee == true: 
 		collision_layer = Global.LAyer[camp+1][1]
 		$AnimatedSprite2D.modulate.a = 0.5
@@ -45,6 +40,10 @@ func firstSetting(soldier):
 			$Collision2.position.x = -(attRangeBasic[1]/2)
 	if coll2Pos != null: $Collision2.collide_with_areas = true
 	if usualTime != null: $UsualTimer.start(usualTime)
+	
+	#	if stopTime == 0: Global.SummonEnemy.stopOver.connect(onStopOver)
+#	if projectile.is_empty(): 
+#	else: $Collision1.position.y = (collBox.y/2)-25
 	pass
 	
 func _on_usual_timer_timeout():#平常给予效果
@@ -70,7 +69,7 @@ func _process(_delta):
 	if Global.Contrl == soldierName[0]&&currentState != State.DEATH:
 		#&&currentState != State.FALL: 
 		#if (collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
-		$AnimatedSprite2D.material = Global.SoldierOutLine
+#		$AnimatedSprite2D.material = Global.SoldierOutLine
 		contrl()
 	position.x += speed*camp*speedDirection*speedState#移动控制
 	
@@ -100,14 +99,14 @@ func _process(_delta):
 #			if health > 0: position.x = Global.VillagePoint.x+50#末影人二次传送
 #		healthEffValue = -1000
 		
-	if position.y+(collBox.y/2) >= Global.FightGroundY&&dropSpeed != null: 
-		dropSpeed = null
-		#position.y = Global.FightGroundY-(collBox.y/2)
-		if startDrop == true:
-			changeState("walk",State.PUSH)
-			$Collision1.collide_with_areas = true
-			startDrop = false
-		if currentAni == "deathFall": changeState("death",State.DEATH)
+#	if position.y+(collBox.y/2) >= Global.FightGroundY&&dropSpeed != null: 
+#		dropSpeed = null
+#		#position.y = Global.FightGroundY-(collBox.y/2)
+#		if startDrop == true:
+#			changeState("walk",State.PUSH)
+#			$Collision1.collide_with_areas = true
+#			startDrop = false
+#		if currentAni == "deathFall": changeState("death",State.DEATH)
 	super._process(_delta)
 	pass
 
@@ -128,9 +127,9 @@ func _on_input_event(_viewport,event, _shape_idx):
 func _on_stop_timer_timeout():
 	changeState("walk",State.PUSH)
 	pass 
-func onStopOver():
-	changeState("walk",State.PUSH)
-	pass
+#func onStopOver():
+#	changeState("walk",State.PUSH)
+#	pass
 
 
 

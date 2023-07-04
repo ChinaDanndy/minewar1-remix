@@ -22,14 +22,22 @@ const EffValue = [0.5,0.5,0.5,0]
 const EFFGOOD = 1
 const OFFEFFECT = 0
 const EFFBAD = -1
-
-const ProDire = {"arrow":Vector2(1,0),"arrowUp":Vector2(1,-1),"tnt":Vector2(0,1),
-"fireBall":Vector2(1,0),"fireBallDown":Vector2(1,1),"water":Vector2(1,0),"snowBall":Vector2(1,0)}
-const ProPicture = {"arrow":1,"arrowUp":1,"tnt":1,"fireBall":1,"fireBallDown":1,"water":1,"snowBall":1
-}
-const ProAniTime = {"arrow":0,"arrowUp":0,"tnt":0,"fireBall":0,"fireBallDown":0,"water":0,"snowBall":0
-}
-
+#			print(aoeModel)
+#			print(aoeRange)
+#			print(ifAoeHold)
+#			print(attackType)
+#			print(damage)
+#			print(damagerType)
+#			print(giveEffect)
+#			print(effValue)
+#			print(effTime)
+#			print(effTimes)
+#const ProDire = {"arrow":Vector2(1,0),"arrowUp":Vector2(1,-1),"tnt":Vector2(0,1),
+#"fireBall":Vector2(1,0),"fireBallDown":Vector2(1,1),"water":Vector2(1,0),"snowBall":Vector2(1,0)}
+#const ProPicture = {"arrow":1,"arrowUp":1,"tnt":1,"fireBall":1,"fireBallDown":1,"water":1,"snowBall":1
+#}
+#const ProAniTime = {"arrow":0,"arrowUp":0,"tnt":0,"fireBall":0,"fireBallDown":0,"water":0,"snowBall":0
+#}
 var calu = preload("res://script/fight/calu/attackCalu.gd")
 enum damCaluType {ATTEFF,EFF}
 const TRANSFER = null
@@ -212,13 +220,12 @@ func _ready():#读入数据
 #							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
 		
 		var pictureGet#提前根据图片得到单位碰撞箱尺寸
-		var cut = 0
+
 		match STSData[STSName]["type"]:
 			"soldier": pictureGet = load("res://assets/objects/soldier/%s/walk/walk1.png"% STSName)
 			"tower": pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
 			"skill": pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
-		if STSData[STSName].has("collBoxCut"): cut = STSData[STSName]["collBoxCut"]
-		STSData[STSName]["collBox"] = pictureGet.get_size()-Vector2(cut,0)
+		STSData[STSName]["collBox"] = pictureGet.get_size()
 	file = null 
 	
 	file = FileAccess.open("res://data/level.json", FileAccess.READ)#res://data

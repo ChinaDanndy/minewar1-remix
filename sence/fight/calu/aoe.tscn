@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://bjif1didrmvxo"]
 
 [ext_resource type="Script" path="res://script/fight/calu/aoe.gd" id="1"]
-[ext_resource type="AudioStream" uid="uid://dc7rf53b1s20d" path="res://assets/music/se/other/broke.ogg" id="2_i4utn"]
+[ext_resource type="AudioStream" uid="uid://dc7rf53b1s20d" path="res://assets/music/se/other/broke.ogg" id="2_mck3g"]
 [ext_resource type="Texture2D" uid="uid://djceor6p7vn8d" path="res://assets/particles/water.png" id="2_n2f3b"]
 [ext_resource type="AudioStream" uid="uid://b4cvfnsy3lync" path="res://assets/music/se/soldier/explode1.ogg" id="3_im7xf"]
-[ext_resource type="AudioStream" uid="uid://bm5hr5xn8fiwb" path="res://assets/music/se/other/lightning_attack.ogg" id="4_tdw65"]
+[ext_resource type="AudioStream" uid="uid://bm5hr5xn8fiwb" path="res://assets/music/se/other/thunder.ogg" id="4_aq0yd"]
 [ext_resource type="PackedScene" uid="uid://dfqflpq488a1p" path="res://sence/particles/Explode.tscn" id="5_xa4uk"]
 
 [sub_resource type="RectangleShape2D" id="1"]
@@ -17,7 +17,7 @@ particles_anim_h_frames = 8
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lo5pc"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_todk0"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
@@ -39,13 +39,13 @@ shape = SubResource("1")
 [node name="se" type="Node" parent="."]
 
 [node name="broke" type="AudioStreamPlayer" parent="se"]
-stream = ExtResource("2_i4utn")
+stream = ExtResource("2_mck3g")
 
 [node name="explode" type="AudioStreamPlayer" parent="se"]
 stream = ExtResource("3_im7xf")
 
 [node name="thunder" type="AudioStreamPlayer" parent="se"]
-stream = ExtResource("4_tdw65")
+stream = ExtResource("4_aq0yd")
 
 [node name="particles" type="Node2D" parent="."]
 
@@ -168,7 +168,7 @@ anim_speed_min = 5.0
 anim_speed_max = 7.0
 
 [node name="fireballExplode" parent="particles" instance=ExtResource("5_xa4uk")]
-material = SubResource("CanvasItemMaterial_lo5pc")
+material = SubResource("CanvasItemMaterial_todk0")
 amount = 20
 emission_shape = 2
 emission_sphere_radius = 36.0

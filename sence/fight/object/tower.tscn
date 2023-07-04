@@ -1,11 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://detljadg4j24r"]
+[gd_scene load_steps=11 format=3 uid="uid://detljadg4j24r"]
 
 [ext_resource type="PackedScene" uid="uid://cakdgdywehft0" path="res://sence/fight/object.tscn" id="1_6kuqs"]
 [ext_resource type="Script" path="res://script/fight/object/tower.gd" id="2_3fwhs"]
 [ext_resource type="Texture2D" uid="uid://bswddpngapoib" path="res://assets/objects/tower/golder/attack/attack1.png" id="3_2fb2o"]
 [ext_resource type="AudioStream" uid="uid://dtu08ucrvtl2w" path="res://assets/music/se/tower/out.ogg" id="3_ecexi"]
-[ext_resource type="AudioStream" uid="uid://cjco8qxp3umws" path="res://assets/music/se/tower/eat1.ogg" id="4_2pew6"]
-[ext_resource type="AudioStream" uid="uid://bj80iq7c0g184" path="res://assets/music/se/tower/cave.ogg" id="5_qoljd"]
 [ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="5_wvwqd"]
 [ext_resource type="Texture2D" uid="uid://upiksuc8ef6w" path="res://assets/particles/flame.png" id="6_bls75"]
 [ext_resource type="Texture2D" uid="uid://dw15jwfk14fx8" path="res://assets/objects/tower/cooked_beef.png" id="6_gkxnc"]
@@ -146,10 +144,8 @@ texture = ExtResource("6_gkxnc")
 stream = ExtResource("3_ecexi")
 
 [node name="gold" type="AudioStreamPlayer" parent="se" index="1"]
-stream = ExtResource("4_2pew6")
 
 [node name="cave" type="AudioStreamPlayer" parent="se" index="2"]
-stream = ExtResource("5_qoljd")
 
 [node name="goldplayer" type="AnimationPlayer" parent="." index="11"]
 libraries = {

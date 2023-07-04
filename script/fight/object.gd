@@ -5,7 +5,8 @@ var kind = "land"#land sea sky
 var coll2Pos#landSky Skyland SkyLine
 var health = 1#
 var healthUp = health
-var collBoxCut#
+var collBoxCut = 0#
+var collBoxPro = 0#
 var collBox:Vector2##不用记录根据已读入数据推算
 var soldierName = [null,null]#
 var other
@@ -25,8 +26,6 @@ var currentState = State.PUSH
 var currentAni = "walk"
 var standardState = State.PUSH
 var standardAni = "walk"
-var seaState
-var seaAni
 
 var aniSpeed
 var aniSpeedBasic = 1
@@ -49,6 +48,7 @@ var attRangeBasic = [0,0]#
 var attRange = [0,0]
 var proSpeed = [0,0]#
 var proPos = [0,0,0,0]#
+var proDir = [0,0,0,0]#
 var ifPriece = [false,false]#
 var projectile = []#
 var proSleepTime#
@@ -69,29 +69,31 @@ var effTimes = [[0,0],[0,0],[0,0],[0,0]]#效果持续：平时次数，攻击次
 var ifAoe##仅用于伤害判定给予效果时分辨效果来源
 var effDefence = [false,false,false,false,false,false,false]#
 var giveEffect = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]]#攻击给予状态同时表示好坏
-var healthEffValue = -100#低血量提升攻击力速度
-var usualTime#
-var shield = 0#
-var tpDistance#
-var tp = true#
-var dropSpeed#
-var unSee = false#
-var firstAttack = false#
-var startDrop = false#
 var deathAttType#
-var healthTpDistance#
+var usualTime#
+var dropSpeed#
+var firstAttack = false#
+var unSee = false#
+var tpDistance#
+var shield = 0#
 var attDefOrigin = [false,false,false]#
 var attDefence = attDefOrigin
-
-var usuallyEffect#平时给予状态
-var usualEffValue
-var deathEffect#死亡给予状态
-var ifFirstEffect = false#
-#var ifHealthEffect = false#
-var ifDistanceEffect = false#
 var attDefShield#
-var satDefValue = 0#
-var attDefState#
+
+#var startDrop = false#
+#var healthEffValue = -100#低血量提升攻击力速度
+#var healthTpDistance#
+#var tp = true#
+#var seaState
+#var seaAni
+#var usuallyEffect#平时给予状态
+#var usualEffValue
+#var deathEffect#死亡给予状态
+#var ifFirstEffect = false#
+##var ifHealthEffect = false#
+#var ifDistanceEffect = false#
+#var satDefValue = 0#
+#var attDefState#
 
 func _init():
 	pass
@@ -120,8 +122,9 @@ func SetAnimationAndCollBox(soldier):
 	changeAnimation(currentAni,currentState)
 	#填充碰撞箱
 	var newBox = RectangleShape2D.new()
-	newBox.size = collBox
+	newBox.size = collBox-Vector2(collBoxCut,0)
 	$CollisionShape2D.shape = newBox
+	$CollisionShape2D.position.x = collBoxPro
 	pass
 	
 func addSoundAndParticles():
@@ -149,6 +152,7 @@ func firstSetting(soldier):
 	soldierName[0] = soldier
 	nowEffect[Global.Effect.FREEZE] = SpeState.MOVE
 	healthUp = health#记录血量上限
+	if attDefShield != null: attDefence = attDefShield
 	collMask()
 	pass
 	
@@ -223,10 +227,10 @@ func testchangeState():
 #					if tpDistance > 0:
 					position.x += tpDistance*camp#末影人瞬移
 					tpDistance = 0#低血量tp到基地
-				if startDrop == true:
-					$Collision1.collide_with_areas = false
-					reSet(soldierName[1])
-					changeState("stop",State.FALL)
+#				if startDrop == true:
+#					$Collision1.collide_with_areas = false
+#					reSet(soldierName[1])
+#					changeState("stop",State.FALL)
 		else: 
 			if currentAni == "attack": 
 				if unSee == true: 
@@ -349,10 +353,7 @@ func attack():
 			effTime[ani[attackAni]],effTimes[ani[attackAni]])
 			if attackType[ani[attackAni]][Global.AttackType.EXPLODE] == true:
 				$AnimatedSprite2D.visible = false
-				firstDeathSet()
-				
-				#await get_tree().create_timer(2,false).timeout
-				#queue_free()#近战AOE且是爆炸伤害类型->只有自爆
+				firstDeathSet()#近战AOE且是爆炸伤害类型->只有自爆
 			if firstAttack == true: 
 				reSet(soldierName[1])
 				firstAttack = false
@@ -362,20 +363,21 @@ func attack():
 			attackAni = "attack"
 			attTimes = 2
 		for i in attTimes:
+			if i == 1&&attTimes == 2:  attackAni = "attackSec"
 			var newPro = Projectile.instantiate()
 			newPro.collision_mask = collision_mask
 			newPro.camp = camp
 			newPro.projectile = projectile[ani[attackAni]]
-			#Global.ProPos[projectile[ani[attackAni]]]
 			newPro.proRange = attRange[ani[attackAni]]
 			newPro.proSpeed = proSpeed[ani[attackAni]]
+			newPro.proDir = Vector2(proDir[ani[attackAni]],proDir[ani[attackAni]+2])
 			newPro.ifPriece = ifPriece[ani[attackAni]]
-			if currentAni == "attackThr"&&attackAni == "attack":  attackAni = "attackSec"
-			Global.aoe_create(newPro,Global.TRANSFER,aoeModel[ani[attackAni]],aoeRange[ani[attackAni]],
-			ifAoeHold[ani[attackAni]],attackType[ani[attackAni]],damage[ani[attackAni]],
-			damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],
-			effTime[ani[attackAni]],effTimes[ani[attackAni]])
-			newPro.position = position+Vector2(proPos[ani[attackAni]],proPos[ani[attackAni]+2])
+			Global.aoe_create(newPro,Global.TRANSFER,aoeModel[ani[attackAni]],
+			aoeRange[ani[attackAni]],ifAoeHold[ani[attackAni]],attackType[ani[attackAni]],
+			damage[ani[attackAni]],damagerType[ani[attackAni]],giveEffect[ani[attackAni]],
+			effValue[ani[attackAni]],effTime[ani[attackAni]],effTimes[ani[attackAni]])
+			newPro.position = position+Vector2(proPos[ani[attackAni]],
+			proPos[ani[attackAni]+2])
 			Global.root.add_child(newPro)
 	pass
 	

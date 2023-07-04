@@ -3,18 +3,18 @@ var camp
 var type = "projectiles"
 var startPos = position.x
 var currentPos
-var voice
-var frame
-var stop = 1
+#var voice
+#var frame
+#var father 
 
-var father 
 var projectile = null
-var proRange = Vector2(0,0)
+var proRange = 0
 var proSpeed = 0
+var proDir = Vector2(0,0)
 var ifPriece = false
 
 var aoeModel
-var aoeRange = 0
+var aoeRange
 var ifAoeHold
 
 var attackType
@@ -33,16 +33,14 @@ func _ready():
 	newBox.size = $Sprite2D.texture.get_size()
 	$CollisionShape2D.shape = newBox
 	if camp == Global.MONSTER: $Sprite2D.flip_h = true
-	if Global.ProPicture[projectile] > 1:
-		$Sprite2D.hframes = Global.ProPicture[projectile]
-		$Sprite2D.frame = 0
-		$animationTimer.start(Global.ProAniTime[projectile])
-	
+#	if Global.ProPicture[projectile] > 1:
+#		$Sprite2D.hframes = Global.ProPicture[projectile]
+#		$Sprite2D.frame = 0
+#		$animationTimer.start(Global.ProAniTime[projectile])
 	pass
 
 func _process(_delta):
-
-	position += Vector2(camp,1)*Global.ProDire[projectile]*proSpeed*stop
+	position += proDir*proSpeed#Vector2(camp,1)*
 	currentPos = position.x
 	if (currentPos - startPos) >= proRange: queue_free()#超过射程直接自己销毁
 	if position.y >= Global.FightGroundY&&aoeRange != null:#落地物体
@@ -62,23 +60,23 @@ func _on_area_entered(area):
 	
 func aoeCreate():
 	match projectile:
-		"tnt","fireBall","fireBallDown": damagerType[0] = projectile
-	Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,attackType,damage,damagerType,
-	giveEffect,effValue,effTime,effTimes)
+		"tnt","fireBall","fireBallDown": damagerType[0] = projectile#击中敌人有音效的弹射物
+	Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,attackType,damage,
+	damagerType,giveEffect,effValue,effTime,effTimes)
 	pass
-
-
-func _on_animation_timer_timeout():
-	frame += 1 
-	if $Sprite2D.frame != Global.ProPicture[projectile]:  $Sprite2D.frame += 1
-	if frame == Global.ProPicture[projectile]+1: 
-		frame = 0
-		$Sprite2D.frame = 0
-	pass 
 	
-func reload():
-	queue_free()
-	pass 
+func reload(): queue_free()
+
+#func _on_animation_timer_timeout():
+#	frame += 1 
+#	if $Sprite2D.frame != Global.ProPicture[projectile]:  $Sprite2D.frame += 1
+#	if frame == Global.ProPicture[projectile]+1: 
+#		frame = 0
+#		$Sprite2D.frame = 0
+#	pass 
+	
+
+
 	
 
 

@@ -23,7 +23,7 @@ signal BossLv2
 signal BossLv3
 
 func _ready():
-	#Global.NowLevel = 7
+	Global.NowLevel = 7
 	
 	$Up/Leveltext/LeveltextValue.text = str(Global.NowLevel)
 	if Global.LevelData[Global.NowLevel]["set"]["levelType"] != "boss": 

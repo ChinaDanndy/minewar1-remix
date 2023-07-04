@@ -5,14 +5,14 @@
         "thunderSpeed":0.1,
         
         "allVillageObject":["shoveler","shielder","projector","regeneration",
-        "snowman","assassinFirst","freeze","wall",
+        "snowman","assassinFirst",
         "iron","flyer","power","golder"],
         "villObjectHasLevel":{"shoveler":1,"shielder":1,"projector":1,"regeneration":1,
-        "snowman":1,"assassinFirst":1,"freeze":1,"wall":1,
+        "snowman":1,"assassinFirst":1,
         "iron":1,"flyer":1,"power":1,"golder":1},
-        "allMonsterObject":["zombie","creeper","s","sear","witch","ghost","spider","axer",
+        "allMonsterObject":["zombie","creeper","sear","witch","ghost","spider","axer",
         null,null,null,null,null,null,null,null],
-        "allVillageBuyObject":["freeze","wall","power","golder"],
+        "allVillageBuyObject":["power","golder"],
         "villageBuyPrice":[1,2,3,4],
         "villageBuyLevel":[1,4,1,1],
         "Update":["card","gold"],
@@ -340,7 +340,7 @@
             {
                 "firstCD":0,
                 "firstCDNum":[],
-                "soldier":["zombie"],
+                "soldier":["skeleton"],
                 "soldierCD":3,
                 "groupCD":3,
                 "groupCDRand":1,
@@ -348,7 +348,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","assassinFirst","power","regeneration","shoveler","iron"]
+        ],"banCard":[],"chosenCard":["shoveler","shielder","snowman","assassinFirst","iron","flyer"]
     },
     {
         "set":{"levelType":"boss","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,

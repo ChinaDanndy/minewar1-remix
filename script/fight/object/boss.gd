@@ -35,15 +35,17 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
-		#print(Global.MonsterBase.position)
 		health -= 2
-		#$AnimatedSprite2D.play("attack")
 		pass
+		
+	#print(Global.MonsterBase.position)
+	#$AnimatedSprite2D.play("attack")
 	#$cover.texture = $Normal.sprite_frames.get_frame_texture(
 	#$Normal.animation,$Normal.frame)
 	if health >0:
 		healthColor.region_rect = Rect2(0,0,originSize*(health/healthUp),10)
 		healthColor.position.x = -((originSize-(originSize*(health/healthUp)))/2)
+	else: healthColor.region_rect =  Rect2(0,0,0,0)
 	#size.x = originSize*(health/healthUp)
 	Global.MonsterPoint.x = global_position.x
 	#$RayCast2D.force_raycast_update()
@@ -122,10 +124,6 @@ func protectReset():
 	Global.BossProtect.picture.visible  = true
 	pass
 
-func craeteThu(_thu):
-
-	pass
-	
 func explode():
 	var i = 0
 	Global.aoe_create(self,Global.CREATE,aoeModel[i],aoeRange[i],ifAoeHold[i],attackType[i],damage[i],

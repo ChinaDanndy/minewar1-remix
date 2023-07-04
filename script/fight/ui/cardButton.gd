@@ -35,12 +35,12 @@ func _ready():
 			if soldier != null:  display()
 			if Global.LevelData[0]["villObjectHasLevel"][soldier] > Global.Level:
 				visible = false
-			if (Global.LevelData[Global.NowLevel]["banCard"].has(soldier))||(#查看是否为禁用卡BAN
-				Global.LevelData[0]["allVillageBuyObject"].has(soldier)&&(#外面没购买的卡也不能选
-					Global.Brought[soldier]==NOHAS))||(soldier == null):
-				self.button_mask = 0
-				#outLine = false
-				cantBuy.visible = true
+#			if (Global.LevelData[Global.NowLevel]["banCard"].has(soldier))||(#查看是否为禁用卡BAN
+#				Global.LevelData[0]["allVillageBuyObject"].has(soldier)&&(#外面没购买的卡也不能选
+#					Global.Brought[soldier]==NOHAS))||(soldier == null):
+#				self.button_mask = 0
+#				#outLine = false
+#				cantBuy.visible = true
 				if soldier == null: cantBuy.visible = true
 		cType.BUY:
 			Global.FightSence.fightCard.connect(cardReSet)#特定卡获得数据

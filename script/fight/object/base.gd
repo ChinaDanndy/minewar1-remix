@@ -60,6 +60,8 @@ func _process(_delta):
 	if health >0:
 		healthColor.region_rect = Rect2(0,0,originSize*(health/healthUp),10)
 		healthColor.position.x = -((originSize-(originSize*(health/healthUp)))/2)
+	else: healthColor.region_rect =  Rect2(0,0,0,0)
+		
 	get_parent().get_node("Label").text = str(health)
 	if get_parent().name == "bossProtect":
 		if Input.is_action_just_pressed("ui_test"): 

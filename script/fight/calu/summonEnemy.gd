@@ -63,9 +63,8 @@ func summonEnemy(group):
 	if Global.LevelData[Global.NowLevel]["groups"][group]["groupTimes"] == 0: againWait(group)#永久持续出兵
 	else:
 		if times[group] != Global.LevelData[Global.NowLevel]["groups"][group]["groupTimes"]: againWait(group)
-		else: 
-			if Global.LevelData[Global.NowLevel]["groups"][group]["stopTime"] == -1: emit_signal("stopOver")
-			if group == groupCount-1: Global.LevelOver = true
+		else: if group == groupCount-1: Global.LevelOver = true
+#			if Global.LevelData[Global.NowLevel]["groups"][group]["stopTime"] == -1: emit_signal("stopOver")
 		#if stage == groupStage: summonEnemy(group,groupStage)#处于本阶段才释放本阶段士兵
 	pass
 	

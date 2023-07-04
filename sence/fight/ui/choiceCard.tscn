@@ -74,14 +74,6 @@ cardType = 1
 layout_mode = 2
 cardType = 1
 
-[node name="cardButton11" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("2_avj7v")]
-layout_mode = 2
-cardType = 1
-
-[node name="cardButton12" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("2_avj7v")]
-layout_mode = 2
-cardType = 1
-
 [node name="fightButton" type="TextureButton" parent="."]
 layout_mode = 0
 offset_left = 274.0
