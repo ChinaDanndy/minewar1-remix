@@ -164,7 +164,6 @@ func collMask():
 	pass
 	
 func reSet(soldier):
-	soldierName[0] = null
 	SetValue(soldier)
 	SetAnimationAndCollBox(soldier)
 	collMask()
@@ -343,7 +342,7 @@ func attack():
 		if aoeRange[ani[attackAni]] == null:#近战单体
 			Global.damage_Calu(other,Global.damCaluType.ATTEFF,attackType[ani[attackAni]],
 			damage[ani[attackAni]],damagerType[ani[attackAni]],giveEffect[ani[attackAni]],
-			effValue[ani[attackAni]],effTime[ani[attackAni]],effTimes[ani[attackAni]],Global.IfAoeType.NONE)
+			effValue[ani[attackAni]],effTime[ani[attackAni]],effTimes[ani[attackAni]])
 		else:#近战AOE
 			#Global.damage_Calu(body,Global.TRANSFER,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,null)
 			if attackType[ani[attackAni]][Global.AttackType.EXPLODE] == true: other = self
@@ -353,6 +352,7 @@ func attack():
 			effTime[ani[attackAni]],effTimes[ani[attackAni]])
 			if attackType[ani[attackAni]][Global.AttackType.EXPLODE] == true:
 				$AnimatedSprite2D.visible = false
+				deathAttType = null#防止闪电苦力怕自爆后因为死亡必爆炸又炸一次
 				firstDeathSet()#近战AOE且是爆炸伤害类型->只有自爆
 			if firstAttack == true: 
 				reSet(soldierName[1])
@@ -416,9 +416,12 @@ func finalDeathSet():
 func effectTimer(effName,effKeepTime,effKeepTimes,effDam,GoodOrBad):
 	var this = effName
 	if GoodOrBad == Global.EFFGOOD: this += Global.EffGood
+	
 	if effName == Global.Effect.FREEZE:
 		$Collision1.collide_with_areas = false
 		$Collision2.collide_with_areas = false
+		$AnimatedSprite2D.material = null
+		$AnimatedSprite2D.pause()
 	#if effKeepTime!=null: 
 	var effTimer = Timer.new()
 	effTimer.timeout.connect(effectTimerTimeout.bind(effName,effKeepTimes,effDam,GoodOrBad))
@@ -445,6 +448,7 @@ func effectTimerTimeout(effName,effKeepTimes,effDam,GoodOrBad):
 			nowEffect[this] = SpeState.MOVE
 			$Collision1.collide_with_areas = true
 			$Collision2.collide_with_areas = true
+			$AnimatedSprite2D.play()
 		if effTimerId[this] != null: effTimerId[this].queue_free()
 	pass
 

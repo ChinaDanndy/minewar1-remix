@@ -17,7 +17,7 @@
 
     },
     "zombie":{
-        "health":30,
+        "health":3,
         "speedBasic":1,
         "damageBasic":[1,0,0],
         "attRangeBasic":[10,0],
@@ -246,7 +246,7 @@
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[false,true,false],[false,true,false]],
 
-        "projectile":["arrow","arrow"],
+        "projectile":["arrow","arrowUp"],
         "proPos":[0,3,2,-9]
     },
     "snowman":{
@@ -317,10 +317,10 @@
         "animation":{"walk":4,"attack":4,"attackSec":4,"attackThr":4,"stop":4,"death":1,"deathFall":1},
         "souEffValue":{"hurt":"hurt1","attack":"arrowShoot","attackSec":"throw2","death":"steveDeath"},
         "particlesValue":{"hurt":"hurtRed"},
-        "attackType":[[false,true,false],[false,false,true]],
+        "attackType":[[false,true,false],[false,true,false]],
 
         "projectile":["arrow","tnt"],
-        "proPos":[10,-6,4,17]
+        "proPos":[10,0,4,17]
     },
     "ghost":{
         "health":6,
@@ -381,12 +381,12 @@
     "creeperKing":{
         "health":20,
         "speed":0.3,
-        "damage":[10,0],
+        "damage":[20,0],
         "attRangeBasic":[200,120],
         "aoeModel":["all","village",null,null],
-        "aoeRange":[80,80,null,null],
+        "aoeRange":[200,80,null,null],
         "effTime":[[0,0,0,0,0,0],[0,0,0,0,1,0],[],[]],
-        "effValue":[[20,0,50],[0,0,0],[],[]],
+        "effValue":[[0,0,50],[0,0,0],[],[]],
         "effTimes":[[0,0],[0,0],[],[]],
         "giveEffect":[[0,0,0,0,0,0,-1],[0,0,0,0,-1,0,0],[],[]],
         "bossSecHealth":18,

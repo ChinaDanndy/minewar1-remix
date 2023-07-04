@@ -2,7 +2,7 @@ extends "res://script/fight/object.gd"
 var stopPos
 var stopTime
 var stop = false
-@onready var Ani = $AnimatedSprite2D
+#@onready var Ani = $AnimatedSprite2D
 
 func firstSetting(soldier):
 	super.SetValue(soldier)
@@ -12,7 +12,7 @@ func firstSetting(soldier):
 	
 	match camp:
 		Global.VILLAGE: 
-			if soldier == Global.Contrl: Ani.material = Global.SoldierOutLine
+			#if soldier == Global.Contrl: $AnimatedSprite2D.material = Global.SoldierOutLine
 			position.x = Global.VillagePoint.x
 			#add_to_group(soldier)
 			add_to_group("villageSoldier")
@@ -57,6 +57,7 @@ func _on_usual_timer_timeout():#平常给予效果
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
+		#print(Global.Contrl)
 		#print(Global.MonsterBase.position)
 		#if camp == Global.VILLAGE: health = 0
 		#$AnimatedSprite2D.play("attack")
@@ -66,10 +67,10 @@ func _process(_delta):
 			add_to_group("creeper")#获得苦力怕id给劈闪电用
 	if camp == Global.VILLAGE: 
 		position.x = clamp(position.x,Global.VillagePoint.x-16,Global.MonsterPoint.x+16)#限制移动范围
-	if Global.Contrl == soldierName[0]&&currentState != State.DEATH:
+	if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&speed>0:
 		#&&currentState != State.FALL: 
-		#if (collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
-#		$AnimatedSprite2D.material = Global.SoldierOutLine
+		#if(collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
+		if $AnimatedSprite2D.material == null: $AnimatedSprite2D.material = Global.SoldierOutLine
 		contrl()
 	position.x += speed*camp*speedDirection*speedState#移动控制
 	
@@ -98,7 +99,6 @@ func _process(_delta):
 #		else: 
 #			if health > 0: position.x = Global.VillagePoint.x+50#末影人二次传送
 #		healthEffValue = -1000
-		
 #	if position.y+(collBox.y/2) >= Global.FightGroundY&&dropSpeed != null: 
 #		dropSpeed = null
 #		#position.y = Global.FightGroundY-(collBox.y/2)
@@ -121,7 +121,7 @@ func contrl():#玩家的单位控制
 func regenerationSet():  $particles/regeneration.emitting = true
 
 func _on_input_event(_viewport,event, _shape_idx):
-	if event.is_action_pressed("ui_mouse_left")&&camp == Global.VILLAGE&&firstAttack == false:
+	if event.is_action_pressed("ui_mouse_left")&&camp == Global.VILLAGE&&unSee == false:
 		Global.Contrl = soldierName[0]
 	pass 
 func _on_stop_timer_timeout():

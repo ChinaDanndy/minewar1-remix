@@ -52,7 +52,7 @@ func _process(_delta):
 func _on_area_entered(area):
 	if aoeModel == null:#单体
 		Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,
-		effTime,effTimes,Global.IfAoeType.NONE)
+		effTime,effTimes)
 		#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	
 	else:aoeCreate()#AOE
 	if ifPriece == false: queue_free()

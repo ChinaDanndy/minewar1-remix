@@ -6,8 +6,6 @@ var aoeRange
 var aoeTime
 var aoeTimes
 
-var ifAoe
-enum aoeHold {IN,OUT,NONE}
 
 var attackType
 var damagerType

@@ -213,6 +213,8 @@ collide_with_areas = true
 
 [node name="attackTimer" type="Timer" parent="."]
 
+[node name="deathTimer" type="Timer" parent="."]
+
 [node name="healthLine" type="Sprite2D" parent="."]
 position = Vector2(0, -40)
 texture = ExtResource("29_w73w2")
@@ -234,3 +236,4 @@ emission_sphere_radius = 100.0
 [connection signal="animation_finished" from="Tp" to="." method="_on_tp_animation_finished"]
 [connection signal="frame_changed" from="Tp" to="." method="_on_tp_frame_changed"]
 [connection signal="timeout" from="attackTimer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="deathTimer" to="." method="_on_death_timer_timeout"]

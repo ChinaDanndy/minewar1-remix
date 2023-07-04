@@ -43,7 +43,7 @@ enum damCaluType {ATTEFF,EFF}
 const TRANSFER = null
 enum IfAoeType {IN,OUT,NONE}
 const SkillHold = -1
-func damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes,ifAoe):
+func damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):
 	var newCalu = calu.new()
 	var target = newCalu
 	if type == TRANSFER: target = damager
@@ -54,7 +54,6 @@ func damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,
 	target.effValue = effValue
 	target.effTime = effTime
 	target.effTimes = effTimes
-	target.ifAoe = ifAoe
 	if type != TRANSFER&&damager!=null:
 		match type:
 			damCaluType.ATTEFF: newCalu.normalAttackCalu(damager)
@@ -106,7 +105,8 @@ var ShowName
 var ShowDisplay
 var ShowText
 var PageNow = true#
-const Page = {true:"allVillageObject",false:"allMonsterObject"}#{"allVillageObject":true,"allMonsterObject":false}
+const Page = {true:"allVillageObject",false:"allMonsterObject"}
+#{"allVillageObject":true,"allMonsterObject":false}
 
 var LevelReady = false
 

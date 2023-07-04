@@ -23,7 +23,7 @@ signal BossLv2
 signal BossLv3
 
 func _ready():
-	Global.NowLevel = 7
+	Global.NowLevel = 8
 	
 	$Up/Leveltext/LeveltextValue.text = str(Global.NowLevel)
 	if Global.LevelData[Global.NowLevel]["set"]["levelType"] != "boss": 
@@ -37,6 +37,7 @@ func _ready():
 		Global.MonsterBase = $Boss
 		$Boss.visible = true
 		Global.BossProtect.firstSetting("boss")
+
 	Global.VillageBase.camp = Global.VILLAGE
 	Global.VillageBase.firstSetting("baseVillageHealth")#"baseVillageHealth"
 
@@ -153,40 +154,21 @@ func _process(_delta):
 					bossLv = 2
 					summonEnemyID.queue_free()
 					SummonEnemy()
-					#$Timer/CaveTimer.start(iceTime)
-					#$Up/AttackTime.visible = true
+					#$Timer/ThunderTimer.start(thunderTime)
+
 					emit_signal("BossLv2")
-	if bossLv == 2:
-		if Global.MonsterBase.health<=Global.MonsterBase.bossSecHealth:
-			Global.NowLevel += 1
-			bossLv = 3
-			summonEnemyID.queue_free()
-			SummonEnemy()
-			#$Timer/ThunderTimer.start(thunderTime)
-			attackTime = Global.LevelData[Global.NowLevel]["set"]["attackTime"]
-			$Timer/attackTimer.start(1)
+
+#	if Global.LevelData[Global.NowLevel]["set"]["levelType"] == "attack":
+	$Up/AttackTime/AttackTimeValue.text = str($Boss.attackTime)
+
 			
-			emit_signal("BossLv3")
-	if bossLv == 3:
-		if bossUp >= (attackTime/6)&&$bossSkill.frame!=6: 
-			bossUp = 0
-			$bossSkill.frame += 1
-		if bossShineSet == 0: $bossSkill.modulate.a -= 0.01
-		if $bossSkill.modulate.a <=0: bossShineSet = 1
-		if bossShineSet == 1: $bossSkill.modulate.a += 0.01
-		if $bossSkill.modulate.a >= 1: bossShineSet = 0
-		pass
-					
-	if Global.LevelData[Global.NowLevel]["set"]["levelType"] == "attack":
-		#$Up/AttackTime/AttackTimeValue.text = str(attackTime)
-		
-		if attackTime <= 0: 
-			var newtThunder = Global.Skill.instantiate()
-			newtThunder.position.x = $baseVillage.position.x
-			newtThunder.camp = Global.MONSTER
-			Global.root.add_child(newtThunder)
-			newtThunder.firstSetting("thunder")
-			Global.VillageBase.health = 0
+#	if bossLv == 2:
+#		if Global.MonsterBase.health<=Global.MonsterBase.bossSecHealth:
+#			Global.NowLevel += 1
+#			bossLv = 3
+#			summonEnemyID.queue_free()
+#			SummonEnemy()
+#			emit_signal("BossLv3")
 	pass
 	
 func time():
@@ -210,6 +192,11 @@ func _on_moneytimer_timeout():
 	pass 
 
 func _on_tree_exited():
+	if bossLv > 0: Global.NowLevel = 8
+	emit_signal("reloadSence")
+	pass
+	
+func _on_tree_entered():
 	if summonEnemyID != null: summonEnemyID.free()
 	Global.NowMoney = 0
 	Global.MonsterDeaths = 0
@@ -219,11 +206,7 @@ func _on_tree_exited():
 	Global.ChosenCard = [null,null,null,null,null,null]
 	Global.ChosenId = [null,null,null,null,null,null]
 	Global.ChosenCardNum = 0
-	if bossLv > 0: Global.NowLevel = 8
-	emit_signal("reloadSence")
-	pass
 	
-func _on_tree_entered():
 	Global.FightSence = self
 	Global.ChoiceWindow = $Up/choiceCard
 	Global.FightButton = $Up/choiceCard/fightButton
@@ -258,7 +241,7 @@ func _on_tree_entered():
 	
 	$Up/Moneytext.visible = false
 	$Spacetext.visible = false
-	$Up/AttackTime.visible = false
+	#$Up/AttackTime.visible = false
 	$baseMonster.visible = false
 	$baseVillage.visible = false
 	$bossProtect.visible = false

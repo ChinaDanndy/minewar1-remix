@@ -335,14 +335,14 @@
     {
         "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":20,"baseVillageHealth":20,
         "thunderTime":0,"thunderTimeRand":0,
-        "iceTime":0,"iceTimeRand":0},
+        "iceTime":3,"iceTimeRand":0},
         "groups":[
             {
                 "firstCD":0,
                 "firstCDNum":[],
-                "soldier":["skeleton"],
+                "soldier":["zombie"],
                 "soldierCD":3,
-                "groupCD":3,
+                "groupCD":2,
                 "groupCDRand":1,
                 "groupTimes":1,
                 "stopPos":null,
@@ -351,7 +351,7 @@
         ],"banCard":[],"chosenCard":["shoveler","shielder","snowman","assassinFirst","iron","flyer"]
     },
     {
-        "set":{"levelType":"boss","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "set":{"levelType":"boss","attackTime":200,"baseMonsterHealth":10,"baseVillageHealth":10,
         "thunderTime":2,"thunderTimeRand":0,
         "iceTime":0,"iceTimeRand":0},
         "groups":[
@@ -369,13 +369,13 @@
         ],"banCard":[],"chosenCard":["shoveler","projector","projector","assassinFirst","snowman","flyer"]
     },
     {
-        "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "set":{"levelType":"attack","attackTime":300,"baseMonsterHealth":10,"baseVillageHealth":10,
         "thunderTime":0 ,"thunderTimeRand":0,
         "iceTime":0,"iceTimeRand":0},
         "groups":[
             {
                 "firstCD":0,
-                "soldier":["zombie"],
+                "soldier":["skeleton"],
                 "firstCDNum":[],
                 "soldierCD":8,
                 "groupCD":3,
@@ -387,7 +387,7 @@
         ],"banCard":[],"chosenCard":[]
     },
     {
-        "set":{"levelType":"attack","attackTime":300,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "set":{"levelType":"normal","attackTime":300,"baseMonsterHealth":10,"baseVillageHealth":10,
         "thunderTime":2,"thunderTimeRand":0,
         "iceTime":0,"iceTimeRand":0},
         "groups":[

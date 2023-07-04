@@ -56,7 +56,8 @@ func _process(_delta):
 func _on_area_entered(area):
 	if area.soldierName[0] == "creeper": 
 		area.call_deferred("reSet",area.soldierName[1])
-		area.remove_from_group("creeper")
+		area.soldierName[0] = null
+		#area.remove_from_group("creeper")
 	pass
 	
 func reload(): queue_free()

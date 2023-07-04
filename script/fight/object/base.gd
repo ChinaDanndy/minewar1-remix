@@ -19,6 +19,8 @@ func firstSetting(Name):
 		health = Global.STSData["creeperKing"]["protectHealth"]
 		get_parent().position.y = Global.FightSkyY
 		get_parent().get_node("healthLine").visible = false
+		get_parent().get_node("hurt").stream = load("res://assets/music/se/soldier/hurt1.ogg")
+		attDefence = [false,false,true]
 	else: 
 		collision_layer = Global.LAyer[camp+1][2]
 		health = Global.LevelData[Global.NowLevel]["set"][Name]
