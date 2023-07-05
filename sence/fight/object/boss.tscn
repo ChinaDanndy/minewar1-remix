@@ -170,7 +170,7 @@ animations = [{
 resource_local_to_scene = true
 size = Vector2(20, 46)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wboqp"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_b87dc"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
@@ -227,7 +227,7 @@ region_rect = Rect2(0, 0, 112, 10)
 [node name="particles" type="Node2D" parent="."]
 
 [node name="Explode" parent="particles" instance=ExtResource("29_6ji3e")]
-material = SubResource("CanvasItemMaterial_wboqp")
+material = SubResource("CanvasItemMaterial_b87dc")
 position = Vector2(0, -80)
 amount = 80
 emission_shape = 1

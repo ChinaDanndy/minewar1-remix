@@ -4,6 +4,7 @@ var stop = false
 var no = true
 
 var GoodRand = Global.LevelData[0]["miniGame1"]["gunpowderRand"]
+var Show = Global.LevelData[0]["miniGame1"]["show"]
 var GoodOn = 0
 var Min = Global.LevelData[0]["miniGame1"]["timeRand"]["Min"]
 var Max = Global.LevelData[0]["miniGame1"]["timeRand"]["Max"]
@@ -23,9 +24,14 @@ func _process(_delta):
 func start(): $moveTimer.start(randi_range(Min,Max))
 func _on_move_timer_timeout():
 	no = false
+	var showNumber = randi_range(1,Show)
 	var rand = randi_range(1,GoodRand)*GoodOn
-	if rand == 1: play("powderShow")
-	else: play("creeperShow")
+	if showNumber == 1:
+		if rand == 1: play("powderShow")
+		else: play("creeperShow")
+	else: 
+		$moveTimer.start(randf_range(Min-(Cut*CutOn),Max-(Cut*CutOn)))
+		no = true
 	pass
 
 func all():
@@ -40,11 +46,11 @@ func _on_animation_finished():
 	match animation:
 		"creeperShow","powderShow":
 			stop = true
-			$holdTimer.start(randi_range(Min-(Cut*CutOn),Max-(Cut*CutOn)))
+			$holdTimer.start(randf_range(0.75,1))
 	match animation:
 		"creeperOut","powderOut","creeperDeath","powderDeath":
 			no = true
-			$moveTimer.start(randi_range(Min-(Cut*CutOn),Max-(Cut*CutOn)))
+			$moveTimer.start(randf_range(Min-(Cut*CutOn),Max-(Cut*CutOn)))
 	pass 
 
 func _on_hold_timer_timeout():

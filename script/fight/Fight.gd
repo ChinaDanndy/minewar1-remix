@@ -153,15 +153,11 @@ func _process(_delta):
 					Global.NowLevel += 1
 					bossLv = 2
 					summonEnemyID.queue_free()
-					SummonEnemy()
-					#$Timer/ThunderTimer.start(thunderTime)
-
 					emit_signal("BossLv2")
+					$Timer/ThunderTimer.start(thunderTime)
 
 #	if Global.LevelData[Global.NowLevel]["set"]["levelType"] == "attack":
-	$Up/AttackTime/AttackTimeValue.text = str($Boss.attackTime)
-
-			
+#	$Up/AttackTime/AttackTimeValue.text = str($Boss.attackTime)
 #	if bossLv == 2:
 #		if Global.MonsterBase.health<=Global.MonsterBase.bossSecHealth:
 #			Global.NowLevel += 1
@@ -179,7 +175,6 @@ func time():
 	await get_tree().create_timer(1,false).timeout
 	time()
 	pass
-	
 
 func _on_attack_timer_timeout(): 
 	attackTime -= 1
@@ -192,12 +187,12 @@ func _on_moneytimer_timeout():
 	pass 
 
 func _on_tree_exited():
+	if summonEnemyID != null: summonEnemyID.free()
 	if bossLv > 0: Global.NowLevel = 8
 	emit_signal("reloadSence")
 	pass
 	
 func _on_tree_entered():
-	if summonEnemyID != null: summonEnemyID.free()
 	Global.NowMoney = 0
 	Global.MonsterDeaths = 0
 	Global.CardBuy = null
@@ -241,7 +236,7 @@ func _on_tree_entered():
 	
 	$Up/Moneytext.visible = false
 	$Spacetext.visible = false
-	#$Up/AttackTime.visible = false
+	$Up/AttackTime.visible = false
 	$baseMonster.visible = false
 	$baseVillage.visible = false
 	$bossProtect.visible = false

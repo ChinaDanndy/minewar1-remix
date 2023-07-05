@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyrd7ii3pyc0"
-path="res://.godot/imported/attackBoss.png-0abd558dd0046f3cf6a1bb84b81b4471.ctex"
+uid="uid://cdg604pchqdry"
+path="res://.godot/imported/gold_ingot.png-dccf4e94da99eabc955cec403932cb4e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/attackBoss.png"
-dest_files=["res://.godot/imported/attackBoss.png-0abd558dd0046f3cf6a1bb84b81b4471.ctex"]
+source_file="res://assets/objects/tower/gold_ingot.png"
+dest_files=["res://.godot/imported/gold_ingot.png-dccf4e94da99eabc955cec403932cb4e.ctex"]
 
 [params]
 

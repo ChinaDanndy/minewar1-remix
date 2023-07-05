@@ -2,7 +2,8 @@ extends "res://script/fight/object.gd"
 var stopPos
 var stopTime
 var stop = false
-#@onready var Ani = $AnimatedSprite2D
+
+@onready var Ani = $AnimatedSprite2D
 
 func firstSetting(soldier):
 	super.SetValue(soldier)
@@ -31,7 +32,7 @@ func firstSetting(soldier):
 	match coll2Pos:
 		"landSky":#骷髅
 			$Collision2.position.y = -(distanceLandSky)
-			$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/2))
+			$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/3))
 		"skyLand":#恶魂
 			$Collision2.position.y = (distanceLandSky)-10
 			$Collision2.position.x = camp*(distanceLandSky-(attRangeBasic[1]/3))
@@ -59,7 +60,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
 		#print(Global.Contrl)
 		#print(Global.MonsterBase.position)
-		#if camp == Global.VILLAGE: health = 0
+		if camp == Global.VILLAGE: health = 0
 		#$AnimatedSprite2D.play("attack")
 		pass
 	if camp == Global.MONSTER:
@@ -67,11 +68,11 @@ func _process(_delta):
 			add_to_group("creeper")#获得苦力怕id给劈闪电用
 	if camp == Global.VILLAGE: 
 		position.x = clamp(position.x,Global.VillagePoint.x-16,Global.MonsterPoint.x+16)#限制移动范围
-	if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&speed>0:
+		if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&speed>0:
 		#&&currentState != State.FALL: 
 		#if(collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
-		if $AnimatedSprite2D.material == null: $AnimatedSprite2D.material = Global.SoldierOutLine
-		contrl()
+			if Ani.material == null: Ani.material = Global.SoldierOutLine
+			contrl()
 	position.x += speed*camp*speedDirection*speedState#移动控制
 	
 	
@@ -87,6 +88,14 @@ func _process(_delta):
 		attDefence = attDefOrigin
 		attDefShield = null
 		reSet(soldierName[1])
+		
+	if tpDistance != null:
+		if camp == Global.MONSTER:
+			var toVillageBase = abs(position.x-(Global.VillageBase.global_position.x
+			+(Global.VillageBase.collBox.x/2)+20))
+			if toVillageBase <= tpDistance: tpDistance = null
+		
+		pass
 		
 #	if health <= healthEffValue: #低血量狂暴永久效果
 ##		if soldierName[0] == "ballon":
@@ -122,6 +131,8 @@ func regenerationSet():  $particles/regeneration.emitting = true
 
 func _on_input_event(_viewport,event, _shape_idx):
 	if event.is_action_pressed("ui_mouse_left")&&camp == Global.VILLAGE&&unSee == false:
+		var clean = get_tree().get_nodes_in_group("villageSoldier")
+		for i in clean: i.Ani.material = null
 		Global.Contrl = soldierName[0]
 	pass 
 func _on_stop_timer_timeout():

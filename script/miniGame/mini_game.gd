@@ -46,8 +46,8 @@ func start():
 		game2GhostCreate()
 		game2ZombieCreate()
 		await get_tree().create_timer(lastTime,false).timeout
-		game2GhostCreate()
-		game2GhostCreate()
+		#game2GhostCreate()
+		#game2GhostCreate()
 		pass
 	pass
 

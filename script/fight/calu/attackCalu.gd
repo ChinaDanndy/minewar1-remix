@@ -10,7 +10,6 @@ var aoeTimes
 var attackType
 var damagerType
 var damage
-
 var type
 var attDefence
 

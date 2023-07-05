@@ -40,16 +40,12 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
 		#health -= 2
 		pass
-		
 	#print(Global.MonsterBase.position)
 	#$AnimatedSprite2D.play("attack")
 	#$cover.texture = $Normal.sprite_frames.get_frame_texture(
 	#$Normal.animation,$Normal.frame)
-
 	#size.x = originSize*(health/healthUp)
-	
 	#$RayCast2D.force_raycast_update()
-
 #	if position.x <= Global.BossStopX&&bossLv == 2&&norAni.animation != "stop2":
 #			norAni.play("stop2")
 		#if bossLv == 2: 
@@ -62,9 +58,9 @@ func _process(_delta):
 		healthColor.region_rect = Rect2(0,0,originSize*(health/healthUp),10)
 		healthColor.position.x = -((originSize-(originSize*(health/healthUp)))/2)
 	else: healthColor.region_rect =  Rect2(0,0,0,0)
-
+	
 	if $RayCast2D.is_colliding():
-		if $attackTimer.time_left == 0: $attackTimer.start(aniSpeedBasic)
+		if $attackTimer.time_left == 0: $attackTimer.start(speedBasic)
 	else: $attackTimer.stop()
 		
 	if bossLv == 2:
@@ -75,9 +71,9 @@ func _process(_delta):
 		if Global.BossSkill.modulate.a <=0: bossShineSet = 1
 		if bossShineSet == 1: Global.BossSkill.modulate.a += 0.01
 		if Global.BossSkill.modulate.a >= 1: bossShineSet = 0
-		if attackTime <= 0: 
+		if attackTime <= 0&&Global.VillageBase.health>0: 
 			var newtThunder = Global.Skill.instantiate()
-			newtThunder.position.x = $baseVillage.position.x
+			newtThunder.position.x = Global.VillageBase.global_position.x
 			newtThunder.camp = Global.MONSTER
 			Global.root.add_child(newtThunder)
 			newtThunder.firstSetting("thunder")
@@ -129,6 +125,7 @@ func _on_tp_animation_finished():
 	protectReset()
 	attackTime = Global.LevelData[Global.NowLevel]["set"]["attackTime"]
 	$deathTimer.start(1)
+	Global.FightSence.SummonEnemy()
 	bossLv = 2
 	pass
 
@@ -142,7 +139,7 @@ func protectDown():
 	attDefence = [false,false,false]
 	effDefence = [true,true,true,true,false,false,true]
 	await get_tree().create_timer(protectCD,false).timeout
-	explode()
+	#explode()
 	attDefence = [true,true,true]
 	effDefence = [true,true,true,true,true,true,true]
 	norAni.play("stop1")

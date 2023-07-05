@@ -5,6 +5,7 @@ extends Node
 var object = 1
 var times:Array
 var allTime:Array
+var waitTime:Array
 var groupCount = 0
 var soldierCount = 0
 signal stopOver
@@ -13,9 +14,11 @@ func _ready():
 	name = "summonEnemy"
 	times.clear()
 	allTime.clear()
+	waitTime.clear()
 	groupCount = Global.LevelData[Global.NowLevel]["groups"].size()#记录有多少组人
 	for i in groupCount: 
 		times.append(0)
+		waitTime.append(0)
 		var firstCD = Global.LevelData[Global.NowLevel]["groups"][i]["firstCD"]
 		var soldierCountCalu = Global.LevelData[Global.NowLevel]["groups"][i]["soldier"].size()-1
 		var soldierCD = Global.LevelData[Global.NowLevel]["groups"][i]["soldierCD"]
@@ -25,17 +28,19 @@ func _ready():
 		allTime.append(firstCD+((soldierCountCalu*soldierCD)+(groupCD+groupCDRand))
 		*groupTimes+(soldierCountCalu*soldierCD))
 		firstStart(i)
+	#print(allTime)
 	pass
 	
 func firstStart(i):
+	waitTime[i] = Global.LevelData[Global.NowLevel]["groups"][i]["firstCD"]
 	if !Global.LevelData[Global.NowLevel]["groups"][i]["firstCDNum"].is_empty():
-		var newTime = allTime.slice(Global.LevelData[Global.NowLevel]["groups"][i]["firstCDNum"][0]-1,
+		var newTime = 0
+		newTime = allTime.slice(Global.LevelData[Global.NowLevel]["groups"][i]["firstCDNum"][0]-1,
 		Global.LevelData[Global.NowLevel]["groups"][i]["firstCDNum"][1],true)
 		var newWaitTime = 0
 		for j in newTime: newWaitTime += j#计算总等待时间
-		Global.LevelData[Global.NowLevel]["groups"][i]["firstCD"] = newWaitTime+Global.LevelData[Global.NowLevel]["groups"][i]["firstCD"]
-	await get_tree().create_timer(Global.LevelData[Global.NowLevel]
-	["groups"][i]["firstCD"],false).timeout
+		waitTime[i]+= newWaitTime
+	await get_tree().create_timer(waitTime[i],false).timeout
 	summonEnemy(i)
 		#groupCount是每个阶段最后一个组,该组别包含阶段持续时间
 	#if Global.LevelData[Global.Level][stage][groupCount]["stageCD"] != 0:

@@ -10,7 +10,7 @@ var speRand = Global.LevelData[0]["miniGame2"]["mobSpeed"]["rand"]
 #const rightLeft 
 
 func _ready():
-	speed = Global.LevelData[0]["miniGame2"]["mobSpeed"][Name]+randi_range(-speRand,speRand)
+	speed = Global.LevelData[0]["miniGame2"]["mobSpeed"][Name]+randf_range(-speRand,speRand)
 	match rightLeft:
 		0: #right
 			position.x = -40

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=18 format=3 uid="uid://bphor07wv7th8"]
 
 [ext_resource type="Texture2D" uid="uid://bos5o3mfpwn0h" path="res://assets/miniGame/game1/creeper/creeper6.png" id="1_vc2d1"]
 [ext_resource type="Texture2D" uid="uid://de3yjt8ks1xpo" path="res://assets/miniGame/game1/creeper/creeper7.png" id="2_kp1uj"]

@@ -30,7 +30,7 @@ func _on_aoe_area_entered(area):
 		"zombie":
 			$explodeWell.emitting = true
 			$well.play()
-			Global.MiniGameScore += 10
+			Global.MiniGameScore += 4
 		"ghost":
 			$explodeNormal.emitting = true
 			$normal.play()

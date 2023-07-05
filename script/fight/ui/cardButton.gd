@@ -48,17 +48,17 @@ func _ready():
 			Global.FightSence.cardCD.connect(cardCDStart)#特定卡获得数据
 			self.button_mask = 0
 			#outLine = false
-		cType.SHOP:
-			if get_parent().name == "Update":
-				soldier = Global.LevelData[0]["Update"][num]#升级价格和出现关卡第二个要出现两次
-				update = true
-			else: soldier = Global.LevelData[0]["allVillageBuyObject"][num]
-			display()
-			if  Global.Point < price||Global.Brought[soldier] == HAS||Global.Brought[soldier] == 2:
-				self.button_mask = 0
-				#outLine = false
-			if Global.Brought[soldier] == HAS||Global.Brought[soldier] == 2: 
-				cantBuy.visible = true
+#		cType.SHOP:
+#			if get_parent().name == "Update":
+#				soldier = Global.LevelData[0]["Update"][num]#升级价格和出现关卡第二个要出现两次
+#				update = true
+#			else: soldier = Global.LevelData[0]["allVillageBuyObject"][num]
+#			display()
+#			if  Global.Point < price||Global.Brought[soldier] == HAS||Global.Brought[soldier] == 2:
+#				self.button_mask = 0
+#				#outLine = false
+#			if Global.Brought[soldier] == HAS||Global.Brought[soldier] == 2: 
+#				cantBuy.visible = true
 		cType.SHOW: 
 			display()
 			Global.ChangePageButton.reSetAll.connect(cardReSet)
@@ -77,9 +77,9 @@ func display():
 			price = Global.STSData[soldier]["price"]#基本属性填充
 			cd = Global.STSData[soldier]["cd"]
 			cdAll = cd
-		cType.SHOP: 
-			if update == true: price = Global.LevelData[0]["UpdatePrice"][num][Global.Brought[soldier]]
-			else: price = Global.LevelData[0]["villageBuyPrice"][num]
+#		cType.SHOP: 
+#			if update == true: price = Global.LevelData[0]["UpdatePrice"][num][Global.Brought[soldier]]
+#			else: price = Global.LevelData[0]["villageBuyPrice"][num]
 		cType.SHOW: 
 			soldier = Global.LevelData[0][Global.Page[Global.PageNow]][num]
 			if Global.PageNow == true:
@@ -151,12 +151,12 @@ func _process(_delta):
 					#outLine = false
 					material = null
 					self.button_mask = 0
-			cType.SHOP: 
-				if update == true: 
-					if Global.LevelData[0]["UpdateLevel"][num][Global.Brought[soldier]] > Global.Level:
-						visible = false#升级后两个价格数据一样
-				else:  
-					if Global.LevelData[0]["villageBuyLevel"][num] > Global.Level: visible = false
+#			cType.SHOP: 
+#				if update == true: 
+#					if Global.LevelData[0]["UpdateLevel"][num][Global.Brought[soldier]] > Global.Level:
+#						visible = false#升级后两个价格数据一样
+#				else:  
+#					if Global.LevelData[0]["villageBuyLevel"][num] > Global.Level: visible = false
 	else:
 		if cardType == cType.BUY&&soldier != null:
 			if Global.NowMoney >= price&&$CDTimer.time_left == 0&&self.button_mask == 0:

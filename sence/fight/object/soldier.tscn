@@ -9,28 +9,28 @@
 [sub_resource type="SpriteFrames" id="SpriteFrames_at3e2"]
 resource_local_to_scene = true
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_a47qu"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_o8836"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tn7fr"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_huhb5"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ongm7"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sxt8i"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ia5gy"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_j27uy"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 8
@@ -82,28 +82,28 @@ scale_amount_max = 3.0
 color = Color(0.27451, 0.0784314, 0.313726, 1)
 
 [node name="smallExplode" parent="particles" index="2" instance=ExtResource("4_58kts")]
-material = SubResource("CanvasItemMaterial_a47qu")
+material = SubResource("CanvasItemMaterial_o8836")
 position = Vector2(0, -16)
 amount = 20
 emission_shape = 2
 emission_sphere_radius = 26.0
 
 [node name="bigExplode" parent="particles" index="3" instance=ExtResource("4_58kts")]
-material = SubResource("CanvasItemMaterial_tn7fr")
+material = SubResource("CanvasItemMaterial_huhb5")
 position = Vector2(0, -30)
 amount = 30
 emission_shape = 2
 emission_sphere_radius = 40.0
 
 [node name="selfExplode" parent="particles" index="4" instance=ExtResource("4_58kts")]
-material = SubResource("CanvasItemMaterial_ongm7")
+material = SubResource("CanvasItemMaterial_sxt8i")
 position = Vector2(0, -20)
 amount = 40
 emission_shape = 3
 emission_rect_extents = Vector2(60, 40)
 
 [node name="deathSmoke" parent="particles" index="5" instance=ExtResource("5_13qt8")]
-material = SubResource("CanvasItemMaterial_ia5gy")
+material = SubResource("CanvasItemMaterial_j27uy")
 emission_shape = 3
 emission_rect_extents = Vector2(1, 1)
 

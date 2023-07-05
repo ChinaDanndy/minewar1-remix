@@ -42,7 +42,7 @@ func _ready():
 func _process(_delta):
 	position += proDir*proSpeed#Vector2(camp,1)*
 	currentPos = position.x
-	if (currentPos - startPos) >= proRange: queue_free()#超过射程直接自己销毁
+	if abs(currentPos - startPos) >= proRange&&proDir.y == 0: queue_free()#超过射程直接自己销毁
 	if position.y >= Global.FightGroundY&&aoeRange != null:#落地物体
 		position.y = Global.FightGroundY-20
 		aoeCreate()

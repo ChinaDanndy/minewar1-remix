@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://script/fight/Fight.gd" id="1_0rvy3"]
 [ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="2_1lg06"]
 [ext_resource type="PackedScene" uid="uid://sw52nar1no4d" path="res://sence/fight/object/base.tscn" id="3_jxcqd"]
-[ext_resource type="Texture2D" uid="uid://c6o27yerkolvm" path="res://assets/objects/baseVillage.png" id="4_8miln"]
+[ext_resource type="Texture2D" uid="uid://bt7lrng1cg056" path="res://assets/objects/baseVillage.png" id="4_8miln"]
 [ext_resource type="Texture2D" uid="uid://k5nbp53u574n" path="res://assets/backgrounds/bossSkill.png" id="5_kbbdq"]
 [ext_resource type="PackedScene" uid="uid://cnnifqydayh65" path="res://sence/fight/ui/card.tscn" id="6_4unhj"]
 [ext_resource type="Texture2D" uid="uid://dk8yspmeqggbm" path="res://assets/UI/button/stop_normal.png" id="6_q5rai"]
@@ -140,7 +140,7 @@ position = Vector2(540, 298)
 gizmo_extents = 40.0
 
 [node name="bossPos" type="Marker2D" parent="position"]
-position = Vector2(680, 302)
+position = Vector2(660, 302)
 gizmo_extents = 40.0
 
 [node name="towerArea" type="ColorRect" parent="."]
