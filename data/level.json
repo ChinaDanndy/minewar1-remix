@@ -4,9 +4,13 @@
         "moneyUp":10,
         "thunderSpeed":0.1,
         
-        "allVillageObject":["shoveler","shielder","projector","regeneration",
-        "snowman","assassinFirst",
-        "iron","flyer","power","golder"],
+        "allVillageObject":["shoveler","projector","regeneration","shielder",
+        "snowman","assassinFirst","flyer","iron"
+        ,"power","golder","cardUpdate","moneyUpate","miniGame1","miniGame2"],
+        "cardShow":["regeneration","shielder","snowman","assassinFirst","flyer","iron",null,null],
+        "buyShow":["miniGame1","power","cardUpdate","miniGame2","golder","moneyUpate",null,null],
+        "buyPrice":{"power":1,"cardUpdate":1,"golder":1,"moneyUpate":1},
+        "shop":["power","cardUpdate","golder","moneyUpate"],
         "villObjectHasLevel":{"shoveler":1,"shielder":1,"projector":1,"regeneration":1,
         "snowman":1,"assassinFirst":1,
         "iron":1,"flyer":1,"power":1,"golder":1},
@@ -64,7 +68,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","projector",null,null,null,null]
+        ],"banCard":[],"chosenCard":[]
     },
     {
         "set":{"levelType":"defence","attackTime":0,"baseMonsterHealth":20,"baseVillageHealth":20,

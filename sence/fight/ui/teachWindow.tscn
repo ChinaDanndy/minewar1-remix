@@ -1,0 +1,120 @@
+[gd_scene load_steps=6 format=3 uid="uid://i0auw607iwpg"]
+
+[ext_resource type="Script" path="res://script/fight/ui/teachWindow.gd" id="1_c3tve"]
+[ext_resource type="Texture2D" uid="uid://e1s14f52xi6h" path="res://assets/backgrounds/teachBackground.png" id="1_t3hab"]
+[ext_resource type="Texture2D" uid="uid://rpyqwom4dpsa" path="res://assets/UI/button/cancel_normal.png" id="2_getkt"]
+[ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="3_2x0f0"]
+[ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="5_rng1f"]
+
+[node name="TeachWindow" type="CanvasLayer"]
+process_mode = 3
+layer = 2
+script = ExtResource("1_c3tve")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.262745)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -146.0
+offset_top = -180.0
+offset_right = 146.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_t3hab")
+
+[node name="TeachClose" type="TextureButton" parent="."]
+offset_left = 566.0
+offset_top = 45.0
+offset_right = 586.0
+offset_bottom = 65.0
+texture_normal = ExtResource("2_getkt")
+texture_pressed = ExtResource("3_2x0f0")
+texture_hover = ExtResource("3_2x0f0")
+
+[node name="text" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="MainTeach" type="Label" parent="text"]
+visible = false
+layout_mode = 0
+offset_left = 310.0
+offset_top = 71.0
+offset_right = 535.0
+offset_bottom = 375.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_rng1f")
+theme_override_font_sizes/font_size = 0
+text = "查看信息:
+鼠标放置在卡牌上或单位上可以查看该单位的数据和特点介绍
+ 
+招募单位 :
+左键单位卡牌招募单位,选中建筑和技能卡牌后要在黑色放置区域内放下单位,建筑不能重叠放置,未放置前可以右键已选中的卡牌来取消放置,取消后会返还全部资源
+ 
+操控单位:
+左键任一士兵选取要操控的该类士兵,按下A,S,D使其后退,停止,前进"
+autowrap_mode = 2
+
+[node name="MiniGameTeach1" type="Label" parent="text"]
+visible = false
+layout_mode = 0
+offset_left = 310.0
+offset_top = 71.0
+offset_right = 535.0
+offset_bottom = 375.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_rng1f")
+theme_override_font_sizes/font_size = 0
+text = "苦力怕:
+左键点击获得加1分
+ 
+火药:
+左键点击使所有地洞都冒出苦力怕"
+autowrap_mode = 2
+
+[node name="MiniGameTeach2" type="Label" parent="text"]
+visible = false
+layout_mode = 0
+offset_left = 310.0
+offset_top = 71.0
+offset_right = 535.0
+offset_bottom = 375.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_rng1f")
+theme_override_font_sizes/font_size = 0
+text = "烟花发射器：
+左键点击发射烟花
+ 
+恶魂：
+被烟花击中后加1分
+ 
+僵尸:
+被烟花击中后加5分"
+autowrap_mode = 2
+
+[node name="MiniGameTeach" type="Label" parent="text"]
+visible = false
+layout_mode = 0
+offset_left = 310.0
+offset_top = 321.0
+offset_right = 535.0
+offset_bottom = 361.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_rng1f")
+theme_override_font_sizes/font_size = 0
+text = "游戏结束时,若分数超过30分,获得1颗绿宝石
+"
+autowrap_mode = 2
+
+[connection signal="pressed" from="TeachClose" to="." method="_on_teach_close_pressed"]

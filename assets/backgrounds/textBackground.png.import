@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxlnto08y4gmv"
-path="res://.godot/imported/cardIcon13.png-abc1cc315bdf048a670ad5ec0d5a754e.ctex"
+uid="uid://bmb552wjqvn1y"
+path="res://.godot/imported/textBackground.png-19145517476e1ab2cbf5e87802062852.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/cardIcon/cardIcon13.png"
-dest_files=["res://.godot/imported/cardIcon13.png-abc1cc315bdf048a670ad5ec0d5a754e.ctex"]
+source_file="res://assets/backgrounds/textBackground.png"
+dest_files=["res://.godot/imported/textBackground.png-19145517476e1ab2cbf5e87802062852.ctex"]
 
 [params]
 

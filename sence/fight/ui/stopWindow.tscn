@@ -1,15 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkq2jinug2gf7"]
+[gd_scene load_steps=11 format=3 uid="uid://bkq2jinug2gf7"]
 
 [ext_resource type="Script" path="res://script/fight/ui/stopWindow.gd" id="1_vqqbi"]
 [ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/UI/button/spr_broad.png" id="2_6gjts"]
 [ext_resource type="ButtonGroup" uid="uid://ec2gd7jjvlsa" path="res://rescourse/gameBoardButtonGroup.tres" id="3_5o1dm"]
+[ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="3_ojej8"]
 [ext_resource type="Texture2D" uid="uid://cff6qvysicflb" path="res://assets/UI/button/smallButtonNormal.png" id="4_p7i5a"]
 [ext_resource type="Texture2D" uid="uid://5800a47dpa4q" path="res://assets/UI/button/smallButtonPress.png" id="5_ygps8"]
-[ext_resource type="LabelSettings" uid="uid://bapxcv21f0nsf" path="res://rescourse/blackFont.tres" id="6_xqf7u"]
+[ext_resource type="Texture2D" uid="uid://woqtbppeagyp" path="res://assets/UI/button/buyButton.png" id="7_7ehn6"]
+[ext_resource type="PackedScene" uid="uid://cqu0trx4tn07j" path="res://sence/fight/ui/cardButton.tscn" id="7_llagh"]
+[ext_resource type="Texture2D" uid="uid://ienrfyup176c" path="res://assets/objects/tower/emerald.png" id="8_qn7qd"]
+[ext_resource type="Texture2D" uid="uid://hcjvp12prr60" path="res://assets/backgrounds/moneyBackground.png" id="9_jwnsr"]
 
 [node name="StopWindow" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_vqqbi")
+metadata/_edit_vertical_guides_ = []
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -48,18 +53,18 @@ texture = ExtResource("2_6gjts")
 
 [node name="Title" type="Label" parent="Control"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -60.0
-offset_right = 20.0
-offset_bottom = -37.0
+offset_left = -24.0
+offset_top = -78.0
+offset_right = 24.0
+offset_bottom = -51.0
 grow_horizontal = 2
-grow_vertical = 0
-label_settings = ExtResource("6_xqf7u")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ojej8")
+theme_override_font_sizes/font_size = 24
+text = "胜利"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control"]
 layout_mode = 1
@@ -67,40 +72,46 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -116.0
-offset_top = 40.0
+offset_top = 56.0
 offset_right = 116.0
-offset_bottom = 60.0
+offset_bottom = 76.0
 grow_horizontal = 2
 theme_override_constants/separation = 20
+alignment = 1
 
 [node name="Button1" type="TextureButton" parent="Control/HBoxContainer"]
 layout_mode = 2
 toggle_mode = true
-button_group = ExtResource("3_5o1dm")
 texture_normal = ExtResource("4_p7i5a")
 texture_pressed = ExtResource("5_ygps8")
 texture_hover = ExtResource("5_ygps8")
 
 [node name="Button1Text" type="Label" parent="Control/HBoxContainer/Button1"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "again"
-label_settings = ExtResource("6_xqf7u")
+offset_left = 4.5
+offset_top = 2.0
+offset_right = 60.5
+offset_bottom = 25.0
+theme_override_fonts/font = ExtResource("3_ojej8")
+theme_override_font_sizes/font_size = 14
+text = "重新开始"
 
 [node name="Button2" type="TextureButton" parent="Control/HBoxContainer"]
 layout_mode = 2
 toggle_mode = true
-button_group = ExtResource("3_5o1dm")
 texture_normal = ExtResource("4_p7i5a")
 texture_pressed = ExtResource("5_ygps8")
 texture_hover = ExtResource("5_ygps8")
 
 [node name="Button2Text" type="Label" parent="Control/HBoxContainer/Button2"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-label_settings = ExtResource("6_xqf7u")
+offset_left = 4.5
+offset_top = 2.0
+offset_right = 60.5
+offset_bottom = 25.0
+theme_override_fonts/font = ExtResource("3_ojej8")
+theme_override_font_sizes/font_size = 14
+text = "继续游戏"
 
 [node name="Button3" type="TextureButton" parent="Control/HBoxContainer"]
 layout_mode = 2
@@ -112,11 +123,124 @@ texture_hover = ExtResource("5_ygps8")
 
 [node name="Button3Text" type="Label" parent="Control/HBoxContainer/Button3"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "back"
-label_settings = ExtResource("6_xqf7u")
+offset_left = 4.5
+offset_top = 2.0
+offset_right = 60.5
+offset_bottom = 25.0
+theme_override_fonts/font = ExtResource("3_ojej8")
+theme_override_font_sizes/font_size = 14
+text = "返回首页"
 
+[node name="card" type="Control" parent="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -116.0
+offset_top = -48.0
+offset_right = -116.0
+offset_bottom = -48.0
+
+[node name="Unlock" type="Control" parent="Control/card"]
+anchors_preset = 0
+offset_left = 8.0
+offset_right = 8.0
+
+[node name="Label" type="Label" parent="Control/card/Unlock"]
+layout_mode = 0
+offset_left = 2.0
+offset_right = 50.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ojej8")
+text = "新卡牌"
+
+[node name="cardButton" parent="Control/card/Unlock" instance=ExtResource("7_llagh")]
+layout_mode = 0
+offset_top = 20.0
+offset_right = 50.0
+offset_bottom = 96.0
+cardType = 2
+
+[node name="CanBuy" type="Control" parent="Control/card"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 90.0
+offset_right = 90.0
+
+[node name="Label" type="Label" parent="Control/card/CanBuy"]
+layout_mode = 0
+offset_left = 10.0
+offset_right = 42.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ojej8")
+text = "解锁"
+
+[node name="cardButton" parent="Control/card/CanBuy" instance=ExtResource("7_llagh")]
+layout_mode = 0
+offset_top = 20.0
+offset_right = 50.0
+offset_bottom = 96.0
+texture_normal = ExtResource("7_7ehn6")
+cardType = 3
+
+[node name="emerald" type="Control" parent="Control"]
+anchors_preset = 0
+offset_left = 63.5
+offset_top = 3.0
+offset_right = 63.5
+offset_bottom = 3.0
+
+[node name="addEmerald" type="Control" parent="Control/emerald"]
+anchors_preset = 0
+offset_left = 2.5
+offset_top = 5.0
+offset_right = 2.5
+offset_bottom = 5.0
+
+[node name="number" type="Label" parent="Control/emerald/addEmerald"]
+layout_mode = 2
+offset_top = 1.0
+offset_right = 18.0
+offset_bottom = 17.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ojej8")
+theme_override_font_sizes/font_size = 14
+text = "+1"
+
+[node name="icon" type="TextureRect" parent="Control/emerald/addEmerald"]
+layout_mode = 2
+offset_left = 22.0
+offset_right = 38.0
+offset_bottom = 16.0
+texture = ExtResource("8_qn7qd")
+
+[node name="emeraldSquare" type="TextureRect" parent="Control/emerald"]
+layout_mode = 0
+offset_top = 20.0
+offset_right = 43.0
+offset_bottom = 42.0
+texture = ExtResource("9_jwnsr")
+
+[node name="emeraldNumber" type="Label" parent="Control/emerald/emeraldSquare"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 4.0
+offset_right = 29.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ojej8")
+theme_override_font_sizes/font_size = 14
+text = "90"
+
+[node name="icon" type="TextureRect" parent="Control/emerald/emeraldSquare"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 3.0
+offset_right = 43.0
+offset_bottom = 19.0
+texture = ExtResource("8_qn7qd")
+
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="pressed" from="Control/HBoxContainer/Button1" to="." method="_on_button_1_pressed"]
 [connection signal="pressed" from="Control/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Control/HBoxContainer/Button3" to="." method="_on_button_3_pressed"]

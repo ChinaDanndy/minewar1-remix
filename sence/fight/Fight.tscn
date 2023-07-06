@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bhvrla6g275uy"]
+[gd_scene load_steps=24 format=3 uid="uid://bhvrla6g275uy"]
 
 [ext_resource type="Script" path="res://script/fight/Fight.gd" id="1_0rvy3"]
 [ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="2_1lg06"]
@@ -13,7 +13,16 @@
 [ext_resource type="Texture2D" uid="uid://dtl35jkpk82ax" path="res://assets/backgrounds/background1Buttom.png" id="8_qc2hl"]
 [ext_resource type="Script" path="res://script/fight/ui/stopButton.gd" id="9_eg3an"]
 [ext_resource type="PackedScene" uid="uid://bkq2jinug2gf7" path="res://sence/fight/ui/stopWindow.tscn" id="10_jfeyj"]
+[ext_resource type="Texture2D" uid="uid://884vdk7t8cyd" path="res://assets/UI/button/question1.png" id="11_vaqkk"]
 [ext_resource type="PackedScene" uid="uid://8lvpjn1tlm2g" path="res://sence/fight/object/boss.tscn" id="12_jn8mm"]
+[ext_resource type="Texture2D" uid="uid://cu415tn122my8" path="res://assets/UI/button/question2.png" id="12_rrhqo"]
+[ext_resource type="Script" path="res://script/fight/ui/teachButton.gd" id="13_cdhen"]
+[ext_resource type="Texture2D" uid="uid://ddhi5amdd505i" path="res://assets/backgrounds/messageBackground.png" id="14_8xlki"]
+[ext_resource type="PackedScene" uid="uid://i0auw607iwpg" path="res://sence/fight/ui/teachWindow.tscn" id="14_bcagq"]
+[ext_resource type="Texture2D" uid="uid://cdg604pchqdry" path="res://assets/objects/tower/gold_ingot.png" id="15_i5old"]
+[ext_resource type="PackedScene" uid="uid://dy08r7ufu8nvd" path="res://sence/fight/ui/card_text_window.tscn" id="16_4shxp"]
+[ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="16_lc5gi"]
+[ext_resource type="PackedScene" uid="uid://bb5pna2r6mpjo" path="res://sence/fight/ui/monster_show.tscn" id="18_bkios"]
 
 [node name="Fight" type="Node2D"]
 process_mode = 1
@@ -34,51 +43,19 @@ texture = ExtResource("4_8miln")
 position = Vector2(770, 263)
 
 [node name="bossSkill" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(737, 120)
 texture = ExtResource("5_kbbdq")
-hframes = 7
+hframes = 13
 
 [node name="bossProtect" parent="." instance=ExtResource("3_jxcqd")]
+visible = false
 position = Vector2(737, 188)
 texture = ExtResource("6_rkmp0")
 
 [node name="Boss" parent="." instance=ExtResource("12_jn8mm")]
+visible = false
 position = Vector2(760, 291)
-
-[node name="monsterShow" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 400.0
-offset_top = 262.0
-offset_right = 465.0
-offset_bottom = 283.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="monsterShow"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_constants/separation = 4
-
-[node name="mShow1" type="TextureRect" parent="monsterShow/HBoxContainer"]
-layout_mode = 2
-
-[node name="mShow2" type="TextureRect" parent="monsterShow/HBoxContainer"]
-layout_mode = 2
-
-[node name="mShow3" type="TextureRect" parent="monsterShow/HBoxContainer"]
-layout_mode = 2
-
-[node name="mShow4" type="TextureRect" parent="monsterShow/HBoxContainer"]
-layout_mode = 2
-
-[node name="mShow5" type="TextureRect" parent="monsterShow/HBoxContainer"]
-layout_mode = 2
-
-[node name="mShow6" type="TextureRect" parent="monsterShow/HBoxContainer"]
-layout_mode = 2
-
-[node name="mShow7" type="TextureRect" parent="monsterShow/HBoxContainer"]
-layout_mode = 2
 
 [node name="Timer" type="Node" parent="."]
 
@@ -171,39 +148,156 @@ color = Color(0, 0, 0, 0.313726)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="Up" type="CanvasLayer" parent="."]
-
-[node name="buttom1" type="TextureRect" parent="Up"]
-offset_top = 312.0
-offset_right = 835.0
-offset_bottom = 450.0
-texture = ExtResource("8_qc2hl")
-
-[node name="StopButton" type="TextureButton" parent="Up"]
-offset_left = 767.0
-offset_top = 21.0
-offset_right = 787.0
-offset_bottom = 41.0
+[node name="StopButton" type="TextureButton" parent="."]
+offset_left = 813.0
+offset_top = 2.0
+offset_right = 833.0
+offset_bottom = 22.0
 texture_normal = ExtResource("6_q5rai")
 texture_pressed = ExtResource("7_a3cl8")
 texture_hover = ExtResource("7_a3cl8")
 script = ExtResource("9_eg3an")
 
-[node name="card" parent="Up" instance=ExtResource("6_4unhj")]
-offset_left = 96.0
-offset_top = 352.0
-offset_right = 96.0
-offset_bottom = 352.0
-
-[node name="choiceCard" parent="Up" instance=ExtResource("6_qxmrc")]
+[node name="StopWindow" parent="." instance=ExtResource("10_jfeyj")]
+layer = 2
 visible = false
-offset_left = 58.0
-offset_top = 19.0
-offset_right = 58.0
-offset_bottom = 19.0
+
+[node name="TeachButton" type="TextureButton" parent="."]
+offset_left = 791.0
+offset_top = 2.0
+offset_right = 811.0
+offset_bottom = 22.0
+texture_normal = ExtResource("11_vaqkk")
+texture_pressed = ExtResource("12_rrhqo")
+texture_hover = ExtResource("12_rrhqo")
+script = ExtResource("13_cdhen")
+
+[node name="TeachWindow" parent="." instance=ExtResource("14_bcagq")]
+visible = false
+
+[node name="choiceCard" parent="." instance=ExtResource("6_qxmrc")]
+offset_left = 4.0
+offset_top = 30.0
+offset_right = 4.0
+offset_bottom = 30.0
+
+[node name="cardTextWindow" parent="." instance=ExtResource("16_4shxp")]
+visible = false
+
+[node name="monsterShow" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 300.0
+offset_top = 230.0
+offset_right = 300.0
+offset_bottom = 230.0
+
+[node name="monsterShow1" parent="monsterShow" instance=ExtResource("18_bkios")]
+layout_mode = 2
+texture = null
+
+[node name="monsterShow2" parent="monsterShow" instance=ExtResource("18_bkios")]
+layout_mode = 0
+texture = null
+
+[node name="monsterShow3" parent="monsterShow" instance=ExtResource("18_bkios")]
+layout_mode = 0
+texture = null
+
+[node name="monsterShow4" parent="monsterShow" instance=ExtResource("18_bkios")]
+layout_mode = 0
+texture = null
+
+[node name="monsterShow5" parent="monsterShow" instance=ExtResource("18_bkios")]
+layout_mode = 0
+texture = null
+
+[node name="monsterShow6" parent="monsterShow" instance=ExtResource("18_bkios")]
+layout_mode = 0
+texture = null
+
+[node name="Up" type="CanvasLayer" parent="."]
+
+[node name="buttom" type="TextureRect" parent="Up"]
+offset_top = 312.0
+offset_right = 835.0
+offset_bottom = 450.0
+texture = ExtResource("8_qc2hl")
+
+[node name="MoneyMessage" type="TextureRect" parent="Up"]
+offset_left = 4.0
+offset_top = 364.0
+offset_right = 94.0
+offset_bottom = 390.0
+texture = ExtResource("14_8xlki")
+
+[node name="icon" type="TextureRect" parent="Up/MoneyMessage"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 5.0
+offset_right = 22.0
+offset_bottom = 21.0
+texture = ExtResource("15_i5old")
+
+[node name="Moneycount" type="Label" parent="Up/MoneyMessage"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 6.0
+offset_right = 87.0
+offset_bottom = 25.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("16_lc5gi")
+theme_override_font_sizes/font_size = 16
+text = "10/10"
+
+[node name="LevelMessage" type="HBoxContainer" parent="Up"]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 126.0
+offset_bottom = 29.0
+theme_override_constants/separation = 4
+
+[node name="Leveltext" type="Label" parent="Up/LevelMessage"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.666667, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0.666667, 0, 1)
+theme_override_fonts/font = ExtResource("16_lc5gi")
+theme_override_font_sizes/font_size = 24
+text = "第一关"
+
+[node name="LevelType" type="Label" parent="Up/LevelMessage"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.666667, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0.666667, 0, 1)
+theme_override_fonts/font = ExtResource("16_lc5gi")
+theme_override_font_sizes/font_size = 24
+text = "防守"
+
+[node name="TestTime" type="Label" parent="Up"]
+offset_left = 8.0
+offset_top = 405.0
+offset_right = 47.0
+offset_bottom = 431.0
+text = "Time"
+
+[node name="TestTimeValue" type="Label" parent="Up/TestTime"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 22.0
+offset_right = 36.0
+offset_bottom = 48.0
+text = "1"
+
+[node name="card" parent="Up" instance=ExtResource("6_4unhj")]
+offset_left = 98.0
+offset_top = 364.0
+offset_right = 98.0
+offset_bottom = 364.0
 
 [node name="Moneytext" type="Label" parent="Up"]
 process_mode = 1
+visible = false
 offset_left = 9.0
 offset_top = 351.0
 offset_right = 62.0
@@ -212,14 +306,8 @@ text = "Money"
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="Moneycount" type="Label" parent="Up/Moneytext"]
-layout_mode = 0
-offset_top = 18.0
-offset_right = 40.0
-offset_bottom = 44.0
-text = "1"
-
 [node name="AttackTime" type="Label" parent="Up"]
+visible = false
 offset_left = 11.0
 offset_top = 320.0
 offset_right = 54.0
@@ -236,48 +324,15 @@ offset_bottom = 26.0
 text = "1
 "
 
-[node name="TestTime" type="Label" parent="Up"]
-offset_left = 9.0
-offset_top = 388.0
-offset_right = 48.0
-offset_bottom = 414.0
-text = "Time"
-
-[node name="TestTimeValue" type="Label" parent="Up/TestTime"]
-layout_mode = 0
-offset_left = -4.0
-offset_top = 22.0
-offset_right = 36.0
-offset_bottom = 48.0
-text = "1"
-
-[node name="Leveltext" type="Label" parent="Up"]
-offset_left = 1.0
-offset_top = 2.0
-offset_right = 46.0
-offset_bottom = 28.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Level:"
-
-[node name="LeveltextValue" type="Label" parent="Up/Leveltext"]
-layout_mode = 0
-offset_left = 50.0
-offset_right = 60.0
-offset_bottom = 26.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "1"
-
-[node name="StopWindow" parent="." instance=ExtResource("10_jfeyj")]
-layer = 2
-visible = false
-
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="timeout" from="Timer/ThunderTimer" to="." method="_on_thundertimer_timeout"]
 [connection signal="timeout" from="Timer/CaveTimer" to="." method="_on_cave_timer_timeout"]
 [connection signal="timeout" from="Timer/Moneytimer" to="." method="_on_moneytimer_timeout"]
 [connection signal="timeout" from="Timer/attackTimer" to="." method="_on_attack_timer_timeout"]
-[connection signal="mouse_entered" from="Up/StopButton" to="Up/StopButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Up/StopButton" to="Up/StopButton" method="_on_mouse_exited"]
-[connection signal="pressed" from="Up/StopButton" to="Up/StopButton" method="_on_pressed"]
-[connection signal="tree_entered" from="Up/StopButton" to="Up/StopButton" method="_on_tree_entered"]
+[connection signal="mouse_entered" from="StopButton" to="StopButton" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="StopButton" to="StopButton" method="_on_mouse_exited"]
+[connection signal="pressed" from="StopButton" to="StopButton" method="_on_pressed"]
+[connection signal="tree_entered" from="StopButton" to="StopButton" method="_on_tree_entered"]
+[connection signal="pressed" from="TeachButton" to="TeachButton" method="_on_pressed"]
+[connection signal="tree_entered" from="TeachButton" to="TeachButton" method="_on_tree_entered"]

@@ -119,7 +119,8 @@ initial_velocity_max = 20.0
 angular_velocity_min = 1.0
 angular_velocity_max = 4.0
 
-[node name="gold" type="HBoxContainer" parent="particles" index="3"]
+[node name="gold" type="Control" parent="particles" index="3"]
+layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -131,6 +132,8 @@ grow_horizontal = 2
 
 [node name="Label" type="Label" parent="particles/gold" index="0"]
 layout_mode = 2
+offset_right = 22.0
+offset_bottom = 18.0
 theme_override_fonts/font = ExtResource("5_wvwqd")
 theme_override_font_sizes/font_size = 14
 text = "+1"
@@ -138,6 +141,10 @@ vertical_alignment = 2
 
 [node name="TextureRect" type="TextureRect" parent="particles/gold" index="1"]
 layout_mode = 2
+offset_left = 26.0
+offset_top = 2.0
+offset_right = 42.0
+offset_bottom = 18.0
 texture = ExtResource("6_22suy")
 
 [node name="outSe" type="AudioStreamPlayer" parent="se" index="0"]

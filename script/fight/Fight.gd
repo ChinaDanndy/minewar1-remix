@@ -1,5 +1,5 @@
 extends Node2D
-var count = 0
+
 var summonEnemy = preload("res://script/fight/calu/summonEnemy.gd")
 var summonEnemyID
 var bossLv = 0
@@ -17,15 +17,20 @@ var minute = 0
 var second = 0
 
 signal reloadSence
+signal monsterShowLoad
 signal fightCard
 signal cardCD
 signal BossLv2
 signal BossLv3
 
 func _ready():
-	Global.NowLevel = 8
+	#Global.NowLevel = 8
+	$Up/LevelMessage/Leveltext.text = ("第%s关"%Global.NowLevel)
+	match Global.LevelData[Global.NowLevel]["set"]["levelType"]:
+		"defence": $Up/LevelMessage/LevelType.text = "击退怪物进攻"
+		"normal": $Up/LevelMessage/LevelType.text = "摧毁传送水晶"
+		"boss": $Up/LevelMessage/LevelType.text = "打败苦力怕之王"
 	
-	$Up/Leveltext/LeveltextValue.text = str(Global.NowLevel)
 	if Global.LevelData[Global.NowLevel]["set"]["levelType"] != "boss": 
 		$Boss.free()
 		$bossProtect.free()
@@ -44,21 +49,26 @@ func _ready():
 	moneyTime = Global.LevelData[0]["moneySpeed"]
 	Global.Money = Global.LevelData[0]["moneyUp"]
 	Global.ThunderSpeed = Global.LevelData[0]["thunderSpeed"]
-	#attackTime = Global.LevelData[Global.NowLevel]["set"]["attackTime"]
 	
 	if Global.LevelData[Global.NowLevel]["chosenCard"].is_empty():
 		Global.ChoiceWindow.visible = true
-		var allMonster = []#怪物展示，自动填充目前所有有的怪物
-		for i in Global.LevelData[Global.NowLevel]["groups"].size():
-			for j in Global.LevelData[Global.NowLevel]["groups"][i]["soldier"]:
-				if !allMonster.has(j): allMonster.append(j)	
-#		if !allMonster.is_empty():
-#			for i in allMonster.size():
-#				var mShow = get_node("monsterShow/HBoxContainer/mShow%s"%(i+1))
-#				mShow.texture = load("res://assets/objects/soldier/%s/walk/walk1.png"%allMonster[i])
-		$monsterShow.visible = true
+		#Global.AllMonster.clear()#怪物展示，自动填充目前所有有的怪物
+		if Global.LevelData[Global.NowLevel]["set"]["levelType"] != "boss":
+			var count = 0
+			for i in Global.LevelData[Global.NowLevel]["groups"].size():
+				for j in Global.LevelData[Global.NowLevel]["groups"][i]["soldier"]:
+					if !Global.AllMonster.has(j): 
+						Global.AllMonster[count] = j
+						count += 1
+			if Global.LevelData[Global.NowLevel]["set"]["iceTime"] > 0: 
+				Global.AllMonster[5] = "ice"
+			if Global.LevelData[Global.NowLevel]["set"]["thunderTime"] > 0: 
+				Global.AllMonster[5] = "thunder"
+			emit_signal("monsterShowLoad")
+			$monsterShow.visible = true
 	else:
 		Global.ChoiceWindow.visible =false#有给定卡不开选卡
+		emit_signal("fightCard")
 		fightStart()#monseter 680
 	pass
 	
@@ -95,19 +105,18 @@ func _on_thundertimer_timeout():
 	
 func fightStart():
 	#Global.CardUp = 6
-	$monsterShow.visible = false
-	emit_signal("fightCard")
+	
+	#emit_signal("fightCard")
 	#await get_tree().create_timer(1,false).timeout#开局延迟开始
-	emit_signal("cardCD")
+	#emit_signal("cardCD")
 	time()
 	SummonEnemy()
-	$Up/Moneytext.visible = true
-	if bossLv < 1: $baseMonster.visible = true
-	$baseVillage.visible = true#$Spacetext.visible = false
+	$monsterShow.visible = false
+	$Up/MoneyMessage.visible = true
 	
-#	if attackTime >0:
-#		$Up/AttackTime.visible = true
-#		$Timer/attackTimer.start(1)
+	#if bossLv == 0: $baseMonster.visible = true
+	#$baseVillage.visible = true#$Spacetext.visible = false
+
 	$Timer/Moneytimer.start(moneyTime)
 	if Global.LevelData[Global.NowLevel]["set"]["iceTime"] > 0: 
 		$Timer/CaveTimer.start(Global.LevelData[Global.NowLevel]["set"]["iceTime"])
@@ -122,11 +131,11 @@ func SummonEnemy():
 	pass
 	
 func _process(_delta):
-	if Input.is_action_just_pressed("ui_select"):
+	if Input.is_action_just_pressed("ui_test"):
 		Global.MonsterBase.health = 0
 		pass
 
-	$Up/Moneytext/Moneycount.text = str(Global.NowMoney) +"/"+ str(Global.Money)
+	$Up/MoneyMessage/Moneycount.text = ("%s/%s"%[Global.NowMoney,Global.Money])
 	if Global.NowMoney < Global.Money&&$Timer/Moneytimer.paused == true:
 		$Timer/Moneytimer.paused = false
 		$Timer/Moneytimer.start(moneyTime)
@@ -203,8 +212,9 @@ func _on_tree_entered():
 	Global.ChosenCardNum = 0
 	
 	Global.FightSence = self
-	Global.ChoiceWindow = $Up/choiceCard
-	Global.FightButton = $Up/choiceCard/fightButton
+	Global.ChoiceWindow = $choiceCard
+	Global.CardTextWindow = $cardTextWindow
+	Global.FightButton = $choiceCard/fightButton
 	Global.FightButton.fight.connect(fightStart)
 	
 #	if Global.CardUp == 4:
@@ -234,11 +244,11 @@ func _on_tree_entered():
 	Global.skillArea.visible = false
 	Global.StopON = false
 	
-	$Up/Moneytext.visible = false
+	$Up/MoneyMessage.visible = false
 	$Spacetext.visible = false
 	$Up/AttackTime.visible = false
-	$baseMonster.visible = false
-	$baseVillage.visible = false
+	#$baseMonster.visible = false
+	#$baseVillage.visible = false
 	$bossProtect.visible = false
 	$Boss.visible = false
 	$bossSkill.visible = false

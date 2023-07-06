@@ -1,0 +1,95 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy08r7ufu8nvd"]
+
+[ext_resource type="Texture2D" uid="uid://bmb552wjqvn1y" path="res://assets/backgrounds/textBackground.png" id="1_w2w26"]
+[ext_resource type="Script" path="res://script/fight/ui/card_text_window.gd" id="1_ydnbk"]
+[ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="2_7p8sy"]
+
+[node name="cardTextWindow" type="CanvasLayer"]
+layer = 4
+script = ExtResource("1_ydnbk")
+
+[node name="CardMessage" type="TextureRect" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -135.0
+offset_top = 4.0
+offset_right = 135.0
+offset_bottom = 134.0
+grow_horizontal = 2
+texture = ExtResource("1_w2w26")
+
+[node name="all" type="VBoxContainer" parent="CardMessage"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 116.0
+offset_bottom = 128.0
+theme_override_constants/separation = 2
+
+[node name="name" type="Label" parent="CardMessage/all"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7p8sy")
+theme_override_font_sizes/font_size = 0
+text = "剑士"
+
+[node name="attribute" type="VBoxContainer" parent="CardMessage/all"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="CD" type="Label" parent="CardMessage/all/attribute"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7p8sy")
+theme_override_font_sizes/font_size = 16
+text = "冷却:1"
+
+[node name="damage" type="Label" parent="CardMessage/all/attribute"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7p8sy")
+theme_override_font_sizes/font_size = 16
+text = "伤害:1.5/4"
+
+[node name="health" type="Label" parent="CardMessage/all/attribute"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7p8sy")
+theme_override_font_sizes/font_size = 16
+text = "生命:6"
+
+[node name="speed" type="Label" parent="CardMessage/all/attribute"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7p8sy")
+theme_override_font_sizes/font_size = 16
+text = "速度:0.85"
+
+[node name="range" type="Label" parent="CardMessage/all/attribute"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7p8sy")
+theme_override_font_sizes/font_size = 16
+text = "射程:160/80"
+
+[node name="shield" type="Label" parent="CardMessage/all/attribute"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7p8sy")
+theme_override_font_sizes/font_size = 16
+text = "护盾:3
+"
+
+[node name="description" type="Label" parent="CardMessage"]
+layout_mode = 2
+offset_left = 124.0
+offset_top = 8.0
+offset_right = 264.0
+offset_bottom = 122.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7p8sy")
+theme_override_font_sizes/font_size = 0
+text = "有护盾时免疫所有伤害,击杀护法能使护盾失效一会并暂停法阵充能,法阵充能完毕后城堡会被终极闪电摧毁"
+autowrap_mode = 2

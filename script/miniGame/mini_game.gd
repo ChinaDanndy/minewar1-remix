@@ -20,10 +20,12 @@ func _ready():
 			$game2.free()
 			$game1.visible = true
 			game = "miniGame1"
+			$Leveltext.text = "小游戏1 打地鼠"
 		2:  
 			$game1.free()
 			$game2.visible = true
 			game = "miniGame2"
+			$Leveltext.text = "小游戏2 放烟花"
 	keepTime = Global.LevelData[0][game]["keepTime"]
 	firstTime = Global.LevelData[0][game]["firstTime"]
 	lastTime = keepTime-firstTime-Global.LevelData[0][game]["lastTime"]
@@ -69,9 +71,13 @@ func game2GhostCreate():
 	pass
 
 func _process(_delta):
-	$CanvasLayer/VBoxContainer/HBoxContainer1/ScoreVallue.text = str(Global.MiniGameScore)
-	$CanvasLayer/VBoxContainer/HBoxContainer2/TimeValue.text = str(keepTime)
-	if keepTime <= 0: Global.StopWindow.text("over")
+	$CanvasLayer/Message/ScoreText/ScoreVallue.text = ("%s/30"%Global.MiniGameScore)
+	$CanvasLayer/Message/TimeText/TimeValue.text = str(keepTime)
+	if keepTime <= 0: 
+		if Global.MiniGameScore >= 30: 
+			Global.StopWindow.text("win")
+		else: Global.StopWindow.text("lose")
+		
 	pass
 
 func _on_tree_entered():

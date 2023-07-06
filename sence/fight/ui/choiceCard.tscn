@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cimi287socn0s"]
+[gd_scene load_steps=8 format=3 uid="uid://cimi287socn0s"]
 
 [ext_resource type="Texture2D" uid="uid://jbxgg1stfefq" path="res://assets/backgrounds/card_square.png" id="1_hd28k"]
 [ext_resource type="PackedScene" uid="uid://cqu0trx4tn07j" path="res://sence/fight/ui/cardButton.tscn" id="2_avj7v"]
 [ext_resource type="Texture2D" uid="uid://cff6qvysicflb" path="res://assets/UI/button/smallButtonNormal.png" id="3_ocdvq"]
 [ext_resource type="Texture2D" uid="uid://5800a47dpa4q" path="res://assets/UI/button/smallButtonPress.png" id="4_kynlk"]
 [ext_resource type="Script" path="res://script/fight/ui/fightButton.gd" id="5_ekptk"]
+[ext_resource type="Texture2D" uid="uid://bp00asad5xl68" path="res://assets/UI/button/smallButtonUnlock.png" id="5_prena"]
+[ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="6_jjnxo"]
 
 [node name="choiceCard" type="Control"]
 layout_mode = 3
@@ -76,12 +78,25 @@ cardType = 1
 
 [node name="fightButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 274.0
-offset_right = 338.0
-offset_bottom = 20.0
+offset_left = 118.0
+offset_top = 170.0
+offset_right = 182.0
+offset_bottom = 190.0
+scale = Vector2(1.5, 1.5)
 texture_normal = ExtResource("3_ocdvq")
 texture_pressed = ExtResource("4_kynlk")
 texture_hover = ExtResource("4_kynlk")
+texture_disabled = ExtResource("5_prena")
 script = ExtResource("5_ekptk")
+
+[node name="Label" type="Label" parent="fightButton"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1.33334
+offset_right = 60.0
+offset_bottom = 19.3333
+theme_override_fonts/font = ExtResource("6_jjnxo")
+theme_override_font_sizes/font_size = 14
+text = "开始战斗"
 
 [connection signal="pressed" from="fightButton" to="fightButton" method="_on_pressed"]

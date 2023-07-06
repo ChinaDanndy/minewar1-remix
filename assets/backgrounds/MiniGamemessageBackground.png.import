@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bicq700yypgy1"
-path="res://.godot/imported/healthNormal.png-3b6a261c86ae9c0f18e37b695fe2f5ff.ctex"
+uid="uid://dl445im4dmq5y"
+path="res://.godot/imported/MiniGamemessageBackground.png-93e73312f46e2a20ef696f27ec359e20.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/others/healthNormal.png"
-dest_files=["res://.godot/imported/healthNormal.png-3b6a261c86ae9c0f18e37b695fe2f5ff.ctex"]
+source_file="res://assets/backgrounds/MiniGamemessageBackground.png"
+dest_files=["res://.godot/imported/MiniGamemessageBackground.png-93e73312f46e2a20ef696f27ec359e20.ctex"]
 
 [params]
 

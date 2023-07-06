@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmvwiw5ibuyhh"
-path="res://.godot/imported/thunderBossKill.png-4f70f66dc1753e4022fe197f70714018.ctex"
+uid="uid://ddbu2wgmiiksa"
+path="res://.godot/imported/cardIcon14.png-1b5445a5f5fc71b23c57119b76fb6e88.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/skill/thunderBossKill.png"
-dest_files=["res://.godot/imported/thunderBossKill.png-4f70f66dc1753e4022fe197f70714018.ctex"]
+source_file="res://assets/UI/cardIcon/cardIcon14.png"
+dest_files=["res://.godot/imported/cardIcon14.png-1b5445a5f5fc71b23c57119b76fb6e88.ctex"]
 
 [params]
 

@@ -115,10 +115,14 @@ var ChoiceWindow
 var FightButton
 var ChosenCard = [null,null,null,null,null,null]
 var ChosenId = [null,null,null,null,null,null]
+var ChosenNum = [0,0,0,0,0,0]
 var NowMonsterObject = []
 var StopButton
-var StopWindowLayer
+#var StopWindowLayer
 var StopWindow
+var TeachWindow
+var CardTextWindow
+var AllMonster = [null,null,null,null,null,null]
 var StopON = false
 
 var FightSence
@@ -219,13 +223,14 @@ func _ready():#读入数据
 #						for i in arrayLength:
 #							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
 		
-		var pictureGet#提前根据图片得到单位碰撞箱尺寸
-
-		match STSData[STSName]["type"]:
-			"soldier": pictureGet = load("res://assets/objects/soldier/%s/walk/walk1.png"% STSName)
-			"tower": pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
-			"skill": pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
-		STSData[STSName]["collBox"] = pictureGet.get_size()
+		
+		if STSData[STSName].has("type"):
+			var pictureGet#提前根据图片得到单位碰撞箱尺寸
+			match STSData[STSName]["type"]:
+				"soldier": pictureGet = load("res://assets/objects/soldier/%s/walk/walk1.png"% STSName)
+				"tower": pictureGet = load("res://assets/objects/tower/%s/stop/stop1.png"% STSName)
+				"skill": pictureGet = load("res://assets/objects/skill/%s.png"% STSName)
+			STSData[STSName]["collBox"] = pictureGet.get_size()
 	file = null 
 	
 	file = FileAccess.open("res://data/level.json", FileAccess.READ)#res://data

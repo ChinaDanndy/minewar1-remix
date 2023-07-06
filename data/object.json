@@ -1,20 +1,233 @@
 {
+    "cardUpdate":{"objectName":"增加1个卡槽位"},
+    "moneyUpate":{"objectName":"增加5点资金上限"},
+    "miniGame1":{"objectName":"小游戏1 打地鼠"},
+    "miniGame2":{"objectName":"小游戏2 打地鼠"},
     "shoveler":{
-        "price":2,
-        "cd":2,
         "health":4,
         "speedBasic":1,
         "damageBasic":[1,0,0],
         "attRangeBasic":[10,0],
 
+        "price":2,
+        "cd":2,
         "type":"soldier",
         "collBoxCut":10,
         "collBoxPro":-5,
         "animation":{"walk":6,"attack":4,"stop":1,"death":1},
         "souEffValue":{"hurt":"hurt1","death":"steveDeath"},
         "particlesValue":{"hurt":"hurtRed"},
-        "attackType":[[true,false,false]]
+        "attackType":[[true,false,false]],
+        "objectName":"剑士",
+        "description":"使用木剑近战攻击"
+    },
+    "shielder":{
+        "health":4,
+        "speedBasic":0.7,
+        "damageBasic":[1,0,0],
+        "attRangeBasic":[12,0],
+        "shield":3,
+        "attDefShield":[false,true,false],
 
+        "price":3,
+        "cd":4,
+        "type":"soldier",
+        "collBoxCut":8,
+        "collBoxPro":-3,
+        "soldierName":[null,"shielderNo"],
+        "animation":{"walk":6,"attack":4,"stop":1},
+        "souEffValue":{"hurt":"shield","death":"steveDeath"},
+        "particlesValue":{"hurt":"hurtRed"},
+        "attackType":[[true,false,false]],
+        "objectName":"盾牌兵",
+        "description":"有3点护盾,有护盾时免疫远程伤害,盾牌损坏时不会受到额外伤害"
+    }, 
+    "shielderNo":
+    {
+        "speedBasic":0.9,
+        "attRangeBasic":[10,0],
+
+        "type":"soldier",
+        "collBoxCut":4,
+        "collBoxPro":0,
+        "animation":{"walk":6,"attack":4,"stop":1,"death":1},
+        "souEffValue":{"hurt":"hurt1"}
+    }, 
+    "snowman":{
+        "health":4,
+        "speedBasic":0.75,
+        "damageBasic":[0.25,0,0],
+        "attRangeBasic":[100,0],
+        "projectile":["snowBall",null],
+        "proSpeed":[3,0],
+        "proPos":[15,0,-6],
+        "proDir":[1,0,0,0],
+        "effTime":[[0,0,3,0,0]],
+        "giveEffect":[[0,0,-1,0,0,0,0]],
+
+        "price":3,
+        "cd":5,
+        "type":"soldier",
+        "collBoxCut":10,
+        "collBoxPro":-4,
+        "animation":{"walk":1,"attack":3,"stop":1,"death":1},
+        "souEffValue":{"hurt":"snowmanHurt","attack":"throw3","death":"snowmanDeath"},
+        "particlesValue":{"hurt":"hurtRed"},
+        "attackType":[[false,true,false]],
+        "objectName":"雪傀儡",
+        "description":"投掷雪球使被击中的敌方单位速度减少50%"
+    },
+    "assassinFirst":{
+        "health":3,
+        "speedBasic":1.4,
+        "damageBasic":[5,0,0],
+        "attRangeBasic":[20,0],
+        "aoeModel":["monster"],
+        "aoeRange":[30],
+
+        "unSee": true,
+        "firstAttack":true,
+
+        "price":3,
+        "cd":6,
+        "type":"soldier",
+        "soldierName":[null,"assassin"],
+        "collBoxCut":20,
+        "collBoxPro":-4,
+        "animation":{"walk":4,"attack":3,"death":1},
+        "souEffValue":{"hurt":"hurt1","death":"steveDeath"},
+        "particlesValue":{"hurt":"hurtRed"},
+        "attackType":[[true,false,false]],
+        "objectName":"刺客",
+        "description":"开始时冲向敌方单位且首次攻击会对附近敌方单位造成5点伤害,移动时不会被敌方单位攻击但无法被操控"
+    },
+    "assassin":{
+        "speedBasic":1.2,
+        "damageBasic":[2,0,0],
+        "attRangeBasic":[15,0],
+        "aoeModel":[null],
+        "aoeRange":[null],
+        "unSee": true,
+
+        "type":"soldier",
+        "animation":{"walk":6,"attack":6,"stop":1,"death":1}
+    },
+    "flyer":{
+        "health":5,
+        "speedBasic":0.8,
+        "damageBasic":[1.5,4,0],
+        "attRangeBasic":[120,40],
+        "aoeModel":[null,"monster",null,null],
+        "aoeRange":[null,42,null,null],
+        "projectile":["arrow","tnt"],
+        "proSpeed":[4,6],
+        "proPos":[10,0,4,17],
+        "proDir":[1,0,0,1],
+
+        "price":1,
+        "cd":1,
+        "kind":"sky",
+        "collBoxCut":20,
+        "collBoxPro":6,
+        "coll2Pos":"skyLine",
+        "type":"soldier",
+        "animation":{"walk":4,"attack":4,"attackSec":4,"attackThr":4,"stop":4,"death":1,"deathFall":1},
+        "souEffValue":{"hurt":"hurt1","attack":"arrowShoot","attackSec":"throw2","death":"steveDeath"},
+        "particlesValue":{"hurt":"hurtRed"},
+        "attackType":[[false,true,false],[false,true,false]],
+        "objectName":"鞘翅弓箭手",
+        "description":"发射箭矢攻击敌方空中单位,投掷药水攻击敌方范围内地面单位,可以同时攻击敌方空中和地面单位"
+    },
+    "iron":
+    {
+        "health":6,
+        "speedBasic":0.65,
+        "damageBasic":[2.5,0,0],
+        "attRangeBasic":[30,0],
+        "aoeModel":["monster",null,null,null],
+        "aoeRange":[30,0,0,0],
+        "effValue":[[0,0,60]],
+        "giveEffect":[[0,0,0,0,0,0,-1]],
+
+        "price":5,
+        "cd":7,
+        "type":"soldier",
+        "collBoxCut":26,
+        "collBoxPro":-12,
+        "animation":{"walk":10,"attack":5,"stop":1,"death":1},
+        "souEffValue":{"hurt":"irongolemHurt","death":"irongolemDeath"},
+        "particlesValue":{"hurt":"hurtRed"},
+        "attackType":[[true,false,false]],
+        "objectName":"铁傀儡",
+        "description":"击退附近敌方单位"
+    },
+    "projector":{
+        "health":5,
+        "aniSpeedBasic":1,
+        "towKeepTime":10,
+        "damageBasic":[1,0,0],
+        "attRangeBasic":[160,0],
+        "projectile":["arrow"],
+        "proSpeed":[4],
+        "proDir":[1,0,0,0],
+        "proContinueTimes":3,
+        "proSleepTime":2,
+        "dropSpeed":-3,
+
+        "price":4,
+        "cd":7,
+        "type":"tower",
+        "animation":{"attack":1,"stop":1,"death":1},
+        "souEffValue":{"hurt":"wood1","attack":"arrowShoot","death":"towerDeath"},
+        "particlesValue":{"hurt":"hurtWhite","death":"towerDeath"},
+        "attackType":[[false,true,false]],
+        "objectName":"发射器",
+        "description":"每隔2秒连续发射3发箭矢,存在10秒"
+    },
+    "golder":{
+        "health":5,
+        "type":"tower",
+        
+        "price":5,
+        "cd":10,
+        "animation":{"attack":1,"stop":1,"death":1},
+        "souEffValue":{"hurt":"wood1","death":"towerDeath"},
+        "particlesValue":{"hurt":"hurtWhite","death":"towerDeath"},
+        "speedBasic":2,
+        "damageBasic":[1,0,0],
+        "towKeepTime":20,
+        "dropSpeed":-6,
+        "objectName":"熔炉",
+        "description":"每隔2秒获得1点资源,存在20秒"
+    },
+    "regeneration":{
+        "price":2,
+        "cd":7,
+        "ifAoeHold":true,
+        "aoeModel":"village",
+        "aoeRange":100,
+        "effTime":[0,0,0,0,0,1],
+        "effValue":[0,1,0],
+        "effTimes":[0,5],
+        "giveEffect":[0,0,0,0,0,1,0],
+        "dropSpeed":30,
+        "type":"skill",
+        "objectName":"滞留型恢复药水",
+        "description":"每隔1秒恢复范围内我方地面单位1点血量,存在5秒"
+    },
+    "power":{
+        "price":3,
+        "cd":10,
+        "ifAoeHold":false,
+        "aoeModel":"village",
+        "aoeRange":100,
+        "effTime":[5,0,5,0,0],
+        "effTimes":[0,0],
+        "giveEffect":[1,0,1,0,0,0,0],
+        "dropSpeed":30,
+        "type":"skill",
+        "objectName":"喷溅型力量药水",
+        "description":"范围内我方单位伤害和速度提升50%"
     },
     "zombie":{
         "health":3,
@@ -27,8 +240,26 @@
         "animation":{"walk":6,"attack":4,"stop":1,"death":1},
         "souEffValue":{"hurt":"hurt1","death":"zombieDeath"},
         "particlesValue":{"hurt":"hurtRed"},
-        "attackType":[[true,false,false]]
+        "attackType":[[true,false,false]],
+        "objectName":"僵尸",
+        "description":"使用拳头近战攻击"
+    },
+    "creeper":{
+        "health":4,
+        "speedBasic":1.1,
+        "damageBasic":[4,0,0],
+        "attRangeBasic":[16,0],
+        "aoeModel":["all"],
+        "aoeRange":[40],
 
+        "type":"soldier",
+        "soldierName":[null,"creeperThunder"],
+        "animation":{"walk":6,"attack":6,"stop":1,"death":1},
+        "souEffValue":{"hurt":"hurt1","attack":"explode1","death":"creeperDeath"},
+        "particlesValue":{"hurt":"hurtRed","attack":"smallExplode"},
+        "attackType":[[false,false,true],[],[]],
+        "objectName":"苦力怕",
+        "description":"靠近我方单位时自爆,附近双方单位都会受到爆炸伤害"
     },
     "axer":{
         "health":5,
@@ -42,188 +273,9 @@
         "animation":{"walk":6,"attack":5,"stop":1,"death":1},
         "souEffValue":{"hurt":"hurt1","death":"zombieDeath"},
         "particlesValue":{"hurt":"hurtRed"},
-        "attackType":[[true,false,false],[],[]]
-
-    },
-    "shielder":{
-        "price":3,
-        "cd":4,
-        "health":4,
-        "speedBasic":0.7,
-        "damageBasic":[1,0,0],
-        "attRangeBasic":[12,0],
-        "shield":3,
-        "attDefShield":[false,true,false],
-
-        "type":"soldier",
-        "collBoxCut":8,
-        "collBoxPro":-3,
-        "soldierName":[null,"shielderNo"],
-        "animation":{"walk":6,"attack":4,"stop":1},
-        "souEffValue":{"hurt":"shield","death":"steveDeath"},
-        "particlesValue":{"hurt":"hurtRed"},
-        "attackType":[[true,false,false]]
-
-    }, 
-    "shielderNo":
-    {
-        "speedBasic":0.9,
-        "attRangeBasic":[10,0],
-
-        "type":"soldier",
-        "collBoxCut":4,
-        "collBoxPro":0,
-        "animation":{"walk":6,"attack":4,"stop":1,"death":1},
-        "souEffValue":{"hurt":"hurt1"}
-    }, 
-    "assassinFirst":{
-        "price":3,
-        "cd":6,
-        "health":3,
-        "speedBasic":1.4,
-        "damageBasic":[5,0,0],
-        "attRangeBasic":[20,0],
-        "aoeModel":["monster"],
-        "aoeRange":[30],
-
-        "type":"soldier",
-        "soldierName":[null,"assassin"],
-        "collBoxCut":20,
-        "collBoxPro":-4,
-        "animation":{"walk":4,"attack":3,"death":1},
-        "souEffValue":{"hurt":"hurt1","death":"steveDeath"},
-        "particlesValue":{"hurt":"hurtRed"},
-        "attackType":[[true,false,false]],
-
-        "unSee": true,
-        "firstAttack":true
-    },
-    "assassin":{
-        "speedBasic":1.2,
-        "damageBasic":[2,0,0],
-        "attRangeBasic":[15,0],
-        "aoeModel":[null],
-        "aoeRange":[null],
-        
-        "type":"soldier",
-        "animation":{"walk":6,"attack":6,"stop":1,"death":1},
-
-        "unSee": true
-    },
-    "iron":
-    {
-        "price":5,
-        "cd":7,
-        "health":6,
-        "speedBasic":0.65,
-        "damageBasic":[2.5,0,0],
-        "attRangeBasic":[30,0],
-        "aoeModel":["monster",null,null,null],
-        "aoeRange":[30,0,0,0],
-        "effValue":[[0,0,60]],
-        "giveEffect":[[0,0,0,0,0,0,-1]],
-
-        "type":"soldier",
-        "collBoxCut":26,
-        "collBoxPro":-12,
-        "animation":{"walk":10,"attack":5,"stop":1,"death":1},
-        "souEffValue":{"hurt":"irongolemHurt","death":"irongolemDeath"},
-        "particlesValue":{"hurt":"hurtRed"},
-        "attackType":[[true,false,false]]
-
-    },
-    "spider":{
-        "health":2,
-        "speedBasic":1.3,
-        "damageBasic":[1.25,0,0],
-        "attRangeBasic":[12,0],
-        "tpDistance":50,
-
-        "type":"soldier",
-        "animation":{"walk":5,"attack":4,"stop":1,"death":1},
-        "souEffValue":{"hurt":"hurt1","death":"spiderDeath"},
-        "particlesValue":{"hurt":"hurtRed"},
-        "attackType":[[true,false,false]],
-
-        "healthEffValue":3
-    },
-    "projector":{
-        "price":4,
-        "cd":7,
-        "health":5,
-        "aniSpeedBasic":1,
-        "towKeepTime":10,
-        "damageBasic":[1,0,0],
-        "attRangeBasic":[160,0],
-        "projectile":["arrow"],
-        "proSpeed":[4],
-        "proDir":[1,0,0,0],
-        "proContinueTimes":3,
-        "proSleepTime":2,
-        "dropSpeed":-3,
-
-        "type":"tower",
-        "animation":{"attack":1,"stop":1,"death":1},
-        "souEffValue":{"hurt":"wood1","attack":"arrowShoot","death":"towerDeath"},
-        "particlesValue":{"hurt":"hurtWhite","death":"towerDeath"},
-        "attackType":[[false,true,false]]
-    },
-    "golder":{
-        "price":5,
-        "cd":10,
-        "health":5,
-        "type":"tower",
-        
-        "animation":{"attack":1,"stop":1,"death":1},
-        "souEffValue":{"hurt":"wood1","death":"towerDeath"},
-        "particlesValue":{"hurt":"hurtWhite","death":"towerDeath"},
-        "speedBasic":2,
-        "damageBasic":[1,0,0],
-        "towKeepTime":20,
-        "dropSpeed":-6
-    },
-    "regeneration":{
-        "price":2,
-        "cd":7,
-        "ifAoeHold":true,
-        "aoeModel":"village",
-        "aoeRange":100,
-        "effTime":[0,0,0,0,0,1],
-        "effValue":[0,1,0],
-        "effTimes":[0,5],
-        "giveEffect":[0,0,0,0,0,1,0],
-        "dropSpeed":30,
-        "type":"skill"
-    },
-    "power":{
-        "price":3,
-        "cd":10,
-        "ifAoeHold":false,
-        "aoeModel":"village",
-        "aoeRange":100,
-        "effTime":[5,0,5,0,0],
-        "effTimes":[0,0],
-        "giveEffect":[1,0,1,0,0,0,0],
-        "dropSpeed":30,
-        "type":"skill"
-    },
-    "ice":{
-        "ifAoeHold":false,
-        "aoeModel":"village",
-        "aoeRange":60,
-        "effTime":[0,0,0,5,0],
-        "effTimes":[0,0],
-        "giveEffect":[0,0,0,-1,0,0,0],
-        "dropSpeed":8,
-        "type":"skill"
-    },
-    "thunder":{
-        "aoeModel":"village",
-        "aoeRange":40,
-        "ifAoeHold":false,
-        "effValue":[0,7,0],
-        "giveEffect":[0,0,0,0,0,-1,0],
-        "type":"skill"
+        "attackType":[[true,false,false],[],[]],
+        "objectName":"尸壳",
+        "description":"使用铁剑近战攻击"
     },
     "skeleton":{
         "health":3,
@@ -242,29 +294,26 @@
         "animation":{"walk":6,"attack":4,"attackSec":4,"stop":1,"death":1},
         "souEffValue":{"hurt":"skeletonHurt","attack":"arrowShoot","attackSec":"arrowShoot","death":"skeletonDeath"},
         "particlesValue":{"hurt":"hurtRed"},
-        "attackType":[[false,true,false],[false,true,false]]
+        "attackType":[[false,true,false],[false,true,false]],
+        "objectName":"骷髅",
+        "description":"发射箭矢分别攻击我方地面和空中单位，优先攻击地面单位"
     },
-    "snowman":{
-        "price":3,
-        "cd":5,
-        "health":4,
-        "speedBasic":0.75,
-        "damageBasic":[0.25,0,0],
-        "attRangeBasic":[100,0],
-        "projectile":["snowBall",null],
-        "proSpeed":[3,0],
-        "proPos":[15,0,-6],
-        "proDir":[1,0,0,0],
-        "effTime":[[0,0,3,0,0]],
-        "giveEffect":[[0,0,-1,0,0,0,0]],
+    "spider":{
+        "health":2,
+        "speedBasic":1.3,
+        "damageBasic":[1.25,0,0],
+        "attRangeBasic":[12,0],
+        "tpDistance":50,
 
         "type":"soldier",
-        "collBoxCut":10,
-        "collBoxPro":-4,
-        "animation":{"walk":1,"attack":3,"stop":1,"death":1},
-        "souEffValue":{"hurt":"snowmanHurt","attack":"throw3","death":"snowmanDeath"},
+        "animation":{"walk":5,"attack":4,"stop":1,"death":1},
+        "souEffValue":{"hurt":"hurt1","death":"spiderDeath"},
         "particlesValue":{"hurt":"hurtRed"},
-        "attackType":[[false,true,false]]
+        "attackType":[[true,false,false]],
+        "objectName":"蜘蛛",
+        "description":"首次次碰到我方单位时会向前瞬移",
+
+        "healthEffValue":3
     },
     "witch":{
         "health":4,
@@ -287,31 +336,9 @@
         "souEffValue":{"hurt":"hurt1","attack":"throw1","death":"witchDeath"},
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[false,true,false]],
-        "damagerType":[["weakness"]]
-    },
-    "flyer":{
-        "price":1,
-        "cd":1,
-        "health":5,
-        "speedBasic":0.8,
-        "damageBasic":[1.5,4,0],
-        "attRangeBasic":[120,40],
-        "aoeModel":[null,"monster",null,null],
-        "aoeRange":[null,42,null,null],
-        "projectile":["arrow","tnt"],
-        "proSpeed":[4,6],
-        "proPos":[10,0,4,17],
-        "proDir":[1,0,0,1],
-
-        "kind":"sky",
-        "collBoxCut":20,
-        "collBoxPro":6,
-        "coll2Pos":"skyLine",
-        "type":"soldier",
-        "animation":{"walk":4,"attack":4,"attackSec":4,"attackThr":4,"stop":4,"death":1,"deathFall":1},
-        "souEffValue":{"hurt":"hurt1","attack":"arrowShoot","attackSec":"throw2","death":"steveDeath"},
-        "particlesValue":{"hurt":"hurtRed"},
-        "attackType":[[false,true,false],[false,true,false]]
+        "damagerType":[["weakness"]],
+        "objectName":"女巫",
+        "description":"投掷药水使范围内的我方单位伤害降低50%,每隔4秒恢复附近敌方单位1点血量"
     },
     "ghost":{
         "health":6,
@@ -335,22 +362,9 @@
         "animation":{"walk":7,"attack":5,"attackSec":5,"stop":7,"death":1},
         "souEffValue":{"hurt":"hurt1","attack":"ghostAttack","attackSec":"ghostAttack","death":"ghostDeath"},
         "particlesValue":{"hurt":"hurtRed"},
-        "attackType":[[false,true,false],[false,true,false]]
-    },
-    "creeper":{
-        "health":4,
-        "speedBasic":1.1,
-        "damageBasic":[4,0,0],
-        "attRangeBasic":[16,0],
-        "aoeModel":["all"],
-        "aoeRange":[40],
-
-        "type":"soldier",
-        "soldierName":[null,"creeperThunder"],
-        "animation":{"walk":6,"attack":6,"stop":1,"death":1},
-        "souEffValue":{"hurt":"hurt1","attack":"explode1","death":"creeperDeath"},
-        "particlesValue":{"hurt":"hurtRed","attack":"smallExplode"},
-        "attackType":[[false,false,true],[],[]]
+        "attackType":[[false,true,false],[false,true,false]],
+        "objectName":"恶魂",
+        "description":"发射火焰弹分别攻击我方地面和空中范围内单位,优先攻击空中单位"
     },
     "creeperThunder":{
         "health":6,
@@ -365,7 +379,31 @@
         "type":"soldier",
         "animation":{"walk":6,"attack":4,"death":1,"stop":1},
         "souEffValue":{"hurt":"hurt1","attack":"explode1","death":"explode1"},
-        "particlesValue":{"hurt":"hurtRed","attack":"bigExplode","death":"bigExplode"}
+        "particlesValue":{"hurt":"hurtRed","attack":"bigExplode","death":"bigExplode"},
+        "objectName":"闪电苦力怕",
+        "description":"免疫近战和爆炸伤害,只有靠近我方建筑时才会自爆,死亡后也会自爆,附近双方单位都会受到爆炸伤害"
+    },
+    "ice":{
+        "ifAoeHold":false,
+        "aoeModel":"village",
+        "aoeRange":60,
+        "effTime":[0,0,0,5,0],
+        "effTimes":[0,0],
+        "giveEffect":[0,0,0,-1,0,0,0],
+        "dropSpeed":8,
+        "type":"skill",
+        "objectName":"冰冻法术",
+        "description":"使范围内我方单位3秒内无法攻击和移动"
+    },
+    "thunder":{
+        "aoeModel":"village",
+        "aoeRange":40,
+        "ifAoeHold":false,
+        "effValue":[0,7,0],
+        "giveEffect":[0,0,0,0,0,-1,0],
+        "type":"skill",
+        "objectName":"闪电法术",
+        "description":"对范围内我方单位造成7点伤害并使苦力怕变成闪电苦力怕"
     },
     "creeperKing":{
         "health":50,
@@ -384,6 +422,8 @@
         "type":"soldier",
         "attackType":[[false,false,true],[false,true,false]],
         "souEffValue":{"hurt":"hurt1","attack":"explode3","death":"creeperDeath"},
-        "particlesValue":{"hurt":"hurtRed","attack":"Explode"}
+        "particlesValue":{"hurt":"hurtRed","attack":"Explode"},
+        "objectName":"苦力怕之王",
+        "description":"有护盾时免疫所有伤害,击杀护法能使护盾失效一会并暂停法阵充能,法阵充能完毕后城堡会被终极闪电摧毁"
     }
 }

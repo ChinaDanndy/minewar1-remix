@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ciyvlat0ki0sm"
-path="res://.godot/imported/freeze.png-7bd09e05078bff6ba3759c6ccd5951b4.ctex"
+uid="uid://ienrfyup176c"
+path="res://.godot/imported/emerald.png-80edea87f0e812eb91efc2148d5becfe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/skill/freeze.png"
-dest_files=["res://.godot/imported/freeze.png-7bd09e05078bff6ba3759c6ccd5951b4.ctex"]
+source_file="res://assets/objects/tower/emerald.png"
+dest_files=["res://.godot/imported/emerald.png-80edea87f0e812eb91efc2148d5becfe.ctex"]
 
 [params]
 

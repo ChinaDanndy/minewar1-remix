@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8jv4fylfyma6"
-path="res://.godot/imported/thunderBoss.png-203625fd59a830c11861f93956448a36.ctex"
+uid="uid://hcjvp12prr60"
+path="res://.godot/imported/moneyBackground.png-84ccb63031d22f7c2d59da363bef7479.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/skill/thunderBoss.png"
-dest_files=["res://.godot/imported/thunderBoss.png-203625fd59a830c11861f93956448a36.ctex"]
+source_file="res://assets/backgrounds/moneyBackground.png"
+dest_files=["res://.godot/imported/moneyBackground.png-84ccb63031d22f7c2d59da363bef7479.ctex"]
 
 [params]
 
