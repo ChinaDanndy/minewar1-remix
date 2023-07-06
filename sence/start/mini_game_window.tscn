@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://smvhaqbhjd0o"]
+[gd_scene load_steps=8 format=3 uid="uid://jmy1y8bominm"]
 
-[ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/UI/button/spr_broad.png" id="1_25scl"]
+[ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/backgrounds/spr_broad.png" id="1_25scl"]
 [ext_resource type="PackedScene" uid="uid://cluf3870eyfa3" path="res://sence/start/levelButton.tscn" id="2_ytqyd"]
 [ext_resource type="Texture2D" uid="uid://cibbw5x1bo5te" path="res://assets/miniGame/game1/creeper/creeper5.png" id="3_04s64"]
 [ext_resource type="Texture2D" uid="uid://rpyqwom4dpsa" path="res://assets/UI/button/cancel_normal.png" id="3_7ycmw"]

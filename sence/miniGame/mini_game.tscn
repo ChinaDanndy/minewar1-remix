@@ -9,7 +9,7 @@
 [ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="3_sxps5"]
 [ext_resource type="Script" path="res://script/fight/ui/stopButton.gd" id="4_41gix"]
 [ext_resource type="PackedScene" uid="uid://ds30omdo3jq36" path="res://sence/miniGame/firework_table.tscn" id="4_ah3oi"]
-[ext_resource type="PackedScene" uid="uid://bkq2jinug2gf7" path="res://sence/fight/ui/stopWindow.tscn" id="5_l03jy"]
+[ext_resource type="PackedScene" uid="uid://ciqm506lu3wms" path="res://sence/fight/ui/stopWindow.tscn" id="5_l03jy"]
 [ext_resource type="Texture2D" uid="uid://bos5o3mfpwn0h" path="res://assets/miniGame/game1/creeper/creeper6.png" id="6_yd0s8"]
 [ext_resource type="Texture2D" uid="uid://de3yjt8ks1xpo" path="res://assets/miniGame/game1/creeper/creeper7.png" id="7_ovhsm"]
 [ext_resource type="Texture2D" uid="uid://caq6o2s1uewqb" path="res://assets/miniGame/game1/creeper/creeper8.png" id="8_xb76c"]
@@ -27,7 +27,7 @@
 [ext_resource type="Script" path="res://script/fight/ui/teachButton.gd" id="25_8ld0s"]
 [ext_resource type="PackedScene" uid="uid://i0auw607iwpg" path="res://sence/fight/ui/teachWindow.tscn" id="26_a80fa"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_omu7k"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_xur4u"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -129,7 +129,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_g2nbd"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhucu"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -231,7 +231,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_fmvqk"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_ltdd5"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -333,7 +333,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_axsr6"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_xv11y"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -435,7 +435,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_fhaya"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_8wa2p"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -537,7 +537,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_fua38"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_hj4e2"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -639,7 +639,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_yupbg"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_acwoj"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -749,47 +749,36 @@ texture = ExtResource("1_s52c5")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="Leveltext" type="Label" parent="."]
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 74.0
-offset_bottom = 29.0
-theme_override_colors/font_color = Color(1, 0.666667, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 0.666667, 0, 1)
-theme_override_fonts/font = ExtResource("3_sxps5")
-theme_override_font_sizes/font_size = 24
-text = "小游戏1 打地鼠"
-
 [node name="game1" type="Node2D" parent="."]
 visible = false
 
 [node name="game1Tbale6" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(237.5, 293)
-sprite_frames = SubResource("SpriteFrames_omu7k")
+sprite_frames = SubResource("SpriteFrames_xur4u")
 
 [node name="game1Tbale1" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(297.5, 293)
-sprite_frames = SubResource("SpriteFrames_g2nbd")
+sprite_frames = SubResource("SpriteFrames_bhucu")
 
 [node name="game1Tbale2" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(357.5, 293)
-sprite_frames = SubResource("SpriteFrames_fmvqk")
+sprite_frames = SubResource("SpriteFrames_ltdd5")
 
 [node name="game1Tbale3" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(417.5, 293)
-sprite_frames = SubResource("SpriteFrames_axsr6")
+sprite_frames = SubResource("SpriteFrames_xv11y")
 
 [node name="game1Tbale4" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(477.5, 293)
-sprite_frames = SubResource("SpriteFrames_fhaya")
+sprite_frames = SubResource("SpriteFrames_8wa2p")
 
 [node name="game1Tbale5" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(537.5, 293)
-sprite_frames = SubResource("SpriteFrames_fua38")
+sprite_frames = SubResource("SpriteFrames_hj4e2")
 
 [node name="game1Tbale7" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(597.5, 293)
-sprite_frames = SubResource("SpriteFrames_yupbg")
+sprite_frames = SubResource("SpriteFrames_acwoj")
 
 [node name="game2" type="Node2D" parent="."]
 visible = false
@@ -829,37 +818,47 @@ offset_right = 835.0
 offset_bottom = 450.0
 texture = ExtResource("3_i7hem")
 
+[node name="Leveltext" type="Label" parent="CanvasLayer"]
+offset_left = 17.0
+offset_top = 422.0
+offset_right = 129.0
+offset_bottom = 441.0
+theme_override_colors/font_color = Color(1, 0.666667, 0, 1)
+theme_override_fonts/font = ExtResource("3_sxps5")
+theme_override_font_sizes/font_size = 16
+text = "小游戏1 打地鼠"
+
 [node name="Message" type="VBoxContainer" parent="CanvasLayer"]
-offset_left = 6.0
-offset_top = 348.0
-offset_right = 68.0
-offset_bottom = 404.0
-theme_override_constants/separation = 4
+offset_left = 16.0
+offset_top = 356.0
+offset_right = 126.0
+offset_bottom = 408.0
+theme_override_constants/separation = 8
 
 [node name="ScoreText" type="TextureRect" parent="CanvasLayer/Message"]
 layout_mode = 2
 texture = ExtResource("18_wd18a")
 
 [node name="Score" type="Label" parent="CanvasLayer/Message/ScoreText"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 6.0
-offset_top = 5.0
-offset_right = 60.0
-offset_bottom = 32.0
+offset_top = 3.0
+offset_right = 38.0
+offset_bottom = 21.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_sxps5")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 14
 text = "分数:"
 
 [node name="ScoreVallue" type="Label" parent="CanvasLayer/Message/ScoreText"]
 layout_mode = 2
-offset_left = 60.0
-offset_top = 7.0
-offset_right = 150.0
-offset_bottom = 34.0
+offset_left = 45.0
+offset_top = 4.0
+offset_right = 135.0
+offset_bottom = 31.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_sxps5")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 16
 text = "30/30"
 
 [node name="TimeText" type="TextureRect" parent="CanvasLayer/Message"]
@@ -867,25 +866,25 @@ layout_mode = 2
 texture = ExtResource("18_wd18a")
 
 [node name="Time" type="Label" parent="CanvasLayer/Message/TimeText"]
-layout_mode = 2
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 59.0
-offset_bottom = 32.0
+layout_mode = 0
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 36.0
+offset_bottom = 21.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_sxps5")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 14
 text = "时间:"
 
 [node name="TimeValue" type="Label" parent="CanvasLayer/Message/TimeText"]
 layout_mode = 2
-offset_left = 80.0
-offset_top = 7.0
-offset_right = 116.0
-offset_bottom = 34.0
+offset_left = 59.0
+offset_top = 4.0
+offset_right = 83.0
+offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_sxps5")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 16
 text = "40"
 
 [node name="StopButton" type="TextureButton" parent="."]

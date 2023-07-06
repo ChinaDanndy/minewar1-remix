@@ -81,16 +81,14 @@ func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold,attackType,damage,damag
 	if type != TRANSFER&&damager!=null:
 		root.call_deferred("add_child",newAoe)
 		newAoe.position = damager.global_position
-		#newAoe.position.y = FightGroundY
 	else: newAoe.free()
 	#return newAoe
 	pass
 
-var LevelChoiceButton
+#var LevelChoiceButton
 var LevelChoiceWindow
 var BuyCardButton
 var BuyCardWindow
-var BookWindow
 
 var MiniGame = 2#0
 var MiniGameWindow
@@ -98,27 +96,26 @@ var MiniGameSence
 var MiniGameScore
 var MiniGame2PosY:Array
 
-var ChangePageButton
-var ShowLastId
-var ShowPicture
-var ShowName
-var ShowDisplay
-var ShowText
-var PageNow = true#
-const Page = {true:"allVillageObject",false:"allMonsterObject"}
+#var ChangePageButton
+#var ShowLastId
+#var ShowPicture
+#var ShowName
+#var ShowDisplay
+#var ShowText
+#var PageNow = true#
+#const Page = {true:"allVillageObject",false:"allMonsterObject"}
 #{"allVillageObject":true,"allMonsterObject":false}
+#var LevelReady = false
+#var ChosenNum = [0,0,0,0,0,0]
+#var NowMonsterObject = []
 
-var LevelReady = false
-
-var ChosenCardNum = 0
 var ChoiceWindow
 var FightButton
-var ChosenCard = [null,null,null,null,null,null]
-var ChosenId = [null,null,null,null,null,null]
-var ChosenNum = [0,0,0,0,0,0]
-var NowMonsterObject = []
+var ChosenCardNum = 0
+var ChosenCard = [null,null,null,null,null,null,null]
+var ChosenId =  [null,null,null,null,null,null,null]
+
 var StopButton
-#var StopWindowLayer
 var StopWindow
 var TeachWindow
 var CardTextWindow
@@ -135,26 +132,27 @@ var BossPosX
 var BossProtect
 var BossSkill
 var VillageBase
-#var VillageBaseOpen = load("res://assets/objects/baseVillage2.png")
-#var VillageBaseClose = load("res://assets/objects/baseVillage1.png")
 var MonsterBase
 var towerArea
 var skillArea
 var Boss
 
+var CardBuy = null
+var Contrl = null
+
 var SoldierOutLine = preload("res://rescourse/soldierOutLine.tres")
-var ButtonOutLine = preload("res://rescourse/buttonOutLine.tres")
-var CardOutLine = preload("res://rescourse/cardOutLine.tres")
-var VillageSoldier = preload("res://sence/fight/object/soldier/villageSoldier.tscn")
-var MonsterSoldier = preload("res://sence/fight/object/soldier/monsterSoldier.tscn")
 var Soldier = preload("res://sence/fight/object/soldier.tscn")
 var Tower = preload("res://sence/fight/object/tower.tscn")
 var Skill = preload("res://sence/fight/object/skill.tscn")
+#var ButtonOutLine = preload("res://rescourse/buttonOutLine.tres")
+#var CardOutLine = preload("res://rescourse/cardOutLine.tres")
+#var VillageSoldier = preload("res://sence/fight/object/soldier/villageSoldier.tscn")
+#var MonsterSoldier = preload("res://sence/fight/object/soldier/monsterSoldier.tscn")
 
-var ParSence:Dictionary
+
+#var ParSence:Dictionary
 #= preload("res://sence/particles/hurtRed.tscn")
-var Point #= 0
-var Brought #= {"freeze":false,"wall":false,"power":false,"golder":false}
+
 
 var STSData:Dictionary
 enum STSType {INT,ARRAY}
@@ -167,25 +165,20 @@ const STSDataName = {"price":STSType.INT,"kind":null,
 "endTime":null,"time":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"attDefOrigin":null,"shield":STSType.INT,
 "attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
 
+var Point = 2 #= 0
+var Brought = {"cardUpdate":false,"moneyUpate":false,"power":false,"golder":false}
+var Level = 1
+
 var SeDB = 1.0
 var BgmDB = 1.0
 var ThunderSpeed
-var CaveHas = false
-var MonsterDeaths = 0
 var Money = 10
-var CardUp = 6
 var NowMoney = 0
-
-var CardBuy = null
-var Contrl = null
+var CardUp = 7
 
 var LevelData
-var Level = 1
 var NowLevel = 1
-enum  LevelType {ATTACK,ATTDEF,DEFENCE}
 var LevelOver = false
-var TextData
-
 func _ready():#读入数据
 #	var json = JSON.new()
 #	var loadData = FileAccess.open("user://playerData.json",FileAccess.READ)

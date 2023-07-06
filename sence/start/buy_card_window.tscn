@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1lu65w4nomle"]
+[gd_scene load_steps=10 format=3 uid="uid://bs1fdm6sstmej"]
 
-[ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/UI/button/spr_broad.png" id="1_opagi"]
+[ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/backgrounds/spr_broad.png" id="1_crtae"]
 [ext_resource type="Texture2D" uid="uid://rpyqwom4dpsa" path="res://assets/UI/button/cancel_normal.png" id="2_0rodr"]
 [ext_resource type="PackedScene" uid="uid://cqu0trx4tn07j" path="res://sence/fight/ui/cardButton.tscn" id="2_ltcr5"]
 [ext_resource type="Texture2D" uid="uid://woqtbppeagyp" path="res://assets/UI/button/buyButton.png" id="3_c00cl"]
 [ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="3_dp3fp"]
 [ext_resource type="Script" path="res://script/start/cancelButton.gd" id="4_mip36"]
+[ext_resource type="Texture2D" uid="uid://hcjvp12prr60" path="res://assets/backgrounds/moneyBackground.png" id="7_dp2nj"]
+[ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="8_fvvgb"]
+[ext_resource type="Texture2D" uid="uid://ienrfyup176c" path="res://assets/objects/tower/emerald.png" id="9_j2wll"]
 
 [node name="BuyCardWindow" type="CanvasLayer"]
 
@@ -35,40 +38,32 @@ grow_vertical = 2
 layout_mode = 0
 offset_right = 248.0
 offset_bottom = 166.0
-texture = ExtResource("1_opagi")
+texture = ExtResource("1_crtae")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Main"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 6.0
-offset_right = 148.0
-offset_bottom = 160.0
-theme_override_constants/separation = 32
+offset_left = 8.0
+offset_top = 16.0
+offset_right = 238.0
+offset_bottom = 92.0
+theme_override_constants/separation = 10
 
-[node name="Update" type="VBoxContainer" parent="Main/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="cardButton1" parent="Main/HBoxContainer/Update" instance=ExtResource("2_ltcr5")]
+[node name="cardButton1" parent="Main/HBoxContainer" instance=ExtResource("2_ltcr5")]
 layout_mode = 2
 texture_normal = ExtResource("3_c00cl")
 cardType = 4
 
-[node name="cardButton2" parent="Main/HBoxContainer/Update" instance=ExtResource("2_ltcr5")]
+[node name="cardButton2" parent="Main/HBoxContainer" instance=ExtResource("2_ltcr5")]
 layout_mode = 2
 texture_normal = ExtResource("3_c00cl")
 cardType = 4
 
-[node name="Card1" type="VBoxContainer" parent="Main/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 2
-
-[node name="cardButton3" parent="Main/HBoxContainer/Card1" instance=ExtResource("2_ltcr5")]
+[node name="cardButton3" parent="Main/HBoxContainer" instance=ExtResource("2_ltcr5")]
 layout_mode = 2
 texture_normal = ExtResource("3_c00cl")
 cardType = 4
 
-[node name="cardButton4" parent="Main/HBoxContainer/Card1" instance=ExtResource("2_ltcr5")]
+[node name="cardButton4" parent="Main/HBoxContainer" instance=ExtResource("2_ltcr5")]
 layout_mode = 2
 texture_normal = ExtResource("3_c00cl")
 cardType = 4
@@ -82,5 +77,31 @@ texture_normal = ExtResource("2_0rodr")
 texture_pressed = ExtResource("3_dp3fp")
 texture_hover = ExtResource("3_dp3fp")
 script = ExtResource("4_mip36")
+
+[node name="emeraldSquare" type="TextureRect" parent="Main"]
+offset_left = 102.5
+offset_top = 130.0
+offset_right = 145.5
+offset_bottom = 152.0
+texture = ExtResource("7_dp2nj")
+
+[node name="emeraldNumber" type="Label" parent="Main/emeraldSquare"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 4.0
+offset_right = 29.0
+offset_bottom = 22.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_fvvgb")
+theme_override_font_sizes/font_size = 14
+text = "90"
+
+[node name="icon" type="TextureRect" parent="Main/emeraldSquare"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 3.0
+offset_right = 43.0
+offset_bottom = 19.0
+texture = ExtResource("9_j2wll")
 
 [connection signal="pressed" from="Main/buyCancelButton" to="Main/buyCancelButton" method="_on_pressed"]

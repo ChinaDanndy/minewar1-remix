@@ -1,7 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://bkq2jinug2gf7"]
+[gd_scene load_steps=11 format=3 uid="uid://ciqm506lu3wms"]
 
 [ext_resource type="Script" path="res://script/fight/ui/stopWindow.gd" id="1_vqqbi"]
-[ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/UI/button/spr_broad.png" id="2_6gjts"]
+[ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/backgrounds/spr_broad.png" id="2_x8d7p"]
 [ext_resource type="ButtonGroup" uid="uid://ec2gd7jjvlsa" path="res://rescourse/gameBoardButtonGroup.tres" id="3_5o1dm"]
 [ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="3_ojej8"]
 [ext_resource type="Texture2D" uid="uid://cff6qvysicflb" path="res://assets/UI/button/smallButtonNormal.png" id="4_p7i5a"]
@@ -49,7 +49,7 @@ offset_right = 124.0
 offset_bottom = 83.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_6gjts")
+texture = ExtResource("2_x8d7p")
 
 [node name="Title" type="Label" parent="Control"]
 layout_mode = 1

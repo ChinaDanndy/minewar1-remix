@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b0i8w4y6jpddt"]
+[gd_scene load_steps=12 format=3 uid="uid://b0i8w4y6jpddt"]
 
 [ext_resource type="Script" path="res://script/start/Start.gd" id="1_a4fua"]
 [ext_resource type="PackedScene" uid="uid://byp0sfn4apxll" path="res://sence/start/levelChoiceWindow.tscn" id="1_udu2w"]
@@ -6,10 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://b14swun08llpd" path="res://assets/UI/others/title.png" id="2_ylkws"]
 [ext_resource type="PackedScene" uid="uid://dsb20dqiimav3" path="res://sence/start/start_button.tscn" id="3_vrnfq"]
 [ext_resource type="Texture2D" uid="uid://s58an2mx1ytm" path="res://assets/backgrounds/map.png" id="3_y1ro5"]
-[ext_resource type="PackedScene" uid="uid://3xyjbkr4js7v" path="res://sence/start/book_window.tscn" id="7_ig6ki"]
-[ext_resource type="PackedScene" uid="uid://d1lu65w4nomle" path="res://sence/start/buy_card_window.tscn" id="7_llewj"]
+[ext_resource type="PackedScene" uid="uid://bs1fdm6sstmej" path="res://sence/start/buy_card_window.tscn" id="7_llewj"]
 [ext_resource type="PackedScene" uid="uid://dy08r7ufu8nvd" path="res://sence/fight/ui/card_text_window.tscn" id="8_5vv64"]
-[ext_resource type="PackedScene" uid="uid://smvhaqbhjd0o" path="res://sence/start/mini_game_window.tscn" id="8_paf7j"]
+[ext_resource type="PackedScene" uid="uid://jmy1y8bominm" path="res://sence/start/mini_game_window.tscn" id="8_paf7j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q1bjs"]
 texture = ExtResource("3_y1ro5")
@@ -104,22 +103,16 @@ layout_mode = 2
 [node name="MiniGameButton" parent="buttonGroup" instance=ExtResource("3_vrnfq")]
 layout_mode = 2
 
-[node name="BookButton" parent="buttonGroup" instance=ExtResource("3_vrnfq")]
-visible = false
-layout_mode = 2
-
 [node name="LevelChoiceWindow" parent="." instance=ExtResource("1_udu2w")]
 visible = false
 
 [node name="BuyCardWindow" parent="." instance=ExtResource("7_llewj")]
+visible = false
 
 [node name="cardTextWindow" parent="." instance=ExtResource("8_5vv64")]
 visible = false
 
 [node name="MiniGameWindow" parent="." instance=ExtResource("8_paf7j")]
-visible = false
-
-[node name="BookWindow" parent="." instance=ExtResource("7_ig6ki")]
 visible = false
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

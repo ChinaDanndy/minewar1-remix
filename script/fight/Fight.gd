@@ -25,6 +25,13 @@ signal BossLv3
 
 func _ready():
 	#Global.NowLevel = 8
+	if Global.NowLevel <= 4:
+		$backGround1.visible = true
+		$Up/buttom1.visible = true
+	else:
+		$backGround2.visible = true
+		$Up/buttom2.visible = true
+	
 	$Up/LevelMessage/Leveltext.text = ("第%s关"%Global.NowLevel)
 	match Global.LevelData[Global.NowLevel]["set"]["levelType"]:
 		"defence": $Up/LevelMessage/LevelType.text = "击退怪物进攻"
@@ -47,14 +54,13 @@ func _ready():
 	Global.VillageBase.firstSetting("baseVillageHealth")#"baseVillageHealth"
 
 	moneyTime = Global.LevelData[0]["moneySpeed"]
-	Global.Money = Global.LevelData[0]["moneyUp"]
+#	Global.Money = Global.LevelData[0]["moneyUp"]
 	Global.ThunderSpeed = Global.LevelData[0]["thunderSpeed"]
 	
 	if Global.LevelData[Global.NowLevel]["chosenCard"].is_empty():
 		Global.ChoiceWindow.visible = true
-		#Global.AllMonster.clear()#怪物展示，自动填充目前所有有的怪物
 		if Global.LevelData[Global.NowLevel]["set"]["levelType"] != "boss":
-			var count = 0
+			var count = 0#怪物展示，自动填充目前所有有的怪物
 			for i in Global.LevelData[Global.NowLevel]["groups"].size():
 				for j in Global.LevelData[Global.NowLevel]["groups"][i]["soldier"]:
 					if !Global.AllMonster.has(j): 
@@ -104,19 +110,10 @@ func _on_thundertimer_timeout():
 	pass
 	
 func fightStart():
-	#Global.CardUp = 6
-	
-	#emit_signal("fightCard")
-	#await get_tree().create_timer(1,false).timeout#开局延迟开始
-	#emit_signal("cardCD")
 	time()
 	SummonEnemy()
 	$monsterShow.visible = false
 	$Up/MoneyMessage.visible = true
-	
-	#if bossLv == 0: $baseMonster.visible = true
-	#$baseVillage.visible = true#$Spacetext.visible = false
-
 	$Timer/Moneytimer.start(moneyTime)
 	if Global.LevelData[Global.NowLevel]["set"]["iceTime"] > 0: 
 		$Timer/CaveTimer.start(Global.LevelData[Global.NowLevel]["set"]["iceTime"])
@@ -164,16 +161,6 @@ func _process(_delta):
 					summonEnemyID.queue_free()
 					emit_signal("BossLv2")
 					$Timer/ThunderTimer.start(thunderTime)
-
-#	if Global.LevelData[Global.NowLevel]["set"]["levelType"] == "attack":
-#	$Up/AttackTime/AttackTimeValue.text = str($Boss.attackTime)
-#	if bossLv == 2:
-#		if Global.MonsterBase.health<=Global.MonsterBase.bossSecHealth:
-#			Global.NowLevel += 1
-#			bossLv = 3
-#			summonEnemyID.queue_free()
-#			SummonEnemy()
-#			emit_signal("BossLv3")
 	pass
 	
 func time():
@@ -202,26 +189,25 @@ func _on_tree_exited():
 	pass
 	
 func _on_tree_entered():
+	Global.FightSence = self
 	Global.NowMoney = 0
-	Global.MonsterDeaths = 0
 	Global.CardBuy = null
 	Global.Contrl = null
 	Global.LevelOver = false
-	Global.ChosenCard = [null,null,null,null,null,null]
-	Global.ChosenId = [null,null,null,null,null,null]
-	Global.ChosenCardNum = 0
 	
-	Global.FightSence = self
+	if Global.Level <= 6: Global.CardUp = Global.Level+1
+	else: Global.CardUp = 6
+	if Global.Brought["cardUpdate"] == true: Global.CardUp += 1#卡槽升级
+	Global.Money = 10
+	if Global.Brought["moneyUpate"] == true: Global.Money += 5#资金上限升级
+	
+	Global.ChosenCard = [null,null,null,null,null,null,null]
+	Global.ChosenId = [null,null,null,null,null,null,null]
+	Global.ChosenCardNum = 0
 	Global.ChoiceWindow = $choiceCard
 	Global.CardTextWindow = $cardTextWindow
 	Global.FightButton = $choiceCard/fightButton
 	Global.FightButton.fight.connect(fightStart)
-	
-#	if Global.CardUp == 4:
-#		$card/HBoxContainer/CardButton5.visible = false
-#		$card/HBoxContainer/CardButton6.visible = false
-	#if Global.CardUp == 5: $Up/card/HBoxContainer/CardButton6.visible = false
-	#Global.StopWindowLayer = $StopWindowLayer
 	
 	Global.FightGroundY = $position/ground.position.y
 	Global.FightSkyY = $position/sky.position.y
@@ -247,11 +233,14 @@ func _on_tree_entered():
 	$Up/MoneyMessage.visible = false
 	$Spacetext.visible = false
 	$Up/AttackTime.visible = false
-	#$baseMonster.visible = false
-	#$baseVillage.visible = false
 	$bossProtect.visible = false
 	$Boss.visible = false
 	$bossSkill.visible = false
+	
+	$backGround1.visible = false
+	$backGround2.visible = false
+	$Up/buttom1.visible = false
+	$Up/buttom2.visible = false
 	pass
 
 

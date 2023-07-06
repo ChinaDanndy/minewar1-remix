@@ -78,11 +78,10 @@ cardType = 1
 
 [node name="fightButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 118.0
-offset_top = 170.0
-offset_right = 182.0
-offset_bottom = 190.0
-scale = Vector2(1.5, 1.5)
+offset_left = 135.0
+offset_top = 176.0
+offset_right = 199.0
+offset_bottom = 196.0
 texture_normal = ExtResource("3_ocdvq")
 texture_pressed = ExtResource("4_kynlk")
 texture_hover = ExtResource("4_kynlk")
@@ -91,10 +90,10 @@ script = ExtResource("5_ekptk")
 
 [node name="Label" type="Label" parent="fightButton"]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 1.33334
-offset_right = 60.0
-offset_bottom = 19.3333
+offset_left = 5.0
+offset_top = 2.0
+offset_right = 61.0
+offset_bottom = 20.0
 theme_override_fonts/font = ExtResource("6_jjnxo")
 theme_override_font_sizes/font_size = 14
 text = "开始战斗"

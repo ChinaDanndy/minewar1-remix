@@ -7,21 +7,10 @@
         "allVillageObject":["shoveler","projector","regeneration","shielder",
         "snowman","assassinFirst","flyer","iron"
         ,"power","golder","cardUpdate","moneyUpate","miniGame1","miniGame2"],
-        "cardShow":["regeneration","shielder","snowman","assassinFirst","flyer","iron",null,null],
-        "buyShow":["miniGame1","power","cardUpdate","miniGame2","golder","moneyUpate",null,null],
+        "cardShow":["regeneration","shielder","snowman","assassinFirst","flyer","iron"],
+        "buyShow":["miniGame1","power","cardUpdate","miniGame2","golder","moneyUpate"],
         "buyPrice":{"power":1,"cardUpdate":1,"golder":1,"moneyUpate":1},
         "shop":["power","cardUpdate","golder","moneyUpate"],
-        "villObjectHasLevel":{"shoveler":1,"shielder":1,"projector":1,"regeneration":1,
-        "snowman":1,"assassinFirst":1,
-        "iron":1,"flyer":1,"power":1,"golder":1},
-        "allMonsterObject":["zombie","creeper","sear","witch","ghost","spider","axer",
-        null,null,null,null,null,null,null,null],
-        "allVillageBuyObject":["power","golder"],
-        "villageBuyPrice":[1,2,3,4],
-        "villageBuyLevel":[1,4,1,1],
-        "Update":["card","gold"],
-        "UpdatePrice":[[12,13,13],[13,14,14]],
-        "UpdateLevel":[[1,1,1],[1,1,3]],
 
         "miniGame1":{
             "keepTime":40,
@@ -97,7 +86,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","projector","regeneration",null,null,null]
+        ],"banCard":[],"chosenCard":["shoveler","projector","regeneration",null,null,null,null]
     },
     {
         "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":20,"baseVillageHealth":20,
@@ -126,7 +115,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","projector","regeneration","shielder",null,null]
+        ],"banCard":[],"chosenCard":["shoveler","projector","regeneration","shielder",null,null,null]
     },
     {
         "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":20,"baseVillageHealth":20,
@@ -167,7 +156,7 @@
                 "stopTime":null
             }
 
-        ],"banCard":[],"chosenCard":["shoveler","projector","regeneration","shielder","snowman",null]
+        ],"banCard":[],"chosenCard":["shoveler","projector","regeneration","shielder","snowman",null,null]
     },
     {
         "set":{"levelType":"defence","attackTime":200,"baseMonsterHealth":20,"baseVillageHealth":20,
@@ -229,7 +218,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","projector","regeneration","shielder","snowman","assassinFirst"]
+        ],"banCard":[],"chosenCard":["shoveler","projector","regeneration","shielder","snowman","assassinFirst",null]
     },
     {
         "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":20,"baseVillageHealth":20,
@@ -393,7 +382,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","projector","projector","assassinFirst","snowman","flyer"]
+        ],"banCard":[],"chosenCard":["shoveler","projector","projector","assassinFirst","snowman","flyer",null]
     },
     {
         "set":{"levelType":"attack","attackTime":300,"baseMonsterHealth":10,"baseVillageHealth":10,
@@ -484,7 +473,7 @@
                 "stopPos":600,
                 "stopTime":100
             }
-        ],"banCard":[],"chosenCard":["shoveler","projector","projector","assassinFirst","snowman","flyer"]
+        ],"banCard":[],"chosenCard":["shoveler","projector","projector","assassinFirst","snowman","flyer",null]
     },
     {
         "set":{"levelType":"normal","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,
@@ -502,7 +491,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","projector","projector","assassinFirst","snowman","flyer"]
+        ],"banCard":[],"chosenCard":["shoveler","projector","projector","assassinFirst","snowman","flyer",null]
     }
 ]
 

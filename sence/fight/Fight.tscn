@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://bhvrla6g275uy"]
+[gd_scene load_steps=26 format=3 uid="uid://bhvrla6g275uy"]
 
 [ext_resource type="Script" path="res://script/fight/Fight.gd" id="1_0rvy3"]
 [ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="2_1lg06"]
 [ext_resource type="PackedScene" uid="uid://sw52nar1no4d" path="res://sence/fight/object/base.tscn" id="3_jxcqd"]
+[ext_resource type="Texture2D" uid="uid://cbekh4yu0nlxs" path="res://assets/backgrounds/background2.png" id="3_uay2a"]
 [ext_resource type="Texture2D" uid="uid://bt7lrng1cg056" path="res://assets/objects/baseVillage.png" id="4_8miln"]
 [ext_resource type="Texture2D" uid="uid://k5nbp53u574n" path="res://assets/backgrounds/bossSkill.png" id="5_kbbdq"]
 [ext_resource type="PackedScene" uid="uid://cnnifqydayh65" path="res://sence/fight/ui/card.tscn" id="6_4unhj"]
@@ -12,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://btaq2lqnicsn" path="res://assets/UI/button/stop_press.png" id="7_a3cl8"]
 [ext_resource type="Texture2D" uid="uid://dtl35jkpk82ax" path="res://assets/backgrounds/background1Buttom.png" id="8_qc2hl"]
 [ext_resource type="Script" path="res://script/fight/ui/stopButton.gd" id="9_eg3an"]
-[ext_resource type="PackedScene" uid="uid://bkq2jinug2gf7" path="res://sence/fight/ui/stopWindow.tscn" id="10_jfeyj"]
+[ext_resource type="PackedScene" uid="uid://ciqm506lu3wms" path="res://sence/fight/ui/stopWindow.tscn" id="10_jfeyj"]
 [ext_resource type="Texture2D" uid="uid://884vdk7t8cyd" path="res://assets/UI/button/question1.png" id="11_vaqkk"]
 [ext_resource type="PackedScene" uid="uid://8lvpjn1tlm2g" path="res://sence/fight/object/boss.tscn" id="12_jn8mm"]
 [ext_resource type="Texture2D" uid="uid://cu415tn122my8" path="res://assets/UI/button/question2.png" id="12_rrhqo"]
@@ -23,15 +24,23 @@
 [ext_resource type="PackedScene" uid="uid://dy08r7ufu8nvd" path="res://sence/fight/ui/card_text_window.tscn" id="16_4shxp"]
 [ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="16_lc5gi"]
 [ext_resource type="PackedScene" uid="uid://bb5pna2r6mpjo" path="res://sence/fight/ui/monster_show.tscn" id="18_bkios"]
+[ext_resource type="Texture2D" uid="uid://dnxfm7cf0rl4v" path="res://assets/backgrounds/background2Buttom.png" id="21_y5e2h"]
 
 [node name="Fight" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_0rvy3")
 
-[node name="backGround" type="TextureRect" parent="."]
+[node name="backGround1" type="TextureRect" parent="."]
 offset_right = 835.0
 offset_bottom = 450.0
 texture = ExtResource("2_1lg06")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="backGround2" type="TextureRect" parent="."]
+offset_right = 835.0
+offset_bottom = 450.0
+texture = ExtResource("3_uay2a")
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
@@ -176,10 +185,10 @@ script = ExtResource("13_cdhen")
 visible = false
 
 [node name="choiceCard" parent="." instance=ExtResource("6_qxmrc")]
-offset_left = 4.0
-offset_top = 30.0
-offset_right = 4.0
-offset_bottom = 30.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 20.0
 
 [node name="cardTextWindow" parent="." instance=ExtResource("16_4shxp")]
 visible = false
@@ -219,17 +228,23 @@ texture = null
 
 [node name="Up" type="CanvasLayer" parent="."]
 
-[node name="buttom" type="TextureRect" parent="Up"]
+[node name="buttom1" type="TextureRect" parent="Up"]
 offset_top = 312.0
 offset_right = 835.0
 offset_bottom = 450.0
 texture = ExtResource("8_qc2hl")
 
+[node name="buttom2" type="TextureRect" parent="Up"]
+offset_top = 312.0
+offset_right = 836.0
+offset_bottom = 450.0
+texture = ExtResource("21_y5e2h")
+
 [node name="MoneyMessage" type="TextureRect" parent="Up"]
-offset_left = 4.0
-offset_top = 364.0
-offset_right = 94.0
-offset_bottom = 390.0
+offset_left = 8.0
+offset_top = 356.0
+offset_right = 98.0
+offset_bottom = 382.0
 texture = ExtResource("14_8xlki")
 
 [node name="icon" type="TextureRect" parent="Up/MoneyMessage"]
@@ -251,34 +266,32 @@ theme_override_fonts/font = ExtResource("16_lc5gi")
 theme_override_font_sizes/font_size = 16
 text = "10/10"
 
-[node name="LevelMessage" type="HBoxContainer" parent="Up"]
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 126.0
-offset_bottom = 29.0
-theme_override_constants/separation = 4
+[node name="LevelMessage" type="VBoxContainer" parent="Up"]
+offset_left = 8.0
+offset_top = 394.0
+offset_right = 120.0
+offset_bottom = 440.0
+theme_override_constants/separation = 8
 
 [node name="Leveltext" type="Label" parent="Up/LevelMessage"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.666667, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 0.666667, 0, 1)
 theme_override_fonts/font = ExtResource("16_lc5gi")
-theme_override_font_sizes/font_size = 24
-text = "第一关"
+theme_override_font_sizes/font_size = 16
+text = "第1关"
 
 [node name="LevelType" type="Label" parent="Up/LevelMessage"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.666667, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 0.666667, 0, 1)
 theme_override_fonts/font = ExtResource("16_lc5gi")
-theme_override_font_sizes/font_size = 24
-text = "防守"
+theme_override_font_sizes/font_size = 16
+text = "打败苦力怕之王"
 
 [node name="TestTime" type="Label" parent="Up"]
-offset_left = 8.0
-offset_top = 405.0
-offset_right = 47.0
-offset_bottom = 431.0
+offset_left = 751.0
+offset_top = 359.0
+offset_right = 790.0
+offset_bottom = 385.0
 text = "Time"
 
 [node name="TestTimeValue" type="Label" parent="Up/TestTime"]
@@ -290,10 +303,10 @@ offset_bottom = 48.0
 text = "1"
 
 [node name="card" parent="Up" instance=ExtResource("6_4unhj")]
-offset_left = 98.0
-offset_top = 364.0
-offset_right = 98.0
-offset_bottom = 364.0
+offset_left = 130.0
+offset_top = 354.0
+offset_right = 130.0
+offset_bottom = 354.0
 
 [node name="Moneytext" type="Label" parent="Up"]
 process_mode = 1
