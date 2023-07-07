@@ -33,10 +33,6 @@ func _ready():
 	newBox.size = $Sprite2D.texture.get_size()
 	$CollisionShape2D.shape = newBox
 	if camp == Global.MONSTER: $Sprite2D.flip_h = true
-#	if Global.ProPicture[projectile] > 1:
-#		$Sprite2D.hframes = Global.ProPicture[projectile]
-#		$Sprite2D.frame = 0
-#		$animationTimer.start(Global.ProAniTime[projectile])
 	pass
 
 func _process(_delta):
@@ -67,17 +63,6 @@ func aoeCreate():
 	
 func reload(): queue_free()
 
-#func _on_animation_timer_timeout():
-#	frame += 1 
-#	if $Sprite2D.frame != Global.ProPicture[projectile]:  $Sprite2D.frame += 1
-#	if frame == Global.ProPicture[projectile]+1: 
-#		frame = 0
-#		$Sprite2D.frame = 0
-#	pass 
-	
-
-
-	
 
 
 

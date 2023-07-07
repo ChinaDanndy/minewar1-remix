@@ -51,6 +51,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="MainTeach" type="Label" parent="text"]
+visible = false
 layout_mode = 0
 offset_left = 310.0
 offset_top = 71.0
@@ -60,14 +61,21 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_rng1f")
 theme_override_font_sizes/font_size = 0
 text = "查看信息:
-鼠标放置在卡牌上或单位上可以查看该单位的数据和特点介绍
+鼠标放置在卡牌上或单位上可以
+查看该单位的数据和特点介绍
  
 招募单位 :
-左键单位卡牌招募单位,选中建筑和技能卡牌后要在黑色放置区域内放下单位,建筑不能重叠放置,未放置前可以右键已选中的卡牌来取消放置,取消后会返还全部资源
+左键单位卡牌招募单位,选中建
+筑和技能卡牌后要在黑色放置
+区域内放下单位,建筑不能重叠
+放置,未放置前可以右键已选中
+的卡牌来取消放置,取消后会返
+还全部资源
  
 操控单位:
-左键任一士兵选取要操控的该类士兵,按下A,S,D使其后退,停止,前进"
-autowrap_mode = 2
+左键任一士兵选取要操控的该
+类士兵,按下A,S,D使其后退,
+停止,前进"
 
 [node name="MiniGameTeach1" type="Label" parent="text"]
 visible = false
@@ -83,8 +91,8 @@ text = "苦力怕:
 左键点击获得加1分
  
 火药:
-左键点击使所有地洞都冒出苦力怕"
-autowrap_mode = 2
+左键点击使所有地洞都冒出
+苦力怕"
 
 [node name="MiniGameTeach2" type="Label" parent="text"]
 visible = false
@@ -104,7 +112,6 @@ text = "烟花发射器：
  
 僵尸:
 被烟花击中后加5分"
-autowrap_mode = 2
 
 [node name="MiniGameTeach" type="Label" parent="text"]
 visible = false
@@ -116,22 +123,26 @@ offset_bottom = 361.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_rng1f")
 theme_override_font_sizes/font_size = 0
-text = "游戏结束时,若分数超过30分,获得1颗绿宝石
+text = "游戏结束时,若分数超过30分,
+获得1颗绿宝石
 "
-autowrap_mode = 2
 
 [node name="Start" type="Label" parent="text"]
-visible = false
 layout_mode = 0
-offset_left = 310.0
-offset_top = 321.0
-offset_right = 535.0
-offset_bottom = 361.0
+offset_left = 307.0
+offset_top = 77.0
+offset_right = 532.0
+offset_bottom = 117.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_rng1f")
 theme_override_font_sizes/font_size = 0
-text = "开始教程
-"
-autowrap_mode = 3
+text = "截图和游戏存档的文件路径为:
+C:\\Users\\你电脑的用户名\\
+AppData\\Roaming\\
+Godot\\app_userdata\\
+Minewar remix
+ 
+制作人员名单:
+Danndy"
 
 [connection signal="pressed" from="TeachClose" to="." method="_on_teach_close_pressed"]

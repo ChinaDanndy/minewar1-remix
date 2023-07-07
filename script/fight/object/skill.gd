@@ -5,8 +5,7 @@ var thunderAphla = 0
 func firstSetting(soldier):
 	Global.FightSence.reloadSence.connect(reload)
 	super.SetValue(soldier)
-	$Sprite2D.texture = load("res://assets/objects/skill/%s.png"% soldier)
-	#collBox = $Sprite2D.texture.get_size()
+	$Sprite2D.texture = load("res://assets/objects/skill/%s.png"%soldier)
 	name = soldier
 	soldierName[0] = soldier
 	currentState = State.FALL

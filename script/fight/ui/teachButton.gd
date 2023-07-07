@@ -6,7 +6,6 @@ var soundOff1 = load("res://assets/UI/button/sound_close1.png")
 var soundOff2 = load("res://assets/UI/button/sound_close2.png")
 func _process(_delta): $click.volume_db = Global.SeDB
 
-
 func _on_pressed():
 	$click.play()
 	match name:
@@ -29,7 +28,7 @@ func _on_tree_entered():
 			soundChange()
 	pass
 	
-func soundChange():
+func soundChange():#音效按钮固定
 	if sound == true: 
 		self.texture_normal = soundOn1
 		self.texture_pressed = soundOn2

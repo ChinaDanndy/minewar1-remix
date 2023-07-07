@@ -71,10 +71,9 @@ cardType = 4
 
 [node name="buyCancelButton" type="TextureButton" parent="Main"]
 layout_mode = 0
-offset_left = 251.5
-offset_top = -23.0
-offset_right = 271.5
-offset_bottom = -3.0
+offset_left = 255.5
+offset_right = 275.5
+offset_bottom = 20.0
 texture_normal = ExtResource("2_0rodr")
 texture_pressed = ExtResource("3_dp3fp")
 texture_hover = ExtResource("3_dp3fp")

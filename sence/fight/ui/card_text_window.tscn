@@ -82,14 +82,52 @@ theme_override_font_sizes/font_size = 16
 text = "护盾:3
 "
 
-[node name="description" type="Label" parent="CardMessage"]
+[node name="description" type="VBoxContainer" parent="CardMessage"]
+layout_mode = 0
+offset_left = 122.5
+offset_top = 6.0
+offset_right = 162.5
+offset_bottom = 130.0
+theme_override_constants/separation = 1
+
+[node name="Label1" type="Label" parent="CardMessage/description"]
 layout_mode = 2
-offset_left = 124.0
-offset_top = 8.0
-offset_right = 264.0
-offset_bottom = 122.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_7p8sy")
 theme_override_font_sizes/font_size = 0
-text = "有护盾时免疫所有伤害,击杀护法能使护盾失效一会并暂停法阵充能,法阵充能完毕后城堡会被终极闪电摧毁"
-autowrap_mode = 2
+text = "你好"
+
+[node name="Label2" type="Label" parent="CardMessage/description"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7p8sy")
+theme_override_font_sizes/font_size = 0
+text = "你好"
+
+[node name="Label3" type="Label" parent="CardMessage/description"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7p8sy")
+theme_override_font_sizes/font_size = 0
+text = "你好"
+
+[node name="Label4" type="Label" parent="CardMessage/description"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7p8sy")
+theme_override_font_sizes/font_size = 0
+text = "你好"
+
+[node name="Label5" type="Label" parent="CardMessage/description"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7p8sy")
+theme_override_font_sizes/font_size = 0
+text = "你好"
+
+[node name="Label6" type="Label" parent="CardMessage/description"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7p8sy")
+theme_override_font_sizes/font_size = 0
+text = "你好"

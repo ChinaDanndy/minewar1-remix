@@ -50,10 +50,10 @@ layout_mode = 2
 texture_normal = ExtResource("4_p1gn8")
 
 [node name="miniGameCancelButton" type="TextureButton" parent="."]
-offset_left = 546.0
-offset_top = 119.0
-offset_right = 566.0
-offset_bottom = 139.0
+offset_left = 550.0
+offset_top = 142.0
+offset_right = 570.0
+offset_bottom = 162.0
 texture_normal = ExtResource("3_7ycmw")
 texture_pressed = ExtResource("4_vn6f5")
 texture_hover = ExtResource("4_vn6f5")

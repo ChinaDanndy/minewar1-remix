@@ -7,10 +7,10 @@ var Name
 var speed
 var die = Vector2(1,1)
 var speRand = Global.LevelData[0]["miniGame2"]["mobSpeed"]["rand"]
-#const rightLeft 
 
 func _ready():
-	speed = Global.LevelData[0]["miniGame2"]["mobSpeed"][Name]+randf_range(-speRand,speRand)
+	speed = Global.LevelData[0]["miniGame2"]["mobSpeed"][Name]+randf_range(
+		-speRand,speRand)
 	match rightLeft:
 		0: #right
 			position.x = -40
@@ -23,7 +23,7 @@ func _ready():
 	position.y = Global.MiniGame2PosY[randPos]
 	pass
 	
-func _process(_delta):
+func _process(_delta):#超出位置自杀
 	position += speed*dic*pos[randPos]*die
 	match rightLeft:
 		0: if position.x >= 835+40: free()
@@ -34,7 +34,6 @@ func death():
 	die = Vector2(0,0)
 	$AnimatedSprite2D.play("death")
 	await get_tree().create_timer(0.3,false).timeout
-	
 	queue_free()
 	pass
 

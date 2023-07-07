@@ -74,28 +74,6 @@ one_shot = true
 [node name="Moneytimer" type="Timer" parent="Timer"]
 wait_time = 0.5
 
-[node name="Timer" type="Timer" parent="Timer"]
-
-[node name="attackTimer" type="Timer" parent="Timer"]
-
-[node name="Spacetext" type="Label" parent="."]
-visible = false
-offset_left = 11.0
-offset_top = 388.0
-offset_right = 57.0
-offset_bottom = 414.0
-text = "Space"
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
-
-[node name="Spacecount" type="Label" parent="Spacetext"]
-layout_mode = 0
-offset_left = -1.0
-offset_top = 22.0
-offset_right = 39.0
-offset_bottom = 48.0
-text = "1"
-
 [node name="position" type="Node2D" parent="."]
 
 [node name="MonsterPoint" type="Marker2D" parent="position"]
@@ -118,14 +96,11 @@ position = Vector2(0, 314)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="bossStop" type="Marker2D" parent="position"]
-visible = false
-position = Vector2(540, 298)
-gizmo_extents = 40.0
-
 [node name="bossPos" type="Marker2D" parent="position"]
 position = Vector2(560, 302)
 gizmo_extents = 40.0
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="towerArea" type="ColorRect" parent="."]
 offset_left = 170.0
@@ -311,27 +286,8 @@ text = "Money"
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="AttackTime" type="Label" parent="Up"]
-visible = false
-offset_left = 11.0
-offset_top = 320.0
-offset_right = 54.0
-offset_bottom = 346.0
-text = "DTime:"
-metadata/_edit_lock_ = true
-metadata/_edit_group_ = true
-
-[node name="AttackTimeValue" type="Label" parent="Up/AttackTime"]
-layout_mode = 0
-offset_left = 80.0
-offset_right = 120.0
-offset_bottom = 26.0
-text = "1
-"
-
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="timeout" from="Timer/ThunderTimer" to="." method="_on_thundertimer_timeout"]
 [connection signal="timeout" from="Timer/CaveTimer" to="." method="_on_cave_timer_timeout"]
 [connection signal="timeout" from="Timer/Moneytimer" to="." method="_on_moneytimer_timeout"]
-[connection signal="timeout" from="Timer/attackTimer" to="." method="_on_attack_timer_timeout"]

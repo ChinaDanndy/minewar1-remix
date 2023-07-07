@@ -1,5 +1,7 @@
 extends CanvasLayer
 var Mode
+var soundOnce = true
+
 func _process(_delta): 
 	$click.volume_db = Global.SeDB
 	$lose.volume_db = Global.SeDB
@@ -12,20 +14,21 @@ func text(mode):
 	match mode:
 		"stop": $Control/Title.text = "暂停"
 		"win": 
-			$win.play()
+			if soundOnce == true: $win.play()
 			$Control/Title.text = "胜利"
 			if get_parent().name == "Fight"&&Global.NowLevel == Global.Level:
 				if Global.Level<=6: $Control/card.visible = true
 				if Global.Level<7: addPoint()
 			if get_parent().name == "MiniGame": addPoint()
 		"lose": 
-			$lose.play()
+			if soundOnce == true: $lose.play()
 			$Control/Title.text = "失败"
 			$Control/HBoxContainer/Button2.visible = false
 	if get_parent().name == "MiniGame":
 		match Mode:
 			"win","lose": $Control/HBoxContainer/Button2.visible = false
 	Global.StopWindow.visible = true
+	soundOnce = false
 	pass
 	
 func addPoint():

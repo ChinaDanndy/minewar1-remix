@@ -159,17 +159,18 @@ func _process(_delta):#每帧执行的部分
 
 	for i in souEff: 
 		if souEff[i] != null: souEff[i].set_volume_db(Global.SeDB)#时刻保持音量与全局音量一致
-#	if kind == "land": for i in stepSe: i.set_volume_db(Global.SeDB/4)
+
 	#基础数据实时更改/前是负属性后是正属性
-	for i in 2:#攻击和攻击距离有两套随攻击使用的不同
-		damage[i] = (damageBasic[i]+(damageBasic[i]*(nowEffect[Global.Effect.ATTDAMAGE]
-		+nowEffect[Global.Effect.ATTDAMAGE+Global.EffGood])))
+	if type == "soldier":
+		for i in 2:#攻击和攻击距离有两套随攻击使用的不同
+			damage[i] = (damageBasic[i]+(damageBasic[i]*(nowEffect[Global.Effect.ATTDAMAGE]
+			+nowEffect[Global.Effect.ATTDAMAGE+Global.EffGood])))
 		
-		attRange[i] = attRangeBasic[i]+(attRangeBasic[i]*(nowEffect[Global.Effect.ATTRANGE]
-		+nowEffect[Global.Effect.ATTRANGE+Global.EffGood]))
+			attRange[i] = attRangeBasic[i]+(attRangeBasic[i]*(nowEffect[Global.Effect.ATTRANGE]
+			+nowEffect[Global.Effect.ATTRANGE+Global.EffGood]))
 		
-	speed = (speedBasic+(speedBasic*(nowEffect[Global.Effect.SPEED]
-	+nowEffect[Global.Effect.SPEED+Global.EffGood])))*nowEffect[Global.Effect.FREEZE]
+		speed = (speedBasic+(speedBasic*(nowEffect[Global.Effect.SPEED]
+		+nowEffect[Global.Effect.SPEED+Global.EffGood])))*nowEffect[Global.Effect.FREEZE]
 	
 	#aniSpeed = (aniSpeedBasic+(aniSpeedBasic*(nowEffect[Global.Effect.SPEED]
 	#+nowEffect[Global.Effect.SPEED+Global.EffGood])))*nowEffect[Global.Effect.FREEZE]
@@ -180,12 +181,12 @@ func _process(_delta):#每帧执行的部分
 	$AnimatedSprite2D.speed_scale = aniSpeedBasic
 	
 	if health <= 0&&currentState != State.DEATH: #死亡判定
-		#&&currentState != State.FALL
 		firstDeathSet()
+		#&&currentState != State.FALL
 		#if animation.has("deathFall"): changeState("deathFall",State.FALL)
 	else: testchangeState()#状态切换检测
 	if Input.is_action_just_pressed("ui_select"):#测试用
-		if camp == Global.MONSTER:
+		#if camp == Global.MONSTER:
 			#print(speedEffect)
 			pass
 	pass
@@ -237,22 +238,7 @@ func hurt():
 	pass
 	
 func changeState(AniName,StaName):#入海出海的动作图片在每个动画的前面放
-#	if kind == "sea":
-#		seaAni = AniName
-#		seaState = StaName
-#		if (StaName == State.ATTACK&&currentState == State.PUSH):#海军出海
-#			collision_layer = Global.LAyer[camp+1][0]#出海后不再入海
-#			StaName = State.OUTSEA
-#			AniName = "seaOut"
-#			$Collision1.collide_with_areas = false
 	match StaName:
-#		State.DEATH:#最优先状态
-#			firstDeathSet()
-#			finalDeathSet()
-			#aniSpeedBasic = 1
-			#collision_layer = 0#不再能互动
-			#changeTime = 0.6#标准死亡等待消失时间(总共0.6s)
-		#State.ATTACK:if currentState == State.PUSH||currentState == State.STOP:pass
 		State.STOP:#攻击时候停止是在攻击完后保持静止
 			if currentState != State.DEATH: 
 				standardState = State.STOP
@@ -284,14 +270,11 @@ func changeAnimation(AniName,StaName):
 
 func _on_animated_sprite_2d_frame_changed():
 	$cover.texture = spirte.get_frame_texture(currentAni,$AnimatedSprite2D.frame)
-	#$outLine.texture = spirte.get_frame_texture(currentAni,$AnimatedSprite2D.frame)
 	if $AnimatedSprite2D.frame == animation[$AnimatedSprite2D.animation]-1:
 		match currentState:
 			State.PUSH,State.BACK:
 				if souEff["walk"] != null: souEff["walk"].playing = true
 				if particles["walk"] != null: particles["walk"].emitting = true
-#				var stepRand = randf_range(0,3)
-#				stepSe[stepRand].playing = true
 		match currentState:
 			State.ATTACK: 
 				if is_instance_valid(other) == true: 
@@ -311,11 +294,6 @@ func _on_animated_sprite_2d_frame_changed():
 							if proTimes == proContinueTimes:
 								await get_tree().create_timer(proSleepTime,false).timeout
 								proTimes = 0
-			#State.DEATH:
-#		if currentState == State.OUTSEA: 
-#			changeState(seaAni,seaState)
-#			$Collision1.collide_with_areas = true
-#			kind = "land"
 	pass
 
 func attack():
@@ -407,9 +385,9 @@ func effectTimer(effName,effKeepTime,effKeepTimes,effDam,GoodOrBad):
 		$Collision2.collide_with_areas = false
 		$AnimatedSprite2D.material = null
 		$AnimatedSprite2D.pause()
-	#if effKeepTime!=null: 
 	var effTimer = Timer.new()
-	effTimer.timeout.connect(effectTimerTimeout.bind(effName,effKeepTimes,effDam,GoodOrBad))
+	effTimer.timeout.connect(effectTimerTimeout.bind(
+		effName,effKeepTimes,effDam,GoodOrBad))
 	effTimer.one_shot = true
 	if effKeepTimes != null: effTimer.one_shot = false
 	add_child(effTimer)

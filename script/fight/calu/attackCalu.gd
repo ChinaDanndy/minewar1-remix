@@ -70,7 +70,14 @@ func effectAttackCalu(damager):
 							damager.health += effValue[Global.DamValue.DAMAGE]*giveEffect[i]
 						else: damager.health = damager.healthUp
 
-					Global.Effect.KNOCK: damager.position.x += effValue[Global.DamValue.KNOCK]*damager.camp*giveEffect[i]
+					Global.Effect.KNOCK:
+#						if damager.camp == Global.MONSTER&&abs(
+#							damager.position.x-Global.MonsterPoint.x<
+#							effValue[Global.DamValue.KNOCK]):#防止怪物给打飞出去
+#							damager.position.x = Global.MonsterPoint.x
+#						else:
+							damager.position.x += (effValue[Global.DamValue.KNOCK]
+							*damager.camp*giveEffect[i])
 	queue_free()
 	pass
 	

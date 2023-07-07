@@ -83,10 +83,10 @@ texture_normal = ExtResource("3_qxdje")
 
 [node name="levelCancelButton" type="TextureButton" parent="MainMove"]
 layout_mode = 2
-offset_left = 400.0
-offset_top = -10.0
-offset_right = 420.0
-offset_bottom = 10.0
+offset_left = 392.0
+offset_top = 20.0
+offset_right = 412.0
+offset_bottom = 40.0
 texture_normal = ExtResource("3_w51yo")
 texture_pressed = ExtResource("4_pk3dp")
 texture_hover = ExtResource("4_pk3dp")

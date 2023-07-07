@@ -25,7 +25,6 @@ func _ready():
 
 func _process(_delta):
 	$se/gold.volume_db = Global.SeDB
-	$se/cave.volume_db = Global.SeDB
 #	if unPeopleFly == true:
 #		position.y -= 2
 	if position.y <= Global.FightGroundY-(collBox.y/2)&&dropSpeed != null:
@@ -34,16 +33,15 @@ func _process(_delta):
 		position.y = Global.FightGroundY-(collBox.y/2)
 		if soldierName[0] == "projector": $Collision1.collide_with_areas = true
 		if soldierName[0] == "golder"||soldierName[0] == "cave": 
-			$SkillTimer.start(speedBasic)
-			if soldierName[0] == "cave": _on_skill_timer_timeout()
+			$SkillTimer.start(speed)
+#			if soldierName[0] == "cave": _on_skill_timer_timeout()
 		if towKeepTime != null: $DeathTimer.start(towKeepTime)
 	#currentAni = "attack"
-
 	if health <= 0:
 		$SkillTimer.stop()
 		$particles/gold.visible = false
 		$goldplayer.stop()
-		$particles/cave.emitting = false
+#		$particles/cave.emitting = false
 #			if !giveEffect[ani["usual"]].is_empty():
 #				var usual = 1
 #				Global.aoe_create(self,Global.CREATE,aoeModel[usual],aoeRange[usual],ifAoeHold[usual],
@@ -54,21 +52,21 @@ pass
 
 func _on_skill_timer_timeout():
 	if soldierName[0] == "golder": 
-		if Global.NowMoney+damageBasic[0] <= Global.Money: 
-			Global.NowMoney += damageBasic[0]
+		if Global.NowMoney+damage <= Global.Money: 
+			Global.NowMoney += damage
 		else: Global.NowMoney = Global.Money
 		if Global.NowMoney != Global.Money:
 			goldShow()
 			$se/gold.play()
 	#蜘蛛笼
-	if soldierName[0] == "cave":  
-		var enemy = Global.Soldier.instantiate()
-		enemy.camp = Global.MONSTER
-		enemy.firstSetting(projectile[0])
-		enemy.position.x = global_position.x
-		Global.root.add_child(enemy)
-		$particles/cave.emitting = true
-		$se/cave.play()
+#	if soldierName[0] == "cave":  
+#		var enemy = Global.Soldier.instantiate()
+#		enemy.camp = Global.MONSTER
+#		enemy.firstSetting(projectile[0])
+#		enemy.position.x = global_position.x
+#		Global.root.add_child(enemy)
+#		$particles/cave.emitting = true
+#		$se/cave.play()
 	$SkillTimer.start(speed)
 	pass 
 	

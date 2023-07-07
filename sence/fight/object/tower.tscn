@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://detljadg4j24r"]
+[gd_scene load_steps=12 format=3 uid="uid://detljadg4j24r"]
 
 [ext_resource type="PackedScene" uid="uid://cakdgdywehft0" path="res://sence/fight/object.tscn" id="1_6kuqs"]
 [ext_resource type="Script" path="res://script/fight/object/tower.gd" id="2_3fwhs"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="5_wvwqd"]
 [ext_resource type="Texture2D" uid="uid://cdg604pchqdry" path="res://assets/objects/tower/gold_ingot.png" id="6_22suy"]
 [ext_resource type="Texture2D" uid="uid://upiksuc8ef6w" path="res://assets/particles/flame.png" id="6_bls75"]
+[ext_resource type="AudioStream" uid="uid://cw0yg4s3y7uyg" path="res://assets/music/se/other/up.ogg" id="8_mlsat"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0m7md"]
 resource_local_to_scene = true
@@ -151,8 +152,7 @@ texture = ExtResource("6_22suy")
 stream = ExtResource("3_ecexi")
 
 [node name="gold" type="AudioStreamPlayer" parent="se" index="1"]
-
-[node name="cave" type="AudioStreamPlayer" parent="se" index="2"]
+stream = ExtResource("8_mlsat")
 
 [node name="goldplayer" type="AnimationPlayer" parent="." index="11"]
 libraries = {

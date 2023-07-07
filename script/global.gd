@@ -130,12 +130,6 @@ var SoldierOutLine = preload("res://rescourse/soldierOutLine.tres")
 var Soldier = preload("res://sence/fight/object/soldier.tscn")
 var Tower = preload("res://sence/fight/object/tower.tscn")
 var Skill = preload("res://sence/fight/object/skill.tscn")
-#var ButtonOutLine = preload("res://rescourse/buttonOutLine.tres")
-#var CardOutLine = preload("res://rescourse/cardOutLine.tres")
-#var VillageSoldier = preload("res://sence/fight/object/soldier/villageSoldier.tscn")
-#var MonsterSoldier = preload("res://sence/fight/object/soldier/monsterSoldier.tscn")
-#var ParSence:Dictionary
-#= preload("res://sence/particles/hurtRed.tscn")
 
 var STSData:Dictionary
 enum STSType {INT,ARRAY}
@@ -154,27 +148,25 @@ var Level = 1
 var Teach = 0
 
 var SeDB = 1.0
-var BgmDB = 1.0
 var ThunderSpeed
 var Money = 10
 var NowMoney = 0
-var CardUp = 7
+var CardUp = 0
 
 var LevelData
 var NowLevel = 1
 var LevelOver = false
 func _ready():#读入数据
-	if FileAccess.file_exists("user://playerData.json"):
-		var json = JSON.new()
-		var loadData = FileAccess.open("user://playerData.json",FileAccess.READ)
-		var waitJson = loadData.get_as_text()
-		json.parse(waitJson)
-		Point = json.data["Point"]
-		Brought = json.data["Brought"]
-		Level = json.data["Level"]
-		Teach = json.data["Teach"]
-		loadData = null
-	#print(get_files_at)
+#	if FileAccess.file_exists("user://playerData.json"):
+#		var _json = JSON.new()
+#		var loadData = FileAccess.open("user://playerData.json",FileAccess.READ)
+#		var waitJson = loadData.get_as_text()
+#		_json.parse(waitJson)
+#		Point = _json.data["Point"]
+#		Brought = _json.data["Brought"]
+#		Level = _json.data["Level"]
+#		Teach = _json.data["Teach"]
+#		loadData = null
 	root.close_requested.connect(closeWindow)
 
 	var file = FileAccess.open("res://data/object.json", FileAccess.READ)#user:
@@ -182,18 +174,7 @@ func _ready():#读入数据
 	var jsonValue = JSON.new()
 	jsonValue.parse(content)
 	Global.STSData = jsonValue.data
-	#var arrayLength
-
 	for STSName in jsonValue.data:#把所有数值变成int,数组要挨个把里面的值重新读
-#		for STSDatename in STSData[STSName]:
-#			if STSDataName.has(STSDatename):
-#				match STSDataName[STSDatename]:
-#					STSType.INT: 
-#						STSData[STSName][STSDatename] = int(jsonValue.data[STSName][STSDatename])
-#					Global.STSType.ARRAY: 
-#						arrayLength = Global.STSData[STSName][STSDatename].size()
-#						for i in arrayLength:
-#							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
 		if STSData[STSName].has("type"):
 			var pictureGet#提前根据图片得到单位碰撞箱尺寸
 			match STSData[STSName]["type"]:
@@ -213,7 +194,7 @@ func _ready():#读入数据
 
 func closeWindow():#存储数据
 	var saveJson = {"Point":Point,"Brought":Brought,"Level":Level,"Teach":Teach}
-	var json = JSON.new()
+	var _json = JSON.new()
 	var save = FileAccess.open("user://playerData.json",FileAccess.WRITE)
 	save.store_string(JSON.stringify(saveJson))
 	save = null
@@ -222,8 +203,8 @@ func closeWindow():#存储数据
 func _process(_delta):
 	if Input.is_action_just_pressed("screenShoot"):
 		var nowTime = Time.get_datetime_dict_from_system()
-		get_viewport().get_texture().get_image().save_png("user://screenshot/
-		%sY%sM%sD%sH%sM%sS.png"%[nowTime["year"],nowTime["month"],nowTime["day"],
+		get_viewport().get_texture().get_image().save_png("user://%sY%sM%sD%sH%sM%sS.png"
+		%[nowTime["year"],nowTime["month"],nowTime["day"],
 		nowTime["hour"],nowTime["minute"],nowTime["second"],])#截图
 		pass
 	pass

@@ -451,7 +451,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","golder","projector","regeneration","power","flyer",null]
+        ],"banCard":[],"chosenCard":[]
     },
     {
         "set":{"levelType":"normal","attackTime":12,"baseMonsterHealth":10,"baseVillageHealth":10,

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://script/miniGame/firework_table.gd" id="1_1dffq"]
 [ext_resource type="Texture2D" uid="uid://dsn4qp6w8wbph" path="res://assets/miniGame/game2/fireworker/firework1.png" id="1_i16fk"]
 [ext_resource type="Texture2D" uid="uid://dr3hmn4s7nlfy" path="res://assets/miniGame/game2/fireworker/firework2.png" id="2_3x5ry"]
-[ext_resource type="AudioStream" uid="uid://yq7wa6ljc68s" path="res://assets/music/se/miniGame/launch.ogg" id="4_bsesn"]
+[ext_resource type="AudioStream" uid="uid://yq7wa6ljc68s" path="res://assets/music/se/other/launch.ogg" id="4_bsesn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d8oxy"]
 size = Vector2(36, 24)
@@ -24,10 +24,7 @@ shape = SubResource("RectangleShape2D_d8oxy")
 visible = false
 texture = ExtResource("2_3x5ry")
 
-[node name="reloadTimer" type="Timer" parent="."]
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_bsesn")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
-[connection signal="timeout" from="reloadTimer" to="." method="_on_reload_timer_timeout"]

@@ -30,7 +30,7 @@ func _ready():
 	firstTime = Global.LevelData[0][game]["firstTime"]
 	lastTime = keepTime-firstTime-Global.LevelData[0][game]["lastTime"]
 	GameStart.connect(start)
-	#await get_tree().create_timer(0.5,false).timeout#开始延迟
+	#await get_tree().create_timer(0.2,false).timeout#开始延迟
 	emit_signal("GameStart")
 	pass
 
@@ -85,9 +85,6 @@ func _on_tree_entered():
 	Global.MiniGameScore = 0
 	for i in 4:
 		Global.MiniGame2PosY.append(get_node("game2/mobPoint%s"%(i+1)).position.y)
-#	Global.MiniGame2Pos1Y = $game2/mobPoint1.position.y
-#	Global.MiniGame2Pos2Y = $game2/mobPoint2.position.y
-#	Global.MiniGame2Pos3Y = $game2/mobPoint3.position.y
 	keepTime = 30
 	pass
 

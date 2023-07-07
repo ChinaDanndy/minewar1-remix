@@ -7,27 +7,28 @@ func _ready():
 	$text/MiniGameTeach2.visible = false
 	$text/Start.visible = false
 	match get_parent().name:
+		"Start": 
+			if Global.Teach == 0: teach()
+			$text/Start.visible = true
 		"Fight":
-			if Global.Level ==1&&Global.Teach == 0: teach()
+			if Global.Level ==1&&Global.Teach == 1: teach()
 			$text/MainTeach.visible = true
 		"MiniGame":
 			$text/MiniGameTeach.visible = true
-			if Global.MiniGame == 1: 
+			if Global.MiniGame == 2: 
 				if Global.Teach == 1: teach()
 				$text/MiniGameTeach1.visible = true
 			if Global.MiniGame == 2: 
-				if Global.Teach == 2: teach()
+				if Global.Teach == 3: teach()
 				$text/MiniGameTeach2.visible = true
-		"Start": $text/Start.visible = true
 	pass
 	
-func teach():
+func teach():#第一次弹出提示框
 	visible = true
 	Global.Teach += 1
 	pass
 	
 func _process(_delta): $click.volume_db = Global.SeDB
-
 func _on_teach_close_pressed():
 	$click.play()
 	get_tree().paused = false

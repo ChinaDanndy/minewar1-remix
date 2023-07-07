@@ -19,44 +19,31 @@ func _ready():
 	collision_mask = Global.MAsk[Mod[aoeModel]][0]
 	var newRange = RectangleShape2D.new()#AOE范围
 	newRange.size = Vector2(aoeRange,20)
-#	if damagerType[0] == "regenerationDo":#防御塔不能回血
-#		collision_mask = Global.MAsk[Mod[aoeModel]][3]
 	match damagerType[0]:
-		"regeneration","power","weakness","tnt","ice","regenerationDo":
-			collision_mask = Global.MAsk[Mod[aoeModel]][3]
+		"regeneration","power","weakness","ice","regenerationDo":#
+			collision_mask = Global.MAsk[Mod[aoeModel]][3]#药水碎了的声音
 			if damagerType[0] != "regenerationDo":
 				$se/broke.volume_db = Global.SeDB
 				$se/broke.play()
-		"fireBall","fireBallDown":
+		"fireBall","fireBallDown":#爆炸声音
 			$se/explode.volume_db = Global.SeDB
 			$se/explode.play()
 	match damagerType[0]:
 		"fireBall","fireBallDown": $particles/fireballExplode.emitting = true
-	match damagerType[0]:
+	match damagerType[0]:#粒子
 		"regeneration": $particles/regeneration.emitting = true
 		"power":  $particles/power.emitting = true
 		"weakness":  $particles/weakness.emitting = true
 		"ice": $particles/ice.emitting = true
 		"tnt": 
-			collision_mask = Global.MAsk[Mod[aoeModel]][0]
+			$se/broke.volume_db = Global.SeDB
+			$se/broke.play()
 			$particles/tntExplode.emitting = true
 		"thunder": 
 			newRange.size.y = Global.STSData["thunder"]["collBox"].y
 			$se/thunder.volume_db = Global.SeDB
 			$se/thunder.play()
 		"crpeerKingExplode": newRange.size.y = 600 
-
-#	match projectile:
-#		"fireBall","fireBallDown":
-#			$particles/fireballExplode.emitting = true
-#			$se/fireballExplode.play()
-#	if projectile == "tnt":
-#		$particles/tntExplode.emitting = true
-#		$se/tntExplode.play()
-##			"skill": newRange.size = Vector2(aoeRange,Global.SkillAOERangeY)#换范围
-#			"thunderBoss": 
-#				var thunder = load("res://assets/objects/skill/thunderBoss.png")
-#				newRange.size = thunder.get_size()
 	$CollisionShape2D.shape = newRange
 	if ifAoeHold == true: 
 		if damage != null:#单位攻击有范围持续的效果先判定一次攻击伤害
@@ -64,7 +51,6 @@ func _ready():
 			giveEffect,effValue,effTime,effTimes)
 		if giveEffect[Global.Effect.DAMAGE] != Global.OFFEFFECT:#平常情况下的伤害类型范围持续效果
 			$holdTimer.start(effTime[Global.Effect.DAMAGE])
-			#$deathTimer.start(effTime[Global.Effect.DAMAGE]*effTimes[Global.DamValue.DAMAGE])
 		await get_tree().create_timer(effTime[Global.Effect.DAMAGE]*effTimes[Global.DamValue.DAMAGE],false).timeout
 		queue_free()
 	else:

@@ -1,5 +1,4 @@
 extends TextureButton
-
 func _process(_delta): $click.volume_db = Global.SeDB
 
 func _ready():
@@ -10,7 +9,7 @@ func _ready():
 		"BuyCardButton": $text.text = "打开商店"
 		"BookButton": $text.text = "打开图鉴"
 		"MiniGameButton": $text.text = "玩小游戏"
-	await  get_tree().create_timer(0.2,false).timeout
+	await get_tree().create_timer(0.2,false).timeout
 	material = null
 	pass
 
@@ -20,5 +19,4 @@ func _on_pressed():
 		"LevelChoiceButton": Global.LevelChoiceWindow.visible = true
 		"BuyCardButton": Global.BuyCardWindow.visible = true
 		"MiniGameButton": Global.MiniGameWindow.visible = true
-	material = null
 	pass 

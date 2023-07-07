@@ -131,7 +131,7 @@ func SummonEnemy():
 	
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
-		#Global.MonsterBase.health = 0
+		Global.MonsterBase.health = 0
 		pass
 	
 	$Up/MoneyMessage/Moneycount.text = ("%s/%s"%[Global.NowMoney,Global.Money])
@@ -146,11 +146,9 @@ func _process(_delta):
 	iceTimeRand = Global.LevelData[Global.NowLevel]["set"]["iceTimeRand"]
 	
 	if Global.VillageBase.health <= 0: 
-		Global.VillageBase.health = 1
 		await get_tree().create_timer(0.8).timeout
 		Global.StopWindow.text("lose")
 	if Global.MonsterBase.health <= 0: 
-		Global.MonsterBase.health = 1
 		await get_tree().create_timer(0.8).timeout
 		Global.StopWindow.text("win")
 #	if bossLv > 0:
@@ -227,7 +225,6 @@ func _on_tree_entered():
 	Global.BossSkill = $bossSkill
 	Global.BossSkill.position.y = Global.FightSkyY
 	Global.BossSkill.frame = 0
-	#Global.BossStopX = $position/bossStop.position.x
 	Global.BossPosX = $position/bossPos.position.x
 	
 	Global.towerArea = $towerArea
@@ -237,8 +234,6 @@ func _on_tree_entered():
 	Global.StopON = false
 	
 	$Up/MoneyMessage.visible = false
-	$Spacetext.visible = false
-	$Up/AttackTime.visible = false
 	$bossProtect.visible = false
 	$Boss.visible = false
 	$bossSkill.visible = false

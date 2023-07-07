@@ -1,5 +1,4 @@
 extends Area2D
-#var AOE = preload("res://sence/miniGame/mini_game_aoe.tscn")
 var speed = Global.LevelData[0]["miniGame2"]["fireworkSpeed"]
 var stop = 1
 func _ready(): $tail.emitting = true

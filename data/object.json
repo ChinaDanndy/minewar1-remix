@@ -43,7 +43,7 @@
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[true,false,false]],
         "objectName":"盾牌兵",
-        "description":"有3点护盾,有护盾时免疫远程伤害,盾牌损坏时不会受到额外伤害"
+        "description":"有3点护盾,有护/盾时免疫远程伤害,/盾牌损坏时不会受/到额外伤害"
     }, 
     "shielderNo":
     {
@@ -78,7 +78,7 @@
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[false,true,false]],
         "objectName":"雪傀儡",
-        "description":"投掷雪球使被击中的敌方单位速度减少50%"
+        "description":"投掷雪球使被击中/的敌方单位速度减/少50%"
     },
     "assassinFirst":{
         "health":3,
@@ -102,7 +102,7 @@
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[true,false,false]],
         "objectName":"刺客",
-        "description":"开始时冲向敌方单位且首次攻击会对附近敌方单位造成5点伤害,移动时不会被敌方单位攻击但无法被操控"
+        "description":"开始时冲向敌方单/位且首次攻击会对/附近敌方单位造成/5点伤害,移动时/不会被敌方单位攻/击但无法被操控"
     },
     "assassin":{
         "speedBasic":1.2,
@@ -127,8 +127,8 @@
         "proPos":[10,0,4,17],
         "proDir":[1,0,0,1],
 
-        "price":1,
-        "cd":1,
+        "price":4,
+        "cd":6,
         "kind":"sky",
         "collBoxCut":20,
         "collBoxPro":6,
@@ -139,7 +139,7 @@
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[false,true,false],[false,true,false]],
         "objectName":"鞘翅弓箭手",
-        "description":"发射箭矢攻击敌方空中单位,投掷药水攻击敌方范围内地面单位,可以同时攻击敌方空中和地面单位"
+        "description":"发射箭矢攻击敌方/空中单位,投掷药/水攻击敌方范围内/地面单位,可以同/时攻击敌方空中和/地面单位"
     },
     "iron":
     {
@@ -185,7 +185,7 @@
         "particlesValue":{"hurt":"hurtWhite","death":"towerDeath"},
         "attackType":[[false,true,false]],
         "objectName":"发射器",
-        "description":"每隔2秒连续发射3发箭矢,存在10秒"
+        "description":"每隔2秒连续发射/3发箭矢,存在10/秒"
     },
     "golder":{
         "health":5,
@@ -196,12 +196,12 @@
         "animation":{"attack":1,"stop":1,"death":1},
         "souEffValue":{"hurt":"wood1","death":"towerDeath"},
         "particlesValue":{"hurt":"hurtWhite","death":"towerDeath"},
-        "speedBasic":2,
-        "damageBasic":[1,0,0],
+        "speed":2,
+        "damage":1,
         "towKeepTime":20,
         "dropSpeed":-6,
         "objectName":"熔炉",
-        "description":"每隔2秒获得1点资源,存在20秒"
+        "description":"每隔2秒获得1点/资源,存在20秒"
     },
     "regeneration":{
         "price":2,
@@ -216,7 +216,7 @@
         "dropSpeed":30,
         "type":"skill",
         "objectName":"滞留型恢复药水",
-        "description":"每隔1秒恢复范围内我方地面单位1点血量,存在5秒"
+        "description":"每隔1秒恢复范围/内我方地面单位1/点血量,存在5秒"
     },
     "power":{
         "price":3,
@@ -230,7 +230,7 @@
         "dropSpeed":30,
         "type":"skill",
         "objectName":"喷溅型力量药水",
-        "description":"范围内我方单位伤害和速度提升50%"
+        "description":"范围内我方单位伤/害和速度提升50%"
     },
     "zombie":{
         "health":3,
@@ -262,7 +262,7 @@
         "particlesValue":{"hurt":"hurtRed","attack":"smallExplode"},
         "attackType":[[false,false,true],[],[]],
         "objectName":"苦力怕",
-        "description":"靠近我方单位时自爆,附近双方单位都会受到爆炸伤害"
+        "description":"靠近我方单位时自/爆,附近双方单位/都会受到爆炸伤害"
     },
     "axer":{
         "health":5,
@@ -299,7 +299,7 @@
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[false,true,false],[false,true,false]],
         "objectName":"骷髅",
-        "description":"发射箭矢分别攻击我方地面和空中单位，优先攻击地面单位"
+        "description":"发射箭矢分别攻击/我方地面和空中单/位,优先攻击地面/单位"
     },
     "spider":{
         "health":2,
@@ -314,7 +314,7 @@
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[true,false,false]],
         "objectName":"蜘蛛",
-        "description":"首次次碰到我方单位时会向前瞬移",
+        "description":"首次碰到我方单位/时会向前瞬移",
 
         "healthEffValue":3
     },
@@ -341,7 +341,7 @@
         "attackType":[[false,true,false]],
         "damagerType":[["weakness"]],
         "objectName":"女巫",
-        "description":"投掷药水使范围内的我方单位伤害降低50%,每隔4秒恢复附近敌方单位1点血量"
+        "description":"投掷药水使范围内/的我方单位伤害降/低50%,每隔4秒/恢复附近敌方单位/1点血量"
     },
     "ghost":{
         "health":6,
@@ -367,7 +367,7 @@
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[false,true,false],[false,true,false]],
         "objectName":"恶魂",
-        "description":"发射火焰弹分别攻击我方地面和空中范围内单位,优先攻击空中单位"
+        "description":"发射火焰弹分别攻/击我方地面和空中/范围内单位,优先/攻击空中单位"
     },
     "creeperThunder":{
         "health":6,
@@ -384,7 +384,7 @@
         "souEffValue":{"hurt":"hurt1","attack":"explode1","death":"explode1"},
         "particlesValue":{"hurt":"hurtRed","attack":"bigExplode","death":"bigExplode"},
         "objectName":"闪电苦力怕",
-        "description":"免疫近战和爆炸伤害,只有靠近我方建筑时才会自爆,死亡后也会自爆,附近双方单位都会受到爆炸伤害"
+        "description":"免疫近战和爆炸伤/害,只有靠近我方/建筑时才会自爆,/死亡后也会自爆,/附近双方单位都会/受到爆炸伤害"
     },
     "ice":{
         "ifAoeHold":false,
@@ -396,7 +396,7 @@
         "dropSpeed":8,
         "type":"skill",
         "objectName":"冰冻法术",
-        "description":"使范围内我方单位3秒内无法攻击和移动"
+        "description":"使范围内我方单位/3秒内无法攻击和/移动"
     },
     "thunder":{
         "aoeModel":"village",
@@ -406,7 +406,7 @@
         "giveEffect":[0,0,0,0,0,-1,0],
         "type":"skill",
         "objectName":"闪电法术",
-        "description":"对范围内我方单位造成7点伤害并使苦力怕变成闪电苦力怕"
+        "description":"对范围内我方单位/造成7点伤害并使/苦力怕变成闪电苦/力怕"
     },
     "creeperKing":{
         "health":50,
@@ -425,6 +425,6 @@
         "souEffValue":{"hurt":"hurt1","attack":"explode3","death":"creeperDeath"},
         "particlesValue":{"hurt":"hurtRed","attack":"Explode"},
         "objectName":"苦力怕之王",
-        "description":"有护盾时免疫所有伤害,击杀护法能使护盾失效一会并暂停法阵充能,法阵充能完毕后城堡会被终极闪电摧毁"
+        "description":"有护盾时免疫所有/伤害,击杀护法能/使护盾失效一会并/暂停法阵充能,法/阵充能完毕后城堡/会被终极闪电摧毁"
     }
 }

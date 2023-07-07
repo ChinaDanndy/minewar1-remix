@@ -19,10 +19,5 @@ func _on_input_event(_viewport,event,_shape_idx):
 		await get_tree().create_timer(reloadTime,false).timeout
 		$fireworkHas.visible = true
 		$fireworkNo.visible = false
-		#$reloadTimer.start(Global.MiniGame2FireworkReloadTime)
 	pass
 
-func _on_reload_timer_timeout():
-	$fireworkHas.visible = true
-	$fireworkNo.visible = false
-	pass

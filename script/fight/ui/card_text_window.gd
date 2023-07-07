@@ -39,14 +39,13 @@ func updateText(soldier):
 				Global.STSData[soldier]["attRangeBasic"][1]])
 	else: $CardMessage/all/attribute/range.visible = false
 
-	if Global.STSData[soldier].has("description"):
-		$CardMessage/description.visible = true
-		$CardMessage/description.text = Global.STSData[soldier]["description"]
-	else: $CardMessage/description.visible = false
-
-##	if Global.STSData[soldier].has("shield"):
-##		$CardMessage/all/attribute/shield.text = ("护盾:%s"%Global.STSData[soldier]["shield"])
-##	else: $CardMessage/all/attribute/shield.visible = false
-#
-
+	for i in 6: get_node("CardMessage/description/Label%s"%(i+1)).text = ""#清空
+	if Global.STSData[soldier].has("description"):#逐行读取介绍
+		var textString = str(Global.STSData[soldier]["description"])
+		var line = str(Global.STSData[soldier]["description"]).count("/")
+		if line > 0:
+			for i in line+1:
+				get_node("CardMessage/description/Label%s"%(i+1)
+				).text = textString.get_slice("/",i)
+		else: $CardMessage/description/Label1.text = textString
 	pass
