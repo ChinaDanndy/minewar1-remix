@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://jmy1y8bominm"]
+[gd_scene load_steps=9 format=3 uid="uid://jmy1y8bominm"]
 
 [ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/backgrounds/spr_broad.png" id="1_25scl"]
 [ext_resource type="PackedScene" uid="uid://cluf3870eyfa3" path="res://sence/start/levelButton.tscn" id="2_ytqyd"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dsn4qp6w8wbph" path="res://assets/miniGame/game2/fireworker/firework1.png" id="4_p1gn8"]
 [ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="4_vn6f5"]
 [ext_resource type="Script" path="res://script/start/cancelButton.gd" id="5_el3mk"]
+[ext_resource type="AudioStream" uid="uid://c5qsbam30no4x" path="res://assets/music/se/other/click.ogg" id="8_rr8qe"]
 
 [node name="miniGameWindow" type="CanvasLayer"]
 
@@ -34,10 +35,10 @@ texture = ExtResource("1_25scl")
 
 [node name="miniGame" type="HBoxContainer" parent="TextureRect"]
 layout_mode = 0
-offset_left = 40.0
-offset_top = 48.0
-offset_right = 176.0
-offset_bottom = 90.0
+offset_left = 53.5
+offset_top = 53.0
+offset_right = 189.5
+offset_bottom = 95.0
 theme_override_constants/separation = 64
 
 [node name="Level1" parent="TextureRect/miniGame" instance=ExtResource("2_ytqyd")]
@@ -50,12 +51,15 @@ texture_normal = ExtResource("4_p1gn8")
 
 [node name="miniGameCancelButton" type="TextureButton" parent="."]
 offset_left = 546.0
-offset_top = 122.0
+offset_top = 119.0
 offset_right = 566.0
-offset_bottom = 142.0
+offset_bottom = 139.0
 texture_normal = ExtResource("3_7ycmw")
 texture_pressed = ExtResource("4_vn6f5")
 texture_hover = ExtResource("4_vn6f5")
 script = ExtResource("5_el3mk")
+
+[node name="click" type="AudioStreamPlayer" parent="miniGameCancelButton"]
+stream = ExtResource("8_rr8qe")
 
 [connection signal="pressed" from="miniGameCancelButton" to="miniGameCancelButton" method="_on_pressed"]

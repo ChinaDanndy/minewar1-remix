@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://byp0sfn4apxll"]
+[gd_scene load_steps=8 format=3 uid="uid://byp0sfn4apxll"]
 
 [ext_resource type="Texture2D" uid="uid://bemoh5pjkswqf" path="res://assets/backgrounds/levelBackground.png" id="1_ru38w"]
 [ext_resource type="PackedScene" uid="uid://cluf3870eyfa3" path="res://sence/start/levelButton.tscn" id="2_uk15b"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://rpyqwom4dpsa" path="res://assets/UI/button/cancel_normal.png" id="3_w51yo"]
 [ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="4_pk3dp"]
 [ext_resource type="Script" path="res://script/start/cancelButton.gd" id="5_nhy6r"]
+[ext_resource type="AudioStream" uid="uid://c5qsbam30no4x" path="res://assets/music/se/other/click.ogg" id="7_y6lny"]
 
 [node name="levelChoiceWindow" type="CanvasLayer"]
 
@@ -83,11 +84,15 @@ texture_normal = ExtResource("3_qxdje")
 [node name="levelCancelButton" type="TextureButton" parent="MainMove"]
 layout_mode = 2
 offset_left = 400.0
+offset_top = -10.0
 offset_right = 420.0
-offset_bottom = 20.0
+offset_bottom = 10.0
 texture_normal = ExtResource("3_w51yo")
 texture_pressed = ExtResource("4_pk3dp")
 texture_hover = ExtResource("4_pk3dp")
 script = ExtResource("5_nhy6r")
+
+[node name="click" type="AudioStreamPlayer" parent="MainMove/levelCancelButton"]
+stream = ExtResource("7_y6lny")
 
 [connection signal="pressed" from="MainMove/levelCancelButton" to="MainMove/levelCancelButton" method="_on_pressed"]

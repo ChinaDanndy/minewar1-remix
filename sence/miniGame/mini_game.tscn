@@ -1,13 +1,10 @@
-[gd_scene load_steps=34 format=3 uid="uid://bd5l1y3vdar0p"]
+[gd_scene load_steps=32 format=3 uid="uid://bd5l1y3vdar0p"]
 
 [ext_resource type="Script" path="res://script/miniGame/mini_game.gd" id="1_hqy1f"]
 [ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="1_s52c5"]
-[ext_resource type="Texture2D" uid="uid://dk8yspmeqggbm" path="res://assets/UI/button/stop_normal.png" id="2_n5nbm"]
 [ext_resource type="Texture2D" uid="uid://dtl35jkpk82ax" path="res://assets/backgrounds/background1Buttom.png" id="3_i7hem"]
-[ext_resource type="Texture2D" uid="uid://btaq2lqnicsn" path="res://assets/UI/button/stop_press.png" id="3_plqxu"]
 [ext_resource type="PackedScene" uid="uid://bphor07wv7th8" path="res://sence/miniGame/game1Tbale.tscn" id="3_prfoi"]
 [ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="3_sxps5"]
-[ext_resource type="Script" path="res://script/fight/ui/stopButton.gd" id="4_41gix"]
 [ext_resource type="PackedScene" uid="uid://ds30omdo3jq36" path="res://sence/miniGame/firework_table.tscn" id="4_ah3oi"]
 [ext_resource type="PackedScene" uid="uid://ciqm506lu3wms" path="res://sence/fight/ui/stopWindow.tscn" id="5_l03jy"]
 [ext_resource type="Texture2D" uid="uid://bos5o3mfpwn0h" path="res://assets/miniGame/game1/creeper/creeper6.png" id="6_yd0s8"]
@@ -22,12 +19,13 @@
 [ext_resource type="Texture2D" uid="uid://cibbw5x1bo5te" path="res://assets/miniGame/game1/creeper/creeper5.png" id="13_oinab"]
 [ext_resource type="Texture2D" uid="uid://7f4yf11eax14" path="res://assets/miniGame/game1/gunpowder/gunpowder1.png" id="14_i6vvu"]
 [ext_resource type="Texture2D" uid="uid://dl445im4dmq5y" path="res://assets/backgrounds/MiniGamemessageBackground.png" id="18_wd18a"]
+[ext_resource type="PackedScene" uid="uid://1atw6wgediuy" path="res://sence/fight/ui/stop_button.tscn" id="19_ak7a8"]
+[ext_resource type="PackedScene" uid="uid://bmekic6ucmt5x" path="res://sence/fight/ui/NoStopButton.tscn" id="21_2xjk1"]
 [ext_resource type="Texture2D" uid="uid://884vdk7t8cyd" path="res://assets/UI/button/question1.png" id="23_q24jg"]
 [ext_resource type="Texture2D" uid="uid://cu415tn122my8" path="res://assets/UI/button/question2.png" id="24_0dnag"]
-[ext_resource type="Script" path="res://script/fight/ui/teachButton.gd" id="25_8ld0s"]
 [ext_resource type="PackedScene" uid="uid://i0auw607iwpg" path="res://sence/fight/ui/teachWindow.tscn" id="26_a80fa"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_xur4u"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_8kssg"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -129,7 +127,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_bhucu"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_q0821"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -231,7 +229,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ltdd5"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_ybl5b"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -333,7 +331,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_xv11y"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_ehf5o"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -435,7 +433,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_8wa2p"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_qjxji"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -537,7 +535,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_hj4e2"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_77a1l"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -639,7 +637,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_acwoj"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_1weki"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -754,31 +752,31 @@ visible = false
 
 [node name="game1Tbale6" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(237.5, 293)
-sprite_frames = SubResource("SpriteFrames_xur4u")
+sprite_frames = SubResource("SpriteFrames_8kssg")
 
 [node name="game1Tbale1" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(297.5, 293)
-sprite_frames = SubResource("SpriteFrames_bhucu")
+sprite_frames = SubResource("SpriteFrames_q0821")
 
 [node name="game1Tbale2" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(357.5, 293)
-sprite_frames = SubResource("SpriteFrames_ltdd5")
+sprite_frames = SubResource("SpriteFrames_ybl5b")
 
 [node name="game1Tbale3" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(417.5, 293)
-sprite_frames = SubResource("SpriteFrames_xv11y")
+sprite_frames = SubResource("SpriteFrames_ehf5o")
 
 [node name="game1Tbale4" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(477.5, 293)
-sprite_frames = SubResource("SpriteFrames_8wa2p")
+sprite_frames = SubResource("SpriteFrames_qjxji")
 
 [node name="game1Tbale5" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(537.5, 293)
-sprite_frames = SubResource("SpriteFrames_hj4e2")
+sprite_frames = SubResource("SpriteFrames_77a1l")
 
 [node name="game1Tbale7" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(597.5, 293)
-sprite_frames = SubResource("SpriteFrames_acwoj")
+sprite_frames = SubResource("SpriteFrames_1weki")
 
 [node name="game2" type="Node2D" parent="."]
 visible = false
@@ -887,40 +885,25 @@ theme_override_fonts/font = ExtResource("3_sxps5")
 theme_override_font_sizes/font_size = 16
 text = "40"
 
-[node name="StopButton" type="TextureButton" parent="."]
-offset_left = 813.0
-offset_top = 2.0
-offset_right = 833.0
-offset_bottom = 22.0
-texture_normal = ExtResource("2_n5nbm")
-texture_pressed = ExtResource("3_plqxu")
-texture_hover = ExtResource("3_plqxu")
-script = ExtResource("4_41gix")
+[node name="StopButton" parent="." instance=ExtResource("19_ak7a8")]
 
 [node name="StopWindow" parent="." instance=ExtResource("5_l03jy")]
 layer = 2
 visible = false
 
-[node name="TeachButton" type="TextureButton" parent="."]
+[node name="teachButton" parent="." instance=ExtResource("21_2xjk1")]
 offset_left = 791.0
-offset_top = 2.0
 offset_right = 811.0
-offset_bottom = 22.0
 texture_normal = ExtResource("23_q24jg")
 texture_pressed = ExtResource("24_0dnag")
 texture_hover = ExtResource("24_0dnag")
-script = ExtResource("25_8ld0s")
 
 [node name="TeachWindow" parent="." instance=ExtResource("26_a80fa")]
 visible = false
 
+[node name="soundButton" parent="." instance=ExtResource("21_2xjk1")]
+
 [node name="overTimer" type="Timer" parent="."]
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
-[connection signal="mouse_entered" from="StopButton" to="StopButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="StopButton" to="StopButton" method="_on_mouse_exited"]
-[connection signal="pressed" from="StopButton" to="StopButton" method="_on_pressed"]
-[connection signal="tree_entered" from="StopButton" to="StopButton" method="_on_tree_entered"]
-[connection signal="pressed" from="TeachButton" to="TeachButton" method="_on_pressed"]
-[connection signal="tree_entered" from="TeachButton" to="TeachButton" method="_on_tree_entered"]
 [connection signal="timeout" from="overTimer" to="." method="_on_over_timer_timeout"]

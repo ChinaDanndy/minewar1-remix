@@ -80,21 +80,6 @@ var attDefOrigin = [false,false,false]#
 var attDefence = attDefOrigin
 var attDefShield#
 
-#var startDrop = false#
-#var healthEffValue = -100#低血量提升攻击力速度
-#var healthTpDistance#
-#var tp = true#
-#var seaState
-#var seaAni
-#var usuallyEffect#平时给予状态
-#var usualEffValue
-#var deathEffect#死亡给予状态
-#var ifFirstEffect = false#
-##var ifHealthEffect = false#
-#var ifDistanceEffect = false#
-#var satDefValue = 0#
-#var attDefState#
-
 func _init():
 	pass
 	
@@ -110,7 +95,6 @@ func SetValue(soldier):
 	
 func SetAnimationAndCollBox(soldier):
 	addSoundAndParticles()
-	#if is_instance_valid(spirte) == true: spirte.free()
 	spirte = SpriteFrames.new()#给动画播放器添加图片
 	for i in animation.keys():
 		spirte.add_animation(i)
@@ -171,7 +155,7 @@ func reSet(soldier):
 	
 func _process(_delta):#每帧执行的部分
 	if currentState == State.FALL:  position.y += dropSpeed
-	$Label.text = str(health)
+	#$Label.text = str(health)
 
 	for i in souEff: 
 		if souEff[i] != null: souEff[i].set_volume_db(Global.SeDB)#时刻保持音量与全局音量一致

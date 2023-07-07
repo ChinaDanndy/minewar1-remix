@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cluf3870eyfa3"]
+[gd_scene load_steps=6 format=3 uid="uid://cluf3870eyfa3"]
 
 [ext_resource type="Texture2D" uid="uid://pm0miyqpmw3t" path="res://assets/UI/button/level1.png" id="1_r58b2"]
 [ext_resource type="Script" path="res://script/start/levelButton.gd" id="2_2ip6f"]
 [ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="3_12fls"]
 [ext_resource type="Texture2D" uid="uid://bi1dgc14vq6wt" path="res://assets/UI/button/levelLock.png" id="4_wt3oo"]
+[ext_resource type="AudioStream" uid="uid://d1ikfq25vep5a" path="res://assets/music/se/other/back.ogg" id="5_4auhb"]
 
 [node name="Level1" type="TextureButton"]
 texture_normal = ExtResource("1_r58b2")
@@ -39,5 +40,8 @@ offset_top = 20.0
 offset_right = 42.0
 offset_bottom = 40.0
 texture = ExtResource("4_wt3oo")
+
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_4auhb")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

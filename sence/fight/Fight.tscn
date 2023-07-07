@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bhvrla6g275uy"]
+[gd_scene load_steps=24 format=3 uid="uid://bhvrla6g275uy"]
 
 [ext_resource type="Script" path="res://script/fight/Fight.gd" id="1_0rvy3"]
 [ext_resource type="Texture2D" uid="uid://c43i5hrrhawi6" path="res://assets/backgrounds/background1.png" id="2_1lg06"]
@@ -7,17 +7,15 @@
 [ext_resource type="Texture2D" uid="uid://bt7lrng1cg056" path="res://assets/objects/baseVillage.png" id="4_8miln"]
 [ext_resource type="Texture2D" uid="uid://k5nbp53u574n" path="res://assets/backgrounds/bossSkill.png" id="5_kbbdq"]
 [ext_resource type="PackedScene" uid="uid://cnnifqydayh65" path="res://sence/fight/ui/card.tscn" id="6_4unhj"]
-[ext_resource type="Texture2D" uid="uid://dk8yspmeqggbm" path="res://assets/UI/button/stop_normal.png" id="6_q5rai"]
 [ext_resource type="PackedScene" uid="uid://cimi287socn0s" path="res://sence/fight/ui/choiceCard.tscn" id="6_qxmrc"]
 [ext_resource type="Texture2D" uid="uid://idk8owg4y7hx" path="res://assets/objects/bossProtector.png" id="6_rkmp0"]
-[ext_resource type="Texture2D" uid="uid://btaq2lqnicsn" path="res://assets/UI/button/stop_press.png" id="7_a3cl8"]
 [ext_resource type="Texture2D" uid="uid://dtl35jkpk82ax" path="res://assets/backgrounds/background1Buttom.png" id="8_qc2hl"]
-[ext_resource type="Script" path="res://script/fight/ui/stopButton.gd" id="9_eg3an"]
+[ext_resource type="PackedScene" uid="uid://1atw6wgediuy" path="res://sence/fight/ui/stop_button.tscn" id="9_yyj2c"]
 [ext_resource type="PackedScene" uid="uid://ciqm506lu3wms" path="res://sence/fight/ui/stopWindow.tscn" id="10_jfeyj"]
+[ext_resource type="PackedScene" uid="uid://bmekic6ucmt5x" path="res://sence/fight/ui/NoStopButton.tscn" id="11_8vdby"]
 [ext_resource type="Texture2D" uid="uid://884vdk7t8cyd" path="res://assets/UI/button/question1.png" id="11_vaqkk"]
 [ext_resource type="PackedScene" uid="uid://8lvpjn1tlm2g" path="res://sence/fight/object/boss.tscn" id="12_jn8mm"]
 [ext_resource type="Texture2D" uid="uid://cu415tn122my8" path="res://assets/UI/button/question2.png" id="12_rrhqo"]
-[ext_resource type="Script" path="res://script/fight/ui/teachButton.gd" id="13_cdhen"]
 [ext_resource type="Texture2D" uid="uid://ddhi5amdd505i" path="res://assets/backgrounds/messageBackground.png" id="14_8xlki"]
 [ext_resource type="PackedScene" uid="uid://i0auw607iwpg" path="res://sence/fight/ui/teachWindow.tscn" id="14_bcagq"]
 [ext_resource type="Texture2D" uid="uid://cdg604pchqdry" path="res://assets/objects/tower/gold_ingot.png" id="15_i5old"]
@@ -38,6 +36,7 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="backGround2" type="TextureRect" parent="."]
+visible = false
 offset_right = 835.0
 offset_bottom = 450.0
 texture = ExtResource("3_uay2a")
@@ -52,13 +51,11 @@ texture = ExtResource("4_8miln")
 position = Vector2(770, 263)
 
 [node name="bossSkill" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(737, 120)
 texture = ExtResource("5_kbbdq")
 hframes = 13
 
 [node name="bossProtect" parent="." instance=ExtResource("3_jxcqd")]
-visible = false
 position = Vector2(737, 188)
 texture = ExtResource("6_rkmp0")
 
@@ -122,17 +119,18 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="bossStop" type="Marker2D" parent="position"]
+visible = false
 position = Vector2(540, 298)
 gizmo_extents = 40.0
 
 [node name="bossPos" type="Marker2D" parent="position"]
-position = Vector2(660, 302)
+position = Vector2(560, 302)
 gizmo_extents = 40.0
 
 [node name="towerArea" type="ColorRect" parent="."]
-offset_left = 148.0
+offset_left = 170.0
 offset_top = 286.0
-offset_right = 348.0
+offset_right = 370.0
 offset_bottom = 318.0
 color = Color(0, 0, 0, 0.313726)
 metadata/_edit_lock_ = true
@@ -149,42 +147,34 @@ metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="skillArea" type="ColorRect" parent="."]
-offset_left = 148.0
+offset_left = 100.0
 offset_top = 286.0
-offset_right = 748.0
+offset_right = 740.0
 offset_bottom = 318.0
 color = Color(0, 0, 0, 0.313726)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
-[node name="StopButton" type="TextureButton" parent="."]
-offset_left = 813.0
-offset_top = 2.0
-offset_right = 833.0
-offset_bottom = 22.0
-texture_normal = ExtResource("6_q5rai")
-texture_pressed = ExtResource("7_a3cl8")
-texture_hover = ExtResource("7_a3cl8")
-script = ExtResource("9_eg3an")
+[node name="StopButton" parent="." instance=ExtResource("9_yyj2c")]
 
 [node name="StopWindow" parent="." instance=ExtResource("10_jfeyj")]
 layer = 2
 visible = false
 
-[node name="TeachButton" type="TextureButton" parent="."]
+[node name="teachButton" parent="." instance=ExtResource("11_8vdby")]
 offset_left = 791.0
-offset_top = 2.0
 offset_right = 811.0
-offset_bottom = 22.0
 texture_normal = ExtResource("11_vaqkk")
 texture_pressed = ExtResource("12_rrhqo")
 texture_hover = ExtResource("12_rrhqo")
-script = ExtResource("13_cdhen")
 
 [node name="TeachWindow" parent="." instance=ExtResource("14_bcagq")]
 visible = false
 
+[node name="soundButton" parent="." instance=ExtResource("11_8vdby")]
+
 [node name="choiceCard" parent="." instance=ExtResource("6_qxmrc")]
+visible = false
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 20.0
@@ -235,6 +225,7 @@ offset_bottom = 450.0
 texture = ExtResource("8_qc2hl")
 
 [node name="buttom2" type="TextureRect" parent="Up"]
+visible = false
 offset_top = 312.0
 offset_right = 836.0
 offset_bottom = 450.0
@@ -288,6 +279,7 @@ theme_override_font_sizes/font_size = 16
 text = "打败苦力怕之王"
 
 [node name="TestTime" type="Label" parent="Up"]
+visible = false
 offset_left = 751.0
 offset_top = 359.0
 offset_right = 790.0
@@ -343,9 +335,3 @@ text = "1
 [connection signal="timeout" from="Timer/CaveTimer" to="." method="_on_cave_timer_timeout"]
 [connection signal="timeout" from="Timer/Moneytimer" to="." method="_on_moneytimer_timeout"]
 [connection signal="timeout" from="Timer/attackTimer" to="." method="_on_attack_timer_timeout"]
-[connection signal="mouse_entered" from="StopButton" to="StopButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="StopButton" to="StopButton" method="_on_mouse_exited"]
-[connection signal="pressed" from="StopButton" to="StopButton" method="_on_pressed"]
-[connection signal="tree_entered" from="StopButton" to="StopButton" method="_on_tree_entered"]
-[connection signal="pressed" from="TeachButton" to="TeachButton" method="_on_pressed"]
-[connection signal="tree_entered" from="TeachButton" to="TeachButton" method="_on_tree_entered"]

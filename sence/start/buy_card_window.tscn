@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bs1fdm6sstmej"]
+[gd_scene load_steps=11 format=3 uid="uid://bs1fdm6sstmej"]
 
 [ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/backgrounds/spr_broad.png" id="1_crtae"]
 [ext_resource type="Texture2D" uid="uid://rpyqwom4dpsa" path="res://assets/UI/button/cancel_normal.png" id="2_0rodr"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="3_dp3fp"]
 [ext_resource type="Script" path="res://script/start/cancelButton.gd" id="4_mip36"]
 [ext_resource type="Texture2D" uid="uid://hcjvp12prr60" path="res://assets/backgrounds/moneyBackground.png" id="7_dp2nj"]
+[ext_resource type="AudioStream" uid="uid://c5qsbam30no4x" path="res://assets/music/se/other/click.ogg" id="7_i2ej7"]
 [ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="8_fvvgb"]
 [ext_resource type="Texture2D" uid="uid://ienrfyup176c" path="res://assets/objects/tower/emerald.png" id="9_j2wll"]
 
@@ -70,15 +71,20 @@ cardType = 4
 
 [node name="buyCancelButton" type="TextureButton" parent="Main"]
 layout_mode = 0
-offset_left = 250.0
-offset_right = 270.0
-offset_bottom = 20.0
+offset_left = 251.5
+offset_top = -23.0
+offset_right = 271.5
+offset_bottom = -3.0
 texture_normal = ExtResource("2_0rodr")
 texture_pressed = ExtResource("3_dp3fp")
 texture_hover = ExtResource("3_dp3fp")
 script = ExtResource("4_mip36")
 
+[node name="click" type="AudioStreamPlayer" parent="Main/buyCancelButton"]
+stream = ExtResource("7_i2ej7")
+
 [node name="emeraldSquare" type="TextureRect" parent="Main"]
+layout_mode = 0
 offset_left = 102.5
 offset_top = 130.0
 offset_right = 145.5

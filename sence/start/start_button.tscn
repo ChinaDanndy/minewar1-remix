@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsb20dqiimav3"]
+[gd_scene load_steps=6 format=3 uid="uid://dsb20dqiimav3"]
 
 [ext_resource type="Texture2D" uid="uid://cff6qvysicflb" path="res://assets/UI/button/smallButtonNormal.png" id="1_i25vd"]
 [ext_resource type="Texture2D" uid="uid://5800a47dpa4q" path="res://assets/UI/button/smallButtonPress.png" id="2_r7xl8"]
 [ext_resource type="Script" path="res://script/start/mainUIButton.gd" id="3_0r36k"]
 [ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="4_1jwmc"]
+[ext_resource type="AudioStream" uid="uid://c5qsbam30no4x" path="res://assets/music/se/other/click.ogg" id="5_83snp"]
 
 [node name="LevelChoiceButton" type="TextureButton"]
 offset_left = 105.0
@@ -26,6 +27,7 @@ theme_override_fonts/font = ExtResource("4_1jwmc")
 theme_override_font_sizes/font_size = 14
 text = "开始游戏"
 
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_83snp")
+
 [connection signal="pressed" from="." to="." method="_on_pressed"]

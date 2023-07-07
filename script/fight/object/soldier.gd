@@ -60,7 +60,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
 		#print(Global.Contrl)
 		#print(Global.MonsterBase.position)
-		if camp == Global.VILLAGE: health = 0
+		#if camp == Global.VILLAGE: health = 0
 		#$AnimatedSprite2D.play("attack")
 		pass
 	if camp == Global.MONSTER:

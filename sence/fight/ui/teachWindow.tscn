@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://i0auw607iwpg"]
+[gd_scene load_steps=7 format=3 uid="uid://i0auw607iwpg"]
 
 [ext_resource type="Script" path="res://script/fight/ui/teachWindow.gd" id="1_c3tve"]
 [ext_resource type="Texture2D" uid="uid://e1s14f52xi6h" path="res://assets/backgrounds/teachBackground.png" id="1_t3hab"]
 [ext_resource type="Texture2D" uid="uid://rpyqwom4dpsa" path="res://assets/UI/button/cancel_normal.png" id="2_getkt"]
 [ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="3_2x0f0"]
+[ext_resource type="AudioStream" uid="uid://c5qsbam30no4x" path="res://assets/music/se/other/click.ogg" id="5_2hm48"]
 [ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="5_rng1f"]
 
 [node name="TeachWindow" type="CanvasLayer"]
@@ -42,12 +43,14 @@ texture_normal = ExtResource("2_getkt")
 texture_pressed = ExtResource("3_2x0f0")
 texture_hover = ExtResource("3_2x0f0")
 
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_2hm48")
+
 [node name="text" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 
 [node name="MainTeach" type="Label" parent="text"]
-visible = false
 layout_mode = 0
 offset_left = 310.0
 offset_top = 71.0
@@ -116,5 +119,19 @@ theme_override_font_sizes/font_size = 0
 text = "游戏结束时,若分数超过30分,获得1颗绿宝石
 "
 autowrap_mode = 2
+
+[node name="Start" type="Label" parent="text"]
+visible = false
+layout_mode = 0
+offset_left = 310.0
+offset_top = 321.0
+offset_right = 535.0
+offset_bottom = 361.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_rng1f")
+theme_override_font_sizes/font_size = 0
+text = "开始教程
+"
+autowrap_mode = 3
 
 [connection signal="pressed" from="TeachClose" to="." method="_on_teach_close_pressed"]

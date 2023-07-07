@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://ciqm506lu3wms"]
+[gd_scene load_steps=13 format=3 uid="uid://ciqm506lu3wms"]
 
 [ext_resource type="Script" path="res://script/fight/ui/stopWindow.gd" id="1_vqqbi"]
 [ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/backgrounds/spr_broad.png" id="2_x8d7p"]
-[ext_resource type="ButtonGroup" uid="uid://ec2gd7jjvlsa" path="res://rescourse/gameBoardButtonGroup.tres" id="3_5o1dm"]
 [ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="3_ojej8"]
 [ext_resource type="Texture2D" uid="uid://cff6qvysicflb" path="res://assets/UI/button/smallButtonNormal.png" id="4_p7i5a"]
 [ext_resource type="Texture2D" uid="uid://5800a47dpa4q" path="res://assets/UI/button/smallButtonPress.png" id="5_ygps8"]
@@ -10,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://cqu0trx4tn07j" path="res://sence/fight/ui/cardButton.tscn" id="7_llagh"]
 [ext_resource type="Texture2D" uid="uid://ienrfyup176c" path="res://assets/objects/tower/emerald.png" id="8_qn7qd"]
 [ext_resource type="Texture2D" uid="uid://hcjvp12prr60" path="res://assets/backgrounds/moneyBackground.png" id="9_jwnsr"]
+[ext_resource type="AudioStream" uid="uid://c5qsbam30no4x" path="res://assets/music/se/other/click.ogg" id="11_oj1ju"]
+[ext_resource type="AudioStream" uid="uid://dabegres4yh4r" path="res://assets/music/se/other/lose.ogg" id="12_vmb2g"]
+[ext_resource type="AudioStream" uid="uid://cfk8qxr6tgdgs" path="res://assets/music/se/other/win.ogg" id="13_u7k50"]
 
 [node name="StopWindow" type="CanvasLayer"]
 process_mode = 3
@@ -116,7 +118,6 @@ text = "继续游戏"
 [node name="Button3" type="TextureButton" parent="Control/HBoxContainer"]
 layout_mode = 2
 toggle_mode = true
-button_group = ExtResource("3_5o1dm")
 texture_normal = ExtResource("4_p7i5a")
 texture_pressed = ExtResource("5_ygps8")
 texture_hover = ExtResource("5_ygps8")
@@ -239,6 +240,15 @@ offset_top = 3.0
 offset_right = 43.0
 offset_bottom = 19.0
 texture = ExtResource("8_qn7qd")
+
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_oj1ju")
+
+[node name="lose" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_vmb2g")
+
+[node name="win" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_u7k50")
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="pressed" from="Control/HBoxContainer/Button1" to="." method="_on_button_1_pressed"]

@@ -6,6 +6,7 @@ extends "res://script/fight/object.gd"
 
 var originSize
 
+var message = true
 var bossSecHealth
 var protectHealth
 var protectCD
@@ -18,10 +19,10 @@ var bossShineSet = 0
 func _ready():
 	super.SetValue("creeperKing")
 	super.addSoundAndParticles()
+	Global.FightButton.fight.connect(bossStart)
+	soldierName[0] = "creeperKing"
 	healthUp = health
 	originSize = healthColor.texture.get_size().x
-	
-	
 	camp = Global.MONSTER
 	attDefence = [true,true,true]
 	effDefence = [true,true,true,true,true,true,true]
@@ -64,11 +65,12 @@ func _process(_delta):
 	else: $attackTimer.stop()
 		
 	if bossLv == 2:
-		if bossUp >= (attackTime/6)&&Global.BossSkill.frame!=6: 
+		if bossUp >= (attackTime/12):#法阵充能 
 			bossUp = 0
-			Global.BossSkill.frame += 1
+			if Global.BossSkill.frame!=12: Global.BossSkill.frame += 1
+		#法阵闪烁
 		if bossShineSet == 0: Global.BossSkill.modulate.a -= 0.01
-		if Global.BossSkill.modulate.a <=0: bossShineSet = 1
+		if Global.BossSkill.modulate.a <=0.4: bossShineSet = 1
 		if bossShineSet == 1: Global.BossSkill.modulate.a += 0.01
 		if Global.BossSkill.modulate.a >= 1: bossShineSet = 0
 		if attackTime <= 0&&Global.VillageBase.health>0: 
@@ -81,7 +83,7 @@ func _process(_delta):
 	pass
 
 func _on_death_timer_timeout(): 
-	attackTime -= 1
+	attackTime -= 1#法阵充能倒计时
 	bossUp += 1
 	pass
 
@@ -91,13 +93,7 @@ func _on_attack_timer_timeout():
 	newthunder.camp = Global.MONSTER
 	newthunder.firstSetting("thunder")
 	newthunder.position.x = global_position.x-collBox.x/2-20
-#func Lv2():
-#	bossLv = 2
-#	norAni.play("walk")
-#	$healthLine.visible = true
-#	attDefence = [false,false,true]
-#	effDefence = [true,true,true,true,false,false,true]
-#	pass	
+
 func Lv2():
 	$healthLine.visible = false
 	$RayCast2D.collide_with_areas = false
@@ -152,6 +148,7 @@ func protectReset():
 	Global.BossProtect.health = protectHealth
 	Global.BossProtect.collision_layer = Global.LAyer[camp+1][2]
 	Global.BossSkill.visible = true
+	Global.BossSkill.position.x = Global.BossProtect.global_position.x
 	Global.BossProtect.picture.visible  = true
 	pass
 
@@ -163,7 +160,16 @@ func explode():
 	particles["attack"].emitting = true
 	pass
 
+func bossStart():
+	message = false
+	pass
 
-
-
-
+func _on_mouse_entered():
+	if message == true: 
+		Global.CardTextWindow.updateText(soldierName[0])
+		Global.CardTextWindow.visible = true
+	pass
+	
+func _on_mouse_exited():
+	Global.CardTextWindow.visible = false
+	pass

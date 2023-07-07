@@ -1,28 +1,25 @@
 extends CanvasLayer
 var Mode
-func _ready():
-#	if get_parent().name == "Fight":
-#		if Global.Level >= 7:
-#		if Global.LevelData[0]["cardShow"][Global.NowLevel-1] == null: 
-#			$Control/card/Unlock.visible = false
-#		if Global.LevelData[0]["buyShow"][Global.NowLevel-1] == null: 
-#			$Control/card/CanBuy.visible = false
-	$Control/emerald.visible = false
+func _process(_delta): 
+	$click.volume_db = Global.SeDB
+	$lose.volume_db = Global.SeDB
+	$win.volume_db = Global.SeDB
 	pass
 
 func text(mode):
 	get_tree().paused = true
 	Mode = mode
-	#$Control/Title.text = Mode
-	match Mode:
+	match mode:
 		"stop": $Control/Title.text = "暂停"
 		"win": 
+			$win.play()
 			$Control/Title.text = "胜利"
 			if get_parent().name == "Fight"&&Global.NowLevel == Global.Level:
 				if Global.Level<=6: $Control/card.visible = true
 				if Global.Level<7: addPoint()
 			if get_parent().name == "MiniGame": addPoint()
 		"lose": 
+			$lose.play()
 			$Control/Title.text = "失败"
 			$Control/HBoxContainer/Button2.visible = false
 	if get_parent().name == "MiniGame":
@@ -40,6 +37,7 @@ func addPoint():
 	pass
 
 func usual():
+	$click.play()
 	get_tree().paused = false
 	$Control/HBoxContainer/Button1.button_pressed = false
 	$Control/HBoxContainer/Button2.button_pressed = false
@@ -66,5 +64,6 @@ func _on_button_3_pressed():
 
 func _on_tree_entered():
 	$Control/card.visible = false
+	$Control/emerald.visible = false
 	if get_parent().name == "MiniGame": $Control/card.free()
 	pass

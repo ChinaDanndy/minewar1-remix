@@ -20,12 +20,12 @@ func _ready():
 			$game2.free()
 			$game1.visible = true
 			game = "miniGame1"
-			$CanvasLayer/Leveltext.text = "小游戏1 打地鼠"
+			$CanvasLayer/Leveltext.text = Global.STSData["miniGame1"]["objectName"]
 		2:  
 			$game1.free()
 			$game2.visible = true
 			game = "miniGame2"
-			$CanvasLayer/Leveltext.text = "小游戏2 放烟花"
+			$CanvasLayer/Leveltext.text = Global.STSData["miniGame2"]["objectName"]
 	keepTime = Global.LevelData[0][game]["keepTime"]
 	firstTime = Global.LevelData[0][game]["firstTime"]
 	lastTime = keepTime-firstTime-Global.LevelData[0][game]["lastTime"]

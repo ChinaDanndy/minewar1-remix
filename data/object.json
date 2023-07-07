@@ -2,7 +2,10 @@
     "cardUpdate":{"objectName":"增加1个卡槽位"},
     "moneyUpate":{"objectName":"增加5点资金上限"},
     "miniGame1":{"objectName":"小游戏1 打地鼠"},
-    "miniGame2":{"objectName":"小游戏2 打地鼠"},
+    "miniGame2":{"objectName":"小游戏2 放烟花"},
+    "defence":{"objectName":"击退怪物进攻"},
+    "normal":{"objectName":"摧毁传送水晶"},
+    "boss":{"objectName":"打败苦力怕之王"},
     "shoveler":{
         "health":4,
         "speedBasic":1,
@@ -115,7 +118,7 @@
     "flyer":{
         "health":5,
         "speedBasic":0.8,
-        "damageBasic":[1.5,4,0],
+        "damageBasic":[1.25,4,0],
         "attRangeBasic":[120,40],
         "aoeModel":[null,"monster",null,null],
         "aoeRange":[null,42,null,null],
@@ -408,8 +411,6 @@
     "creeperKing":{
         "health":50,
         "damage":[10,0],
-        "speedBasic":2,
-        "attRangeBasic":[200,120],
         "aoeModel":["all","village",null,null],
         "aoeRange":[200,80,null,null],
         "effTime":[[0,0,0,0,0,0],[0,0,0,0,1,0],[],[]],
@@ -417,7 +418,7 @@
         "effTimes":[[0,0],[0,0],[],[]],
         "giveEffect":[[0,0,0,0,0,0,-1],[0,0,0,0,-1,0,0],[],[]],
         "protectHealth":4,
-        "protectCD":10,
+        "protectCD":8,
 
         "type":"soldier",
         "attackType":[[false,false,true],[false,true,false]],

@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmekic6ucmt5x"]
+
+[ext_resource type="Texture2D" uid="uid://dy4db6ub4nvbt" path="res://assets/UI/button/sound_normal1.png" id="1_oi342"]
+[ext_resource type="Texture2D" uid="uid://c6q8s77l7o6gs" path="res://assets/UI/button/sound_normal2.png" id="2_r0up8"]
+[ext_resource type="Script" path="res://script/fight/ui/teachButton.gd" id="3_lrt0i"]
+[ext_resource type="AudioStream" uid="uid://c5qsbam30no4x" path="res://assets/music/se/other/click.ogg" id="4_aqfbp"]
+
+[node name="soundButton" type="TextureButton"]
+process_mode = 3
+offset_left = 769.0
+offset_top = 2.0
+offset_right = 789.0
+offset_bottom = 22.0
+texture_normal = ExtResource("1_oi342")
+texture_pressed = ExtResource("2_r0up8")
+texture_hover = ExtResource("2_r0up8")
+script = ExtResource("3_lrt0i")
+
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_aqfbp")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

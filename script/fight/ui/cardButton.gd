@@ -8,7 +8,7 @@ var update = false
 @export var num:int
 var showNum:int
 
-#@onready var cantBuy = $cantChoice
+@onready var cantBuy = $cantChoice
 #@onready var explainBox = $ExplainBox
 var explainText
 var explainName
@@ -29,14 +29,14 @@ var choiceArea = preload("res://sence/fight/ui/choiceArea.tscn")
 
 func _ready():
 	originSize = size.y
-	$cantChoice.visible = false
+	cantBuy.visible = false
 	$CD.visible = false
 	$icon.texture = null
 	$cardPrice.text = ""
 	
 	num = int(str(name))-1
 	match cardType:
-		cType.CHOICE:
+		cType.CHOICE:#等待被选卡
 			soldier = Global.LevelData[0]["allVillageObject"][num]#获得士兵数据
 			showNum = num
 			if Global.LevelData[0]["cardShow"].has(soldier):
@@ -51,27 +51,25 @@ func _ready():
 			Global.FightSence.fightCard.connect(cardReSet)#特定卡获得数据
 			Global.FightButton.fight.connect(buyCardReSet)#选卡开始游戏后重置鼠标碰撞层
 			if num > Global.CardUp-1: visible = false#控制选卡位
-		cType.CARDSHOW:
+		cType.CARDSHOW:#新卡
 			self.button_mask = 0
 			if Global.Level<7:
 				soldier = Global.LevelData[0]["cardShow"][Global.NowLevel-1]
-		cType.BUYSHOW:
+		cType.BUYSHOW:#新可购买卡
 			self.button_mask = 0
 			if Global.Level<7:
 				soldier = Global.LevelData[0]["buyShow"][Global.NowLevel-1]
-		cType.SHOP:
+		cType.SHOP:#买卡
 			soldier = Global.LevelData[0]["shop"][num]
-			if (Global.Brought[soldier] == true): $cantChoice.visible = true
+			if (Global.Brought[soldier] == true): cantBuy.visible = true
 			if Global.Level-1 <= Global.LevelData[0]["buyShow"].find(soldier):
 				soldier = null
 				visible = false
-			
-
- 
+				
 	match cardType:
-		cType.CARDSHOW,cType.BUYSHOW,cType.SHOP:
+		cType.CARDSHOW,cType.BUYSHOW,cType.SHOP:#补充icon
 			showNum = Global.LevelData[0]["allVillageObject"].find(soldier)
-	if soldier != null&&cardType != cType.USE:  display()
+	if soldier != null&&cardType != cType.USE:  display()#填充数据
 	pass
 	
 func display():
@@ -104,7 +102,7 @@ func cardReSet():
 func buyCardReSet():
 	cardText = false
 	Global.CardTextWindow.visible = false#等待冷却
-	$cantChoice.visible = true
+	cantBuy.visible = true
 	self.button_mask = MOUSE_BUTTON_MASK_LEFT
 	$CD.visible = true
 	if cd != null: $CDTimer.start(cd)
@@ -118,16 +116,17 @@ func useCardClear():
 	pass
 
 func _process(_delta):
-	$ExplainBox/Pos.position = global_position
+	#$ExplainBox/Pos.position = global_position
+	$click.volume_db = Global.SeDB
 	if Global.ChoiceWindow.visible == true:
 		match cardType:
 			cType.CHOICE:
-				if Global.ChosenCard[-1] == null: 
+				if Global.ChosenCard[Global.CardUp-1] == null: 
 					self.button_mask = MOUSE_BUTTON_MASK_LEFT
 				else: self.button_mask = 0
 			cType.USE: 
 				soldier = Global.ChosenCard[num]
-				if soldier != null&&self.button_mask ==0: 
+				if soldier != null: 
 					cardText = true
 					showNum = Global.ChosenId[num].showNum
 					self.button_mask = MOUSE_BUTTON_MASK_RIGHT
@@ -142,24 +141,25 @@ func _process(_delta):
 					self.button_mask = 0
 	else:
 		if cardType == cType.USE&&soldier != null:
-			if Global.NowMoney >= price&&$CDTimer.time_left == 0&&$cantChoice.visible == true:
-				$cantChoice.visible = false
+			if Global.NowMoney >= price&&$CDTimer.time_left == 0&&cantBuy.visible == true:
+				cantBuy.visible = false
 				$CD.visible = false
 				$CD.size.y = originSize
 			if $CDTimer.time_left > 0:
 				$CD.size.y = (originSize*($CDTimer.time_left/cd)) 
-			if Global.NowMoney < price&&$cantChoice.visible == false:
-				$cantChoice.visible = true
+			if Global.NowMoney < price&&cantBuy.visible == false:
+				cantBuy.visible = true
 	pass
 
 func _on_pressed():
+	$click.play()
 	if Global.ChoiceWindow.visible == true:
 		match cardType:
 			cType.CHOICE:#选卡
 				Global.ChosenCard[Global.ChosenCardNum] = soldier
 				Global.ChosenId[Global.ChosenCardNum] = self
 				Global.ChosenCardNum += 1
-				$cantChoice.visible = true
+				cantBuy.visible = true
 				#if Global.ChosenCard[-1] != null: Global.FightButton.visible = true
 			cType.USE:#退卡
 				Global.ChosenId[num].button_mask = MOUSE_BUTTON_MASK_LEFT
@@ -168,7 +168,7 @@ func _on_pressed():
 				useCardClear()
 			cType.SHOP:
 				if Global.Point >= price:
-					$cantChoice.visible = true
+					cantBuy.visible = true
 					Global.Point -= price
 					Global.Brought[soldier] = true
 				pass
@@ -196,7 +196,7 @@ func _on_pressed():
 								Global.root.add_child(Area)
 								areaId = Area#传递创建的选择区域id
 								self.button_mask = MOUSE_BUTTON_MASK_RIGHT
-								material = Global.CardOutLine
+								material = Global.SoldierOutLine
 							MOUSE_BUTTON_MASK_RIGHT:#右键
 								Global.CardBuy = null
 								areaId.queue_free()
@@ -213,7 +213,7 @@ func _on_mouse_entered():
 	pass
 	
 func _on_mouse_exited():
-	if cardText == true: Global.CardTextWindow.visible = false
+	Global.CardTextWindow.visible = false
 	pass
 
 

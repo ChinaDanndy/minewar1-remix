@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://1atw6wgediuy"]
+
+[ext_resource type="Texture2D" uid="uid://dk8yspmeqggbm" path="res://assets/UI/button/stop_normal.png" id="1_x7lih"]
+[ext_resource type="Texture2D" uid="uid://btaq2lqnicsn" path="res://assets/UI/button/stop_press.png" id="2_xqapq"]
+[ext_resource type="Script" path="res://script/fight/ui/stopButton.gd" id="3_2hopa"]
+[ext_resource type="AudioStream" uid="uid://c5qsbam30no4x" path="res://assets/music/se/other/click.ogg" id="4_ochqt"]
+
+[node name="StopButton" type="TextureButton"]
+process_mode = 3
+offset_left = 813.0
+offset_top = 2.0
+offset_right = 833.0
+offset_bottom = 22.0
+texture_normal = ExtResource("1_x7lih")
+texture_pressed = ExtResource("2_xqapq")
+texture_hover = ExtResource("2_xqapq")
+script = ExtResource("3_2hopa")
+
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ochqt")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

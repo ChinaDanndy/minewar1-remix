@@ -18,6 +18,7 @@ func firstSetting(Name):
 	if get_parent().name == "bossProtect": 
 		health = Global.STSData["creeperKing"]["protectHealth"]
 		get_parent().position.y = Global.FightSkyY
+		get_parent().position.x = Global.BossPosX+60
 		get_parent().get_node("healthLine").visible = false
 		get_parent().get_node("hurt").stream = load("res://assets/music/se/soldier/hurt1.ogg")
 		attDefence = [false,false,true]
@@ -26,7 +27,6 @@ func firstSetting(Name):
 		health = Global.LevelData[Global.NowLevel]["set"][Name]
 		if get_parent().name == "baseMonster": 
 			match Global.LevelData[Global.NowLevel]["set"]["levelType"]:
-#				"attack": get_parent().texture = load("res://assets/objects/attackNormal.png")
 				"defence": 
 					get_parent().get_node("healthLine").visible = false
 					get_parent().texture = load("res://assets/objects/defence.png") 
@@ -36,7 +36,6 @@ func firstSetting(Name):
 	collBox = get_parent().texture.get_size()
 	newBox.size = collBox
 	$CollisionShape2D.shape = newBox
-	
 	if !get_parent().name == "bossProtect": 
 		get_parent().position.y = Global.FightGroundY-(collBox.y/2)
 		
@@ -45,9 +44,6 @@ func firstSetting(Name):
 	get_parent().get_node("cover").texture = get_parent().texture
 	get_parent().get_node("cover").visible = false
 	get_parent().get_node("healthLine").position.y = (-collBox.y/2-16)
-	pass
-	
-func _ready():
 	pass
 
 func hurt():

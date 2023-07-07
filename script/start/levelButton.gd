@@ -12,10 +12,12 @@ func _ready():
 	else:
 		if Global.Level >= level: $Lock.visible = false
 		$text.text = str(level)
-
 	pass
+	
+func _process(_delta): $click.volume_db = Global.SeDB
 
 func _on_pressed():
+	$click.play()
 	if Global.LevelChoiceWindow.visible == true:
 		Global.NowLevel = level
 		get_tree().change_scene_to_file("res://sence/fight/Fight.tscn")

@@ -85,29 +85,15 @@ func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold,attackType,damage,damag
 	#return newAoe
 	pass
 
-#var LevelChoiceButton
 var LevelChoiceWindow
 var BuyCardButton
 var BuyCardWindow
 
-var MiniGame = 2#0
+var MiniGame = 0
 var MiniGameWindow
 var MiniGameSence
 var MiniGameScore
 var MiniGame2PosY:Array
-
-#var ChangePageButton
-#var ShowLastId
-#var ShowPicture
-#var ShowName
-#var ShowDisplay
-#var ShowText
-#var PageNow = true#
-#const Page = {true:"allVillageObject",false:"allMonsterObject"}
-#{"allVillageObject":true,"allMonsterObject":false}
-#var LevelReady = false
-#var ChosenNum = [0,0,0,0,0,0]
-#var NowMonsterObject = []
 
 var ChoiceWindow
 var FightButton
@@ -148,11 +134,8 @@ var Skill = preload("res://sence/fight/object/skill.tscn")
 #var CardOutLine = preload("res://rescourse/cardOutLine.tres")
 #var VillageSoldier = preload("res://sence/fight/object/soldier/villageSoldier.tscn")
 #var MonsterSoldier = preload("res://sence/fight/object/soldier/monsterSoldier.tscn")
-
-
 #var ParSence:Dictionary
 #= preload("res://sence/particles/hurtRed.tscn")
-
 
 var STSData:Dictionary
 enum STSType {INT,ARRAY}
@@ -165,9 +148,10 @@ const STSDataName = {"price":STSType.INT,"kind":null,
 "endTime":null,"time":null,"ifHealthEffect":null,"healthEffValue":STSType.INT,"ifDistanceEffect":null,"attDefOrigin":null,"shield":STSType.INT,
 "attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
 
-var Point = 2 #= 0
+var Point = 0
 var Brought = {"cardUpdate":false,"moneyUpate":false,"power":false,"golder":false}
 var Level = 1
+var Teach = 0
 
 var SeDB = 1.0
 var BgmDB = 1.0
@@ -180,23 +164,18 @@ var LevelData
 var NowLevel = 1
 var LevelOver = false
 func _ready():#读入数据
-#	var json = JSON.new()
-#	var loadData = FileAccess.open("user://playerData.json",FileAccess.READ)
-#	var waitJson = loadData.get_as_text()
-#	json.parse(waitJson)
-#
-#	Point = json.data["Point"]
-#	Brought = json.data["Brought"]
-#	Level = json.data["Level"]
-#	loadData = null
-#	root.close_requested.connect(closeWindow)
-	
-#	if Brought["card"] == 1: CardUp = 5
-#	if Brought["card"] == 2: CardUp = 6
-#	if Brought["gold"] == 1: Money = 20
-#	if Brought["gold"] == 2: Money = 30
-#	Money = 10
-#	CardUp = 6
+	if FileAccess.file_exists("user://playerData.json"):
+		var json = JSON.new()
+		var loadData = FileAccess.open("user://playerData.json",FileAccess.READ)
+		var waitJson = loadData.get_as_text()
+		json.parse(waitJson)
+		Point = json.data["Point"]
+		Brought = json.data["Brought"]
+		Level = json.data["Level"]
+		Teach = json.data["Teach"]
+		loadData = null
+	#print(get_files_at)
+	root.close_requested.connect(closeWindow)
 
 	var file = FileAccess.open("res://data/object.json", FileAccess.READ)#user:
 	var content = file.get_as_text()#读取所有士兵数据
@@ -215,8 +194,6 @@ func _ready():#读入数据
 #						arrayLength = Global.STSData[STSName][STSDatename].size()
 #						for i in arrayLength:
 #							Global.STSData[STSName][STSDatename][i] = int(jsonValue.data[STSName][STSDatename][i])
-		
-		
 		if STSData[STSName].has("type"):
 			var pictureGet#提前根据图片得到单位碰撞箱尺寸
 			match STSData[STSName]["type"]:
@@ -232,38 +209,23 @@ func _ready():#读入数据
 	jsonValue.parse(content)
 	LevelData = jsonValue.data
 	file = null
-	
-#	for k in Level+1:#记录到目前为止的关卡出现了哪些怪
-#		if k > 0:
-#			for i in LevelData[k]["groups"].size():
-#				for j in LevelData[k]["groups"][i]["soldier"]:
-#					if !NowMonsterObject.has(j): NowMonsterObject.append(j)
-
-#	file = FileAccess.open("user://text.json", FileAccess.READ)#res://data
-#	content = file.get_as_text()
-#	jsonValue = JSON.new()
-#	jsonValue.parse(content)
-#	TextData = jsonValue.data
-#	file = null
-	
-	#保存例子效果的场景
 	pass
 
 func closeWindow():#存储数据
-#	var saveJson = {"Point":Point,"Brought":Brought,"Level":Level}
-#	var json = JSON.new()
-#	var save = FileAccess.open("user://playerData.json",FileAccess.WRITE)
-#	save.store_string(JSON.stringify(saveJson))
-#	save = null
+	var saveJson = {"Point":Point,"Brought":Brought,"Level":Level,"Teach":Teach}
+	var json = JSON.new()
+	var save = FileAccess.open("user://playerData.json",FileAccess.WRITE)
+	save.store_string(JSON.stringify(saveJson))
+	save = null
 	pass
 
-
-#const ProSpeed = {"arrow":4,"snowball":3}
-#const ProPos = {"arrow":Vector2(0,1.5),"arrowUp":Vector2(0,1.5),"tnt":Vector2(0,4),"fireBall":Vector2(0,0),"fireBallDown":Vector2(0,0),"water":Vector2(0,0)}
-#enum DamageMethod {NEARSINGLE,NEARAOE,FAR}
-#const ProGrivaty = 0.8
-#const ProHigh = 50
-##var ProThrowTime = round(sqrt((2*ProHigh)/ProGrivaty))
-
+func _process(_delta):
+	if Input.is_action_just_pressed("screenShoot"):
+		var nowTime = Time.get_datetime_dict_from_system()
+		get_viewport().get_texture().get_image().save_png("user://screenshot/
+		%sY%sM%sD%sH%sM%sS.png"%[nowTime["year"],nowTime["month"],nowTime["day"],
+		nowTime["hour"],nowTime["minute"],nowTime["second"],])#截图
+		pass
+	pass
 
 

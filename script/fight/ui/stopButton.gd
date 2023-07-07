@@ -1,8 +1,9 @@
 extends TextureButton
+func _process(_delta): $click.volume_db = Global.SeDB
 
 func _on_pressed():
+	$click.play()
 	Global.StopWindow.text("stop")
-	#visible=false
 	pass 
 
 func _on_mouse_entered():

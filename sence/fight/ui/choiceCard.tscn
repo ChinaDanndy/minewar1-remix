@@ -68,13 +68,25 @@ cardType = 1
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="cardButton9" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("2_avj7v")]
+[node name="cardButton9" parent="." instance=ExtResource("2_avj7v")]
 layout_mode = 2
+offset_left = 8.0
+offset_top = 160.0
+offset_right = 58.0
+offset_bottom = 236.0
 cardType = 1
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
-[node name="cardButton10" parent="VBoxContainer/HBoxContainer3" instance=ExtResource("2_avj7v")]
+[node name="cardButton10" parent="." instance=ExtResource("2_avj7v")]
 layout_mode = 2
+offset_left = 58.0
+offset_top = 160.0
+offset_right = 108.0
+offset_bottom = 236.0
 cardType = 1
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="fightButton" type="TextureButton" parent="."]
 layout_mode = 0

@@ -1,5 +1,7 @@
 extends TextureButton
 
+func _process(_delta): $click.volume_db = Global.SeDB
+
 func _ready():
 	Global.ChoiceWindow = Control.new()
 	Global.ChoiceWindow.visible = true#给买卡许可,不能删
@@ -12,19 +14,11 @@ func _ready():
 	material = null
 	pass
 
-func _on_mouse_entered():
-	#material = Global.ButtonOutLine
-	pass
-
-func _on_mouse_exited():
-	#material = null
-	pass
-
 func _on_pressed():
+	$click.play()
 	match name:
 		"LevelChoiceButton": Global.LevelChoiceWindow.visible = true
 		"BuyCardButton": Global.BuyCardWindow.visible = true
-		"BookButton": Global.BookWindow.visible = true
 		"MiniGameButton": Global.MiniGameWindow.visible = true
 	material = null
 	pass 

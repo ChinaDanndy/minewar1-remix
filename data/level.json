@@ -9,7 +9,7 @@
         ,"power","golder","cardUpdate","moneyUpate","miniGame1","miniGame2"],
         "cardShow":["regeneration","shielder","snowman","assassinFirst","flyer","iron"],
         "buyShow":["miniGame1","power","cardUpdate","miniGame2","golder","moneyUpate"],
-        "buyPrice":{"power":1,"cardUpdate":1,"golder":1,"moneyUpate":1},
+        "buyPrice":{"power":3,"cardUpdate":3,"golder":3,"moneyUpate":3},
         "shop":["power","cardUpdate","golder","moneyUpate"],
 
         "miniGame1":{
@@ -86,7 +86,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","projector","regeneration",null,null,null,null]
+        ],"banCard":[],"chosenCard":[]
     },
     {
         "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":20,"baseVillageHealth":20,
@@ -115,7 +115,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","projector","regeneration","shielder",null,null,null]
+        ],"banCard":[],"chosenCard":[]
     },
     {
         "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":20,"baseVillageHealth":20,
@@ -156,7 +156,7 @@
                 "stopTime":null
             }
 
-        ],"banCard":[],"chosenCard":["shoveler","projector","regeneration","shielder","snowman",null,null]
+        ],"banCard":[],"chosenCard":[]
     },
     {
         "set":{"levelType":"defence","attackTime":200,"baseMonsterHealth":20,"baseVillageHealth":20,
@@ -218,7 +218,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","projector","regeneration","shielder","snowman","assassinFirst",null]
+        ],"banCard":[],"chosenCard":[]
     },
     {
         "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":20,"baseVillageHealth":20,
@@ -382,15 +382,15 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","projector","projector","assassinFirst","snowman","flyer",null]
+        ],"banCard":[],"chosenCard":[]
     },
     {
-        "set":{"levelType":"attack","attackTime":300,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "set":{"levelType":"normal","attackTime":120,"baseMonsterHealth":10,"baseVillageHealth":10,
         "thunderTime":20,"thunderTimeRand":4,
         "iceTime":24,"iceTimeRand":4},
         "groups":[
             {
-                "firstCD":1,
+                "firstCD":2,
                 "firstCDNum":[],
                 "soldier":["spider","zombie","axer","witch","skeleton"],
                 "soldierCD":2.6,
@@ -419,35 +419,13 @@
                 "groupCD":26,
                 "groupCDRand":2,
                 "groupTimes":0,
-                "stopPos":null,
-                "stopTime":null
-            },
-            {
-                "firstCD":24,
-                "firstCDNum":[],
-                "soldier":["witch"],
-                "soldierCD":0,
-                "groupCD":30,
-                "groupCDRand":2,
-                "groupTimes":0,
-                "stopPos":600,
-                "stopTime":10
-            },
-            {
-                "firstCD":12,
-                "firstCDNum":[],
-                "soldier":["skeleton"],
-                "soldierCD":0,
-                "groupCD":26,
-                "groupCDRand":2,
-                "groupTimes":0,
-                "stopPos":560,
+                "stopPos":400,
                 "stopTime":10
             },
             {
                 "firstCD":60,
                 "firstCDNum":[],
-                "soldier":["spider","zombie","axer","witch","skeleton","ghost"],
+                "soldier":["spider","zombie","axer"],
                 "soldierCD":1,
                 "groupCD":52,
                 "groupCDRand":4,
@@ -458,8 +436,26 @@
         ],"banCard":[],"chosenCard":[]
     },
     {
-        "set":{"levelType":"normal","attackTime":300,"baseMonsterHealth":10,"baseVillageHealth":10,
-        "thunderTime":2,"thunderTimeRand":0,
+        "set":{"levelType":"boss","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "thunderTime":0,"thunderTimeRand":0,
+        "iceTime":0,"iceTimeRand":0},
+        "groups":[
+            {
+                "firstCD":0,
+                "soldier":["zombie"],
+                "firstCDNum":[],
+                "soldierCD":0.8,
+                "groupCD":8,
+                "groupCDRand":0,
+                "groupTimes":1,
+                "stopPos":null,
+                "stopTime":null
+            }
+        ],"banCard":[],"chosenCard":["shoveler","golder","projector","regeneration","power","flyer",null]
+    },
+    {
+        "set":{"levelType":"normal","attackTime":12,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "thunderTime":0,"thunderTimeRand":0,
         "iceTime":0,"iceTimeRand":0},
         "groups":[
             {
@@ -470,10 +466,28 @@
                 "groupCD":8,
                 "groupCDRand":0,
                 "groupTimes":1,
-                "stopPos":600,
-                "stopTime":100
+                "stopPos":null,
+                "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","projector","projector","assassinFirst","snowman","flyer",null]
+        ],"banCard":[],"chosenCard":[]
+    },
+    {
+        "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "thunderTime":0,"thunderTimeRand":0,
+        "iceTime":0,"iceTimeRand":0},
+        "groups":[
+            {
+                "firstCD":0,
+                "soldier":["ghost"],
+                "firstCDNum":[],
+                "soldierCD":0.8,
+                "groupCD":8,
+                "groupCDRand":0,
+                "groupTimes":1,
+                "stopPos":null,
+                "stopTime":null
+            }
+        ],"banCard":[],"chosenCard":["shoveler","golder","projector","regeneration","power","flyer",null]
     },
     {
         "set":{"levelType":"normal","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,
