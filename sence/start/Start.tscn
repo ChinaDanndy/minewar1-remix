@@ -112,7 +112,9 @@ visible = false
 [node name="teachButton" parent="." instance=ExtResource("9_jkk25")]
 layout_mode = 0
 offset_left = 813.0
+offset_top = 0.0
 offset_right = 833.0
+offset_bottom = 20.0
 texture_normal = ExtResource("9_aj6jn")
 texture_pressed = ExtResource("10_eql6r")
 texture_hover = ExtResource("10_eql6r")
@@ -125,7 +127,9 @@ visible = false
 [node name="soundButton" parent="." instance=ExtResource("9_jkk25")]
 layout_mode = 0
 offset_left = 791.0
+offset_top = 0.0
 offset_right = 811.0
+offset_bottom = 20.0
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
