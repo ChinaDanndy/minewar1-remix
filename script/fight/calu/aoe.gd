@@ -68,14 +68,12 @@ func _ready():
 	pass
 
 func _on_area_entered(area):
-	if ifAoeHold == false:
-		if damage == null:
-			Global.damage_Calu(area,Global.damCaluType.EFF,null,null,null,giveEffect,
-			effValue,effTime,effTimes)#纯效果
-		else:
-			Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,
-			giveEffect,effValue,effTime,effTimes)#攻击全部
-		#queue_free()
+	if damage == null:
+		Global.damage_Calu(area,Global.damCaluType.EFF,null,null,null,giveEffect,
+		effValue,effTime,effTimes)#纯效果
+	else:
+		Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,
+		giveEffect,effValue,effTime,effTimes)#攻击全部
 	pass
 	
 func _on_hold_timer_timeout():

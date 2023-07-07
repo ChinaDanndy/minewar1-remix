@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://drr1q3d0dq53v" path="res://assets/miniGame/game2/fireworker/firework3.png" id="1_0pq6y"]
 [ext_resource type="Script" path="res://script/miniGame/firework.gd" id="1_fnggh"]
-[ext_resource type="AudioStream" uid="uid://c2x0u1w6b8mv4" path="res://assets/music/se/miniGame/blast.ogg" id="3_my6p3"]
+[ext_resource type="AudioStream" uid="uid://c2x0u1w6b8mv4" path="res://assets/music/se/other/blast.ogg" id="3_my6p3"]
 [ext_resource type="Texture2D" uid="uid://dw646fwfmdxyh" path="res://assets/particles/miniGame.png" id="4_fxxm6"]
-[ext_resource type="AudioStream" uid="uid://citiamtqkirsh" path="res://assets/music/se/miniGame/largeBlast.ogg" id="4_jaksr"]
+[ext_resource type="AudioStream" uid="uid://citiamtqkirsh" path="res://assets/music/se/other/largeBlast.ogg" id="4_jaksr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ow0a"]
 size = Vector2(20, 30)

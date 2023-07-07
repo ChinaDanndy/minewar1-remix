@@ -241,6 +241,26 @@ offset_right = 43.0
 offset_bottom = 19.0
 texture = ExtResource("8_qn7qd")
 
+[node name="thank" type="Label" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -19.0
+offset_right = 88.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ojej8")
+theme_override_font_sizes/font_size = 0
+text = "恭喜你打败了苦力怕之王
+               感谢游玩"
+
 [node name="click" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_oj1ju")
 

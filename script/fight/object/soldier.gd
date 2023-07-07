@@ -75,7 +75,6 @@ func _process(_delta):
 			contrl()
 	position.x += speed*camp*speedDirection*speedState#移动控制
 	
-	
 	if stopPos != null&&ifOnlyAttBase == false:#敌方的行动与暂停
 		if position.x <= stopPos&&stop == false:
 			stop = true
@@ -94,7 +93,6 @@ func _process(_delta):
 			var toVillageBase = abs(position.x-(Global.VillageBase.global_position.x
 			+(Global.VillageBase.collBox.x/2)+20))
 			if toVillageBase <= tpDistance: tpDistance = null
-		
 		pass
 		
 #	if health <= healthEffValue: #低血量狂暴永久效果
@@ -126,8 +124,6 @@ func contrl():#玩家的单位控制
 	if Input.is_action_just_pressed("ui_down"): changeState("stop",State.STOP)
 	if Input.is_action_just_pressed("ui_left"): changeState("walk",State.BACK)
 	pass
-
-func regenerationSet():  $particles/regeneration.emitting = true
 
 func _on_input_event(_viewport,event, _shape_idx):
 	if event.is_action_pressed("ui_mouse_left")&&camp == Global.VILLAGE&&unSee == false:

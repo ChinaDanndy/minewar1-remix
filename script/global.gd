@@ -15,10 +15,10 @@ const MAsk = [[1+16,1+4+16,16,1+4],[1+2+16+32],[2+32,2+8+32,32,2+8]]
 #const deathLayer = 32
 enum AttackType {NEAR,FAR,EXPLODE}
 const AddDamage = 1.5
-enum Effect {ATTDAMAGE,ATTRANGE,SPEED,FREEZE,HOLDAMAGE,DAMAGE,KNOCK}
+enum Effect {ATTDAMAGE,ATTRANGE,SPEED,HOLDAMAGE,FREEZE,DAMAGE,KNOCK}
 const EffGood = Effect.DAMAGE
 enum DamValue {HOLDAMAGE,DAMAGE,KNOCK}
-const EffValue = [0.5,0.5,0.5,0]
+const EffValue = [0.5,0.5,0.5,0,0]
 const EFFGOOD = 1
 const OFFEFFECT = 0
 const EFFBAD = -1
@@ -157,19 +157,24 @@ var LevelData
 var NowLevel = 1
 var LevelOver = false
 func _ready():#读入数据
-#	if FileAccess.file_exists("user://playerData.json"):
-#		var _json = JSON.new()
-#		var loadData = FileAccess.open("user://playerData.json",FileAccess.READ)
-#		var waitJson = loadData.get_as_text()
-#		_json.parse(waitJson)
-#		Point = _json.data["Point"]
-#		Brought = _json.data["Brought"]
-#		Level = _json.data["Level"]
-#		Teach = _json.data["Teach"]
-#		loadData = null
+	if FileAccess.file_exists("user://playerData.json"):
+		var _json = JSON.new()
+		var loadData = FileAccess.open("user://playerData.json",FileAccess.READ)
+		var waitJson = loadData.get_as_text()
+		_json.parse(waitJson)
+		Point = _json.data["Point"]
+		Brought = _json.data["Brought"]
+		Level = _json.data["Level"]
+		Teach = _json.data["Teach"]
+		loadData = null
 	root.close_requested.connect(closeWindow)
 
-	var file = FileAccess.open("res://data/object.json", FileAccess.READ)#user:
+	if Level <= 5: CardUp = Global.Level+1
+	else: CardUp = 6
+	if Brought["cardUpdate"] == true: CardUp += 1#卡槽升级
+	if Brought["moneyUpate"] == true: Money += 5#资金上限升级
+
+	var file = FileAccess.open("res://data/object.json",FileAccess.READ)#user:
 	var content = file.get_as_text()#读取所有士兵数据
 	var jsonValue = JSON.new()
 	jsonValue.parse(content)

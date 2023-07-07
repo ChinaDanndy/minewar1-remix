@@ -13,7 +13,8 @@
         "shop":["power","cardUpdate","golder","moneyUpate"],
 
         "miniGame1":{
-            "keepTime":40,
+            "goal":20,
+            "keepTime":30,
             "firstTime":10,
             "lastTime":10,
             "gunpowderRand":6,
@@ -21,7 +22,8 @@
             "timeRand":{"Min":1,"Max":3,"Cut":0.5}
         },
         "miniGame2":{
-            "keepTime":40,
+            "goal":20,
+            "keepTime":30,
             "firstTime":10,
             "lastTime":10,
             "reloadTime":1,
@@ -221,7 +223,7 @@
         ],"banCard":[],"chosenCard":[]
     },
     {
-        "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":20,"baseVillageHealth":20,
+        "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":20,"baseVillageHealth":30,
         "thunderTime":0,"thunderTimeRand":0,
         "iceTime":26,"iceTimeRand":5},
         "groups":[
@@ -272,7 +274,7 @@
         ],"banCard":[],"chosenCard":[]
     },
     {
-        "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":20,"baseVillageHealth":20,
+        "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":20,"baseVillageHealth":30,
         "thunderTime":24,"thunderTimeRand":2,
         "iceTime":0,"iceTimeRand":0},
         "groups":[
@@ -334,7 +336,7 @@
         ],"banCard":[],"chosenCard":[]
     },
     {
-        "set":{"levelType":"boss","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "set":{"levelType":"boss","attackTime":0,"baseMonsterHealth":30,"baseVillageHealth":30,
         "thunderTime":0,"thunderTimeRand":0,
         "iceTime":26,"iceTimeRand":2},
         "groups":[
@@ -385,7 +387,7 @@
         ],"banCard":[],"chosenCard":[]
     },
     {
-        "set":{"levelType":"normal","attackTime":120,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "set":{"levelType":"normal","attackTime":120,"baseMonsterHealth":30,"baseVillageHealth":30,
         "thunderTime":20,"thunderTimeRand":4,
         "iceTime":24,"iceTimeRand":4},
         "groups":[
@@ -474,11 +476,11 @@
     {
         "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,
         "thunderTime":0,"thunderTimeRand":0,
-        "iceTime":0,"iceTimeRand":0},
+        "iceTime":2,"iceTimeRand":0},
         "groups":[
             {
                 "firstCD":0,
-                "soldier":["ghost"],
+                "soldier":["zombie"],
                 "firstCDNum":[],
                 "soldierCD":0.8,
                 "groupCD":8,
@@ -487,7 +489,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","golder","projector","regeneration","power","flyer",null]
+        ],"banCard":[],"chosenCard":["shoveler","snowman","projector","regeneration","power","flyer",null]
     },
     {
         "set":{"levelType":"normal","attackTime":10,"baseMonsterHealth":10,"baseVillageHealth":10,

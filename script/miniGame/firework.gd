@@ -1,9 +1,13 @@
 extends Area2D
 var speed = Global.LevelData[0]["miniGame2"]["fireworkSpeed"]
 var stop = 1
-func _ready(): $tail.emitting = true
+func _ready(): 
+	#await get_tree().create_timer(0.1,false).timeout
+	
+	$tail.emitting = true
 
 func _process(_delta):
+	#$CanvasLayer/tail.position = position+Vector2(0,15)
 	$normal.volume_db = Global.SeDB
 	$well.volume_db = Global.SeDB
 	position += speed*Vector2.UP*stop

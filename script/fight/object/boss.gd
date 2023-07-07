@@ -39,20 +39,8 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
-		#health -= 2
+		#health = 0
 		pass
-	#print(Global.MonsterBase.position)
-	#$AnimatedSprite2D.play("attack")
-	#$cover.texture = $Normal.sprite_frames.get_frame_texture(
-	#$Normal.animation,$Normal.frame)
-	#size.x = originSize*(health/healthUp)
-	#$RayCast2D.force_raycast_update()
-#	if position.x <= Global.BossStopX&&bossLv == 2&&norAni.animation != "stop2":
-#			norAni.play("stop2")
-		#if bossLv == 2: 
-#			if norAni.animation != "walk"&&position.x > Global.BossStopX: norAni.play("walk")
-#			if position.x > Global.BossStopX: position.x -= speed
-		#if norAni.animation != "stop2"&&bossLv == 2: norAni.play("stop2")
 	Global.MonsterPoint.x = global_position.x
 	
 	if health >0:

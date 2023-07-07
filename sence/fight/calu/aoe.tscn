@@ -17,7 +17,7 @@ particles_anim_h_frames = 8
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_u4u08"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_extc2"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
@@ -168,7 +168,7 @@ anim_speed_min = 5.0
 anim_speed_max = 7.0
 
 [node name="fireballExplode" parent="particles" instance=ExtResource("5_xa4uk")]
-material = SubResource("CanvasItemMaterial_u4u08")
+material = SubResource("CanvasItemMaterial_extc2")
 amount = 20
 emission_shape = 2
 emission_sphere_radius = 36.0

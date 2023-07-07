@@ -123,7 +123,7 @@ offset_bottom = 361.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_rng1f")
 theme_override_font_sizes/font_size = 0
-text = "游戏结束时,若分数超过30分,
+text = "游戏结束时,若分数超过20分,
 获得1颗绿宝石
 "
 
@@ -136,7 +136,9 @@ offset_bottom = 117.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_rng1f")
 theme_override_font_sizes/font_size = 0
-text = "截图和游戏存档的文件路径为:
+text = "按Q截图
+ 
+截图和游戏存档的文件路径为:
 C:\\Users\\你电脑的用户名\\
 AppData\\Roaming\\
 Godot\\app_userdata\\

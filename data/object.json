@@ -117,8 +117,8 @@
     },
     "flyer":{
         "health":5,
-        "speedBasic":0.8,
-        "damageBasic":[1.25,4,0],
+        "speedBasic":0.7,
+        "damageBasic":[1.25,3,0],
         "attRangeBasic":[120,40],
         "aoeModel":[null,"monster",null,null],
         "aoeRange":[null,42,null,null],
@@ -205,18 +205,18 @@
     },
     "regeneration":{
         "price":2,
-        "cd":7,
+        "cd":6,
         "ifAoeHold":true,
         "aoeModel":"village",
         "aoeRange":100,
-        "effTime":[0,0,0,0,0,1],
-        "effValue":[0,1,0],
-        "effTimes":[0,5],
-        "giveEffect":[0,0,0,0,0,1,0],
+        "effTime":[0,0,0,1,0,1],
+        "effValue":[1,0,0],
+        "effTimes":[5,5],
+        "giveEffect":[0,0,0,1,0,0,0],
         "dropSpeed":30,
         "type":"skill",
         "objectName":"滞留型恢复药水",
-        "description":"每隔1秒恢复范围/内我方地面单位1/点血量,存在5秒"
+        "description":"每隔1秒恢复范围/内我方地面士兵1/点血量,存在5秒"
     },
     "power":{
         "price":3,
@@ -230,7 +230,7 @@
         "dropSpeed":30,
         "type":"skill",
         "objectName":"喷溅型力量药水",
-        "description":"范围内我方单位伤/害和速度提升50%"
+        "description":"范围内我方地面士/兵伤害和速度提升/50%"
     },
     "zombie":{
         "health":3,
@@ -390,9 +390,9 @@
         "ifAoeHold":false,
         "aoeModel":"village",
         "aoeRange":60,
-        "effTime":[0,0,0,5,0],
+        "effTime":[0,0,0,0,5],
         "effTimes":[0,0],
-        "giveEffect":[0,0,0,-1,0,0,0],
+        "giveEffect":[0,0,0,0,-1,0,0],
         "dropSpeed":8,
         "type":"skill",
         "objectName":"冰冻法术",

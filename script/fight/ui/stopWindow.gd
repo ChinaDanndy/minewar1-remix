@@ -10,15 +10,19 @@ func _process(_delta):
 
 func text(mode):
 	get_tree().paused = true
+	$Control/thank.visible = false
 	Mode = mode
 	match mode:
 		"stop": $Control/Title.text = "暂停"
 		"win": 
 			if soundOnce == true: $win.play()
 			$Control/Title.text = "胜利"
-			if get_parent().name == "Fight"&&Global.NowLevel == Global.Level:
-				if Global.Level<=6: $Control/card.visible = true
-				if Global.Level<7: addPoint()
+			if get_parent().name == "Fight":
+				if Global.Level == 8: $Control/HBoxContainer/Button2.visible = false
+				if Global.NowLevel == Global.Level:
+					if Global.Level<=6: $Control/card.visible = true
+					if Global.Level<7: addPoint()
+					if Global.Level == 8: $Control/thank.visible = true
 			if get_parent().name == "MiniGame": addPoint()
 		"lose": 
 			if soundOnce == true: $lose.play()

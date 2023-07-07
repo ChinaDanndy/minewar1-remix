@@ -49,6 +49,7 @@ func effectAttackCalu(damager):
 						var this = i
 						if giveEffect[i] == Global.EFFGOOD: this += Global.EffGood
 						if i != Global.Effect.HOLDAMAGE: 
+							
 							damager.nowEffect[this] = Global.EffValue[i]*giveEffect[i]
 							if damager.effTimerId[this] == null: 
 								damager.effectTimer(i,effTime[i],null,null,giveEffect[i])

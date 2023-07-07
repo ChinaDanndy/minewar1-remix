@@ -24,6 +24,7 @@ func _ready():
 	pass
 	
 func teach():#第一次弹出提示框
+	get_tree().paused = true
 	visible = true
 	Global.Teach += 1
 	pass

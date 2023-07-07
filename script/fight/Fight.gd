@@ -131,7 +131,7 @@ func SummonEnemy():
 	
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
-		Global.MonsterBase.health = 0
+		#Global.MonsterBase.health = 0
 		pass
 	
 	$Up/MoneyMessage/Moneycount.text = ("%s/%s"%[Global.NowMoney,Global.Money])
@@ -199,11 +199,6 @@ func _on_tree_entered():
 	Global.Contrl = null
 	Global.LevelOver = false
 	
-	if Global.Level <= 6: Global.CardUp = Global.Level+1
-	else: Global.CardUp = 6
-	if Global.Brought["cardUpdate"] == true: Global.CardUp += 1#卡槽升级
-	Global.Money = 10
-	if Global.Brought["moneyUpate"] == true: Global.Money += 5#资金上限升级
 	Global.ChosenCard = [null,null,null,null,null,null,null]
 	Global.ChosenId = [null,null,null,null,null,null,null]
 	Global.ChosenCardNum = 0

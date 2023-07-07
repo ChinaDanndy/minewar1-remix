@@ -2,6 +2,7 @@ extends TextureButton
 var level
 
 func _ready():
+	$Lock.visible = true
 	level = int(str(name))
 	var ParentName = get_parent().name
 	if ParentName == "miniGame": 

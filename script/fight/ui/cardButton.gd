@@ -20,7 +20,7 @@ var cdStart = false
 var originSize
 
 var soldier
-var price = ""
+var price = 0
 var areaId
 var choiceArea = preload("res://sence/fight/ui/choiceArea.tscn")
 
@@ -83,9 +83,7 @@ func display():
 		if Global.LevelData[0]["buyPrice"].has(soldier):
 			price = Global.LevelData[0]["buyPrice"][soldier]
 		else: self.texture_normal = null
-	if cardType == cType.SHOP: 
-		price = Global.LevelData[0]["buyPrice"][soldier]
-		if Global.Point < price: self.button_mask = 0
+	if cardType == cType.SHOP: price = Global.LevelData[0]["buyPrice"][soldier]
 	$cardPrice.text = str(price)
 	$icon.texture = load("res://assets/UI/cardIcon/cardIcon%s.png"%(showNum+1))
 	pass
@@ -139,6 +137,7 @@ func _process(_delta):
 				if soldier == null&&self.button_mask !=0:  
 					cardText = false
 					self.button_mask = 0
+			cType.SHOP: if Global.Point < price: self.button_mask = 0
 	else:
 		if cardType == cType.USE&&soldier != null:
 			if Global.NowMoney >= price&&$CDTimer.time_left == 0&&cantBuy.visible == true:
