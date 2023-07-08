@@ -13,6 +13,7 @@ var protectCD
 var shoot = preload("res://sence/fight/object/base.tscn")
 var bossLv
 var attackTime = 1
+var bossSkillCut
 var bossUp = 0
 var bossShineSet = 0
 
@@ -20,6 +21,7 @@ func _ready():
 	super.SetValue("creeperKing")
 	super.addSoundAndParticles()
 	Global.FightButton.fight.connect(bossStart)
+	type = "base"
 	soldierName[0] = "creeperKing"
 	healthUp = health
 	originSize = healthColor.texture.get_size().x
@@ -31,9 +33,7 @@ func _ready():
 	norAni.visible = true
 	tpAni.visible = false
 	$RayCast2D.position.x = -collBox.x/2-20
-	
 	Global.FightSence.BossLv2.connect(Lv2)
-#	Global.FightSence.BossLv3.connect(Lv3)
 	Global.BossProtect.ProtectDown.connect(protectDown)
 	pass
 
@@ -53,7 +53,7 @@ func _process(_delta):
 	else: $attackTimer.stop()
 		
 	if bossLv == 2:
-		if bossUp >= (attackTime/12):#法阵充能 
+		if bossUp >= bossSkillCut:#法阵充能 
 			bossUp = 0
 			if Global.BossSkill.frame!=12: Global.BossSkill.frame += 1
 		#法阵闪烁
@@ -108,6 +108,7 @@ func _on_tp_animation_finished():
 	explode()
 	protectReset()
 	attackTime = Global.LevelData[Global.NowLevel]["set"]["attackTime"]
+	bossSkillCut = (attackTime/(Global.BossSkill.hframes-1))
 	$deathTimer.start(1)
 	Global.FightSence.SummonEnemy()
 	bossLv = 2

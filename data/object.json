@@ -332,7 +332,7 @@
         "effTime":[[3,0,0,0,0],[0,0,0,0,0],[],[0,0,0,0,0]],
         "effValue":[[0,0,0],[0,0,0],[],[0,1,0]],
         "giveEffect":[[-1,0,0,0,0,0,0],[],[],[0,0,0,0,0,1,0]],
-        "usualTime":4,
+        "usualTime":3,
 
         "type":"soldier",
         "animation":{"walk":5,"attack":4,"stop":1,"death":1},
@@ -341,7 +341,7 @@
         "attackType":[[false,true,false]],
         "damagerType":[["weakness"]],
         "objectName":"女巫",
-        "description":"投掷药水使范围内/的我方单位伤害降/低50%,每隔4秒/恢复附近敌方单位/1点血量"
+        "description":"投掷药水使范围内/的我方单位伤害降/低50%,每隔3秒/恢复附近敌方单位/1点血量"
     },
     "ghost":{
         "health":6,
@@ -409,7 +409,7 @@
         "description":"对范围内我方单位/造成7点伤害并使/苦力怕变成闪电苦/力怕"
     },
     "creeperKing":{
-        "health":50,
+        "health":40,
         "damage":[10,0],
         "aoeModel":["all","village",null,null],
         "aoeRange":[200,80,null,null],

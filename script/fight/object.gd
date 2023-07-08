@@ -186,8 +186,9 @@ func _process(_delta):#每帧执行的部分
 		#&&currentState != State.FALL
 		#if animation.has("deathFall"): changeState("deathFall",State.FALL)
 	else: testchangeState()#状态切换检测
-	if Input.is_action_just_pressed("ui_select"):#测试用
-		#if camp == Global.MONSTER:
+	if Input.is_action_just_pressed("ui_test"):#测试用
+		if camp == Global.MONSTER: 
+			#health -= 2
 			#print(speedEffect)
 			pass
 	pass
@@ -395,7 +396,7 @@ func effectTimer(effName,effKeepTime,effKeepTimes,effDam,GoodOrBad):
 	effTimerId[this] = effTimer
 	pass
 	
-func regenerationSet():  $particles/regeneration.emitting = true
+func regenerationSet(): $particles/regeneration.emitting = true
 	
 func effectTimerTimeout(effName,effKeepTimes,effDam,GoodOrBad):
 	var this = effName

@@ -138,13 +138,17 @@ theme_override_fonts/font = ExtResource("5_rng1f")
 theme_override_font_sizes/font_size = 0
 text = "按Q截图
  
-截图和游戏存档的文件路径为:
-C:\\Users\\你电脑的用户名\\
-AppData\\Roaming\\
-Godot\\app_userdata\\
-Minewar remix
- 
 制作人员名单:
-Danndy"
+编程&主策划: 
+China_Danndy
+美术&策划: 钢铁像素点
+美术: 纸飞稽,假酒兑烟灰缸
+策划: Eden
+(以上均为贴吧id)
+ 
+测试者:  1639,CTTZB,
+黑茶RGO,Paranoia,
+GalacticAc
+"
 
 [connection signal="pressed" from="TeachClose" to="." method="_on_teach_close_pressed"]

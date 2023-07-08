@@ -456,22 +456,22 @@
         ],"banCard":[],"chosenCard":[]
     },
     {
-        "set":{"levelType":"normal","attackTime":12,"baseMonsterHealth":10,"baseVillageHealth":10,
+        "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,
         "thunderTime":0,"thunderTimeRand":0,
         "iceTime":0,"iceTimeRand":0},
         "groups":[
             {
                 "firstCD":0,
-                "soldier":["skeleton"],
+                "soldier":["witch","zombie"],
                 "firstCDNum":[],
-                "soldierCD":0.8,
+                "soldierCD":1,
                 "groupCD":8,
                 "groupCDRand":0,
                 "groupTimes":1,
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":[]
+        ],"banCard":[],"chosenCard":["shoveler","snowman","projector","regeneration","power","flyer",null]
     },
     {
         "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,

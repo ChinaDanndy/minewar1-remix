@@ -26,7 +26,7 @@ signal BossLv2
 signal BossLv3
 
 func _ready():
-	#Global.NowLevel = 12
+	#Global.NowLevel = 11
 	if Global.NowLevel <= 4:
 		$backGround1.visible = true
 		$Up/buttom1.visible = true
@@ -46,7 +46,6 @@ func _ready():
 		Global.MonsterBase.firstSetting("baseMonsterHealth")
 	else: 
 		bossLv = 1
-		print(bossLv)
 		$baseMonster.free()
 		Global.MonsterBase = $Boss
 		$Boss.visible = true
