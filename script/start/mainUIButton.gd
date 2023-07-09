@@ -7,10 +7,10 @@ func _ready():
 	match name:
 		"LevelChoiceButton": $text.text = "开始游戏"
 		"BuyCardButton": 
-			if Global.Level < 2: visible = false
+			if Global.Level < 3: visible = false
 			$text.text = "打开商店"
 		"MiniGameButton": 
-			if Global.Level < 3: visible = false
+			if Global.Level < 2: visible = false
 			$text.text = "玩小游戏"
 	await get_tree().create_timer(0.2,false).timeout
 	material = null

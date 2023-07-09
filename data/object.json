@@ -91,8 +91,8 @@
         "unSee": true,
         "firstAttack":true,
 
-        "price":3,
-        "cd":6,
+        "price":1,
+        "cd":1,
         "type":"soldier",
         "soldierName":[null,"assassin"],
         "collBoxCut":20,
@@ -206,7 +206,7 @@
         "souEffValue":{"hurt":"wood1","attack":"launch","death":"towerDeath"},
         "particlesValue":{"hurt":"hurtWhite","death":"towerDeath"},
         "attackType":[[false,true,false]],
-        "objectName":"烟花",
+        "objectName":"防空烟花",
         "description":"发射烟花攻击空中/怪物,存在6秒"
     },
     "golder":{
@@ -227,7 +227,7 @@
     },
     "regeneration":{
         "price":2,
-        "cd":8,
+        "cd":6,
         "ifAoeHold":true,
         "aoeModel":"village",
         "aoeRange":100,
@@ -238,7 +238,7 @@
         "dropSpeed":30,
         "type":"skill",
         "objectName":"滞留型恢复药水",
-        "description":"进入范围内我方地/面士兵立刻增加5/点血量,存在5秒"
+        "description":"进入范围内我方地/面士兵立刻增加3/点血量,存在5秒"
     },
     "power":{
         "price":3,
@@ -431,8 +431,8 @@
         "damage":[10,0],
         "aoeModel":["all",null,null,null],
         "aoeRange":[200,null,null,null],
-        "protectHealth":4,
-        "protectCD":8,
+        "protectHealth":6,
+        "protectCD":6,
 
         "type":"soldier",
         "attackType":[[false,false,true],[false,true,false]],

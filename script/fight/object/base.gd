@@ -6,7 +6,7 @@ signal ProtectDown
 #@onready var bossProctectShow = get_parent()
 @onready var healthColor = get_parent().get_node("healthLine/Sprite2D")
 var originSize
-var effDefence = [true,true,true,true,false,false,true]
+var effDefence = [true,true,true,true,false,false,true,true]
 var attDefence = [false,false,false]
 var type = "base"
 var health = 5
@@ -29,8 +29,9 @@ func firstSetting(Name):
 			match Global.LevelData[Global.NowLevel]["set"]["levelType"]:
 				"defence": 
 					get_parent().get_node("healthLine").visible = false
-					get_parent().texture = load("res://assets/objects/defence.png") 
-					effDefence = [true,true,true,true,true,true,true]
+					get_parent().texture = load("res://assets/objects/defence.png")
+					collision_layer = 0
+					effDefence = [true,true,true,true,true,true,true,true]
 					attDefence = [true,true,true]
 	var newBox = RectangleShape2D.new()
 	collBox = get_parent().texture.get_size()

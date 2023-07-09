@@ -84,7 +84,9 @@ func display():
 	if cardType == cType.BUYSHOW:
 		if Global.LevelData[0]["buyPrice"].has(soldier):
 			price = Global.LevelData[0]["buyPrice"][soldier]
-		else: self.texture_normal = null
+		else: 
+			$cardPrice.visible = false
+			self.texture_normal = null
 	if cardType == cType.SHOP: price = Global.LevelData[0]["buyPrice"][soldier]
 	$cardPrice.text = str(price)
 	$icon.texture = load("res://assets/UI/cardIcon/cardIcon%s.png"%(showNum+1))

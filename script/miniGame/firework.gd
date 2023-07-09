@@ -35,7 +35,6 @@ func _on_aoe_area_entered(area):
 			$well.play()
 			Global.MiniGameScore += 4
 		"ghost":
-			print("????")
 			$explodeNormal.emitting = true
 			$normal.play()
 			Global.MiniGameScore += 1

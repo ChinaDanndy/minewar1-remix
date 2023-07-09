@@ -40,7 +40,7 @@ func firstSetting(soldier):
 		"skyLine":#活塞虫
 			$Collision2.position.y = (distanceLandSky)-10
 			$Collision2.position.x = -(attRangeBasic[1]/2)
-	#if coll2Pos != null: $Collision2.collide_with_areas = true
+	if coll2Pos != null: $Collision2.collide_with_areas = true
 	if usualTime != null: $UsualTimer.start(usualTime)
 	
 	#	if stopTime == 0: Global.SummonEnemy.stopOver.connect(onStopOver)

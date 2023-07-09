@@ -462,7 +462,7 @@
         "groups":[
             {
                 "firstCD":0,
-                "soldier":["ghost"],
+                "soldier":["zombie"],
                 "firstCDNum":[],
                 "soldierCD":1,
                 "groupCD":8,

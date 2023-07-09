@@ -27,7 +27,8 @@ func _ready():
 	originSize = healthColor.texture.get_size().x
 	camp = Global.MONSTER
 	attDefence = [true,true,true]
-	effDefence = [true,true,true,true,true,true,true]
+	effDefence = [true,true,true,true,true,true,true,true]
+	collision_layer = 0
 	collBox = Vector2(20,46)
 	position.y = Global.FightGroundY-(collBox.y/2)
 	norAni.visible = true
@@ -86,8 +87,6 @@ func Lv2():
 	$healthLine.visible = false
 	$RayCast2D.collide_with_areas = false
 	$attackTimer.stop()
-	attDefence = [true,true,true]
-	effDefence = [true,true,true,true,true,true,true]
 	norAni.visible = false
 	tpAni.visible = true
 	tpAni.play("default")
@@ -122,11 +121,13 @@ func protectDown():
 	explode()
 	await get_tree().create_timer(0.2,false).timeout
 	attDefence = [false,false,false]
-	effDefence = [true,true,true,true,false,false,true]
+	effDefence = [true,true,true,true,false,false,true,true]
+	collision_layer = 32
 	await get_tree().create_timer(protectCD,false).timeout
 	#explode()
 	attDefence = [true,true,true]
-	effDefence = [true,true,true,true,true,true,true]
+	effDefence = [true,true,true,true,true,true,true,true]
+	collision_layer = 0
 	norAni.play("stop1")
 	protectReset()
 	$RayCast2D.collide_with_areas = true

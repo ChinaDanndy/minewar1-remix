@@ -24,9 +24,11 @@ func text(mode):
 						Global.Level = 10
 				if Global.NowLevel == Global.Level:
 					$Control/card.visible = true
+					$Control/card/CanBuy.visible = false
+					$Control/card/CanBuy.visible = false
 					if Global.Level<7: $Control/card/CanBuy.visible = true#新的解锁
-					if Global.Level<8: $Control/card/Unlock.visible = true#新的解锁
-					if Global.Level<7: addPoint()#加钱
+					if Global.Level<8: $Control/card/Unlock.visible = true#新卡
+					if Global.Level<8: addPoint()#加钱
 			if get_parent().name == "MiniGame": addPoint()
 		"lose": 
 			$lose.play()
