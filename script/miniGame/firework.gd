@@ -21,20 +21,22 @@ func _on_area_entered(_area):
 	collision_mask = 0
 	$Sprite2D.visible = false
 	stop = 0
-	$AOE.monitoring = true
+	$AOE.collision_mask = 1
 	await get_tree().create_timer(0.02,false).timeout
-	$AOE.monitoring = false
+	$AOE.collision_mask = 0
 	await get_tree().create_timer(3,false).timeout
 	queue_free()
 	pass
 
 func _on_aoe_area_entered(area):
+	
 	match area.Name:
 		"zombie":
 			$explodeWell.emitting = true
 			$well.play()
 			Global.MiniGameScore += 4
 		"ghost":
+			print("????")
 			$explodeNormal.emitting = true
 			$normal.play()
 			Global.MiniGameScore += 1

@@ -6,6 +6,7 @@ var bossLv = 0
 var bossShineSet = 0
 var bossUp = 0
 
+var gameOver = false
 var levelType
 var levelTarget
 var attackTime = 0
@@ -133,6 +134,8 @@ func _process(_delta):
 		#Global.MonsterBase.health = 0
 		pass
 	
+	$skillArea.size.x = Global.MonsterPoint.x-Global.VillagePoint.x
+	#技能释放位置固定
 	$Up/MoneyMessage/Moneycount.text = ("%s/%s"%[Global.NowMoney,Global.Money])
 	if Global.NowMoney < Global.Money&&$Timer/Moneytimer.paused == true:
 		$Timer/Moneytimer.paused = false
@@ -144,12 +147,17 @@ func _process(_delta):
 	iceTime = Global.LevelData[Global.NowLevel]["set"]["iceTime"]
 	iceTimeRand = Global.LevelData[Global.NowLevel]["set"]["iceTimeRand"]
 	
-	if Global.VillageBase.health <= 0: 
-		await get_tree().create_timer(0.8).timeout
-		Global.StopWindow.text("lose")
-	if Global.MonsterBase.health <= 0: 
-		await get_tree().create_timer(0.8).timeout
-		Global.StopWindow.text("win")
+	if gameOver == false:
+		if Global.VillageBase.health <= 0: 
+			gameOver = true
+			await get_tree().create_timer(0.6).timeout
+			Global.StopWindow.text("lose")
+			
+		if Global.MonsterBase.health <= 0: 
+			gameOver = true
+			await get_tree().create_timer(0.6).timeout
+			Global.StopWindow.text("win")
+		
 #	if bossLv > 0:
 #		$monnsterTowerArea.position.x = (
 #			$Boss.global_position.x-$monnsterTowerArea.size.x-20)
@@ -198,6 +206,10 @@ func _on_tree_entered():
 	Global.Contrl = null
 	Global.LevelOver = false
 	
+	if Global.Level <= 5: Global.CardUp = Global.Level+1
+	else: Global.CardUp = 6
+	if Global.Brought["cardUpdate"] == true: Global.CardUp += 1#卡槽升级
+	if Global.Brought["moneyUpate"] == true: Global.Money += 5#资金上限升级
 	Global.ChosenCard = [null,null,null,null,null,null,null]
 	Global.ChosenId = [null,null,null,null,null,null,null]
 	Global.ChosenCardNum = 0

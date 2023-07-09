@@ -27,6 +27,7 @@ animations = [{
 size = Vector2(28, 28)
 
 [node name="zombie" type="Area2D"]
+collision_mask = 0
 monitoring = false
 script = ExtResource("1_wrtss")
 

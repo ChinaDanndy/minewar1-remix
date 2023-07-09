@@ -169,11 +169,6 @@ func _ready():#读入数据
 		loadData = null
 	root.close_requested.connect(closeWindow)
 
-	if Level <= 5: CardUp = Global.Level+1
-	else: CardUp = 6
-	if Brought["cardUpdate"] == true: CardUp += 1#卡槽升级
-	if Brought["moneyUpate"] == true: Money += 5#资金上限升级
-
 	var file = FileAccess.open("res://data/object.json",FileAccess.READ)#user:
 	var content = file.get_as_text()#读取所有士兵数据
 	var jsonValue = JSON.new()

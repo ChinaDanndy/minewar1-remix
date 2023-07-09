@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cimi287socn0s"]
+[gd_scene load_steps=9 format=3 uid="uid://cimi287socn0s"]
 
 [ext_resource type="Texture2D" uid="uid://jbxgg1stfefq" path="res://assets/backgrounds/card_square.png" id="1_hd28k"]
 [ext_resource type="PackedScene" uid="uid://cqu0trx4tn07j" path="res://sence/fight/ui/cardButton.tscn" id="2_avj7v"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://script/fight/ui/fightButton.gd" id="5_ekptk"]
 [ext_resource type="Texture2D" uid="uid://bp00asad5xl68" path="res://assets/UI/button/smallButtonUnlock.png" id="5_prena"]
 [ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="6_jjnxo"]
+[ext_resource type="AudioStream" uid="uid://c5qsbam30no4x" path="res://assets/music/se/other/click.ogg" id="8_5p3vi"]
 
 [node name="choiceCard" type="Control"]
 layout_mode = 3
@@ -109,5 +110,8 @@ offset_bottom = 20.0
 theme_override_fonts/font = ExtResource("6_jjnxo")
 theme_override_font_sizes/font_size = 14
 text = "开始战斗"
+
+[node name="click" type="AudioStreamPlayer" parent="fightButton"]
+stream = ExtResource("8_5p3vi")
 
 [connection signal="pressed" from="fightButton" to="fightButton" method="_on_pressed"]

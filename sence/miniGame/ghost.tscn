@@ -51,6 +51,7 @@ animations = [{
 size = Vector2(56, 39)
 
 [node name="ghost" type="Area2D"]
+collision_mask = 0
 monitoring = false
 script = ExtResource("1_mi4u0")
 

@@ -95,7 +95,7 @@ color_ramp = SubResource("Gradient_36wng")
 [node name="AOE" type="Area2D" parent="."]
 visible = false
 collision_layer = 0
-monitoring = false
+collision_mask = 0
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AOE"]
