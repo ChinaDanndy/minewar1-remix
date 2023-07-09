@@ -6,6 +6,7 @@ func _ready():
 	size = Vector2(0,0)
 	num = int(str(name))-1
 	Global.FightSence.monsterShowLoad.connect(loadData)
+	texture = null
 	pass
 
 func loadData():

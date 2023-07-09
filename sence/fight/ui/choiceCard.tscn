@@ -89,11 +89,21 @@ cardType = 1
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
+[node name="cardButton11" parent="." instance=ExtResource("2_avj7v")]
+layout_mode = 2
+offset_left = 108.0
+offset_top = 160.0
+offset_right = 158.0
+offset_bottom = 236.0
+cardType = 1
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
 [node name="fightButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 135.0
+offset_left = 174.0
 offset_top = 176.0
-offset_right = 199.0
+offset_right = 238.0
 offset_bottom = 196.0
 texture_normal = ExtResource("3_ocdvq")
 texture_pressed = ExtResource("4_kynlk")

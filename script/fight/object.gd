@@ -65,11 +65,13 @@ var effTimerId = [null,null,null,null,null,null,null,null,null]
 var nowEffect = [0,0,0,0,0,0,0,0,0]#记录伤害，速度，射程当前的效果值，区分好坏
 var effTime = [[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]]
 #后两个为平时，攻击持续效果的间隔给予数值的时间
-var effValue = [[0,0,0],[0,0,0],[0,0,0],[0,0,0]]#平时效果保持伤害,攻击效果保持伤害,击退距离
+var effValue = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+#平时效果保持伤害,攻击效果保持伤害,击退距离，超生命上限恢复的血量
 var effTimes = [[0,0],[0,0],[0,0],[0,0]]#效果持续：平时次数，攻击次数
 var ifAoe##仅用于伤害判定给予效果时分辨效果来源
-var effDefence = [false,false,false,false,false,false,false]#
-var giveEffect = [[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0]]#攻击给予状态同时表示好坏
+var effDefence = [false,false,false,false,false,false,false,false]#
+var giveEffect = [[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]#攻击给予状态同时表示好坏
 var deathAttType#
 var usualTime#
 var dropSpeed#
@@ -156,7 +158,7 @@ func reSet(soldier):
 	
 func _process(_delta):#每帧执行的部分
 	if currentState == State.FALL:  position.y += dropSpeed
-	#$Label.text = str(health)
+	$Label.text = str(health)
 
 	for i in souEff: 
 		if souEff[i] != null: souEff[i].set_volume_db(Global.SeDB)#时刻保持音量与全局音量一致
@@ -175,9 +177,9 @@ func _process(_delta):#每帧执行的部分
 	
 	#aniSpeed = (aniSpeedBasic+(aniSpeedBasic*(nowEffect[Global.Effect.SPEED]
 	#+nowEffect[Global.Effect.SPEED+Global.EffGood])))*nowEffect[Global.Effect.FREEZE]
-	
-	$Collision1.target_position = Vector2(attRange[0]*camp,0)
-	$Collision2.target_position = Vector2(attRange[1]*camp,0)
+	if soldierName[0] != "airDefence":
+		$Collision1.target_position = Vector2(attRange[0]*camp,0)
+		$Collision2.target_position = Vector2(attRange[1]*camp,0)
 	if type == "soldier": aniSpeedBasic = speed+0.2
 	$AnimatedSprite2D.speed_scale = aniSpeedBasic
 	
@@ -187,8 +189,8 @@ func _process(_delta):#每帧执行的部分
 		#if animation.has("deathFall"): changeState("deathFall",State.FALL)
 	else: testchangeState()#状态切换检测
 	if Input.is_action_just_pressed("ui_test"):#测试用
-		if camp == Global.MONSTER: 
-			#health -= 2
+		if camp == Global.VILLAGE: 
+			#health += 2
 			#print(speedEffect)
 			pass
 	pass

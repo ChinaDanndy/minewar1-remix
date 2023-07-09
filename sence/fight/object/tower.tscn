@@ -59,13 +59,18 @@ collide_with_bodies = false
 enabled = false
 collide_with_bodies = false
 
-[node name="SkillTimer" type="Timer" parent="." index="5"]
+[node name="CollisionUp" type="RayCast2D" parent="." index="3"]
+position = Vector2(18, 0)
+target_position = Vector2(0, -300)
+collide_with_bodies = false
+
+[node name="SkillTimer" type="Timer" parent="." index="6"]
 one_shot = true
 
-[node name="DeathTimer" type="Timer" parent="." index="6"]
+[node name="DeathTimer" type="Timer" parent="." index="7"]
 one_shot = true
 
-[node name="cover" parent="." index="7"]
+[node name="cover" parent="." index="8"]
 texture = ExtResource("3_2fb2o")
 
 [node name="towerDeath" type="CPUParticles2D" parent="particles" index="0"]
@@ -154,7 +159,7 @@ stream = ExtResource("3_ecexi")
 [node name="gold" type="AudioStreamPlayer" parent="se" index="1"]
 stream = ExtResource("8_mlsat")
 
-[node name="goldplayer" type="AnimationPlayer" parent="." index="11"]
+[node name="goldplayer" type="AnimationPlayer" parent="." index="12"]
 libraries = {
 "": SubResource("AnimationLibrary_bikfg")
 }

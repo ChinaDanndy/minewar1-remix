@@ -35,10 +35,14 @@ func _ready():
 		"power":  $particles/power.emitting = true
 		"weakness":  $particles/weakness.emitting = true
 		"ice": $particles/ice.emitting = true
+		"firework":
+			$se/firework.volume_db = Global.SeDB
+			$se/firework.play()
+			$particles/fireworkExplode.emitting = true
 		"tnt": 
 			$se/broke.volume_db = Global.SeDB
 			$se/broke.play()
-			$particles/tntExplode.emitting = true
+			$particles/damage.emitting = true
 		"thunder": 
 			newRange.size.y = Global.STSData["thunder"]["collBox"].y
 			$se/thunder.volume_db = Global.SeDB
@@ -57,7 +61,7 @@ func _ready():
 		if damagerType[0] == "power"||damagerType[0] == "weakness"||(
 			damagerType[0] == "thunder")||damagerType[0] == "tnt"||(
 			damagerType[0] == "fireBall")||damagerType[0] == "fireBallDown"||(
-			damagerType[0] == "ice"):
+			damagerType[0] == "ice")||damagerType[0] == "firework":
 			await get_tree().create_timer(0.04,false).timeout
 			collision_mask = 0
 			await get_tree().create_timer(0.8,false).timeout
@@ -68,6 +72,7 @@ func _ready():
 	pass
 
 func _on_area_entered(area):
+	
 	if damage == null:
 		Global.damage_Calu(area,Global.damCaluType.EFF,null,null,null,giveEffect,
 		effValue,effTime,effTimes)#纯效果

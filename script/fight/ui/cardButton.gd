@@ -52,12 +52,14 @@ func _ready():
 			if num > Global.CardUp-1: visible = false#控制选卡位
 		cType.CARDSHOW:#新卡
 			self.button_mask = 0
-			if Global.Level<7:
-				soldier = Global.LevelData[0]["cardShow"][Global.NowLevel-1]
+			if Global.NowLevel == Global.Level:
+				if Global.Level<8:
+					soldier = Global.LevelData[0]["cardShow"][Global.NowLevel-1]
 		cType.BUYSHOW:#新可购买卡
 			self.button_mask = 0
-			if Global.Level<7:
-				soldier = Global.LevelData[0]["buyShow"][Global.NowLevel-1]
+			if Global.NowLevel == Global.Level:
+				if Global.Level<7:
+					soldier = Global.LevelData[0]["buyShow"][Global.NowLevel-1]
 		cType.SHOP:#买卡
 			soldier = Global.LevelData[0]["shop"][num]
 			if (Global.Brought[soldier] == true): cantBuy.visible = true#已买不再显示

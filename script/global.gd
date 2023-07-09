@@ -15,9 +15,9 @@ const MAsk = [[1+16,1+4+16,16,1+4],[1+2+16+32],[2+32,2+8+32,32,2+8]]
 #const deathLayer = 32
 enum AttackType {NEAR,FAR,EXPLODE}
 const AddDamage = 1.5
-enum Effect {ATTDAMAGE,ATTRANGE,SPEED,HOLDAMAGE,FREEZE,DAMAGE,KNOCK}
+enum Effect {ATTDAMAGE,ATTRANGE,SPEED,HOLDAMAGE,FREEZE,DAMAGE,KNOCK,HEALTH}
 const EffGood = Effect.DAMAGE
-enum DamValue {HOLDAMAGE,DAMAGE,KNOCK}
+enum DamValue {HOLDAMAGE,DAMAGE,KNOCK,HEALTH}
 const EffValue = [0.5,0.5,0.5,0,0]
 const EFFGOOD = 1
 const OFFEFFECT = 0

@@ -3,6 +3,7 @@ var camp
 var type = "projectiles"
 var startPos = position.x
 var currentPos
+var stop = 1
 #var voice
 #var frame
 #var father 
@@ -33,16 +34,22 @@ func _ready():
 	newBox.size = $Sprite2D.texture.get_size()
 	$CollisionShape2D.shape = newBox
 	if camp == Global.MONSTER: $Sprite2D.flip_h = true
+	if projectile == "firework": $tail.emitting = true
 	pass
 
 func _process(_delta):
-	position += proDir*proSpeed#Vector2(camp,1)*
+	position += proDir*proSpeed*stop#Vector2(camp,1)*
 	currentPos = position.x
 	if abs(currentPos - startPos) >= proRange&&proDir.y == 0: queue_free()#超过射程直接自己销毁
 	if position.y >= Global.FightGroundY&&aoeRange != null:#落地物体
 		position.y = Global.FightGroundY-20
 		aoeCreate()
 		queue_free()
+	if position.y < -20: 
+			#await get_tree().create_timer(0.02,false).timeout
+		#$AOE.collision_mask = 0
+		await get_tree().create_timer(3,false).timeout
+		queue_free()#烟花飞出去销毁
 	pass
 
 func _on_area_entered(area):
@@ -51,7 +58,14 @@ func _on_area_entered(area):
 		effTime,effTimes)
 		#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	
 	else:aoeCreate()#AOE
-	if ifPriece == false: queue_free()
+	if ifPriece == false: 
+		if projectile == "firework":#释放轨迹粒子延迟死亡
+			collision_mask = 0
+			stop = 0
+			$Sprite2D.visible = false
+			await get_tree().create_timer(2,false).timeout
+			queue_free()
+		else: queue_free()
 	pass 
 	
 func aoeCreate():

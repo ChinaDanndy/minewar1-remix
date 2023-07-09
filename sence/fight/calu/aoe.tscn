@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjif1didrmvxo"]
+[gd_scene load_steps=13 format=3 uid="uid://bjif1didrmvxo"]
 
 [ext_resource type="Script" path="res://script/fight/calu/aoe.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://dc7rf53b1s20d" path="res://assets/music/se/other/broke.ogg" id="2_mck3g"]
 [ext_resource type="Texture2D" uid="uid://djceor6p7vn8d" path="res://assets/particles/water.png" id="2_n2f3b"]
 [ext_resource type="AudioStream" uid="uid://b4cvfnsy3lync" path="res://assets/music/se/soldier/explode1.ogg" id="3_im7xf"]
 [ext_resource type="AudioStream" uid="uid://bm5hr5xn8fiwb" path="res://assets/music/se/other/thunder.ogg" id="4_aq0yd"]
+[ext_resource type="AudioStream" uid="uid://citiamtqkirsh" path="res://assets/music/se/other/largeBlast.ogg" id="5_ojt60"]
 [ext_resource type="PackedScene" uid="uid://dfqflpq488a1p" path="res://sence/particles/Explode.tscn" id="5_xa4uk"]
+[ext_resource type="Texture2D" uid="uid://dw646fwfmdxyh" path="res://assets/particles/miniGame.png" id="8_ddtj4"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(100, 20)
@@ -17,12 +19,16 @@ particles_anim_h_frames = 8
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_extc2"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cdkkr"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
 particles_anim_v_frames = 1
 particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_s0ajk"]
+resource_local_to_scene = true
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.607843)
 
 [node name="aoe" type="Area2D"]
 collision_layer = 0
@@ -46,6 +52,9 @@ stream = ExtResource("3_im7xf")
 
 [node name="thunder" type="AudioStreamPlayer" parent="se"]
 stream = ExtResource("4_aq0yd")
+
+[node name="firework" type="AudioStreamPlayer" parent="se"]
+stream = ExtResource("5_ojt60")
 
 [node name="particles" type="Node2D" parent="."]
 
@@ -142,7 +151,7 @@ scale_amount_min = 4.0
 scale_amount_max = 4.0
 color = Color(0.509804, 0.627451, 1, 1)
 
-[node name="tntExplode" type="CPUParticles2D" parent="particles"]
+[node name="damage" type="CPUParticles2D" parent="particles"]
 material = SubResource("CanvasItemMaterial_dar0y")
 position = Vector2(0, -20)
 emitting = false
@@ -168,10 +177,27 @@ anim_speed_min = 5.0
 anim_speed_max = 7.0
 
 [node name="fireballExplode" parent="particles" instance=ExtResource("5_xa4uk")]
-material = SubResource("CanvasItemMaterial_extc2")
+material = SubResource("CanvasItemMaterial_cdkkr")
 amount = 20
 emission_shape = 2
 emission_sphere_radius = 36.0
+
+[node name="fireworkExplode" type="CPUParticles2D" parent="particles"]
+emitting = false
+amount = 40
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.5
+texture = ExtResource("8_ddtj4")
+direction = Vector2(0, -1)
+spread = 130.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 0.4
+color = Color(0.470588, 0.470588, 0.470588, 1)
+color_ramp = SubResource("Gradient_s0ajk")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="holdTimer" to="." method="_on_hold_timer_timeout"]

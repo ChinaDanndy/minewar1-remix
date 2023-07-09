@@ -29,7 +29,6 @@ func _on_area_entered(_area):
 	pass
 
 func _on_aoe_area_entered(area):
-	
 	match area.Name:
 		"zombie":
 			$explodeWell.emitting = true

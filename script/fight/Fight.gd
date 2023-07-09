@@ -63,6 +63,7 @@ func _ready():
 		Global.ChoiceWindow.visible = true
 		if Global.LevelData[Global.NowLevel]["set"]["levelType"] != "boss":
 			var count = 0#怪物展示，自动填充目前所有有的怪物
+			Global.AllMonster = [null,null,null,null,null,null]
 			for i in Global.LevelData[Global.NowLevel]["groups"].size():
 				for j in Global.LevelData[Global.NowLevel]["groups"][i]["soldier"]:
 					if !Global.AllMonster.has(j): 
@@ -131,7 +132,7 @@ func SummonEnemy():
 	
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
-		#Global.MonsterBase.health = 0
+		Global.MonsterBase.health = 0
 		pass
 	
 	$skillArea.size.x = Global.MonsterPoint.x-Global.VillagePoint.x

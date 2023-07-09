@@ -14,6 +14,10 @@ func firstSetting(soldier):
 	collision_layer = Global.LAyer[camp+1][2]
 	position.y = Global.FightGroundY+collBox.y
 	effDefence[Global.Effect.KNOCK] = true
+	var distanceLandSky = Global.FightGroundY - Global.FightSkyY
+	if soldier == "airDefence": 
+		$Collision1.position = $CollisionUp.position
+		$Collision1.target_position = $CollisionUp.target_position
 	pass
 
 func _ready():
@@ -30,6 +34,7 @@ func _process(_delta):
 	if position.y <= Global.FightGroundY-(collBox.y/2)&&dropSpeed != null:
 		currentState = State.STOP
 		dropSpeed = null
+		$Collision1.collide_with_areas = true
 		position.y = Global.FightGroundY-(collBox.y/2)
 		if soldierName[0] == "projector": $Collision1.collide_with_areas = true
 		if soldierName[0] == "golder"||soldierName[0] == "cave": 

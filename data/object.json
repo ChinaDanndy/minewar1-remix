@@ -66,7 +66,7 @@
         "proPos":[15,0,-6],
         "proDir":[1,0,0,0],
         "effTime":[[0,0,3,0,0]],
-        "giveEffect":[[0,0,-1,0,0,0,0]],
+        "giveEffect":[[0,0,-1,0,0,0,0,0]],
 
         "price":3,
         "cd":5,
@@ -78,7 +78,7 @@
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[false,true,false]],
         "objectName":"雪傀儡",
-        "description":"投掷雪球使被击中/的敌方单位速度减/少50%"
+        "description":"投掷雪球使被击中/的怪物速度减少/50%,只能攻击地/面怪物"
     },
     "assassinFirst":{
         "health":3,
@@ -102,7 +102,7 @@
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[true,false,false]],
         "objectName":"刺客",
-        "description":"开始时冲向敌方单/位且首次攻击会对/附近敌方单位造成/5点伤害,移动时/不会被敌方单位攻/击但无法被操控"
+        "description":"开始时冲向怪物且/首次攻击会对附近/怪物造成5点伤害,/移动时不会被怪物/攻击但无法被操控"
     },
     "assassin":{
         "speedBasic":1.2,
@@ -117,8 +117,8 @@
     },
     "flyer":{
         "health":5,
-        "speedBasic":0.7,
-        "damageBasic":[1.25,3,0],
+        "speedBasic":0.8,
+        "damageBasic":[1.5,3,0],
         "attRangeBasic":[120,40],
         "aoeModel":[null,"monster",null,null],
         "aoeRange":[null,42,null,null],
@@ -139,7 +139,7 @@
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[false,true,false],[false,true,false]],
         "objectName":"鞘翅弓箭手",
-        "description":"发射箭矢攻击敌方/空中单位,投掷药/水攻击敌方范围内/地面单位,可以同/时攻击敌方空中和/地面单位"
+        "description":"发射箭矢攻击空中/怪物,投掷药水攻/击范围内地面怪物,/可以同时攻击空中/和地面的怪物"
     },
     "iron":
     {
@@ -149,8 +149,8 @@
         "attRangeBasic":[30,0],
         "aoeModel":["monster",null,null,null],
         "aoeRange":[30,0,0,0],
-        "effValue":[[0,0,60]],
-        "giveEffect":[[0,0,0,0,0,0,-1]],
+        "effValue":[[0,0,60,0]],
+        "giveEffect":[[0,0,0,0,0,0,-1,0]],
 
         "price":5,
         "cd":7,
@@ -162,7 +162,7 @@
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[true,false,false]],
         "objectName":"铁傀儡",
-        "description":"击退附近敌方单位"
+        "description":"击退附近怪物"
     },
     "projector":{
         "health":5,
@@ -172,7 +172,7 @@
         "attRangeBasic":[160,0],
         "projectile":["arrow"],
         "proSpeed":[4],
-        "proDir":[1,0,0,0],
+        "proDir":[1,0,0],
         "proContinueTimes":3,
         "proSleepTime":2,
         "dropSpeed":-3,
@@ -187,8 +187,30 @@
         "objectName":"发射器",
         "description":"每隔2秒连续发射/3发箭矢,存在10/秒"
     },
+    "airDefence":{
+        "health":3,
+        "aniSpeedBasic":0.5,
+        "towKeepTime":6,
+        "damageBasic":[3,0,0],
+        "attRangeBasic":[40,0],
+        "projectile":["firework"],
+        "damagerType":[["firework"]],
+        "proSpeed":[6],
+        "proDir":[0,0,-1],
+        "dropSpeed":-3,
+
+        "price":3,
+        "cd":5,
+        "type":"tower",
+        "animation":{"attack":1,"stop":1,"death":1},
+        "souEffValue":{"hurt":"wood1","attack":"launch","death":"towerDeath"},
+        "particlesValue":{"hurt":"hurtWhite","death":"towerDeath"},
+        "attackType":[[false,true,false]],
+        "objectName":"烟花",
+        "description":"发射烟花攻击空中/怪物,存在6秒"
+    },
     "golder":{
-        "health":5,
+        "health":3,
         "type":"tower",
         
         "price":5,
@@ -199,34 +221,34 @@
         "speed":2,
         "damage":1,
         "towKeepTime":20,
-        "dropSpeed":-6,
+        "dropSpeed":-1,
         "objectName":"熔炉",
         "description":"每隔2秒获得1点/资源,存在20秒"
     },
     "regeneration":{
         "price":2,
-        "cd":6,
+        "cd":8,
         "ifAoeHold":true,
         "aoeModel":"village",
         "aoeRange":100,
-        "effTime":[0,0,0,1,0,1],
-        "effValue":[1,0,0],
-        "effTimes":[5,5],
-        "giveEffect":[0,0,0,1,0,0,0],
+        "effTime":[0,0,0,0,0,1],
+        "effValue":[0,0,0,3],
+        "effTimes":[0,5],
+        "giveEffect":[0,0,0,0,0,0,0,1],
         "dropSpeed":30,
         "type":"skill",
         "objectName":"滞留型恢复药水",
-        "description":"每隔1秒恢复范围/内我方地面士兵1/点血量,存在5秒"
+        "description":"进入范围内我方地/面士兵立刻增加5/点血量,存在5秒"
     },
     "power":{
         "price":3,
-        "cd":10,
+        "cd":12,
         "ifAoeHold":false,
         "aoeModel":"village",
         "aoeRange":100,
-        "effTime":[5,0,5,0,0],
+        "effTime":[5,0,5,0,0,0],
         "effTimes":[0,0],
-        "giveEffect":[1,0,1,0,0,0,0],
+        "giveEffect":[1,0,1,0,0,0,0,0],
         "dropSpeed":30,
         "type":"skill",
         "objectName":"喷溅型力量药水",
@@ -329,9 +351,9 @@
         "proDir":[-1,0,0,0],
         "aoeModel":["village",null,null,"monster"],
         "aoeRange":[30,null,null,80],
-        "effTime":[[3,0,0,0,0],[0,0,0,0,0],[],[0,0,0,0,0]],
-        "effValue":[[0,0,0],[0,0,0],[],[0,1,0]],
-        "giveEffect":[[-1,0,0,0,0,0,0],[],[],[0,0,0,0,0,1,0]],
+        "effTime":[[3,0,0,0,0],[],[],[0,0,0,0,0]],
+        "effValue":[[0,0,0,0],[],[],[0,1,0,0]],
+        "giveEffect":[[-1,0,0,0,0,0,0,0],[],[],[0,0,0,0,0,1,0,0]],
         "usualTime":3,
 
         "type":"soldier",
@@ -345,7 +367,7 @@
     },
     "ghost":{
         "health":6,
-        "speedBasic":0.6,
+        "speedBasic":0.5,
         "damageBasic":[3,3,0],
         "attRangeBasic":[100,80],
         "aoeModel":["village","village",null,null],
@@ -354,15 +376,11 @@
         "proSpeed":[3,3],
         "proPos":[-30,-30,-3,-3],
         "proDir":[-1,-1,0,1],
-        "effTime":[[0,0,0,0,0,0],[0,0,0,0,0,0],[],[]],
-        "effValue":[[0,0,0],[0,0,0],[],[]],
-        "effTimes":[[0,0],[0,0],[],[]],
-        "giveEffect":[[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[],[]],
 
         "kind":"sky",
         "coll2Pos":"skyLand",
         "type":"soldier",
-        "animation":{"walk":7,"attack":5,"attackSec":5,"stop":7,"death":1},
+        "animation":{"walk":7,"attack":6,"attackSec":6,"stop":7,"death":1},
         "souEffValue":{"hurt":"hurt1","attack":"ghostAttack","attackSec":"ghostAttack","death":"ghostDeath"},
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[false,true,false],[false,true,false]],
@@ -392,7 +410,7 @@
         "aoeRange":60,
         "effTime":[0,0,0,0,5],
         "effTimes":[0,0],
-        "giveEffect":[0,0,0,0,-1,0,0],
+        "giveEffect":[0,0,0,0,-1,0,0,0],
         "dropSpeed":8,
         "type":"skill",
         "objectName":"冰冻法术",
@@ -402,8 +420,8 @@
         "aoeModel":"village",
         "aoeRange":40,
         "ifAoeHold":false,
-        "effValue":[0,7,0],
-        "giveEffect":[0,0,0,0,0,-1,0],
+        "effValue":[0,7,0,0],
+        "giveEffect":[0,0,0,0,0,-1,0,0],
         "type":"skill",
         "objectName":"闪电法术",
         "description":"对范围内我方单位/造成7点伤害并使/苦力怕变成闪电苦/力怕"
@@ -411,12 +429,8 @@
     "creeperKing":{
         "health":40,
         "damage":[10,0],
-        "aoeModel":["all","village",null,null],
-        "aoeRange":[200,80,null,null],
-        "effTime":[[0,0,0,0,0,0],[0,0,0,0,1,0],[],[]],
-        "effValue":[[0,0,50],[0,0,0],[],[]],
-        "effTimes":[[0,0],[0,0],[],[]],
-        "giveEffect":[[0,0,0,0,0,0,-1],[0,0,0,0,-1,0,0],[],[]],
+        "aoeModel":["all",null,null,null],
+        "aoeRange":[200,null,null,null],
         "protectHealth":4,
         "protectCD":8,
 

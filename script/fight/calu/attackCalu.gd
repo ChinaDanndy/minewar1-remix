@@ -70,7 +70,9 @@ func effectAttackCalu(damager):
 						if (damager.health+effValue[Global.DamValue.DAMAGE]*giveEffect[i])<=damager.healthUp: 
 							damager.health += effValue[Global.DamValue.DAMAGE]*giveEffect[i]
 						else: damager.health = damager.healthUp
-
+					Global.Effect.HEALTH: 
+						damager.health += effValue[Global.DamValue.HEALTH]*giveEffect[i]
+						damager.regenerationSet()
 					Global.Effect.KNOCK:
 #						if damager.camp == Global.MONSTER&&abs(
 #							damager.position.x-Global.MonsterPoint.x<

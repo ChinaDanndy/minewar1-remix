@@ -149,7 +149,6 @@ visible = false
 [node name="soundButton" parent="." instance=ExtResource("11_8vdby")]
 
 [node name="choiceCard" parent="." instance=ExtResource("6_qxmrc")]
-visible = false
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 20.0
@@ -159,7 +158,6 @@ offset_bottom = 20.0
 visible = false
 
 [node name="monsterShow" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 300.0

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpiqe2bovknxx"
-path="res://.godot/imported/fireBallDown.png-dedd69af23c6bb790288d04b6e6be87a.ctex"
+uid="uid://bymd46xkhja3g"
+path="res://.godot/imported/attack1.png-73f41df74245381c3cd75118a75b3089.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/objects/projectiles/fireBallDown.png"
-dest_files=["res://.godot/imported/fireBallDown.png-dedd69af23c6bb790288d04b6e6be87a.ctex"]
+source_file="res://assets/objects/tower/airDefence/attack/attack1.png"
+dest_files=["res://.godot/imported/attack1.png-73f41df74245381c3cd75118a75b3089.ctex"]
 
 [params]
 
