@@ -91,8 +91,8 @@
         "unSee": true,
         "firstAttack":true,
 
-        "price":1,
-        "cd":1,
+        "price":3,
+        "cd":6,
         "type":"soldier",
         "soldierName":[null,"assassin"],
         "collBoxCut":20,
@@ -127,7 +127,7 @@
         "proPos":[10,0,4,17],
         "proDir":[1,0,0,1],
 
-        "price":4,
+        "price":3,
         "cd":6,
         "kind":"sky",
         "collBoxCut":20,
@@ -369,7 +369,7 @@
         "health":6,
         "speedBasic":0.5,
         "damageBasic":[3,3,0],
-        "attRangeBasic":[100,80],
+        "attRangeBasic":[120,80],
         "aoeModel":["village","village",null,null],
         "aoeRange":[50,50,null,null],
         "projectile":["fireBall","fireBall"],
@@ -401,6 +401,7 @@
         "animation":{"walk":6,"attack":4,"death":1,"stop":1},
         "souEffValue":{"hurt":"hurt1","attack":"explode1","death":"explode1"},
         "particlesValue":{"hurt":"hurtRed","attack":"bigExplode","death":"bigExplode"},
+        "attackType":[[false,false,true],[],[]],
         "objectName":"闪电苦力怕",
         "description":"免疫近战和爆炸伤/害,只有靠近我方/建筑时才会自爆,/死亡后也会自爆,/附近双方单位都会/受到爆炸伤害"
     },
@@ -432,7 +433,7 @@
         "aoeModel":["all",null,null,null],
         "aoeRange":[200,null,null,null],
         "protectHealth":6,
-        "protectCD":6,
+        "protectCD":8,
 
         "type":"soldier",
         "attackType":[[false,false,true],[false,true,false]],

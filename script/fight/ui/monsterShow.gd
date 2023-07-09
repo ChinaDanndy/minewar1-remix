@@ -12,7 +12,7 @@ func _ready():
 func loadData():
 	soldier = Global.AllMonster[num]
 	if soldier != null:
-		if num != 5:#icon
+		if num < 6:#icon
 			texture = load("res://assets/objects/soldier/%s/stop/stop1.png"%soldier)
 		else: texture = load("res://assets/objects/skill/%s.png"%soldier)
 		global_position.y = Global.FightGroundY-Global.STSData[soldier]["collBox"].y

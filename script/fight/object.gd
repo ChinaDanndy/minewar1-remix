@@ -83,11 +83,6 @@ var attDefOrigin = [false,false,false]#
 var attDefence = attDefOrigin
 var attDefShield#
 
-func _init():
-	pass
-	
-func _ready():
-	pass
 	
 func SetValue(soldier):
 	for STSDatename in Global.STSData[soldier]:
@@ -127,6 +122,7 @@ func addSoundAndParticles():
 	pass
 	
 func firstSetting(soldier):
+	$iceCover.visible = false
 	$cover.visible = false
 #	if kind == "land":
 #		for i in 4:
@@ -157,12 +153,10 @@ func reSet(soldier):
 	pass
 	
 func _process(_delta):#每帧执行的部分
-	if currentState == State.FALL:  position.y += dropSpeed
-	$Label.text = str(health)
-
+	#if currentState == State.FALL:  position.y += dropSpeed
+	#$Label.text = str(health)
 	for i in souEff: 
 		if souEff[i] != null: souEff[i].set_volume_db(Global.SeDB)#时刻保持音量与全局音量一致
-
 	#基础数据实时更改/前是负属性后是正属性
 	if soldierName[0] != "golder":
 		for i in 2:#攻击和攻击距离有两套随攻击使用的不同
@@ -214,6 +208,7 @@ func testchangeState():
 				if tpDistance != null&&health>0: 
 					#&&other.type != "base"
 #					if tpDistance > 0:
+					$particles/spdierTp.emitting = true
 					position.x += tpDistance*camp#末影人瞬移
 					tpDistance = null#低血量tp到基地
 #				if startDrop == true:
@@ -243,17 +238,18 @@ func hurt():
 	
 func changeState(AniName,StaName):#入海出海的动作图片在每个动画的前面放
 	match StaName:
-		State.STOP:#攻击时候停止是在攻击完后保持静止
-			if currentState != State.DEATH: 
-				standardState = State.STOP
-				standardAni = "stop"
-				proTimes = 0
-	match StaName:
 		State.PUSH,State.BACK:
 			if currentState != State.DEATH&&currentState != StaName:
 				standardState = State.PUSH
 				standardAni = "walk"
 				#proTimes = 0#归零多次射击的计数,避免射击不到最高次数就冷却
+	match StaName:
+		State.STOP:#攻击时候停止是在攻击完后保持静止
+			if currentState != State.DEATH: 
+				standardState = State.STOP
+				standardAni = "stop"
+				proTimes = 0
+		
 	changeAnimation(AniName,StaName)
 	pass
 	
@@ -274,6 +270,7 @@ func changeAnimation(AniName,StaName):
 
 func _on_animated_sprite_2d_frame_changed():
 	$cover.texture = spirte.get_frame_texture(currentAni,$AnimatedSprite2D.frame)
+	$iceCover.texture = spirte.get_frame_texture(currentAni,$AnimatedSprite2D.frame)
 	if $AnimatedSprite2D.frame == animation[$AnimatedSprite2D.animation]-1:
 		match currentState:
 			State.PUSH,State.BACK:
@@ -353,7 +350,7 @@ func firstDeathSet():
 	$Collision1.collide_with_areas = false
 	$Collision2.collide_with_areas = false
 	$cover.visible = false
-	$outLine.visible = false
+	$iceCover.visible = false
 	collision_layer = 0
 	#if soldierName[0]=="cave": Global.CaveHas = false
 	if is_in_group("villageSoldier"): remove_from_group("villageSoldier")
@@ -386,7 +383,7 @@ func effectTimer(effName,effKeepTime,effKeepTimes,effDam,GoodOrBad):
 	if effName == Global.Effect.FREEZE:
 		$Collision1.collide_with_areas = false
 		$Collision2.collide_with_areas = false
-		$AnimatedSprite2D.material = null
+		$iceCover.visible = true
 		$AnimatedSprite2D.pause()
 	var effTimer = Timer.new()
 	effTimer.timeout.connect(effectTimerTimeout.bind(
@@ -417,6 +414,7 @@ func effectTimerTimeout(effName,effKeepTimes,effDam,GoodOrBad):
 			nowEffect[this] = SpeState.MOVE
 			$Collision1.collide_with_areas = true
 			$Collision2.collide_with_areas = true
+			$iceCover.visible = false
 			$AnimatedSprite2D.play()
 		if effTimerId[this] != null: effTimerId[this].queue_free()
 	pass

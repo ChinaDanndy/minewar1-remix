@@ -27,7 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://cu415tn122my8" path="res://assets/UI/button/question2.png" id="24_0dnag"]
 [ext_resource type="PackedScene" uid="uid://i0auw607iwpg" path="res://sence/fight/ui/teachWindow.tscn" id="26_a80fa"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ttf1h"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_f7wqt"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -129,7 +129,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_68trn"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_tgihj"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -231,7 +231,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_wkqrg"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_hb7ix"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -333,7 +333,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_8wqvq"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_k5v8b"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -435,7 +435,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_bchat"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_moavy"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -537,7 +537,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_avvku"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_dbm8u"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -639,7 +639,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_fc0ih"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_4rs24"]
 resource_local_to_scene = true
 animations = [{
 "frames": [{
@@ -762,31 +762,31 @@ visible = false
 
 [node name="game1Tbale6" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(237.5, 293)
-sprite_frames = SubResource("SpriteFrames_ttf1h")
+sprite_frames = SubResource("SpriteFrames_f7wqt")
 
 [node name="game1Tbale1" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(297.5, 293)
-sprite_frames = SubResource("SpriteFrames_68trn")
+sprite_frames = SubResource("SpriteFrames_tgihj")
 
 [node name="game1Tbale2" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(357.5, 293)
-sprite_frames = SubResource("SpriteFrames_wkqrg")
+sprite_frames = SubResource("SpriteFrames_hb7ix")
 
 [node name="game1Tbale3" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(417.5, 293)
-sprite_frames = SubResource("SpriteFrames_8wqvq")
+sprite_frames = SubResource("SpriteFrames_k5v8b")
 
 [node name="game1Tbale4" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(477.5, 293)
-sprite_frames = SubResource("SpriteFrames_bchat")
+sprite_frames = SubResource("SpriteFrames_moavy")
 
 [node name="game1Tbale5" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(537.5, 293)
-sprite_frames = SubResource("SpriteFrames_avvku")
+sprite_frames = SubResource("SpriteFrames_dbm8u")
 
 [node name="game1Tbale7" parent="game1" instance=ExtResource("3_prfoi")]
 position = Vector2(597.5, 293)
-sprite_frames = SubResource("SpriteFrames_fc0ih")
+sprite_frames = SubResource("SpriteFrames_4rs24")
 
 [node name="game2" type="Node2D" parent="."]
 
@@ -867,12 +867,13 @@ text = "分数:"
 layout_mode = 2
 offset_left = 45.0
 offset_top = 4.0
-offset_right = 135.0
-offset_bottom = 31.0
+offset_right = 105.0
+offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_sxps5")
 theme_override_font_sizes/font_size = 16
 text = "30/30"
+horizontal_alignment = 1
 
 [node name="TimeText" type="TextureRect" parent="CanvasLayer/Message"]
 layout_mode = 2
@@ -899,6 +900,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_sxps5")
 theme_override_font_sizes/font_size = 16
 text = "40"
+horizontal_alignment = 1
 
 [node name="StopButton" parent="." instance=ExtResource("19_ak7a8")]
 

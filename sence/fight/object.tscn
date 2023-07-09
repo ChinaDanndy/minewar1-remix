@@ -1,14 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://cakdgdywehft0"]
+[gd_scene load_steps=9 format=3 uid="uid://cakdgdywehft0"]
 
 [ext_resource type="Script" path="res://script/fight/object.gd" id="1_cj46x"]
 [ext_resource type="Texture2D" uid="uid://cho3re5v3qykf" path="res://assets/objects/soldier/flyer/attack/attack1.png" id="2_4mm08"]
+[ext_resource type="Material" uid="uid://df621r7f30rrt" path="res://rescourse/ice.tres" id="2_ugfiw"]
 [ext_resource type="Texture2D" uid="uid://cwhgp52t110xs" path="res://assets/particles/heart.png" id="3_a7pyp"]
+[ext_resource type="Texture2D" uid="uid://dguddetsa7hib" path="res://assets/particles/smoke.png" id="5_ky21f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_migks"]
 resource_local_to_scene = true
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(60, 44)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2cehh"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [node name="object" type="Area2D"]
 monitoring = false
@@ -27,11 +35,13 @@ target_position = Vector2(30, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
 
-[node name="outLine" type="Sprite2D" parent="."]
+[node name="iceCover" type="Sprite2D" parent="."]
 visible = false
+material = ExtResource("2_ugfiw")
+texture = ExtResource("2_4mm08")
+region_rect = Rect2(-35, -12, 0, 0)
 
 [node name="cover" type="Sprite2D" parent="."]
-texture = ExtResource("2_4mm08")
 region_rect = Rect2(-35, -12, 0, 0)
 
 [node name="Label" type="Label" parent="."]
@@ -57,6 +67,24 @@ spread = 0.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 20.0
 initial_velocity_max = 20.0
+
+[node name="spdierTp" type="CPUParticles2D" parent="particles"]
+material = SubResource("CanvasItemMaterial_2cehh")
+emitting = false
+amount = 20
+lifetime = 0.4
+one_shot = true
+speed_scale = 0.8
+explosiveness = 0.6
+texture = ExtResource("5_ky21f")
+emission_shape = 3
+emission_rect_extents = Vector2(0, 4)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
 
 [node name="se" type="Node" parent="."]
 

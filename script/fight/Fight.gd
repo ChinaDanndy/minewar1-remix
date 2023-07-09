@@ -57,22 +57,23 @@ func _ready():
 
 	moneyTime = Global.LevelData[0]["moneySpeed"]
 #	Global.Money = Global.LevelData[0]["moneyUp"]
-	Global.ThunderSpeed = Global.LevelData[0]["thunderSpeed"]
+	Global.ThunderSpeed = 0.02
+	#Global.LevelData[0]["thunderSpeed"]
 	
 	if Global.LevelData[Global.NowLevel]["chosenCard"].is_empty():
 		Global.ChoiceWindow.visible = true
 		if Global.LevelData[Global.NowLevel]["set"]["levelType"] != "boss":
 			var count = 0#怪物展示，自动填充目前所有有的怪物
-			Global.AllMonster = [null,null,null,null,null,null]
+			Global.AllMonster = [null,null,null,null,null,null,null]
 			for i in Global.LevelData[Global.NowLevel]["groups"].size():
 				for j in Global.LevelData[Global.NowLevel]["groups"][i]["soldier"]:
 					if !Global.AllMonster.has(j): 
 						Global.AllMonster[count] = j
 						count += 1
 			if Global.LevelData[Global.NowLevel]["set"]["iceTime"] > 0: 
-				Global.AllMonster[5] = "ice"
+				Global.AllMonster[6] = "ice"
 			if Global.LevelData[Global.NowLevel]["set"]["thunderTime"] > 0: 
-				Global.AllMonster[5] = "thunder"
+				Global.AllMonster[6] = "thunder"
 			emit_signal("monsterShowLoad")
 			$monsterShow.visible = true
 	else:
@@ -94,21 +95,23 @@ func _on_cave_timer_timeout():
 	pass 
 	
 func _on_thundertimer_timeout():
-	var targetArray = get_tree().get_nodes_in_group("creeper")
-	if !targetArray.is_empty(): 
-		var target = targetArray[randi_range(0,targetArray.size()-1)]
-		var newtThunder = Global.Skill.instantiate()
-		newtThunder.position.x = target.position.x-20
-		newtThunder.camp = Global.MONSTER
-		Global.root.add_child(newtThunder)
-		newtThunder.firstSetting("thunder")
-		
-#	if bossLv == 3:#boss战第三阶段多一次纯劈一道闪电
+	
+#	var targetArray = get_tree().get_nodes_in_group("creeper")
+#	if !targetArray.is_empty(): 
+#		var target = targetArray[randi_range(0,targetArray.size()-1)]
 #		var newtThunder = Global.Skill.instantiate()
+#		newtThunder.position.x = target.position.x-20
 #		newtThunder.camp = Global.MONSTER
-#		newtThunder.position.x = randi_range(Global.VillagePoint.x+($baseVillage.collBox.x/2),$Boss.position.x)
 #		Global.root.add_child(newtThunder)
 #		newtThunder.firstSetting("thunder")
+		
+#	if bossLv == 3:#boss战第三阶段多一次纯劈一道闪电
+	var newtThunder = Global.Skill.instantiate()
+	newtThunder.camp = Global.MONSTER
+	newtThunder.position.x = randi_range(
+		Global.VillagePoint.x+($baseVillage.texture.get_size().x/2)+10,Global.MonsterPoint.x)
+	Global.root.add_child(newtThunder)
+	newtThunder.firstSetting("thunder")
 	$Timer/ThunderTimer.start(thunderTime+randf_range(-thunderTimeRand,thunderTimeRand))
 	pass
 	
@@ -132,8 +135,13 @@ func SummonEnemy():
 	
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
-		Global.MonsterBase.health = 0
+		#Global.MonsterBase.health = 0
 		pass
+#	if Input.is_action_just_pressed("contrl1"): Global.Contrl = "shoveler"
+#	if Input.is_action_just_pressed("contrl2"): Global.Contrl = "shielder"
+#	if Input.is_action_just_pressed("contrl3"): Global.Contrl = "snowman"
+#	if Input.is_action_just_pressed("contrl4"): Global.Contrl = "flyer"
+#	if Input.is_action_just_pressed("contrl5"): Global.Contrl = "iron"
 	
 	$skillArea.size.x = Global.MonsterPoint.x-Global.VillagePoint.x
 	#技能释放位置固定

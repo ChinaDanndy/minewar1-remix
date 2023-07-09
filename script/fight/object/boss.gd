@@ -28,7 +28,7 @@ func _ready():
 	camp = Global.MONSTER
 	attDefence = [true,true,true]
 	effDefence = [true,true,true,true,true,true,true,true]
-	collision_layer = 0
+	#collision_layer = 0
 	collBox = Vector2(20,46)
 	position.y = Global.FightGroundY-(collBox.y/2)
 	norAni.visible = true
@@ -63,6 +63,7 @@ func _process(_delta):
 		if bossShineSet == 1: Global.BossSkill.modulate.a += 0.01
 		if Global.BossSkill.modulate.a >= 1: bossShineSet = 0
 		if attackTime <= 0&&Global.VillageBase.health>0: 
+			Global.ThunderSpeed = 0.08
 			var newtThunder = Global.Skill.instantiate()
 			newtThunder.position.x = Global.VillageBase.global_position.x
 			newtThunder.camp = Global.MONSTER
@@ -79,6 +80,7 @@ func _on_death_timer_timeout():
 func _on_attack_timer_timeout(): 
 	var newthunder = Global.Skill.instantiate()
 	Global.root.add_child(newthunder)
+	newthunder.thunderSpeed = 0.06
 	newthunder.camp = Global.MONSTER
 	newthunder.firstSetting("thunder")
 	newthunder.position.x = global_position.x-collBox.x/2-20
@@ -122,12 +124,12 @@ func protectDown():
 	await get_tree().create_timer(0.2,false).timeout
 	attDefence = [false,false,false]
 	effDefence = [true,true,true,true,false,false,true,true]
-	collision_layer = 32
+	#collision_layer = 32
 	await get_tree().create_timer(protectCD,false).timeout
 	#explode()
 	attDefence = [true,true,true]
 	effDefence = [true,true,true,true,true,true,true,true]
-	collision_layer = 0
+	#collision_layer = 0
 	norAni.play("stop1")
 	protectReset()
 	$RayCast2D.collide_with_areas = true

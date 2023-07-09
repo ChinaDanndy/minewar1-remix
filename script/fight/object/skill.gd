@@ -1,6 +1,7 @@
 extends "res://script/fight/object.gd"
 var unPeopleFly = true
 var thunderAphla = 0
+var thunderSpeed = 0.02
 
 func firstSetting(soldier):
 	Global.FightSence.reloadSence.connect(reload)
@@ -36,7 +37,7 @@ func _process(_delta):
 			
 	match soldierName[0]:
 		"thunder","thunderBoss","thunderBossKill":  
-			if thunderAphla == 0: $Sprite2D.modulate.a += Global.ThunderSpeed
+			if thunderAphla == 0: $Sprite2D.modulate.a += thunderSpeed
 			if $Sprite2D.modulate.a >= 1&&thunderAphla == 0:
 				thunderAphla += 1
 				$CollisionShape2D.position.y = collBox.y/2-20
@@ -45,7 +46,7 @@ func _process(_delta):
 				Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,false,null,
 				null,["thunder"],giveEffect,effValue,effTime,effTimes)
 			if thunderAphla > 0:
-				$Sprite2D.modulate.a -= Global.ThunderSpeed
+				$Sprite2D.modulate.a -= thunderSpeed
 				if $Sprite2D.modulate.a <= 0: 
 					collision_mask = 0
 					await get_tree().create_timer(1,false).timeout 

@@ -10,9 +10,17 @@ func _process(_delta):
 func text(mode):
 	get_tree().paused = true
 	$Control/thank.visible = false
+	$Control/card/CanBuy.visible = false
+	$Control/card/CanBuy.visible = false
+	$Control/emerald.visible = false
+	$Control/gameSpeed.visible = false
 	Mode = mode
 	match mode:
-		"stop": $Control/Title.text = "暂停"
+		"stop": 
+			if get_parent().name == "Fight": 
+				$Control/gameSpeed/gameSpeedButton/value.text = str(Global.GameSpeed)
+				$Control/gameSpeed.visible = true
+			$Control/Title.text = "暂停"
 		"win": 
 			$win.play()
 			$Control/Title.text = "胜利"
@@ -23,9 +31,6 @@ func text(mode):
 						$Control/thank.visible = true
 						Global.Level = 10
 				if Global.NowLevel == Global.Level:
-					$Control/card.visible = true
-					$Control/card/CanBuy.visible = false
-					$Control/card/CanBuy.visible = false
 					if Global.Level<7: $Control/card/CanBuy.visible = true#新的解锁
 					if Global.Level<8: $Control/card/Unlock.visible = true#新卡
 					if Global.Level<8: addPoint()#加钱
@@ -75,7 +80,17 @@ func _on_button_3_pressed():
 	pass 
 
 func _on_tree_entered():
-	$Control/card.visible = false
-	$Control/emerald.visible = false
 	if get_parent().name == "MiniGame": $Control/card.free()
+	pass
+
+func _on_game_speed_button_pressed():
+	match Global.GameSpeed:#游戏调速
+		1: Global.GameSpeed = 1.25
+		1.25: Global.GameSpeed = 0.5
+		0.5: Global.GameSpeed = 0.75
+		0.75: Global.GameSpeed = 1
+	$Control/gameSpeed/gameSpeedButton/value.text = str(Global.GameSpeed)
+	Engine.time_scale = Global.GameSpeed
+	
+	
 	pass

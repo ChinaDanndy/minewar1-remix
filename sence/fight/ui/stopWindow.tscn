@@ -133,6 +133,7 @@ theme_override_font_sizes/font_size = 14
 text = "返回首页"
 
 [node name="card" type="Control" parent="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -116.0
@@ -185,6 +186,7 @@ texture_normal = ExtResource("7_7ehn6")
 cardType = 3
 
 [node name="emerald" type="Control" parent="Control"]
+visible = false
 anchors_preset = 0
 offset_left = 63.5
 offset_top = 3.0
@@ -261,6 +263,43 @@ theme_override_font_sizes/font_size = 0
 text = "恭喜你打败了苦力怕之王
                感谢游玩"
 
+[node name="gameSpeed" type="Control" parent="Control"]
+visible = false
+anchors_preset = 0
+offset_left = 0.5
+offset_right = 0.5
+
+[node name="Label" type="Label" parent="Control/gameSpeed"]
+offset_left = -31.5
+offset_top = 9.0
+offset_right = 32.5
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ojej8")
+theme_override_font_sizes/font_size = 0
+text = "游戏速度"
+
+[node name="gameSpeedButton" type="TextureButton" parent="Control/gameSpeed"]
+layout_mode = 0
+offset_left = -31.5
+offset_top = 27.0
+offset_right = 32.5
+offset_bottom = 47.0
+texture_normal = ExtResource("4_p7i5a")
+texture_pressed = ExtResource("5_ygps8")
+texture_hover = ExtResource("5_ygps8")
+
+[node name="value" type="Label" parent="Control/gameSpeed/gameSpeedButton"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 2.0
+offset_right = 38.0
+offset_bottom = 21.0
+theme_override_fonts/font = ExtResource("3_ojej8")
+theme_override_font_sizes/font_size = 0
+text = "1"
+horizontal_alignment = 1
+
 [node name="click" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_oj1ju")
 
@@ -274,3 +313,4 @@ stream = ExtResource("13_u7k50")
 [connection signal="pressed" from="Control/HBoxContainer/Button1" to="." method="_on_button_1_pressed"]
 [connection signal="pressed" from="Control/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Control/HBoxContainer/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="Control/gameSpeed/gameSpeedButton" to="." method="_on_game_speed_button_pressed"]

@@ -68,13 +68,15 @@ func _process(_delta):
 		if Global.MonsterPoint.x - position.x>50&&soldierName[0] == "creeper"&&!is_in_group("creeper"):
 			add_to_group("creeper")#获得苦力怕id给劈闪电用
 	if camp == Global.VILLAGE: 
-		position.x = clamp(position.x,Global.VillagePoint.x-16,Global.MonsterPoint.x+16)#限制移动范围
+		position.x = clamp(position.x,Global.VillagePoint.x-16,
+		Global.MonsterPoint.x+16)#限制移动范围
 		if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&speed>0:
 		#&&currentState != State.FALL: 
 		#if(collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
 			if Ani.material == null: Ani.material = Global.SoldierOutLine
 			contrl()
-	position.x += speed*camp*speedDirection*speedState#移动控制
+		else: if Ani.material != null: Ani.material = null
+	position.x += speed*camp*speedDirection*speedState*Global.GameSpeed#移动控制
 	
 	if stopPos != null&&ifOnlyAttBase == false:#敌方的行动与暂停
 		if position.x <= stopPos&&stop == false:
@@ -121,9 +123,18 @@ func _process(_delta):
 func contrl():#玩家的单位控制
 	if Input.is_action_just_pressed("ui_right")&&currentState != State.ATTACK: 
 		changeState("walk",State.PUSH)
+		$Collision1.collide_with_areas = true
+		if coll2Pos != null: $Collision2.collide_with_areas = true
 	#防止攻击时还能继续前进
-	if Input.is_action_just_pressed("ui_down"): changeState("stop",State.STOP)
-	if Input.is_action_just_pressed("ui_left"): changeState("walk",State.BACK)
+	if Input.is_action_just_pressed("ui_down"): 
+		changeState("stop",State.STOP)
+		$Collision1.collide_with_areas = true
+		if coll2Pos != null: $Collision2.collide_with_areas = true
+	if Input.is_action_just_pressed("ui_left"): 
+		changeState("walk",State.BACK)
+		$Collision1.collide_with_areas = false
+		if coll2Pos != null: $Collision2.collide_with_areas = false
+		
 	pass
 
 func _on_input_event(_viewport,event, _shape_idx):

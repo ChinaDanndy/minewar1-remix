@@ -38,7 +38,7 @@ func _ready():
 	pass
 
 func _process(_delta):
-	position += proDir*proSpeed*stop#Vector2(camp,1)*
+	position += proDir*proSpeed*stop*Global.GameSpeed#Vector2(camp,1)*
 	currentPos = position.x
 	if abs(currentPos - startPos) >= proRange&&proDir.y == 0: queue_free()#超过射程直接自己销毁
 	if position.y >= Global.FightGroundY&&aoeRange != null:#落地物体

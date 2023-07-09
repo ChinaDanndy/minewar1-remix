@@ -98,16 +98,17 @@ var MiniGame2PosY:Array
 var ChoiceWindow
 var FightButton
 var ChosenCardNum = 0
-var ChosenCard = [null,null,null,null,null,null,null]
-var ChosenId =  [null,null,null,null,null,null,null]
+var ChosenCard:Array
+var ChosenId:Array
 
 var StopButton
 var StopWindow
 var TeachWindow
 var CardTextWindow
-var AllMonster = [null,null,null,null,null,null]
+var AllMonster:Array
 var StopON = false
 
+var GameSpeed = 1
 var FightSence
 var FightGroundY
 var FightSkyY
@@ -157,6 +158,7 @@ var LevelData
 var NowLevel = 1
 var LevelOver = false
 func _ready():#读入数据
+	
 	if FileAccess.file_exists("user://playerData.json"):
 		var _json = JSON.new()
 		var loadData = FileAccess.open("user://playerData.json",FileAccess.READ)
