@@ -2,6 +2,7 @@ extends AnimatedSprite2D
 var last
 var stop = false
 var no = true
+var allTime = false
 
 var GoodRand = Global.LevelData[0]["miniGame1"]["gunpowderRand"]
 var Show = Global.LevelData[0]["miniGame1"]["show"]
@@ -38,6 +39,7 @@ func all():
 	if no == true:
 		$moveTimer.stop()
 		play("creeperShow")
+		allTime = true
 	pass
 func firstSet(): GoodOn = 1
 func lastSet(): CutOn = 1
@@ -47,6 +49,9 @@ func _on_animation_finished():
 		"creeperShow","powderShow":
 			stop = true
 			$holdTimer.start(randf_range(0.75,1))
+			if allTime == true:
+				$holdTimer.start(1.4)
+				allTime = false
 	match animation:
 		"creeperOut","powderOut","creeperDeath","powderDeath":
 			no = true

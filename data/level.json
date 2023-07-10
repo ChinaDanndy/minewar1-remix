@@ -1,8 +1,6 @@
 [
     {
         "moneySpeed":1,
-        "moneyUp":10,
-        "thunderSpeed":0.02,
         
         "allVillageObject":["shoveler","projector","regeneration","shielder",
         "snowman","assassinFirst","airDefence","flyer","iron"
@@ -29,7 +27,7 @@
             "reloadTime":1,
             "fireworkSpeed":10,
             "mobSpeed":{"zombie":4,"ghost":2,"rand":0.75},
-            "timeRand":{"zombie":{"Min":5,"Max":7},"ghost":{"Min":0.5,"Max":3}}  
+            "timeRand":{"zombie":{"Min":6,"Max":8},"ghost":{"Min":0.5,"Max":3}}  
         }
     },
     {
@@ -38,24 +36,24 @@
         "iceTime":0,"iceTimeRand":0},
         "groups":[
             {
-                "firstCD":1,
+                "firstCD":3,
                 "firstCDNum":[],
                 "soldier":["creeper"],
                 "soldierCD":0,
-                "groupCD":7,
+                "groupCD":6,
                 "groupCDRand":0,
-                "groupTimes":5,
+                "groupTimes":3,
                 "stopPos":null,
                 "stopTime":null
             },
             {
-                "firstCD":3,
+                "firstCD":1,
                 "firstCDNum":[],
                 "soldier":["zombie"],
                 "soldierCD":0,
-                "groupCD":3,
-                "groupCDRand":2,
-                "groupTimes":8,
+                "groupCD":2,
+                "groupCDRand":1,
+                "groupTimes":14,
                 "stopPos":null,
                 "stopTime":null
             }
@@ -73,16 +71,16 @@
                 "soldierCD":1.8,
                 "groupCD":2,
                 "groupCDRand":1,
-                "groupTimes":5,
+                "groupTimes":6,
                 "stopPos":null,
                 "stopTime":null
             },
             {
-                "firstCD":6,
+                "firstCD":5,
                 "firstCDNum":[],
                 "soldier":["axer"],
                 "soldierCD":0,
-                "groupCD":8,
+                "groupCD":7,
                 "groupCDRand":1,
                 "groupTimes":5,
                 "stopPos":null,
@@ -446,12 +444,12 @@
     },
     {
         "set":{"levelType":"normal","attackTime":2000,"baseMonsterHealth":10,"baseVillageHealth":10,
-        "thunderTime":2,"thunderTimeRand":0,
+        "thunderTime":0,"thunderTimeRand":0,
         "iceTime":0,"iceTimeRand":0},
         "groups":[
             {
                 "firstCD":0,
-                "soldier":["ghost"],
+                "soldier":["creeperThunder"],
                 "firstCDNum":[],
                 "soldierCD":1,
                 "groupCD":8,

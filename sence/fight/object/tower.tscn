@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://detljadg4j24r"]
+[gd_scene load_steps=14 format=3 uid="uid://detljadg4j24r"]
 
 [ext_resource type="PackedScene" uid="uid://cakdgdywehft0" path="res://sence/fight/object.tscn" id="1_6kuqs"]
 [ext_resource type="Script" path="res://script/fight/object/tower.gd" id="2_3fwhs"]
 [ext_resource type="Texture2D" uid="uid://bswddpngapoib" path="res://assets/objects/tower/golder/attack/attack1.png" id="3_2fb2o"]
 [ext_resource type="AudioStream" uid="uid://dtu08ucrvtl2w" path="res://assets/music/se/tower/out.ogg" id="3_ecexi"]
+[ext_resource type="Shader" path="res://rescourse/cover.gdshader" id="3_h4n4n"]
 [ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="5_wvwqd"]
 [ext_resource type="Texture2D" uid="uid://cdg604pchqdry" path="res://assets/objects/tower/gold_ingot.png" id="6_22suy"]
 [ext_resource type="Texture2D" uid="uid://upiksuc8ef6w" path="res://assets/particles/flame.png" id="6_bls75"]
@@ -11,6 +12,12 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0m7md"]
 resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iplws"]
+resource_local_to_scene = true
+shader = ExtResource("3_h4n4n")
+shader_parameter/change_color = Color(0, 0, 1, 0.392157)
+shader_parameter/threshold = 0.1
 
 [sub_resource type="Animation" id="Animation_mc0le"]
 resource_name = "gold"
@@ -60,9 +67,13 @@ enabled = false
 collide_with_bodies = false
 
 [node name="CollisionUp" type="RayCast2D" parent="." index="3"]
+visible = false
 position = Vector2(18, 0)
 target_position = Vector2(0, -300)
 collide_with_bodies = false
+
+[node name="iceCover" parent="." index="5"]
+material = SubResource("ShaderMaterial_iplws")
 
 [node name="SkillTimer" type="Timer" parent="." index="6"]
 one_shot = true

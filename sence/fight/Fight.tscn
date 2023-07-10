@@ -257,11 +257,10 @@ theme_override_font_sizes/font_size = 16
 text = "打败苦力怕之王"
 
 [node name="TestTime" type="Label" parent="Up"]
-visible = false
-offset_left = 751.0
-offset_top = 359.0
-offset_right = 790.0
-offset_bottom = 385.0
+offset_left = 594.0
+offset_top = 353.0
+offset_right = 633.0
+offset_bottom = 379.0
 text = "Time"
 
 [node name="TestTimeValue" type="Label" parent="Up/TestTime"]

@@ -15,8 +15,8 @@ func _ready():
 			$text/MainTeach.visible = true
 		"MiniGame":
 			$text/MiniGameTeach.visible = true
-			if Global.MiniGame == 2: 
-				if Global.Teach == 1: teach()
+			if Global.MiniGame == 1: 
+				if Global.Teach == 2: teach()
 				$text/MiniGameTeach1.visible = true
 			if Global.MiniGame == 2: 
 				if Global.Teach == 3: teach()

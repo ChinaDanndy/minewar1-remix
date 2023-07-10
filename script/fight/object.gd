@@ -153,7 +153,7 @@ func reSet(soldier):
 	pass
 	
 func _process(_delta):#每帧执行的部分
-	#if currentState == State.FALL:  position.y += dropSpeed
+	if currentState == State.FALL:  position.y += dropSpeed
 	#$Label.text = str(health)
 	for i in souEff: 
 		if souEff[i] != null: souEff[i].set_volume_db(Global.SeDB)#时刻保持音量与全局音量一致

@@ -26,8 +26,8 @@ func _ready():
 func _process(_delta):#超出位置自杀
 	position += speed*dic*pos[randPos]*die
 	match rightLeft:
-		0: if position.x >= 835+40: free()
-		1: if position.x <= -40: free()
+		0: if position.x >= 835+40: queue_free()
+		1: if position.x <= -40: queue_free()
 	pass
 	
 func death():

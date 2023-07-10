@@ -51,7 +51,6 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="MainTeach" type="Label" parent="text"]
-visible = false
 layout_mode = 0
 offset_left = 310.0
 offset_top = 71.0
@@ -111,7 +110,7 @@ text = "烟花发射器：
 被烟花击中后加1分
  
 僵尸:
-被烟花击中后加5分"
+被烟花击中后加4分"
 
 [node name="MiniGameTeach" type="Label" parent="text"]
 visible = false
@@ -128,6 +127,7 @@ text = "游戏结束时,若分数超过20分,
 "
 
 [node name="Start" type="Label" parent="text"]
+visible = false
 layout_mode = 0
 offset_left = 307.0
 offset_top = 77.0

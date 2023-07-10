@@ -86,9 +86,7 @@ func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold,attackType,damage,damag
 	pass
 
 var LevelChoiceWindow
-var BuyCardButton
 var BuyCardWindow
-
 var MiniGame = 0
 var MiniGameWindow
 var MiniGameSence
@@ -149,7 +147,6 @@ var Level = 1
 var Teach = 0
 
 var SeDB = 1.0
-var ThunderSpeed
 var Money = 10
 var NowMoney = 0
 var CardUp = 0

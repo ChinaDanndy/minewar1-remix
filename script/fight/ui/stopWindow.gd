@@ -10,8 +10,6 @@ func _process(_delta):
 func text(mode):
 	get_tree().paused = true
 	$Control/thank.visible = false
-	$Control/card/CanBuy.visible = false
-	$Control/card/CanBuy.visible = false
 	$Control/emerald.visible = false
 	$Control/gameSpeed.visible = false
 	Mode = mode
@@ -25,6 +23,8 @@ func text(mode):
 			$win.play()
 			$Control/Title.text = "胜利"
 			if get_parent().name == "Fight":
+				$Control/card/Unlock.visible = false
+				$Control/card/CanBuy.visible = false
 				if Global.NowLevel == 9:#boss战结束
 					$Control/HBoxContainer/Button2.visible = false
 					if Global.Level == 8:#第一次打完boss感谢
@@ -91,6 +91,4 @@ func _on_game_speed_button_pressed():
 		0.75: Global.GameSpeed = 1
 	$Control/gameSpeed/gameSpeedButton/value.text = str(Global.GameSpeed)
 	Engine.time_scale = Global.GameSpeed
-	
-	
 	pass

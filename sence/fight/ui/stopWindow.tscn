@@ -264,12 +264,12 @@ text = "恭喜你打败了苦力怕之王
                感谢游玩"
 
 [node name="gameSpeed" type="Control" parent="Control"]
-visible = false
 anchors_preset = 0
 offset_left = 0.5
 offset_right = 0.5
 
 [node name="Label" type="Label" parent="Control/gameSpeed"]
+layout_mode = 0
 offset_left = -31.5
 offset_top = 9.0
 offset_right = 32.5
@@ -291,14 +291,13 @@ texture_hover = ExtResource("5_ygps8")
 
 [node name="value" type="Label" parent="Control/gameSpeed/gameSpeedButton"]
 layout_mode = 0
-offset_left = 26.0
+offset_left = 18.0
 offset_top = 2.0
-offset_right = 38.0
+offset_right = 30.0
 offset_bottom = 21.0
 theme_override_fonts/font = ExtResource("3_ojej8")
 theme_override_font_sizes/font_size = 0
 text = "1"
-horizontal_alignment = 1
 
 [node name="click" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_oj1ju")

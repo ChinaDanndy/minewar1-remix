@@ -127,7 +127,7 @@
         "proPos":[10,0,4,17],
         "proDir":[1,0,0,1],
 
-        "price":3,
+        "price":4,
         "cd":6,
         "kind":"sky",
         "collBoxCut":20,
@@ -148,7 +148,7 @@
         "damageBasic":[2.5,0,0],
         "attRangeBasic":[30,0],
         "aoeModel":["monster",null,null,null],
-        "aoeRange":[30,0,0,0],
+        "aoeRange":[25,0,0,0],
         "effValue":[[0,0,60,0]],
         "giveEffect":[[0,0,0,0,0,0,-1,0]],
 
@@ -289,7 +289,7 @@
     "axer":{
         "health":5,
         "speedBasic":0.8,
-        "damageBasic":[3,0,0],
+        "damageBasic":[4,0,0],
         "attRangeBasic":[15,0],
 
         "type":"soldier",
@@ -393,6 +393,7 @@
         "damageBasic":[6,0,0],
         "attRangeBasic":[20,0],
         "aoeRange":[60],
+        "aoeModel":["all"],
         "ifOnlyAttBase":true,
         "attDefOrigin":[true,false,true],
         "deathAttType":"attack",

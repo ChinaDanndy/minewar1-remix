@@ -56,9 +56,6 @@ func _ready():
 	Global.VillageBase.firstSetting("baseVillageHealth")#"baseVillageHealth"
 
 	moneyTime = Global.LevelData[0]["moneySpeed"]
-#	Global.Money = Global.LevelData[0]["moneyUp"]
-	Global.ThunderSpeed = 0.02
-	#Global.LevelData[0]["thunderSpeed"]
 	
 	if Global.LevelData[Global.NowLevel]["chosenCard"].is_empty():
 		Global.ChoiceWindow.visible = true
@@ -135,7 +132,7 @@ func SummonEnemy():
 	
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
-		#Global.MonsterBase.health = 0
+		Global.MonsterBase.health = 0
 		pass
 #	if Input.is_action_just_pressed("contrl1"): Global.Contrl = "shoveler"
 #	if Input.is_action_just_pressed("contrl2"): Global.Contrl = "shielder"
