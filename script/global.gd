@@ -85,6 +85,7 @@ func aoe_create(damager,type,aoeModel,aoeRange,ifAoeHold,attackType,damage,damag
 	#return newAoe
 	pass
 
+var ReStartButtonWindow
 var LevelChoiceWindow
 var BuyCardWindow
 var MiniGame = 0

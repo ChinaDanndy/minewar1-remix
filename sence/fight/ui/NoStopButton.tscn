@@ -7,10 +7,8 @@
 
 [node name="soundButton" type="TextureButton"]
 process_mode = 3
-offset_left = 769.0
-offset_top = 2.0
-offset_right = 789.0
-offset_bottom = 22.0
+offset_right = 20.0
+offset_bottom = 20.0
 texture_normal = ExtResource("1_oi342")
 texture_pressed = ExtResource("2_r0up8")
 texture_hover = ExtResource("2_r0up8")

@@ -4,6 +4,10 @@ var level
 func _ready():
 	$Lock.visible = true
 	level = int(str(name))
+	pass
+	
+func _process(_delta): 
+	$click.volume_db = Global.SeDB
 	var ParentName = get_parent().name
 	if ParentName == "miniGame": 
 		$Lock.visible = false
@@ -12,10 +16,9 @@ func _ready():
 			visible = false
 	else:
 		if Global.Level >= level: $Lock.visible = false
+		else: $Lock.visible = true
 		$text.text = str(level)
 	pass
-	
-func _process(_delta): $click.volume_db = Global.SeDB
 
 func _on_pressed():
 	$click.play()

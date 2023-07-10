@@ -15,6 +15,9 @@ func _on_pressed():
 		"teachButton":
 			get_tree().paused = true
 			Global.TeachWindow.visible = true
+		"reStartButton": 
+			get_tree().paused = true
+			Global.ReStartButtonWindow.visible = true
 	pass
 
 func _on_tree_entered():

@@ -25,12 +25,11 @@ func _ready():
 	if Global.STSData[soldier]["type"] == "skill":#选技能位置
 		var skillRange = Global.STSData[soldier]["aoeRange"]
 		colorBox.size = Vector2(skillRange,Global.NormalAOERangeY)
-		colorBox.position = Vector2(skillRange/-2,Global.NormalAOERangeY/-2)
+		colorBox.position = Vector2(-(skillRange/2),-(Global.NormalAOERangeY/2))
 		collLine.collide_with_areas = false
 		Global.skillArea.visible = true
 		area = Global.skillArea
 		which = Global.Skill
-		
 	#Global.towerArea.visible = true
 	#collLine.collision_mask = Global.MAsk[0][2]
 	#$ColorRect.set_anchors_preset(PRESET_CENTER)
@@ -52,9 +51,9 @@ func _process(_delta):
 		friend.position.x = global_position.x
 		area.visible = false
 		Global.NowMoney -= Global.STSData[soldier]["price"]
-		card.button_mask = MOUSE_BUTTON_MASK_LEFT#恢复购买
-		card.material = null
 		card.buyCardReSet()
+		visible = false
+		await  get_tree().create_timer(0.4,false).timeout#防止连续购买
 		Global.CardBuy = null
 		queue_free()
 	if area == Global.towerArea:

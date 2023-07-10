@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b0i8w4y6jpddt"]
+[gd_scene load_steps=19 format=3 uid="uid://b0i8w4y6jpddt"]
 
 [ext_resource type="Script" path="res://script/start/Start.gd" id="1_a4fua"]
 [ext_resource type="PackedScene" uid="uid://byp0sfn4apxll" path="res://sence/start/levelChoiceWindow.tscn" id="1_udu2w"]
@@ -13,6 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://bmekic6ucmt5x" path="res://sence/fight/ui/NoStopButton.tscn" id="9_jkk25"]
 [ext_resource type="Texture2D" uid="uid://cu415tn122my8" path="res://assets/UI/button/question2.png" id="10_eql6r"]
 [ext_resource type="PackedScene" uid="uid://i0auw607iwpg" path="res://sence/fight/ui/teachWindow.tscn" id="13_8hgg8"]
+[ext_resource type="Texture2D" uid="uid://b55gv5kr1gffe" path="res://assets/UI/button/reStart_normal.png" id="14_iik4h"]
+[ext_resource type="Texture2D" uid="uid://cslq2etr0f18k" path="res://assets/UI/button/reStart_press.png" id="15_6f5dj"]
+[ext_resource type="PackedScene" uid="uid://cv8fdsgfhvyoe" path="res://sence/start/re_start_window.tscn" id="16_jg5rt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q1bjs"]
 texture = ExtResource("3_y1ro5")
@@ -114,9 +117,9 @@ visible = false
 [node name="teachButton" parent="." instance=ExtResource("9_jkk25")]
 layout_mode = 0
 offset_left = 813.0
-offset_top = 0.0
+offset_top = 2.0
 offset_right = 833.0
-offset_bottom = 20.0
+offset_bottom = 22.0
 texture_normal = ExtResource("9_aj6jn")
 texture_pressed = ExtResource("10_eql6r")
 texture_hover = ExtResource("10_eql6r")
@@ -127,8 +130,21 @@ visible = false
 [node name="soundButton" parent="." instance=ExtResource("9_jkk25")]
 layout_mode = 0
 offset_left = 791.0
-offset_top = 0.0
+offset_top = 2.0
 offset_right = 811.0
-offset_bottom = 20.0
+offset_bottom = 22.0
+
+[node name="reStartButton" parent="." instance=ExtResource("9_jkk25")]
+layout_mode = 0
+offset_left = 769.0
+offset_top = 2.0
+offset_right = 789.0
+offset_bottom = 22.0
+texture_normal = ExtResource("14_iik4h")
+texture_pressed = ExtResource("15_6f5dj")
+texture_hover = ExtResource("15_6f5dj")
+
+[node name="reStartWindow" parent="." instance=ExtResource("16_jg5rt")]
+visible = false
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]

@@ -91,11 +91,11 @@ func _process(_delta):
 		attDefShield = null
 		reSet(soldierName[1])
 		
-	if tpDistance != null:
-		if camp == Global.MONSTER:
+	if tpDistance > 0:
+		if camp == Global.MONSTER:#防止蜘蛛穿越基地
 			var toVillageBase = abs(position.x-(Global.VillageBase.global_position.x
 			+(Global.VillageBase.collBox.x/2)+20))
-			if toVillageBase <= tpDistance: tpDistance = null
+			if toVillageBase <= tpDistance: tpDistance = 0
 		pass
 		
 #	if health <= healthEffValue: #低血量狂暴永久效果

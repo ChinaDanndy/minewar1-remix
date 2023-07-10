@@ -106,6 +106,7 @@ func buyCardReSet():#开始游戏前卡片初始化
 	cardText = false
 	Global.CardTextWindow.visible = false
 	cantBuy.visible = true
+	material = null
 	self.button_mask = MOUSE_BUTTON_MASK_LEFT
 	$CD.visible = true
 	if cd != null: $CDTimer.start(cd)
@@ -144,14 +145,13 @@ func _process(_delta):
 			cType.SHOP: if Global.Point < price: self.button_mask = 0
 	else:
 		if cardType == cType.USE&&soldier != null:
-			if Global.NowMoney >= price&&$CDTimer.time_left == 0&&cantBuy.visible == true:
+			if Global.NowMoney >= price&&$CDTimer.time_left <= 0:
 				cantBuy.visible = false
+			if Global.NowMoney < price: cantBuy.visible = true
+			if $CDTimer.time_left > 0: $CD.size.y = (originSize*($CDTimer.time_left/cd)) 
+			else:#cd显示补充
 				$CD.visible = false
 				$CD.size.y = originSize
-			if $CDTimer.time_left > 0:
-				$CD.size.y = (originSize*($CDTimer.time_left/cd)) 
-			if Global.NowMoney < price&&cantBuy.visible == false:
-				cantBuy.visible = true
 	pass
 
 func _on_pressed():

@@ -28,7 +28,7 @@ signal BossLv3
 
 func _ready():
 	#Global.NowLevel = 11
-	if Global.NowLevel <= 4:
+	if Global.NowLevel <= 4:#换背景
 		$backGround1.visible = true
 		$Up/buttom1.visible = true
 	else:
@@ -92,7 +92,6 @@ func _on_cave_timer_timeout():
 	pass 
 	
 func _on_thundertimer_timeout():
-	
 #	var targetArray = get_tree().get_nodes_in_group("creeper")
 #	if !targetArray.is_empty(): 
 #		var target = targetArray[randi_range(0,targetArray.size()-1)]

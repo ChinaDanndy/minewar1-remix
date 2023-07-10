@@ -232,17 +232,17 @@
         "aoeModel":"village",
         "aoeRange":100,
         "effTime":[0,0,0,0,0,1],
-        "effValue":[0,0,0,3],
+        "effValue":[0,0,0,2],
         "effTimes":[0,5],
         "giveEffect":[0,0,0,0,0,0,0,1],
         "dropSpeed":30,
         "type":"skill",
         "objectName":"滞留型恢复药水",
-        "description":"进入范围内我方地/面士兵立刻增加3/点血量,存在5秒"
+        "description":"进入范围内我方地/面士兵立刻增加2/点血量,存在5秒"
     },
     "power":{
         "price":3,
-        "cd":12,
+        "cd":14,
         "ifAoeHold":false,
         "aoeModel":"village",
         "aoeRange":100,
@@ -416,7 +416,7 @@
         "dropSpeed":8,
         "type":"skill",
         "objectName":"冰冻法术",
-        "description":"使范围内我方单位/3秒内无法攻击和/移动"
+        "description":"使范围内我方单位/5秒内无法攻击和/移动"
     },
     "thunder":{
         "aoeModel":"village",

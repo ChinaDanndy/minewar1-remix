@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://cv8fdsgfhvyoe"]
+
+[ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/backgrounds/spr_broad.png" id="1_oie6l"]
+[ext_resource type="Script" path="res://script/start/re_start_window.gd" id="1_tcq7s"]
+[ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="2_4314d"]
+[ext_resource type="Texture2D" uid="uid://dptaeav8ui2u1" path="res://assets/UI/button/correct_normal.png" id="3_ly2jv"]
+[ext_resource type="Texture2D" uid="uid://cm8srqjug4h3t" path="res://assets/UI/button/correct_press.png" id="4_1xsuw"]
+[ext_resource type="Texture2D" uid="uid://rpyqwom4dpsa" path="res://assets/UI/button/cancel_normal.png" id="6_6nqrs"]
+[ext_resource type="Texture2D" uid="uid://byfgnml4vxyww" path="res://assets/UI/button/cancel_press.png" id="7_hci6t"]
+[ext_resource type="AudioStream" uid="uid://c5qsbam30no4x" path="res://assets/music/se/other/click.ogg" id="8_lkbbf"]
+
+[node name="reStartWindow" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_tcq7s")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.262745)
+
+[node name="background" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -124.0
+offset_top = -83.0
+offset_right = 124.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_oie6l")
+
+[node name="Title" type="Label" parent="background"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.5
+offset_top = 4.0
+offset_right = 84.5
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_4314d")
+theme_override_font_sizes/font_size = 24
+text = "重置游戏进度？"
+
+[node name="correct" type="TextureButton" parent="background"]
+layout_mode = 0
+offset_left = 42.5
+offset_top = 115.0
+offset_right = 62.5
+offset_bottom = 135.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("3_ly2jv")
+texture_pressed = ExtResource("4_1xsuw")
+texture_hover = ExtResource("4_1xsuw")
+
+[node name="no" type="TextureButton" parent="background"]
+offset_left = 164.5
+offset_top = 115.0
+offset_right = 184.5
+offset_bottom = 135.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("6_6nqrs")
+texture_pressed = ExtResource("7_hci6t")
+texture_hover = ExtResource("7_hci6t")
+
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_lkbbf")
+
+[connection signal="pressed" from="background/correct" to="." method="_on_correct_pressed"]
+[connection signal="pressed" from="background/no" to="." method="_on_no_pressed"]

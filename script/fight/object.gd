@@ -77,7 +77,7 @@ var usualTime#
 var dropSpeed#
 var firstAttack = false#
 var unSee = false#
-var tpDistance#
+var tpDistance = 0#
 var shield = 0#
 var attDefOrigin = [false,false,false]#
 var attDefence = attDefOrigin
@@ -205,12 +205,12 @@ func testchangeState():
 				if unSee == true: 
 					collision_layer = Global.LAyer[camp+1][0]
 					$AnimatedSprite2D.modulate.a = 1
-				if tpDistance != null&&health>0: 
+				if tpDistance > 0&&health>0: 
 					#&&other.type != "base"
-#					if tpDistance > 0:
 					$particles/spdierTp.emitting = true
+					await get_tree().create_timer(0.2,false).timeout
 					position.x += tpDistance*camp#末影人瞬移
-					tpDistance = null#低血量tp到基地
+					tpDistance = 0#低血量tp到基地
 #				if startDrop == true:
 #					$Collision1.collide_with_areas = false
 #					reSet(soldierName[1])

@@ -23,6 +23,7 @@ func text(mode):
 			$win.play()
 			$Control/Title.text = "胜利"
 			if get_parent().name == "Fight":
+				$Control/card.visible = true
 				$Control/card/Unlock.visible = false
 				$Control/card/CanBuy.visible = false
 				if Global.NowLevel == 9:#boss战结束
