@@ -1,23 +1,22 @@
 extends Node
-#const soldierCD = [1.5,1,0.5]
-#enum  CDtype {WIDE,MIDDLE,TIGHT}
-
 var object = 1
 var times:Array
 var allTime:Array
 var waitTime:Array
 var groupCount = 0
-var soldierCount = 0
+var soldierCount:Array
 signal stopOver
 
 func _ready(): 
 	name = "summonEnemy"
 	times.clear()
+	soldierCount.clear()
 	allTime.clear()
 	waitTime.clear()
 	groupCount = Global.LevelData[Global.NowLevel]["groups"].size()#记录有多少组人
 	for i in groupCount: 
 		times.append(0)
+		soldierCount.append(0)
 		waitTime.append(0)
 		var firstCD = Global.LevelData[Global.NowLevel]["groups"][i]["firstCD"]
 		var soldierCountCalu = Global.LevelData[Global.NowLevel]["groups"][i]["soldier"].size()-1
@@ -42,17 +41,11 @@ func firstStart(i):
 		waitTime[i]+= newWaitTime
 	await get_tree().create_timer(waitTime[i],false).timeout
 	summonEnemy(i)
-		#groupCount是每个阶段最后一个组,该组别包含阶段持续时间
-	#if Global.LevelData[Global.Level][stage][groupCount]["stageCD"] != 0:
-		#await get_tree().create_timer(Global.LevelData[Global.Level][stage][groupCount]["stageCD"]+randi_range(
-			#-Global.LevelData[Global.Level][stage][groupCount]["stageCDTand"],Global.LevelData[Global.Level][stage][groupCount]["stageCDTand"]),false).timeout
-		#stage += 1 
-		#firstStart()
 	pass
 
 func summonEnemy(group):
-	soldierCount = Global.LevelData[Global.NowLevel]["groups"][group]["soldier"].size()
-	for j in soldierCount:
+	soldierCount[group] = Global.LevelData[Global.NowLevel]["groups"][group]["soldier"].size()
+	for j in soldierCount[group]:
 		var enemy = Global.Soldier.instantiate()
 		enemy.camp = Global.MONSTER
 		Global.root.add_child(enemy)
@@ -60,18 +53,17 @@ func summonEnemy(group):
 			enemy.stopPos = Global.LevelData[Global.NowLevel]["groups"][group]["stopPos"]
 			enemy.stopTime = Global.LevelData[Global.NowLevel]["groups"][group]["stopTime"]
 		enemy.firstSetting(Global.LevelData[Global.NowLevel]["groups"][group]["soldier"][j])
-		if soldierCount>1: 
-			await get_tree().create_timer(Global.LevelData[Global.NowLevel]["groups"][group]
-			["soldierCD"],false).timeout
+		if soldierCount[group]>1: 
+			await get_tree().create_timer(Global.LevelData[Global.NowLevel]["groups"]
+			[group]["soldierCD"],false).timeout
 	times[group] += 1
-	
-	if Global.LevelData[Global.NowLevel]["groups"][group]["groupTimes"] == 0: againWait(group)#永久持续出兵
+	if Global.LevelData[Global.NowLevel]["groups"][group]["groupTimes"] == 0: 
+		againWait(group)#永久持续出兵
 	else:
-		if times[group] != Global.LevelData[Global.NowLevel]["groups"][group]["groupTimes"]: againWait(group)
+		if times[group] != Global.LevelData[Global.NowLevel]["groups"][group]["groupTimes"]: 
+			againWait(group)
 		else: if group == groupCount-1: Global.LevelOver = true
-#			if Global.LevelData[Global.NowLevel]["groups"][group]["stopTime"] == -1: emit_signal("stopOver")
-		#if stage == groupStage: summonEnemy(group,groupStage)#处于本阶段才释放本阶段士兵
-	pass
+#			if Global.LevelData[Global.NowLevel]["groups"][group]["stopTime"] == -1: emit_signal("stopOver")	pass
 	
 func againWait(group):
 	await get_tree().create_timer(Global.LevelData[Global.NowLevel]["groups"][group]["groupCD"]+randf_range(

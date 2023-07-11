@@ -9,10 +9,7 @@ var update = false
 var showNum:int
 
 @onready var cantBuy = $cantChoice
-#@onready var explainBox = $ExplainBox
-var explainText
-var explainName
-#var outLine = true
+
 var cardText = true
 var cd
 var cdAll
@@ -23,9 +20,6 @@ var soldier
 var price = 0
 var areaId
 var choiceArea = preload("res://sence/fight/ui/choiceArea.tscn")
-
-#var cardNum
-#signal reSet
 
 func _ready():
 	originSize = size.y
@@ -53,22 +47,29 @@ func _ready():
 		cType.CARDSHOW:#新卡
 			self.button_mask = 0
 			if Global.NowLevel == Global.Level:
-				if Global.Level<8:
+				if Global.Level<7:
 					soldier = Global.LevelData[0]["cardShow"][Global.NowLevel-1]
 		cType.BUYSHOW:#新可购买卡
-			self.button_mask = 0
-			if Global.NowLevel == Global.Level:
-				if Global.Level<7:
-					soldier = Global.LevelData[0]["buyShow"][Global.NowLevel-1]
-		cType.SHOP:#买卡
-			soldier = Global.LevelData[0]["shop"][num]
-			if (Global.Brought[soldier] == true): cantBuy.visible = true#已买不再显示
-			if Global.Level-1 <= Global.LevelData[0]["buyShow"].find(soldier):
-				soldier = null#还没解锁不显示
-				visible = false
+			if get_parent().name == "CanBuy": 
+				self.button_mask = 0
+				if Global.NowLevel == Global.Level:
+					if Global.Level<7:
+						soldier = Global.LevelData[0]["buyShow"][Global.NowLevel-1]
+			else:#买卡
+				soldier = Global.LevelData[0]["buyShow"][num]
+				if (Global.Brought[soldier] == true): cantBuy.visible = true#已买不再显示
+				if Global.Level-1 <= num:
+					soldier = null
+					visible = false#还没解锁不显示
+#		cType.SHOP:
+#			soldier = Global.LevelData[0]["shop"][num]
+#			if (Global.Brought[soldier] == true): cantBuy.visible = true#已买不再显示
+#			if Global.Level-1 <= Global.LevelData[0]["buyShow"].find(soldier):
+#				soldier = null#还没解锁不显示
+#				visible = false
 				
 	match cardType:
-		cType.CARDSHOW,cType.BUYSHOW,cType.SHOP:#补充icon
+		cType.CARDSHOW,cType.BUYSHOW:#补充icon
 			showNum = Global.LevelData[0]["allVillageObject"].find(soldier)
 	if soldier != null&&cardType != cType.USE:  display()#填充数据
 	pass
@@ -81,13 +82,9 @@ func display():
 			cd = Global.STSData[soldier]["cd"]
 			cdAll = cd
 			price = Global.STSData[soldier]["price"]
-	if cardType == cType.BUYSHOW:
-		if Global.LevelData[0]["buyPrice"].has(soldier):
-			price = Global.LevelData[0]["buyPrice"][soldier]
-		else: 
-			$cardPrice.visible = false
-			self.texture_normal = null
-	if cardType == cType.SHOP: price = Global.LevelData[0]["buyPrice"][soldier]
+	if cardType == cType.BUYSHOW: 
+		price = Global.LevelData[0]["buyPrice"][soldier]
+		if Global.Point < price: self.button_mask = 0
 	$cardPrice.text = str(price)
 	$icon.texture = load("res://assets/UI/cardIcon/cardIcon%s.png"%(showNum+1))
 	pass
@@ -145,10 +142,12 @@ func _process(_delta):
 			cType.SHOP: if Global.Point < price: self.button_mask = 0
 	else:
 		if cardType == cType.USE&&soldier != null:
+			if Global.NowMoney < price||$CDTimer.time_left > 0: 
+				cantBuy.visible = true
 			if Global.NowMoney >= price&&$CDTimer.time_left <= 0:
 				cantBuy.visible = false
-			if Global.NowMoney < price: cantBuy.visible = true
-			if $CDTimer.time_left > 0: $CD.size.y = (originSize*($CDTimer.time_left/cd)) 
+			if $CDTimer.time_left > 0: 
+				$CD.size.y = (originSize*($CDTimer.time_left/cd)) 
 			else:#cd显示补充
 				$CD.visible = false
 				$CD.size.y = originSize
@@ -169,7 +168,7 @@ func _on_pressed():
 				Global.ChosenId[num].cantBuy.visible = false
 				Global.ChosenCardNum -= 1
 				useCardClear()
-			cType.SHOP:#买卡
+			cType.BUYSHOW:#买卡
 				cantBuy.visible = true
 				Global.Point -= price
 				Global.Brought[soldier] = true

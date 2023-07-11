@@ -12,7 +12,7 @@ func _process(_delta):
 	if ParentName == "miniGame": 
 		$Lock.visible = false
 		$text.text = ""
-		if level == 2&&Global.Level-1 <= Global.LevelData[0]["buyShow"].find("miniGame2"): 
+		if level == 2&&Global.Level-1 <= 4:
 			visible = false
 	else:
 		if Global.Level >= level: $Lock.visible = false

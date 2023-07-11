@@ -41,33 +41,75 @@ offset_right = 248.0
 offset_bottom = 166.0
 texture = ExtResource("1_crtae")
 
+[node name="cardButton3" parent="Main" instance=ExtResource("2_ltcr5")]
+visible = false
+layout_mode = 2
+offset_left = 8.5
+offset_top = 4.0
+offset_right = 58.5
+offset_bottom = 80.0
+texture_normal = ExtResource("3_c00cl")
+cardType = 4
+
+[node name="cardButton4" parent="Main" instance=ExtResource("2_ltcr5")]
+visible = false
+layout_mode = 2
+offset_left = 8.5
+offset_top = 4.0
+offset_right = 58.5
+offset_bottom = 80.0
+texture_normal = ExtResource("3_c00cl")
+cardType = 4
+
 [node name="HBoxContainer" type="HBoxContainer" parent="Main"]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 16.0
-offset_right = 238.0
-offset_bottom = 92.0
-theme_override_constants/separation = 10
+offset_top = 5.0
+offset_right = 178.0
+offset_bottom = 161.0
+theme_override_constants/separation = 16
 
-[node name="cardButton1" parent="Main/HBoxContainer" instance=ExtResource("2_ltcr5")]
+[node name="VBoxContainer1" type="VBoxContainer" parent="Main/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="cardButton1" parent="Main/HBoxContainer/VBoxContainer1" instance=ExtResource("2_ltcr5")]
 layout_mode = 2
 texture_normal = ExtResource("3_c00cl")
-cardType = 4
+cardType = 3
 
-[node name="cardButton2" parent="Main/HBoxContainer" instance=ExtResource("2_ltcr5")]
+[node name="cardButton2" parent="Main/HBoxContainer/VBoxContainer1" instance=ExtResource("2_ltcr5")]
 layout_mode = 2
 texture_normal = ExtResource("3_c00cl")
-cardType = 4
+cardType = 3
 
-[node name="cardButton3" parent="Main/HBoxContainer" instance=ExtResource("2_ltcr5")]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Main/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="cardButton3" parent="Main/HBoxContainer/VBoxContainer2" instance=ExtResource("2_ltcr5")]
 layout_mode = 2
 texture_normal = ExtResource("3_c00cl")
-cardType = 4
+cardType = 3
 
-[node name="cardButton4" parent="Main/HBoxContainer" instance=ExtResource("2_ltcr5")]
+[node name="cardButton4" parent="Main/HBoxContainer/VBoxContainer2" instance=ExtResource("2_ltcr5")]
 layout_mode = 2
 texture_normal = ExtResource("3_c00cl")
-cardType = 4
+cardType = 3
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Main/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="cardButton5" parent="Main/HBoxContainer/VBoxContainer3" instance=ExtResource("2_ltcr5")]
+layout_mode = 2
+texture_normal = ExtResource("3_c00cl")
+cardType = 3
+
+[node name="cardButton6" parent="Main/HBoxContainer/VBoxContainer3" instance=ExtResource("2_ltcr5")]
+layout_mode = 2
+texture_normal = ExtResource("3_c00cl")
+cardType = 3
 
 [node name="buyCancelButton" type="TextureButton" parent="Main"]
 layout_mode = 0
@@ -84,10 +126,10 @@ stream = ExtResource("7_i2ej7")
 
 [node name="emeraldSquare" type="TextureRect" parent="Main"]
 layout_mode = 0
-offset_left = 102.5
-offset_top = 130.0
-offset_right = 145.5
-offset_bottom = 152.0
+offset_left = 196.5
+offset_top = 136.0
+offset_right = 239.5
+offset_bottom = 158.0
 texture = ExtResource("7_dp2nj")
 
 [node name="emeraldNumber" type="Label" parent="Main/emeraldSquare"]

@@ -41,7 +41,7 @@ func _ready():
 	firstTime = Global.LevelData[0][game]["firstTime"]
 	lastTime = keepTime-firstTime-Global.LevelData[0][game]["lastTime"]
 	GameStart.connect(start)
-	#await get_tree().create_timer(0.2,false).timeout#开始延迟
+	await get_tree().create_timer(0.4,false).timeout#开始延迟
 	emit_signal("GameStart")
 	pass
 

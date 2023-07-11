@@ -205,12 +205,13 @@ func testchangeState():
 				if unSee == true: 
 					collision_layer = Global.LAyer[camp+1][0]
 					$AnimatedSprite2D.modulate.a = 1
-				if tpDistance > 0&&health>0: 
+				if tpDistance > 0&&health > 0: 
 					#&&other.type != "base"
 					$particles/spdierTp.emitting = true
 					await get_tree().create_timer(0.2,false).timeout
-					position.x += tpDistance*camp#末影人瞬移
-					tpDistance = 0#低血量tp到基地
+					if health>0:
+						position.x += tpDistance*camp#末影人瞬移
+						tpDistance = 0#低血量tp到基地
 #				if startDrop == true:
 #					$Collision1.collide_with_areas = false
 #					reSet(soldierName[1])

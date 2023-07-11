@@ -16,6 +16,8 @@ func text(mode):
 	match mode:
 		"stop": 
 			if get_parent().name == "Fight": 
+				$Control/card.visible = false
+				$Control/miniGame.visible = false
 				$Control/gameSpeed/gameSpeedButton/value.text = str(Global.GameSpeed)
 				$Control/gameSpeed.visible = true
 			$Control/Title.text = "暂停"
@@ -23,19 +25,26 @@ func text(mode):
 			$win.play()
 			$Control/Title.text = "胜利"
 			if get_parent().name == "Fight":
-				$Control/card.visible = true
-				$Control/card/Unlock.visible = false
-				$Control/card/CanBuy.visible = false
+				$Control/card.visible = false
+				$Control/miniGame.visible = true
+				$Control/miniGame/title.visible = false
+				$Control/miniGame/game1.visible = false
+				$Control/miniGame/game2.visible = false
+				$Control/card/Unlock.visible = true
+				$Control/card/CanBuy.visible = true
+				if Global.NowLevel == Global.Level:
+					if Global.Level<7: $Control/card.visible = true#新的解锁
+					if Global.Level == 1||Global.Level == 4:#小游戏解锁展示
+						$Control/miniGame/title.visible = true
+					if Global.Level == 1: $Control/miniGame/game1.visible = true
+					if Global.Level == 4: $Control/miniGame/game2.visible = true
+					if Global.Level<8: addPoint()#加钱
 				if Global.NowLevel == 9:#boss战结束
 					$Control/HBoxContainer/Button2.visible = false
 					if Global.Level == 8:#第一次打完boss感谢
 						$Control/thank.visible = true
 						Global.Level = 10
-				if Global.NowLevel == Global.Level:
-					if Global.Level<7: $Control/card/CanBuy.visible = true#新的解锁
-					if Global.Level<8: $Control/card/Unlock.visible = true#新卡
-					if Global.Level<8: addPoint()#加钱
-			if get_parent().name == "MiniGame": addPoint()
+			if get_parent().name == "MiniGame": addPoint()#加钱
 		"lose": 
 			$lose.play()
 			$Control/Title.text = "失败"
@@ -81,7 +90,10 @@ func _on_button_3_pressed():
 	pass 
 
 func _on_tree_entered():
-	if get_parent().name == "MiniGame": $Control/card.free()
+	if get_parent().name == "MiniGame": 
+		$Control/card.free()
+		$Control/miniGame.free()
+		pass
 	pass
 
 func _on_game_speed_button_pressed():

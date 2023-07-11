@@ -1,4 +1,5 @@
 {
+    "baseUpdate":{"objectName":"增加10点城堡耐久"},
     "cardUpdate":{"objectName":"增加1个卡槽位"},
     "moneyUpate":{"objectName":"增加5点资金上限"},
     "miniGame1":{"objectName":"小游戏1 打地鼠"},
@@ -57,9 +58,9 @@
         "souEffValue":{"hurt":"hurt1"}
     }, 
     "snowman":{
-        "health":4,
-        "speedBasic":0.75,
-        "damageBasic":[0.25,0,0],
+        "health":2,
+        "speedBasic":0.65,
+        "damageBasic":[0.75,0,0],
         "attRangeBasic":[100,0],
         "projectile":["snowBall",null],
         "proSpeed":[3,0],
@@ -69,11 +70,11 @@
         "giveEffect":[[0,0,-1,0,0,0,0,0]],
 
         "price":3,
-        "cd":5,
+        "cd":6,
         "type":"soldier",
         "collBoxCut":10,
         "collBoxPro":-4,
-        "animation":{"walk":1,"attack":3,"stop":1,"death":1},
+        "animation":{"walk":1,"attack":6,"stop":1,"death":1},
         "souEffValue":{"hurt":"snowmanHurt","attack":"throw3","death":"snowmanDeath"},
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[false,true,false]],
@@ -148,7 +149,7 @@
         "damageBasic":[2.5,0,0],
         "attRangeBasic":[30,0],
         "aoeModel":["monster",null,null,null],
-        "aoeRange":[25,0,0,0],
+        "aoeRange":[20,0,0,0],
         "effValue":[[0,0,60,0]],
         "giveEffect":[[0,0,0,0,0,0,-1,0]],
 
@@ -197,7 +198,7 @@
         "damagerType":[["firework"]],
         "proSpeed":[6],
         "proDir":[0,0,-1],
-        "dropSpeed":-3,
+        "dropSpeed":-4,
 
         "price":3,
         "cd":5,

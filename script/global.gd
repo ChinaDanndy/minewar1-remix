@@ -143,7 +143,8 @@ const STSDataName = {"price":STSType.INT,"kind":null,
 "attDefShield":null,"satDefValue":STSType.INT,"attDefState":null}
 
 var Point = 0
-var Brought = {"cardUpdate":false,"moneyUpate":false,"power":false,"golder":false}
+var Brought = {"baseUpdate":false,"cardUpdate":false,"moneyUpate":false,
+"power":false,"golder":false,"iron":false}
 var Level = 1
 var Teach = 0
 
@@ -156,7 +157,6 @@ var LevelData
 var NowLevel = 1
 var LevelOver = false
 func _ready():#读入数据
-	
 	if FileAccess.file_exists("user://playerData.json"):
 		var _json = JSON.new()
 		var loadData = FileAccess.open("user://playerData.json",FileAccess.READ)
@@ -167,6 +167,8 @@ func _ready():#读入数据
 		Level = _json.data["Level"]
 		Teach = _json.data["Teach"]
 		loadData = null
+	if !Brought.has("baseUpdate"): Brought["baseUpdate"] = false#兼容
+	if !Brought.has("iron"): Brought["iron"] = false
 	root.close_requested.connect(closeWindow)
 
 	var file = FileAccess.open("res://data/object.json",FileAccess.READ)#user:

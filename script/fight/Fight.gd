@@ -5,6 +5,7 @@ var summonEnemyID
 var bossLv = 0
 var bossShineSet = 0
 var bossUp = 0
+var villageBaseHealth = 20
 
 var gameOver = false
 var levelType
@@ -44,17 +45,15 @@ func _ready():
 		$Boss.free()
 		$bossProtect.free()
 		Global.MonsterBase.camp = Global.MONSTER
-		Global.MonsterBase.firstSetting("baseMonsterHealth")
+		Global.MonsterBase.firstSetting()
 	else: 
 		bossLv = 1
 		$baseMonster.free()
 		Global.MonsterBase = $Boss
 		$Boss.visible = true
-		Global.BossProtect.firstSetting("boss")
-
+		Global.BossProtect.firstSetting()
 	Global.VillageBase.camp = Global.VILLAGE
-	Global.VillageBase.firstSetting("baseVillageHealth")#"baseVillageHealth"
-
+	Global.VillageBase.firstSetting()
 	moneyTime = Global.LevelData[0]["moneySpeed"]
 	
 	if Global.LevelData[Global.NowLevel]["chosenCard"].is_empty():
@@ -84,7 +83,7 @@ func _on_cave_timer_timeout():
 	if !targetArray.is_empty(): 
 		var target = targetArray[randi_range(0,targetArray.size()-1)]
 		var newIce = Global.Skill.instantiate()
-		newIce.position.x = target.position.x+40
+		newIce.position.x = target.position.x+20
 		newIce.camp = Global.MONSTER
 		Global.root.add_child(newIce)
 		newIce.firstSetting("ice")
@@ -153,16 +152,19 @@ func _process(_delta):
 	iceTimeRand = Global.LevelData[Global.NowLevel]["set"]["iceTimeRand"]
 	
 	if gameOver == false:
+		$StopButton.button_mask = MOUSE_BUTTON_MASK_LEFT
+		$teachButton.button_mask = MOUSE_BUTTON_MASK_LEFT
 		if Global.VillageBase.health <= 0: 
 			gameOver = true
 			await get_tree().create_timer(0.6).timeout
 			Global.StopWindow.text("lose")
-			
 		if Global.MonsterBase.health <= 0: 
 			gameOver = true
 			await get_tree().create_timer(0.6).timeout
 			Global.StopWindow.text("win")
-		
+	else:
+		$StopButton.button_mask = 0
+		$teachButton.button_mask = 0
 #	if bossLv > 0:
 #		$monnsterTowerArea.position.x = (
 #			$Boss.global_position.x-$monnsterTowerArea.size.x-20)
@@ -211,11 +213,16 @@ func _on_tree_entered():
 	Global.Contrl = null
 	Global.LevelOver = false
 	
+	Global.VillageBase = $baseVillage/collBox
+	Global.MonsterBase = $baseMonster/collBox
+	Global.VillageBase.health = 20 
+	if Global.Brought["baseUpdate"] == true: Global.VillageBase.health = 30#基地血量升级
 	if Global.Level <= 5: Global.CardUp = Global.Level+1
 	else: Global.CardUp = 6
 	if Global.Brought["cardUpdate"] == true: Global.CardUp += 1#卡槽升级
 	Global.Money = 10
 	if Global.Brought["moneyUpate"] == true: Global.Money = 15#资金上限升级
+	
 	Global.ChosenCard = [null,null,null,null,null,null,null]
 	Global.ChosenId = [null,null,null,null,null,null,null]
 	Global.ChosenCardNum = 0
@@ -228,8 +235,6 @@ func _on_tree_entered():
 	Global.FightSkyY = $position/sky.position.y
 	Global.VillagePoint = $position/VillagePoint.position
 	Global.MonsterPoint = $position/MonsterPoint.position#740
-	Global.VillageBase = $baseVillage/collBox
-	Global.MonsterBase = $baseMonster/collBox
 	
 	Global.Boss = $Boss
 	Global.BossProtect = $bossProtect/collBox

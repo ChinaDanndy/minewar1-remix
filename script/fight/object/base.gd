@@ -1,7 +1,6 @@
 extends Area2D
 var camp = 0
 signal ProtectDown 
-@export var AName:String
 @onready var picture = get_parent()
 #@onready var bossProctectShow = get_parent()
 @onready var healthColor = get_parent().get_node("healthLine/Sprite2D")
@@ -14,7 +13,7 @@ var healthUp
 var shield =0
 var collBox
 
-func firstSetting(Name):
+func firstSetting():
 	if get_parent().name == "bossProtect": 
 		health = Global.STSData["creeperKing"]["protectHealth"]
 		get_parent().position.y = Global.FightSkyY
@@ -23,14 +22,16 @@ func firstSetting(Name):
 		get_parent().get_node("hurt").stream = load("res://assets/music/se/soldier/hurt1.ogg")
 		attDefence = [false,false,true]
 	else: 
+		#effDefence = [true,true,true,true,true,true,true,true]
+		#attDefence = [true,true,true]
 		collision_layer = Global.LAyer[camp+1][2]
-		health = Global.LevelData[Global.NowLevel]["set"][Name]
+		if camp == Global.MONSTER: 
+			health = Global.LevelData[Global.NowLevel]["set"]["baseMonsterHealth"]
 		if get_parent().name == "baseMonster": 
 			match Global.LevelData[Global.NowLevel]["set"]["levelType"]:
 				"defence": 
 					get_parent().get_node("healthLine").visible = false
 					get_parent().texture = load("res://assets/objects/defence.png")
-					collision_layer = 0
 					effDefence = [true,true,true,true,true,true,true,true]
 					attDefence = [true,true,true]
 	var newBox = RectangleShape2D.new()

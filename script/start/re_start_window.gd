@@ -7,7 +7,6 @@ func _on_correct_pressed():
 	Global.Point = 0
 	Global.Brought = {"cardUpdate":false,"moneyUpate":false,"power":false,"golder":false}
 	Global.Level = 1
-	print(Global.Level)
 	pass
 
 func _on_no_pressed(): 

@@ -62,17 +62,16 @@ func _ready():
 			damagerType[0] == "thunder")||damagerType[0] == "tnt"||(
 			damagerType[0] == "fireBall")||damagerType[0] == "fireBallDown"||(
 			damagerType[0] == "ice")||damagerType[0] == "firework":
-			await get_tree().create_timer(0.04,false).timeout
+			await get_tree().create_timer(0.02,false).timeout
 			collision_mask = 0
 			await get_tree().create_timer(0.8,false).timeout
 			queue_free()
 		else:
-			await get_tree().create_timer(0.04,false).timeout
+			await get_tree().create_timer(0.02,false).timeout
 			queue_free()
 	pass
 
 func _on_area_entered(area):
-	
 	if damage == null:
 		Global.damage_Calu(area,Global.damCaluType.EFF,null,null,null,giveEffect,
 		effValue,effTime,effTimes)#纯效果

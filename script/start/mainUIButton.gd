@@ -1,7 +1,7 @@
 extends TextureButton
 func _process(_delta): 
 	match name:
-		"BuyCardButton": if Global.Level < 3: visible = false
+		"BuyCardButton": if Global.Level < 2: visible = false
 		"MiniGameButton": if Global.Level < 2: visible = false
 	$click.volume_db = Global.SeDB
 pass

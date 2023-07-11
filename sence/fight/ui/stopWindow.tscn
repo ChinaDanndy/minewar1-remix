@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ciqm506lu3wms"]
+[gd_scene load_steps=15 format=3 uid="uid://ciqm506lu3wms"]
 
 [ext_resource type="Script" path="res://script/fight/ui/stopWindow.gd" id="1_vqqbi"]
 [ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/backgrounds/spr_broad.png" id="2_x8d7p"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://cqu0trx4tn07j" path="res://sence/fight/ui/cardButton.tscn" id="7_llagh"]
 [ext_resource type="Texture2D" uid="uid://ienrfyup176c" path="res://assets/objects/tower/emerald.png" id="8_qn7qd"]
 [ext_resource type="Texture2D" uid="uid://hcjvp12prr60" path="res://assets/backgrounds/moneyBackground.png" id="9_jwnsr"]
+[ext_resource type="Texture2D" uid="uid://cibbw5x1bo5te" path="res://assets/miniGame/game1/creeper/creeper5.png" id="10_2en7w"]
+[ext_resource type="Texture2D" uid="uid://dsn4qp6w8wbph" path="res://assets/miniGame/game2/fireworker/firework1.png" id="11_k0juo"]
 [ext_resource type="AudioStream" uid="uid://c5qsbam30no4x" path="res://assets/music/se/other/click.ogg" id="11_oj1ju"]
 [ext_resource type="AudioStream" uid="uid://dabegres4yh4r" path="res://assets/music/se/other/lose.ogg" id="12_vmb2g"]
 [ext_resource type="AudioStream" uid="uid://cfk8qxr6tgdgs" path="res://assets/music/se/other/win.ogg" id="13_u7k50"]
@@ -132,8 +134,27 @@ theme_override_fonts/font = ExtResource("3_ojej8")
 theme_override_font_sizes/font_size = 14
 text = "返回首页"
 
-[node name="card" type="Control" parent="Control"]
+[node name="thank" type="Label" parent="Control"]
 visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -19.0
+offset_right = 88.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ojej8")
+theme_override_font_sizes/font_size = 0
+text = "恭喜你打败了苦力怕之王
+               感谢游玩"
+
+[node name="card" type="Control" parent="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -116.0
@@ -165,17 +186,17 @@ cardType = 2
 [node name="CanBuy" type="Control" parent="Control/card"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 90.0
-offset_right = 90.0
+offset_left = 70.0
+offset_right = 70.0
 
 [node name="Label" type="Label" parent="Control/card/CanBuy"]
 layout_mode = 0
-offset_left = 10.0
-offset_right = 42.0
+offset_left = 30.0
+offset_right = 78.0
 offset_bottom = 19.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_ojej8")
-text = "解锁"
+text = "新解锁"
 
 [node name="cardButton" parent="Control/card/CanBuy" instance=ExtResource("7_llagh")]
 layout_mode = 0
@@ -186,11 +207,10 @@ texture_normal = ExtResource("7_7ehn6")
 cardType = 3
 
 [node name="emerald" type="Control" parent="Control"]
-visible = false
 anchors_preset = 0
-offset_left = 63.5
+offset_left = 74.0
 offset_top = 3.0
-offset_right = 63.5
+offset_right = 74.0
 offset_bottom = 3.0
 
 [node name="addEmerald" type="Control" parent="Control/emerald"]
@@ -243,27 +263,8 @@ offset_right = 43.0
 offset_bottom = 19.0
 texture = ExtResource("8_qn7qd")
 
-[node name="thank" type="Label" parent="Control"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -88.0
-offset_top = -19.0
-offset_right = 88.0
-offset_bottom = 19.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_ojej8")
-theme_override_font_sizes/font_size = 0
-text = "恭喜你打败了苦力怕之王
-               感谢游玩"
-
 [node name="gameSpeed" type="Control" parent="Control"]
+visible = false
 anchors_preset = 0
 offset_left = 0.5
 offset_right = 0.5
@@ -298,6 +299,53 @@ offset_bottom = 21.0
 theme_override_fonts/font = ExtResource("3_ojej8")
 theme_override_font_sizes/font_size = 0
 text = "1"
+
+[node name="miniGame" type="Control" parent="Control"]
+anchors_preset = 0
+offset_left = 24.0
+offset_top = -10.0
+offset_right = 24.0
+offset_bottom = -10.0
+
+[node name="title" type="Label" parent="Control/miniGame"]
+offset_left = -8.5
+offset_top = -18.0
+offset_right = 39.5
+offset_bottom = 1.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ojej8")
+text = "小游戏"
+
+[node name="game1" type="TextureRect" parent="Control/miniGame"]
+visible = false
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 42.0
+texture = ExtResource("10_2en7w")
+
+[node name="Label" type="Label" parent="Control/miniGame/game1"]
+offset_left = -7.0
+offset_top = 42.0
+offset_right = 41.0
+offset_bottom = 61.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ojej8")
+text = "打地鼠"
+
+[node name="game2" type="TextureRect" parent="Control/miniGame"]
+offset_left = -4.0
+offset_right = 36.0
+offset_bottom = 42.0
+texture = ExtResource("11_k0juo")
+
+[node name="Label" type="Label" parent="Control/miniGame/game2"]
+offset_left = -4.0
+offset_top = 42.0
+offset_right = 44.0
+offset_bottom = 61.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_ojej8")
+text = "放烟花"
 
 [node name="click" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_oj1ju")
