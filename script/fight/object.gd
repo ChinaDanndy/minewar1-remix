@@ -150,6 +150,13 @@ func reSet(soldier):
 	SetValue(soldier)
 	SetAnimationAndCollBox(soldier)
 	collMask()
+	
+	if attDefShield != null:#护盾破碎时伤害溢出霸体
+		effDefence = [true,true,true,true,true,true,true,true]
+		attDefence = [true,true,true]
+		await get_tree().create_timer(0.2,false).timeout
+		effDefence = [false,false,false,false,false,false,false,false]
+		attDefence = [false,false,false]
 	pass
 	
 func _process(_delta):#每帧执行的部分

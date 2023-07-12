@@ -4,9 +4,7 @@ var type = "projectiles"
 var startPos = position.x
 var currentPos
 var stop = 1
-#var voice
-#var frame
-#var father 
+var done = false
 
 var projectile = null
 var proRange = 0
@@ -44,12 +42,9 @@ func _process(_delta):
 	if position.y >= Global.FightGroundY&&aoeRange != null:#落地物体
 		position.y = Global.FightGroundY-20
 		aoeCreate()
-		queue_free()
 	if position.y < -20: 
-			#await get_tree().create_timer(0.02,false).timeout
-		#$AOE.collision_mask = 0
 		await get_tree().create_timer(3,false).timeout
-		queue_free()#烟花飞出去销毁
+		queue_free()#烟花飞出去销毁,让粒子释放完
 	pass
 
 func _on_area_entered(area):
@@ -57,7 +52,7 @@ func _on_area_entered(area):
 		Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,
 		effTime,effTimes)
 		#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	
-	else:aoeCreate()#AOE
+	else: aoeCreate()#AOE
 	if ifPriece == false: 
 		if projectile == "firework":#释放轨迹粒子延迟死亡
 			collision_mask = 0
@@ -71,8 +66,11 @@ func _on_area_entered(area):
 func aoeCreate():
 	match projectile:
 		"tnt","fireBall","fireBallDown": damagerType[0] = projectile#击中敌人有音效的弹射物
-	Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,attackType,damage,
-	damagerType,giveEffect,effValue,effTime,effTimes)
+	if done == false:
+		done = true
+		Global.aoe_create(self,Global.CREATE,aoeModel,aoeRange,ifAoeHold,attackType,damage,
+		damagerType,giveEffect,effValue,effTime,effTimes)
+	queue_free()
 	pass
 	
 func reload(): queue_free()

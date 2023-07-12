@@ -14,9 +14,7 @@ func firstSetting(soldier):
 	
 	match camp:
 		Global.VILLAGE: 
-			#if soldier == Global.Contrl: $AnimatedSprite2D.material = Global.SoldierOutLine
 			position.x = Global.VillagePoint.x
-			#add_to_group(soldier)
 			add_to_group("villageSoldier")
 		Global.MONSTER: 
 			position.x = Global.MonsterPoint.x
@@ -44,8 +42,6 @@ func firstSetting(soldier):
 	if usualTime != null: $UsualTimer.start(usualTime)
 	
 	#	if stopTime == 0: Global.SummonEnemy.stopOver.connect(onStopOver)
-#	if projectile.is_empty(): 
-#	else: $Collision1.position.y = (collBox.y/2)-25
 	pass
 	
 func _on_usual_timer_timeout():#平常给予效果

@@ -1,5 +1,5 @@
 {
-    "baseUpdate":{"objectName":"增加10点城堡耐久"},
+    "baseUpdate":{"objectName":"增加城堡防御"},
     "cardUpdate":{"objectName":"增加1个卡槽位"},
     "moneyUpate":{"objectName":"增加5点资金上限"},
     "miniGame1":{"objectName":"小游戏1 打地鼠"},
@@ -144,12 +144,12 @@
     },
     "iron":
     {
-        "health":6,
+        "health":7,
         "speedBasic":0.65,
         "damageBasic":[2.5,0,0],
-        "attRangeBasic":[30,0],
+        "attRangeBasic":[25,0],
         "aoeModel":["monster",null,null,null],
-        "aoeRange":[20,0,0,0],
+        "aoeRange":[30,0,0,0],
         "effValue":[[0,0,60,0]],
         "giveEffect":[[0,0,0,0,0,0,-1,0]],
 
@@ -166,7 +166,7 @@
         "description":"击退附近怪物"
     },
     "projector":{
-        "health":5,
+        "health":6,
         "aniSpeedBasic":1,
         "towKeepTime":10,
         "damageBasic":[1,0,0],
@@ -190,7 +190,7 @@
     },
     "airDefence":{
         "health":3,
-        "aniSpeedBasic":0.5,
+        "aniSpeedBasic":0.4,
         "towKeepTime":6,
         "damageBasic":[3,0,0],
         "attRangeBasic":[40,0],
@@ -211,7 +211,7 @@
         "description":"发射烟花攻击空中/怪物,存在6秒"
     },
     "golder":{
-        "health":3,
+        "health":2,
         "type":"tower",
         
         "price":5,
@@ -227,7 +227,7 @@
         "description":"每隔2秒获得1点/资源,存在20秒"
     },
     "regeneration":{
-        "price":2,
+        "price":3,
         "cd":6,
         "ifAoeHold":true,
         "aoeModel":"village",
@@ -327,7 +327,7 @@
     "spider":{
         "health":2,
         "speedBasic":1.3,
-        "damageBasic":[1.25,0,0],
+        "damageBasic":[1.5,0,0],
         "attRangeBasic":[12,0],
         "tpDistance":50,
 
@@ -414,7 +414,7 @@
         "effTime":[0,0,0,0,5],
         "effTimes":[0,0],
         "giveEffect":[0,0,0,0,-1,0,0,0],
-        "dropSpeed":8,
+        "dropSpeed":6,
         "type":"skill",
         "objectName":"冰冻法术",
         "description":"使范围内我方单位/5秒内无法攻击和/移动"

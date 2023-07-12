@@ -308,6 +308,7 @@ offset_right = 24.0
 offset_bottom = -10.0
 
 [node name="title" type="Label" parent="Control/miniGame"]
+layout_mode = 0
 offset_left = -8.5
 offset_top = -18.0
 offset_right = 39.5
@@ -324,6 +325,7 @@ offset_bottom = 42.0
 texture = ExtResource("10_2en7w")
 
 [node name="Label" type="Label" parent="Control/miniGame/game1"]
+layout_mode = 0
 offset_left = -7.0
 offset_top = 42.0
 offset_right = 41.0
@@ -333,12 +335,14 @@ theme_override_fonts/font = ExtResource("3_ojej8")
 text = "打地鼠"
 
 [node name="game2" type="TextureRect" parent="Control/miniGame"]
+layout_mode = 0
 offset_left = -4.0
 offset_right = 36.0
 offset_bottom = 42.0
 texture = ExtResource("11_k0juo")
 
 [node name="Label" type="Label" parent="Control/miniGame/game2"]
+layout_mode = 0
 offset_left = -4.0
 offset_top = 42.0
 offset_right = 44.0

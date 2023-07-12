@@ -20,7 +20,7 @@ func _ready():
 	var newRange = RectangleShape2D.new()#AOE范围
 	newRange.size = Vector2(aoeRange,20)
 	match damagerType[0]:
-		"regeneration","power","weakness","ice","regenerationDo":#
+		"regeneration","power","ice","regenerationDo","weakness":#
 			collision_mask = Global.MAsk[Mod[aoeModel]][3]#药水碎了的声音
 			if damagerType[0] != "regenerationDo":
 				$se/broke.volume_db = Global.SeDB
@@ -47,7 +47,9 @@ func _ready():
 			newRange.size.y = Global.STSData["thunder"]["collBox"].y
 			$se/thunder.volume_db = Global.SeDB
 			$se/thunder.play()
-		"crpeerKingExplode": newRange.size.y = 600 
+		"crpeerKingExplode": 
+			collision_mask = 1+2+4+8+16
+			newRange.size.y = 600 
 	$CollisionShape2D.shape = newRange
 	if ifAoeHold == true: 
 		if damage != null:#单位攻击有范围持续的效果先判定一次攻击伤害
@@ -62,12 +64,12 @@ func _ready():
 			damagerType[0] == "thunder")||damagerType[0] == "tnt"||(
 			damagerType[0] == "fireBall")||damagerType[0] == "fireBallDown"||(
 			damagerType[0] == "ice")||damagerType[0] == "firework":
-			await get_tree().create_timer(0.02,false).timeout
+			await get_tree().create_timer(0.1,false).timeout
 			collision_mask = 0
 			await get_tree().create_timer(0.8,false).timeout
 			queue_free()
 		else:
-			await get_tree().create_timer(0.02,false).timeout
+			await get_tree().create_timer(0.1,false).timeout
 			queue_free()
 	pass
 

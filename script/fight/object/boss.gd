@@ -63,7 +63,6 @@ func _process(_delta):
 		if bossShineSet == 1: Global.BossSkill.modulate.a += 0.01
 		if Global.BossSkill.modulate.a >= 1: bossShineSet = 0
 		if attackTime <= 0&&Global.VillageBase.health>0: 
-			Global.ThunderSpeed = 0.08
 			var newtThunder = Global.Skill.instantiate()
 			newtThunder.position.x = Global.VillageBase.global_position.x
 			newtThunder.camp = Global.MONSTER
@@ -86,6 +85,7 @@ func _on_attack_timer_timeout():
 	newthunder.position.x = global_position.x-collBox.x/2-20
 
 func Lv2():
+	explode()
 	$healthLine.visible = false
 	$RayCast2D.collide_with_areas = false
 	$attackTimer.stop()
@@ -106,13 +106,13 @@ func _on_tp_animation_finished():
 	norAni.play("stop1")
 	$healthLine.visible = true
 	$RayCast2D.collide_with_areas = true
-	explode()
 	protectReset()
 	attackTime = Global.LevelData[Global.NowLevel]["set"]["attackTime"]
 	bossSkillCut = (attackTime/(Global.BossSkill.hframes-1))
 	$deathTimer.start(1)
 	Global.FightSence.SummonEnemy()
 	bossLv = 2
+	explode()
 	pass
 
 func protectDown():

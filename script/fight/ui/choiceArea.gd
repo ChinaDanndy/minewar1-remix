@@ -3,6 +3,9 @@ var soldier
 var card
 var area
 var which
+
+var wait = false
+
 @export var choiceColor:Color
 @export var warnColor:Color
 @onready var colorBox = $ColorRect
@@ -53,9 +56,11 @@ func _process(_delta):
 		Global.NowMoney -= Global.STSData[soldier]["price"]
 		card.buyCardReSet()
 		visible = false
-		await  get_tree().create_timer(0.4,false).timeout#防止连续购买
-		Global.CardBuy = null
+		wait = true
+	if wait == true&&Input.is_action_just_released("ui_mouse_left"):
+		Global.CardBuy = null#防止连续点牌
 		queue_free()
+		
 	if area == Global.towerArea:
 		if collLine.is_colliding():  colorBox.color = warnColor
 		else:  colorBox.color = choiceColor

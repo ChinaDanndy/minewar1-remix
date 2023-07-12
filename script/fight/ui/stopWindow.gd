@@ -12,12 +12,13 @@ func text(mode):
 	$Control/thank.visible = false
 	$Control/emerald.visible = false
 	$Control/gameSpeed.visible = false
+	if get_parent().name == "Fight": 
+		$Control/card.visible = false
+		$Control/miniGame.visible = false
 	Mode = mode
 	match mode:
 		"stop": 
 			if get_parent().name == "Fight": 
-				$Control/card.visible = false
-				$Control/miniGame.visible = false
 				$Control/gameSpeed/gameSpeedButton/value.text = str(Global.GameSpeed)
 				$Control/gameSpeed.visible = true
 			$Control/Title.text = "暂停"
@@ -93,7 +94,6 @@ func _on_tree_entered():
 	if get_parent().name == "MiniGame": 
 		$Control/card.free()
 		$Control/miniGame.free()
-		pass
 	pass
 
 func _on_game_speed_button_pressed():

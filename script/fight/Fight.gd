@@ -29,6 +29,7 @@ signal BossLv3
 
 func _ready():
 	#Global.NowLevel = 11
+	#print(Global.Level)
 	if Global.NowLevel <= 4:#换背景
 		$backGround1.visible = true
 		$Up/buttom1.visible = true
@@ -104,10 +105,12 @@ func _on_thundertimer_timeout():
 	var newtThunder = Global.Skill.instantiate()
 	newtThunder.camp = Global.MONSTER
 	newtThunder.position.x = randi_range(
-		Global.VillagePoint.x+($baseVillage.texture.get_size().x/2)+10,Global.MonsterPoint.x)
+		Global.VillagePoint.x+($baseVillage.texture.get_size().x/2)+10,
+		Global.MonsterPoint.x-60)
 	Global.root.add_child(newtThunder)
 	newtThunder.firstSetting("thunder")
-	$Timer/ThunderTimer.start(thunderTime+randf_range(-thunderTimeRand,thunderTimeRand))
+	$Timer/ThunderTimer.start(thunderTime+
+	randf_range(-thunderTimeRand,thunderTimeRand))
 	pass
 	
 func fightStart():
@@ -130,7 +133,7 @@ func SummonEnemy():
 	
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
-		Global.MonsterBase.health = 0
+		#Global.MonsterBase.health = 0
 		pass
 #	if Input.is_action_just_pressed("contrl1"): Global.Contrl = "shoveler"
 #	if Input.is_action_just_pressed("contrl2"): Global.Contrl = "shielder"
@@ -178,7 +181,7 @@ func _process(_delta):
 					bossLv = 2
 					summonEnemyID.queue_free()
 					emit_signal("BossLv2")
-					$Timer/ThunderTimer.start(thunderTime)
+					#$Timer/ThunderTimer.start(thunderTime)
 	pass
 	
 func time():
@@ -216,7 +219,7 @@ func _on_tree_entered():
 	Global.VillageBase = $baseVillage/collBox
 	Global.MonsterBase = $baseMonster/collBox
 	Global.VillageBase.health = 20 
-	if Global.Brought["baseUpdate"] == true: Global.VillageBase.health = 30#基地血量升级
+	if Global.Brought["baseUpdate"] == true: Global.VillageBase.health = 35#基地血量升级
 	if Global.Level <= 5: Global.CardUp = Global.Level+1
 	else: Global.CardUp = 6
 	if Global.Brought["cardUpdate"] == true: Global.CardUp += 1#卡槽升级

@@ -67,8 +67,7 @@ enabled = false
 collide_with_bodies = false
 
 [node name="CollisionUp" type="RayCast2D" parent="." index="3"]
-visible = false
-position = Vector2(18, 0)
+position = Vector2(15, 0)
 target_position = Vector2(0, -300)
 collide_with_bodies = false
 
@@ -137,6 +136,7 @@ angular_velocity_min = 1.0
 angular_velocity_max = 4.0
 
 [node name="gold" type="Control" parent="particles" index="3"]
+visible = false
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5

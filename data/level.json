@@ -2,9 +2,9 @@
     {
         "moneySpeed":1,
         "allVillageObject":["shoveler","projector","regeneration","shielder",
-        "assassinFirst","snowman","airDefence","flyer"
+        "snowman","assassinFirst","airDefence","flyer"
         ,"power","golder","iron","baseUpdate","cardUpdate","moneyUpate"],
-        "cardShow":["regeneration","shielder","assassinFirst","snowman","airDefence","flyer"],
+        "cardShow":["regeneration","shielder","snowman","assassinFirst","airDefence","flyer"],
         "buyShow":["baseUpdate","power","cardUpdate","golder","moneyUpate","iron"],
         "buyPrice":{"baseUpdate":2,"power":2,"cardUpdate":2,"golder":2,"moneyUpate":2,"iron":2},
         "miniGame1":{
@@ -94,19 +94,19 @@
                 "firstCD":1,
                 "firstCDNum":[],
                 "soldier":["creeper","zombie","zombie","zombie","axer"],
-                "soldierCD":2.7,
-                "groupCD":9,
-                "groupCDRand":1,
+                "soldierCD":1.8,
+                "groupCD":6,
+                "groupCDRand":2,
                 "groupTimes":0,
                 "stopPos":null,
                 "stopTime":null
             },
             {
-                "firstCD":10,
+                "firstCD":8,
                 "firstCDNum":[],
-                "soldier":["spider"],
-                "soldierCD":0,
-                "groupCD":10,
+                "soldier":["spider","creeper"],
+                "soldierCD":4,
+                "groupCD":8,
                 "groupCDRand":2,
                 "groupTimes":0,
                 "stopPos":null,
@@ -120,45 +120,34 @@
         "iceTime":0,"iceTimeRand":0},
         "groups":[
             {
-                "firstCD":0,
-                "firstCDNum":[],
-                "soldier":["zombie","spider","zombie"],
-                "soldierCD":1.8,
-                "groupCD":0,
-                "groupCDRand":0,
-                "groupTimes":1,
-                "stopPos":null,
-                "stopTime":null
-            },
-            {
                 "firstCD":1,
                 "firstCDNum":[],
                 "soldier":["zombie","spider","zombie","axer"],
-                "soldierCD":2.6,
-                "groupCD":8,
+                "soldierCD":1.8,
+                "groupCD":6,
                 "groupCDRand":1,
                 "groupTimes":0,
                 "stopPos":null,
                 "stopTime":null
             },
             {
-                "firstCD":16,
+                "firstCD":24,
                 "firstCDNum":[],
                 "soldier":["skeleton"],
                 "soldierCD":0,
-                "groupCD":24,
+                "groupCD":36,
                 "groupCDRand":2,
                 "groupTimes":0,
                 "stopPos":null,
                 "stopTime":null
             },
             {
-                "firstCD":30,
+                "firstCD":22,
                 "firstCDNum":[],
-                "soldier":["zombie","spider","axer"],
+                "soldier":["zombie","spider","axer","axer"],
                 "soldierCD":1,
-                "groupCD":36,
-                "groupCDRand":4,
+                "groupCD":50,
+                "groupCDRand":2,
                 "groupTimes":0,
                 "stopPos":null,
                 "stopTime":null
@@ -172,32 +161,21 @@
         "iceTime":22,"iceTimeRand":0},
         "groups":[
             {
-                "firstCD":0,
-                "firstCDNum":[],
-                "soldier":["zombie"],
-                "soldierCD":2,
-                "groupCD":0,
-                "groupCDRand":0,
-                "groupTimes":1,
-                "stopPos":null,
-                "stopTime":null
-            }, 
-            {
                 "firstCD":1,
                 "firstCDNum":[],
                 "soldier":["zombie","spider","zombie","spider","axer"],
-                "soldierCD":2.4,
-                "groupCD":6,
+                "soldierCD":2,
+                "groupCD":7,
                 "groupCDRand":1,
-                "groupTimes":2,
+                "groupTimes":3,
                 "stopPos":null,
                 "stopTime":null
             },
             {
                 "firstCD":1,
-                "firstCDNum":[2,2],
+                "firstCDNum":[1,1],
                 "soldier":["spider","zombie","axer","skeleton"],
-                "soldierCD":1.6,
+                "soldierCD":1.4,
                 "groupCD":0,
                 "groupCDRand":0,
                 "groupTimes":1,
@@ -206,9 +184,9 @@
             },
             {
                 "firstCD":2,
-                "firstCDNum":[2,3],
+                "firstCDNum":[1,2],
                 "soldier":["spider","zombie","spider","zombie","axer","skeleton"],
-                "soldierCD":2.4,
+                "soldierCD":1.8,
                 "groupCD":5,
                 "groupCDRand":2,
                 "groupTimes":3,
@@ -216,19 +194,19 @@
                 "stopTime":null
             },
             {
-                "firstCD":24,
-                "firstCDNum":[2,3],
+                "firstCD":18,
+                "firstCDNum":[1,2],
                 "soldier":["witch"],
                 "soldierCD":0,
                 "groupCD":20,
-                "groupCDRand":2,
+                "groupCDRand":4,
                 "groupTimes":2,
                 "stopPos":null,
                 "stopTime":null
             },
             {
-                "firstCD":5,
-                "firstCDNum":[2,4],
+                "firstCD":4,
+                "firstCDNum":[1,3],
                 "soldier":["zombie","zombie","spider","spider","axer","witch","skeleton"],
                 "soldierCD":1.2,
                 "groupCD":0,
@@ -242,48 +220,36 @@
     {
         "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":30,"baseVillageHealth":20,
         "thunderTime":0,"thunderTimeRand":0,
-        "iceTime":26,"iceTimeRand":5},
+        "iceTime":16,"iceTimeRand":4},
         "groups":[
- 
             {
                 "firstCD":1,
                 "firstCDNum":[],
-                "soldier":["spider","zombie","zombie","axer"],
-                "soldierCD":2.4,
-                "groupCD":5,
-                "groupCDRand":1,
-                "groupTimes":3,
+                "soldier":["zombie","axer","spider","zombie","axer"],
+                "soldierCD":1.8,
+                "groupCD":8,
+                "groupCDRand":2,
+                "groupTimes":0,
                 "stopPos":null,
                 "stopTime":null
             },
             {
-                "firstCD":30,
+                "firstCD":22,
                 "firstCDNum":[],
                 "soldier":["ghost"],
                 "soldierCD":0,
-                "groupCD":36,
-                "groupCDRand":4,
-                "groupTimes":0,
-                "stopPos":null,
-                "stopTime":null
-            },
-            {
-                "firstCD":10,
-                "firstCDNum":[],
-                "soldier":["witch"],
-                "soldierCD":0,
-                "groupCD":16,
-                "groupCDRand":4,
+                "groupCD":56,
+                "groupCDRand":1,
                 "groupTimes":0,
                 "stopPos":600,
-                "stopTime":5
-            },
+                "stopTime":6
+            },            
             {
-                "firstCD":42,
+                "firstCD":30,
                 "firstCDNum":[],
-                "soldier":["spider","zombie","witch","axer","ghost"],
-                "soldierCD":1.3,
-                "groupCD":42,
+                "soldier":["spider","zombie","witch","axer"],
+                "soldierCD":0.8,
+                "groupCD":60,
                 "groupCDRand":4,
                 "groupTimes":0,
                 "stopPos":null,
@@ -293,49 +259,49 @@
     },
     {
         "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":30,"baseVillageHealth":20,
-        "thunderTime":24,"thunderTimeRand":2,
+        "thunderTime":26,"thunderTimeRand":2,
         "iceTime":0,"iceTimeRand":0},
         "groups":[
             {
                 "firstCD":1,
                 "firstCDNum":[],
-                "soldier":["spider","spider","axer","skeleton"],
-                "soldierCD":2.6,
-                "groupCD":6,
+                "soldier":["spider","spider","axer","spider","skeleton"],
+                "soldierCD":1.7,
+                "groupCD":7,
                 "groupCDRand":1,
                 "groupTimes":0,
                 "stopPos":null,
                 "stopTime":null
             },
             {
-                "firstCD":18,
+                "firstCD":16,
                 "firstCDNum":[],
                 "soldier":["creeperThunder"],
                 "soldierCD":0,
-                "groupCD":20,
-                "groupCDRand":4,
+                "groupCD":30,
+                "groupCDRand":2,
                 "groupTimes":0,
                 "stopPos":null,
                 "stopTime":null
             },
             {
-                "firstCD":28,
+                "firstCD":24,
                 "firstCDNum":[],
                 "soldier":["ghost"],
                 "soldierCD":0,
-                "groupCD":34,
-                "groupCDRand":3,
+                "groupCD":26,
+                "groupCDRand":4,
                 "groupTimes":0,
-                "stopPos":null,
-                "stopTime":null
+                "stopPos":600,
+                "stopTime":8
             },
             {
-                "firstCD":50,
+                "firstCD":46,
                 "firstCDNum":[],
-                "soldier":["spider","spider","creeperThunder","axer","skeleton","ghost"],
+                "soldier":["spider","spider","axer","skeleton","ghost"],
                 "soldierCD":1.2,
                 "groupCD":60,
-                "groupCDRand":6,
+                "groupCDRand":2,
                 "groupTimes":0,
                 "stopPos":null,
                 "stopTime":null
@@ -344,27 +310,27 @@
     },
     {
         "set":{"levelType":"boss","attackTime":0,"baseMonsterHealth":30,"baseVillageHealth":20,
-        "thunderTime":0,"thunderTimeRand":0,
-        "iceTime":26,"iceTimeRand":2},
+        "thunderTime":24,"thunderTimeRand":2,
+        "iceTime":14,"iceTimeRand":6},
         "groups":[
             {
                 "firstCD":1,
                 "firstCDNum":[],
-                "soldier":["creeper","zombie","zombie","axer","skeleton"],
-                "soldierCD":3,
-                "groupCD":6,
+                "soldier":["creeper","zombie","spider","zombie","witch","axer","skeleton"],
+                "soldierCD":1.7,
+                "groupCD":8,
                 "groupCDRand":2,
                 "groupTimes":4,
                 "stopPos":null,
                 "stopTime":null
             },
             {
-                "firstCD":8,
+                "firstCD":10,
                 "firstCDNum":[],
-                "soldier":["spider","witch"],
-                "soldierCD":10,
-                "groupCD":12,
-                "groupCDRand":2,
+                "soldier":["skeleton"],
+                "soldierCD":0,
+                "groupCD":16,
+                "groupCDRand":4,
                 "groupTimes":3,
                 "stopPos":null,
                 "stopTime":null
@@ -374,38 +340,50 @@
                 "firstCDNum":[],
                 "soldier":["ghost"],
                 "soldierCD":0,
-                "groupCD":20,
-                "groupCDRand":1,
+                "groupCD":30,
+                "groupCDRand":4,
                 "groupTimes":3,
-                "stopPos":600,
+                "stopPos":500,
                 "stopTime":8
             },
             {
-                "firstCD":5,
+                "firstCD":4,
                 "firstCDNum":[1,1],
-                "soldier":["spider","creeperThunder","zombie","axer","skeleton","skeleton","skeleton","ghost"],
-                "soldierCD":1.1,
-                "groupCD":0,
-                "groupCDRand":0,
-                "groupTimes":1,
+                "soldier":["spider","spider","creeperThunder","zombie","zombie","zombie","axer","axer"
+                ,"skeleton","skeleton","skeleton","witch","witch","ghost"],
+                "soldierCD":0.6,
+                "groupCD":8,
+                "groupCDRand":6,
+                "groupTimes":2,
                 "stopPos":null,
                 "stopTime":null
             }
         ],"banCard":[],"chosenCard":[]
     },
     {
-        "set":{"levelType":"normal","attackTime":120,"baseMonsterHealth":30,"baseVillageHealth":20,
-        "thunderTime":20,"thunderTimeRand":4,
-        "iceTime":24,"iceTimeRand":4},
+        "set":{"levelType":"normal","attackTime":72,"baseMonsterHealth":30,"baseVillageHealth":20,
+        "thunderTime":12,"thunderTimeRand":8,
+        "iceTime":22,"iceTimeRand":4},
         "groups":[
             {
                 "firstCD":2,
                 "firstCDNum":[],
-                "soldier":["spider","zombie","axer","witch","skeleton"],
-                "soldierCD":2.6,
-                "groupCD":7,
+                "soldier":["spider","creeper","zombie","axer","witch","skeleton"],
+                "soldierCD":2.2,
+                "groupCD":9,
                 "groupCDRand":2,
                 "groupTimes":3,
+                "stopPos":null,
+                "stopTime":null
+            },
+            {
+                "firstCD":16,
+                "firstCDNum":[],
+                "soldier":["skeleton"],
+                "soldierCD":0,
+                "groupCD":20,
+                "groupCDRand":4,
+                "groupTimes":0,
                 "stopPos":null,
                 "stopTime":null
             },
@@ -414,33 +392,22 @@
                 "firstCDNum":[],
                 "soldier":["creeperThunder"],
                 "soldierCD":0,
-                "groupCD":30,
-                "groupCDRand":2,
-                "groupTimes":0,
-                "stopPos":null,
-                "stopTime":null
-            },
-            {
-                "firstCD":28,
-                "firstCDNum":[],
-                "soldier":["ghost"],
-                "soldierCD":0,
-                "groupCD":30,
-                "groupCDRand":2,
-                "groupTimes":0,
-                "stopPos":400,
-                "stopTime":10
-            },
-            {
-                "firstCD":60,
-                "firstCDNum":[],
-                "soldier":["spider","zombie","axer","ghost"],
-                "soldierCD":1,
-                "groupCD":52,
+                "groupCD":22,
                 "groupCDRand":4,
                 "groupTimes":0,
                 "stopPos":null,
                 "stopTime":null
+            },
+            {
+                "firstCD":16,
+                "firstCDNum":[],
+                "soldier":["ghost"],
+                "soldierCD":0,
+                "groupCD":26,
+                "groupCDRand":4,
+                "groupTimes":0,
+                "stopPos":400,
+                "stopTime":10
             }
         ],"banCard":[],"chosenCard":[]
     },
@@ -464,11 +431,11 @@
     },
     {
         "set":{"levelType":"normal","attackTime":2000,"baseMonsterHealth":10,"baseVillageHealth":10,
-        "thunderTime":0,"thunderTimeRand":0,
+        "thunderTime":2,"thunderTimeRand":0,
         "iceTime":0,"iceTimeRand":0},
         "groups":[
             {
-                "firstCD":10000,
+                "firstCD":11111114,
                 "firstCDNum":[],
                 "soldier":["zombie"],
                 "soldierCD":0,
@@ -478,7 +445,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["airDefence","projector","golder","regeneration","power","shielder","airDefence"]
+        ],"banCard":[],"chosenCard":["shoveler","projector","golder","regeneration","power","shielder","airDefence"]
     },
     {
         "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,

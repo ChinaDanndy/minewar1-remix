@@ -5,7 +5,8 @@ func _process(_delta):  $click.volume_db = Global.SeDB
 func _on_correct_pressed():
 	allHave()
 	Global.Point = 0
-	Global.Brought = {"cardUpdate":false,"moneyUpate":false,"power":false,"golder":false}
+	Global.Brought = {"baseUpdate":false,"cardUpdate":false,"moneyUpate":false,
+	"power":false,"golder":false,"iron":false}
 	Global.Level = 1
 	pass
 
