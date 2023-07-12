@@ -290,7 +290,7 @@
     "axer":{
         "health":5,
         "speedBasic":0.8,
-        "damageBasic":[4,0,0],
+        "damageBasic":[3,0,0],
         "attRangeBasic":[15,0],
 
         "type":"soldier",

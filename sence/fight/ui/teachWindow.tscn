@@ -51,6 +51,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="MainTeach" type="Label" parent="text"]
+visible = false
 layout_mode = 0
 offset_left = 310.0
 offset_top = 71.0
@@ -127,7 +128,6 @@ text = "游戏结束时,若分数超过20分,
 "
 
 [node name="Start" type="Label" parent="text"]
-visible = false
 layout_mode = 0
 offset_left = 307.0
 offset_top = 77.0
@@ -142,13 +142,15 @@ text = "按Q截图
 编程&主策划: 
 China_Danndy
 美术&策划: 钢铁像素点
-美术: 纸飞稽,假酒兑烟灰缸
-策划: Eden
+美术: 纸飞稽  策划: Eden
 (以上均为贴吧id)
  
 测试者:  1639,CTTZB,
 黑茶RGO,Paranoia,
-GalacticAc
-"
+GalacticAc,假酒兑烟灰缸,
+骷髅上尉666,晓空SaMa,
+Bored_Guarden_YG,
+Saplonily
+(排名不分先后)"
 
 [connection signal="pressed" from="TeachClose" to="." method="_on_teach_close_pressed"]

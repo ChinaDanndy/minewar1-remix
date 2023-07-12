@@ -84,7 +84,7 @@ func _on_cave_timer_timeout():
 	if !targetArray.is_empty(): 
 		var target = targetArray[randi_range(0,targetArray.size()-1)]
 		var newIce = Global.Skill.instantiate()
-		newIce.position.x = target.position.x+20
+		newIce.position.x = target.global_position.x+20
 		newIce.camp = Global.MONSTER
 		Global.root.add_child(newIce)
 		newIce.firstSetting("ice")
@@ -102,13 +102,15 @@ func _on_thundertimer_timeout():
 #		newtThunder.firstSetting("thunder")
 		
 #	if bossLv == 3:#boss战第三阶段多一次纯劈一道闪电
-	var newtThunder = Global.Skill.instantiate()
-	newtThunder.camp = Global.MONSTER
-	newtThunder.position.x = randi_range(
-		Global.VillagePoint.x+($baseVillage.texture.get_size().x/2)+10,
-		Global.MonsterPoint.x-60)
-	Global.root.add_child(newtThunder)
-	newtThunder.firstSetting("thunder")
+	var targetArray1 = get_tree().get_nodes_in_group("villageSoldier")
+	if !targetArray1.is_empty(): 
+		var target1 = targetArray1[randi_range(0,targetArray1.size()-1)]
+		var newtThunder = Global.Skill.instantiate()
+		newtThunder.camp = Global.MONSTER
+		newtThunder.position.x = target1.global_position.x+30
+		Global.root.add_child(newtThunder)
+		newtThunder.firstSetting("thunder")
+	
 	$Timer/ThunderTimer.start(thunderTime+
 	randf_range(-thunderTimeRand,thunderTimeRand))
 	pass

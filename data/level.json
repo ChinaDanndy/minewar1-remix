@@ -144,7 +144,7 @@
             {
                 "firstCD":22,
                 "firstCDNum":[],
-                "soldier":["zombie","spider","axer","axer"],
+                "soldier":["zombie","spider","axer"],
                 "soldierCD":1,
                 "groupCD":50,
                 "groupCDRand":2,
@@ -325,13 +325,13 @@
                 "stopTime":null
             },
             {
-                "firstCD":10,
+                "firstCD":16,
                 "firstCDNum":[],
                 "soldier":["skeleton"],
                 "soldierCD":0,
-                "groupCD":16,
+                "groupCD":24,
                 "groupCDRand":4,
-                "groupTimes":3,
+                "groupTimes":2,
                 "stopPos":null,
                 "stopTime":null
             },
@@ -349,12 +349,12 @@
             {
                 "firstCD":4,
                 "firstCDNum":[1,1],
-                "soldier":["spider","spider","creeperThunder","zombie","zombie","zombie","axer","axer"
-                ,"skeleton","skeleton","skeleton","witch","witch","ghost"],
+                "soldier":["spider","spider","creeperThunder","zombie","zombie","axer"
+                ,"skeleton","skeleton","witch","ghost"],
                 "soldierCD":0.6,
                 "groupCD":8,
                 "groupCDRand":6,
-                "groupTimes":2,
+                "groupTimes":1,
                 "stopPos":null,
                 "stopTime":null
             }
@@ -431,8 +431,8 @@
     },
     {
         "set":{"levelType":"normal","attackTime":2000,"baseMonsterHealth":10,"baseVillageHealth":10,
-        "thunderTime":2,"thunderTimeRand":0,
-        "iceTime":0,"iceTimeRand":0},
+        "thunderTime":0,"thunderTimeRand":0,
+        "iceTime":2,"iceTimeRand":0},
         "groups":[
             {
                 "firstCD":11111114,
