@@ -29,7 +29,6 @@ signal BossLv3
 
 func _ready():
 	#Global.NowLevel = 11
-	#print(Global.Level)
 	if Global.NowLevel <= 4:#换背景
 		$backGround1.visible = true
 		$Up/buttom1.visible = true
@@ -116,6 +115,12 @@ func _on_thundertimer_timeout():
 	pass
 	
 func fightStart():
+#	for i in 50 :
+#		var friend = Global.Soldier.instantiate()
+#		friend.camp = Global.VILLAGE
+#		Global.root.add_child(friend)
+#		friend.firstSetting("shoveler")
+	
 	time()
 	SummonEnemy()
 	$monsterShow.visible = false
@@ -135,6 +140,7 @@ func SummonEnemy():
 	
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_test"):
+		#print(get_tree().get_nodes_in_group("monsterSoldier").size())
 		#Global.MonsterBase.health = 0
 		pass
 #	if Input.is_action_just_pressed("contrl1"): Global.Contrl = "shoveler"

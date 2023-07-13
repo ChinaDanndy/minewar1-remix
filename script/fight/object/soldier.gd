@@ -60,10 +60,22 @@ func _process(_delta):
 		#if camp == Global.VILLAGE: health = 0
 		#$AnimatedSprite2D.play("attack")
 		pass
+		
+		
 	if camp == Global.MONSTER:
+		for i in get_tree().get_nodes_in_group("monsterSoldier"):
+			if global_position == i.global_position:#防止叠一起音效刺耳
+				noSound = true
+				for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
+			else: noSound = false
 		if Global.MonsterPoint.x - position.x>50&&soldierName[0] == "creeper"&&!is_in_group("creeper"):
 			add_to_group("creeper")#获得苦力怕id给劈闪电用
 	if camp == Global.VILLAGE: 
+		for i in get_tree().get_nodes_in_group("villageSoldier"):
+			if global_position == i.global_position:#防止叠一起音效刺耳
+				noSound = true
+				for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
+				else: noSound = false
 		position.x = clamp(position.x,Global.VillagePoint.x-16,
 		Global.MonsterPoint.x+16)#限制移动范围
 		if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&speed>0:

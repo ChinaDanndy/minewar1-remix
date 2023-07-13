@@ -5,6 +5,7 @@ func _process(_delta):
 	$click.volume_db = Global.SeDB
 	$lose.volume_db = Global.SeDB
 	$win.volume_db = Global.SeDB
+	$finalWin.volume_db = Global.SeDB
 	pass
 
 func text(mode):
@@ -43,6 +44,7 @@ func text(mode):
 				if Global.NowLevel == 9:#boss战结束
 					$Control/HBoxContainer/Button2.visible = false
 					if Global.Level == 8:#第一次打完boss感谢
+						$finalWin.play()
 						$Control/thank.visible = true
 						Global.Level = 10
 			if get_parent().name == "MiniGame": addPoint()#加钱

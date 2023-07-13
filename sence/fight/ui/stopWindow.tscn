@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ciqm506lu3wms"]
+[gd_scene load_steps=16 format=3 uid="uid://ciqm506lu3wms"]
 
 [ext_resource type="Script" path="res://script/fight/ui/stopWindow.gd" id="1_vqqbi"]
 [ext_resource type="Texture2D" uid="uid://b88uq4r408yt2" path="res://assets/backgrounds/spr_broad.png" id="2_x8d7p"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://c5qsbam30no4x" path="res://assets/music/se/other/click.ogg" id="11_oj1ju"]
 [ext_resource type="AudioStream" uid="uid://dabegres4yh4r" path="res://assets/music/se/other/lose.ogg" id="12_vmb2g"]
 [ext_resource type="AudioStream" uid="uid://cfk8qxr6tgdgs" path="res://assets/music/se/other/win.ogg" id="13_u7k50"]
+[ext_resource type="AudioStream" uid="uid://ceckdjpykm2ue" path="res://assets/music/se/other/Finalwin.ogg" id="15_lffsa"]
 
 [node name="StopWindow" type="CanvasLayer"]
 process_mode = 3
@@ -359,6 +360,9 @@ stream = ExtResource("12_vmb2g")
 
 [node name="win" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_u7k50")
+
+[node name="finalWin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_lffsa")
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="pressed" from="Control/HBoxContainer/Button1" to="." method="_on_button_1_pressed"]

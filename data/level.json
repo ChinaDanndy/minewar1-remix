@@ -432,12 +432,12 @@
     {
         "set":{"levelType":"normal","attackTime":2000,"baseMonsterHealth":10,"baseVillageHealth":10,
         "thunderTime":0,"thunderTimeRand":0,
-        "iceTime":2,"iceTimeRand":0},
+        "iceTime":0,"iceTimeRand":0},
         "groups":[
             {
-                "firstCD":11111114,
+                "firstCD":0,
                 "firstCDNum":[],
-                "soldier":["zombie"],
+                "soldier":["creeper"],
                 "soldierCD":0,
                 "groupCD":10,
                 "groupCDRand":2,
@@ -445,7 +445,7 @@
                 "stopPos":null,
                 "stopTime":null
             }
-        ],"banCard":[],"chosenCard":["shoveler","projector","golder","regeneration","power","shielder","airDefence"]
+        ],"banCard":[],"chosenCard":["iron","projector","golder","regeneration","power","shielder","airDefence"]
     },
     {
         "set":{"levelType":"normal","attackTime":0,"baseMonsterHealth":10,"baseVillageHealth":10,

@@ -16,6 +16,7 @@ enum State {ATTACK,STOP,DEATH,BACK,PUSH,OUTSEA,FALL}
 const ani = {"attack":0,"attackSec":1,"death":2,"usual":3}#usual = 2
 var spirte
 var animation#
+var noSound = false
 var souEff = {"attack":null,"hurt":null,"attackSec":null,"walk":null,"stop":null,"death":null}
 var souEffValue:Dictionary
 var stepSe=[null,null,null,null]
@@ -162,8 +163,9 @@ func reSet(soldier):
 func _process(_delta):#每帧执行的部分
 	if currentState == State.FALL:  position.y += dropSpeed
 	#$Label.text = str(health)
-	for i in souEff: 
-		if souEff[i] != null: souEff[i].set_volume_db(Global.SeDB)#时刻保持音量与全局音量一致
+	if noSound == false:
+		for i in souEff: 
+			if souEff[i] != null: souEff[i].set_volume_db(Global.SeDB)#时刻保持音量与全局音量一致
 	#基础数据实时更改/前是负属性后是正属性
 	if soldierName[0] != "golder":
 		for i in 2:#攻击和攻击距离有两套随攻击使用的不同
@@ -290,6 +292,7 @@ func _on_animated_sprite_2d_frame_changed():
 					if proTimes!=proContinueTimes:
 						var nowAni = currentAni
 						if currentAni == "attackThr": 
+							
 							nowAni = "attack"
 							if souEff["attackSec"] != null: souEff["attackSec"].playing = true
 							if particles["attackSec"] != null: particles["attackSec"].emitting = true
@@ -323,6 +326,7 @@ func attack():
 			damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],
 			effTime[ani[attackAni]],effTimes[ani[attackAni]])
 			if attackType[ani[attackAni]][Global.AttackType.EXPLODE] == true:
+				
 				$AnimatedSprite2D.visible = false
 				deathAttType = null#防止闪电苦力怕自爆后因为死亡必爆炸又炸一次
 				firstDeathSet()#近战AOE且是爆炸伤害类型->只有自爆

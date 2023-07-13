@@ -49,12 +49,15 @@ func _process(_delta):
 
 func _on_area_entered(area):
 	if aoeModel == null:#单体
-		Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,
-		effTime,effTimes)
+		if done == false:
+			done = true#防止单体打重叠在一起的单体变aoe
+			Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,giveEffect,effValue,
+			effTime,effTimes)
 		#damage_Calu(damager,type,attackType,damage,damagerType,giveEffect,effValue,effTime,effTimes):	
 	else: aoeCreate()#AOE
 	if ifPriece == false: 
-		if projectile == "firework":#释放轨迹粒子延迟死亡
+		if projectile == "firework"&&done == false:#释放轨迹粒子延迟死亡
+			done = true
 			collision_mask = 0
 			stop = 0
 			$Sprite2D.visible = false

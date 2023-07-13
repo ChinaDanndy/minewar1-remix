@@ -82,9 +82,7 @@ func display():
 			cd = Global.STSData[soldier]["cd"]
 			cdAll = cd
 			price = Global.STSData[soldier]["price"]
-	if cardType == cType.BUYSHOW: 
-		price = Global.LevelData[0]["buyPrice"][soldier]
-		if Global.Point < price: self.button_mask = 0
+	if cardType == cType.BUYSHOW: price = Global.LevelData[0]["buyPrice"][soldier]
 	$cardPrice.text = str(price)
 	$icon.texture = load("res://assets/UI/cardIcon/cardIcon%s.png"%(showNum+1))
 	pass
@@ -119,6 +117,7 @@ func useCardClear():#退卡请数据
 func _process(_delta):
 	#$ExplainBox/Pos.position = global_position
 	$click.volume_db = Global.SeDB
+	$buy.volume_db = Global.SeDB
 	if Global.ChoiceWindow.visible == true:
 		match cardType:
 			cType.CHOICE:
@@ -139,7 +138,8 @@ func _process(_delta):
 				if soldier == null&&self.button_mask !=0:  
 					cardText = false
 					self.button_mask = 0
-			cType.SHOP: if Global.Point < price: self.button_mask = 0
+			cType.BUYSHOW: 
+				if Global.Point < price: self.button_mask = 0
 	else:
 		if cardType == cType.USE&&soldier != null:
 			if Global.NowMoney < price||$CDTimer.time_left > 0: 
@@ -154,7 +154,7 @@ func _process(_delta):
 	pass
 
 func _on_pressed():
-	$click.play()
+	if cardType != cType.BUYSHOW: $click.play()
 	if Global.ChoiceWindow.visible == true:
 		match cardType:
 			cType.CHOICE:#选卡
@@ -169,6 +169,7 @@ func _on_pressed():
 				Global.ChosenCardNum -= 1
 				useCardClear()
 			cType.BUYSHOW:#买卡
+				$buy.play()
 				cantBuy.visible = true
 				Global.Point -= price
 				Global.Brought[soldier] = true
