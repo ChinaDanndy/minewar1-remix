@@ -32,7 +32,8 @@ func normalAttackCalu(damager):
 				damager.health -= damage 
 				if damagerType.has(damager.type) == true: 
 					damager.health -= damage*Global.AddDamage #特定目标伤害加成
-			if damager.shield >0: damager.shield -= damage#护盾被破坏时伤害溢出
+			if damager.shield >0: 
+				damager.shield -= damage#护盾被破坏时伤害溢出
 	effectAttackCalu(damager)
 	pass
 

@@ -3,6 +3,7 @@ var stopPos
 var stopTime
 var stop = false
 
+
 @onready var Ani = $AnimatedSprite2D
 
 func firstSetting(soldier):
@@ -13,9 +14,7 @@ func firstSetting(soldier):
 	$Collision1.collide_with_areas = true
 	
 	match camp:
-		Global.VILLAGE: 
-			position.x = Global.VillagePoint.x
-			add_to_group("villageSoldier")
+		Global.VILLAGE: position.x = Global.VillagePoint.x 
 		Global.MONSTER: 
 			position.x = Global.MonsterPoint.x
 			add_to_group("monsterSoldier")
@@ -63,27 +62,38 @@ func _process(_delta):
 		
 		
 	if camp == Global.MONSTER:
-		for i in get_tree().get_nodes_in_group("monsterSoldier"):
-			if global_position == i.global_position:#防止叠一起音效刺耳
-				noSound = true
-				for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
-			else: noSound = false
-		if Global.MonsterPoint.x - position.x>50&&soldierName[0] == "creeper"&&!is_in_group("creeper"):
+		if get_tree().get_nodes_in_group("monsterSoldier").size() > 1:
+			for i in get_tree().get_nodes_in_group("monsterSoldier"):
+				if global_position == i.global_position:#防止叠一起音效刺耳
+					noSound = true
+					for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
+				else: noSound = false
+		if abs(Global.MonsterPoint.x - position.x)>60&&soldierName[0] == "creeper"&&!is_in_group("creeper"):
 			add_to_group("creeper")#获得苦力怕id给劈闪电用
 	if camp == Global.VILLAGE: 
-		for i in get_tree().get_nodes_in_group("villageSoldier"):
-			if global_position == i.global_position:#防止叠一起音效刺耳
-				noSound = true
-				for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
-				else: noSound = false
+		if get_tree().get_nodes_in_group("villageSoldier").size() > 1:
+			for i in get_tree().get_nodes_in_group("villageSoldier"):
+				if global_position == i.global_position:#防止叠一起音效刺耳
+					noSound = true
+					for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
+					else: noSound = false
+		if abs(Global.VillagePoint.x - position.x)>60&&!is_in_group("villageSoldier"): 
+			add_to_group("villageSoldier")
 		position.x = clamp(position.x,Global.VillagePoint.x-16,
 		Global.MonsterPoint.x+16)#限制移动范围
-		if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&speed>0:
+		
+		match Global.ContrlType:
+			Global.Con.ALL: contrlSet()
+			Global.Con.ONE:
+				if Global.Contrl == self&&currentState != State.DEATH&&speed>0: 
+					contrlSet()
+				else: if Ani.material != null: Ani.material = null
+			Global.Con.GROUP:
+				if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&speed>0:
 		#&&currentState != State.FALL: 
 		#if(collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
-			if Ani.material == null: Ani.material = Global.SoldierOutLine
-			contrl()
-		else: if Ani.material != null: Ani.material = null
+					contrlSet()
+				else: if Ani.material != null: Ani.material = null
 	position.x += speed*camp*speedDirection*speedState*Global.GameSpeed#移动控制
 	
 	if stopPos != null&&ifOnlyAttBase == false:#敌方的行动与暂停
@@ -142,14 +152,21 @@ func contrl():#玩家的单位控制
 		changeState("walk",State.BACK)
 		$Collision1.collide_with_areas = false
 		if coll2Pos != null: $Collision2.collide_with_areas = false
-		
+	pass
+	
+func contrlSet():
+	contrl()
+	if Ani.material == null: Ani.material = Global.SoldierOutLine
 	pass
 
 func _on_input_event(_viewport,event, _shape_idx):
-	if event.is_action_pressed("ui_mouse_left")&&camp == Global.VILLAGE&&unSee == false:
-		var clean = get_tree().get_nodes_in_group("villageSoldier")
-		for i in clean: i.Ani.material = null
-		Global.Contrl = soldierName[0]
+	if event.is_action_pressed("mouse_left")&&camp == Global.VILLAGE&&unSee == false:
+		Global.Contrl = soldierName[0]#同种士兵
+		Global.ContrlType = Global.Con.GROUP
+	if event.is_action_pressed("mouse_right"):
+		Global.ContrlType = Global.Con.ONE#单独士兵
+		Global.Contrl = self
+
 	pass 
 func _on_stop_timer_timeout():
 	changeState("walk",State.PUSH)

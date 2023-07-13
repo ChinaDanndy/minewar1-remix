@@ -125,6 +125,8 @@ var Boss
 
 var CardBuy = null
 var Contrl = null
+enum Con {ONE,GROUP,ALL}
+var ContrlType = Con.GROUP
 
 var SoldierOutLine = preload("res://rescourse/soldierOutLine.tres")
 var Soldier = preload("res://sence/fight/object/soldier.tscn")

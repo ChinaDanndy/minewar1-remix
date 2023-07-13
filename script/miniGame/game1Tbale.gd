@@ -66,7 +66,7 @@ func _on_hold_timer_timeout():
 	pass
 
 func _on_area_2d_input_event(_viewport,event,_shape_idx):
-	if event.is_action_pressed("ui_mouse_left")&&stop == true:
+	if event.is_action_pressed("mouse_left")&&stop == true:
 		$holdTimer.stop()
 		match animation:
 			"creeperShow":

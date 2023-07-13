@@ -15,6 +15,7 @@ var effTime
 var effTimes
 
 func _ready():
+	
 	Global.FightSence.reloadSence.connect(reload)
 	collision_mask = Global.MAsk[Mod[aoeModel]][0]
 	var newRange = RectangleShape2D.new()#AOE范围
@@ -74,6 +75,7 @@ func _ready():
 	pass
 
 func _on_area_entered(area):
+	
 	if damage == null:
 		Global.damage_Calu(area,Global.damCaluType.EFF,null,null,null,giveEffect,
 		effValue,effTime,effTimes)#纯效果

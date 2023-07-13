@@ -39,7 +39,7 @@
         "collBoxCut":8,
         "collBoxPro":-3,
         "soldierName":[null,"shielderNo"],
-        "animation":{"walk":6,"attack":4,"stop":1},
+        "animation":{"walk":6,"attack":4,"stop":1,"death":1},
         "souEffValue":{"hurt":"shield","death":"steveDeath"},
         "particlesValue":{"hurt":"hurtRed"},
         "attackType":[[true,false,false]],

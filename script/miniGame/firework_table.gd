@@ -9,7 +9,7 @@ func _ready():
 func _process(_delta): $AudioStreamPlayer.volume_db = Global.SeDB
 
 func _on_input_event(_viewport,event,_shape_idx):
-	if event.is_action_pressed("ui_mouse_left")&&$fireworkHas.visible == true:
+	if event.is_action_pressed("mouse_left")&&$fireworkHas.visible == true:
 		$AudioStreamPlayer.play()
 		var newFirework = firework.instantiate()
 		get_parent().add_child(newFirework)

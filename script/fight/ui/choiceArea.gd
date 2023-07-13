@@ -46,7 +46,7 @@ func _process(_delta):
 	$RayCast2D.force_raycast_update()
 	position.x = get_global_mouse_position().x
 	position.x = clamp(position.x,area.position.x-colorBox.position.x,area.position.x+area.size.x+colorBox.position.x)
-	if Input.is_action_just_pressed("ui_mouse_left")&&!collLine.is_colliding()&&Global.StopON == false:
+	if Input.is_action_just_pressed("mouse_left")&&!collLine.is_colliding()&&Global.StopON == false:
 		var friend = which.instantiate()
 		Global.root.add_child(friend)
 		friend.camp = Global.VILLAGE
@@ -57,7 +57,7 @@ func _process(_delta):
 		card.buyCardReSet()
 		visible = false
 		wait = true
-	if wait == true&&Input.is_action_just_released("ui_mouse_left"):
+	if wait == true&&Input.is_action_just_released("mouse_left"):
 		Global.CardBuy = null#防止连续点牌
 		queue_free()
 		

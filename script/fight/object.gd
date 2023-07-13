@@ -155,7 +155,7 @@ func reSet(soldier):
 	if attDefShield != null:#护盾破碎时伤害溢出霸体
 		effDefence = [true,true,true,true,true,true,true,true]
 		attDefence = [true,true,true]
-		await get_tree().create_timer(0.2,false).timeout
+		await get_tree().create_timer(0.3,false).timeout
 		effDefence = [false,false,false,false,false,false,false,false]
 		attDefence = [false,false,false]
 	pass

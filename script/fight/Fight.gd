@@ -139,6 +139,9 @@ func SummonEnemy():
 	pass
 	
 func _process(_delta):
+	if Input.is_action_pressed("contrl_all"):
+		Global.ContrlType = Global.Con.ALL#全体士兵
+		Global.Contrl = null
 	if Input.is_action_just_pressed("ui_test"):
 		#print(get_tree().get_nodes_in_group("monsterSoldier").size())
 		#Global.MonsterBase.health = 0
