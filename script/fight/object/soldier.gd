@@ -39,7 +39,6 @@ func firstSetting(soldier):
 			$Collision2.position.x = -(attRangeBasic[1]/2)
 	if coll2Pos != null: $Collision2.collide_with_areas = true
 	if usualTime != null: $UsualTimer.start(usualTime)
-	
 	#	if stopTime == 0: Global.SummonEnemy.stopOver.connect(onStopOver)
 	pass
 	
@@ -62,23 +61,25 @@ func _process(_delta):
 		
 		
 	if camp == Global.MONSTER:
-		if get_tree().get_nodes_in_group("monsterSoldier").size() > 1:
-			for i in get_tree().get_nodes_in_group("monsterSoldier"):
-				if global_position == i.global_position:#防止叠一起音效刺耳
-					noSound = true
-					for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
-				else: noSound = false
+#		if get_tree().get_nodes_in_group("monsterSoldier").size() > 1:
+#			for i in get_tree().get_nodes_in_group("monsterSoldier"):
+#				if global_position == i.global_position:#防止叠一起音效刺耳
+#					noSound = true
+#					for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
+#				else: noSound = false
 		if abs(Global.MonsterPoint.x - position.x)>60&&soldierName[0] == "creeper"&&!is_in_group("creeper"):
 			add_to_group("creeper")#获得苦力怕id给劈闪电用
 	if camp == Global.VILLAGE: 
-		if get_tree().get_nodes_in_group("villageSoldier").size() > 1:
-			for i in get_tree().get_nodes_in_group("villageSoldier"):
-				if global_position == i.global_position:#防止叠一起音效刺耳
-					noSound = true
-					for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
-					else: noSound = false
+#		if get_tree().get_nodes_in_group("villageSoldier").size() > 1:
+#			for i in get_tree().get_nodes_in_group("villageSoldier"):
+#				if global_position == i.global_position:#防止叠一起音效刺耳
+#					noSound = true
+#					for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
+#					else: noSound = false
 		if abs(Global.VillagePoint.x - position.x)>60&&!is_in_group("villageSoldier"): 
 			add_to_group("villageSoldier")
+		if abs(Global.VillagePoint.x - position.x)<=60&&is_in_group("villageSoldier"):
+			remove_from_group("villageSoldier")
 		position.x = clamp(position.x,Global.VillagePoint.x-16,
 		Global.MonsterPoint.x+16)#限制移动范围
 		
@@ -155,12 +156,14 @@ func contrl():#玩家的单位控制
 	pass
 	
 func contrlSet():
-	contrl()
-	if Ani.material == null: Ani.material = Global.SoldierOutLine
+	if camp == Global.VILLAGE&&unSee == false:
+		contrl()
+		if Ani.material == null: Ani.material = Global.SoldierOutLine
 	pass
 
 func _on_input_event(_viewport,event, _shape_idx):
-	if event.is_action_pressed("mouse_left")&&camp == Global.VILLAGE&&unSee == false:
+	
+	if event.is_action_pressed("mouse_left"):
 		Global.Contrl = soldierName[0]#同种士兵
 		Global.ContrlType = Global.Con.GROUP
 	if event.is_action_pressed("mouse_right"):
@@ -175,5 +178,13 @@ func _on_stop_timer_timeout():
 #	changeState("walk",State.PUSH)
 #	pass
 
+func _on_area_entered(area):
+	if area.type == "soldier":
+		if area.noSound == false&&area.camp == camp: 
+			noSound = true
+			for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
+	pass
 
-
+func _on_area_exited(area):
+	if area.type == "soldier": noSound = false
+	pass

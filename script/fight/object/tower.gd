@@ -15,8 +15,9 @@ func firstSetting(soldier):
 	position.y = Global.FightGroundY+collBox.y
 	effDefence[Global.Effect.KNOCK] = true
 	if soldier == "airDefence": 
-		$Collision1.position = $CollisionUp.position
-		$Collision1.target_position = $CollisionUp.target_position
+		$Collision1.global_position.y = Global.FightSkyY+50
+		$Collision1.position.x = $CollisionUp.position.x
+		$Collision1.target_position.x = attRangeBasic[0]+abs($CollisionUp.position.x)
 	pass
 
 func _ready():

@@ -67,8 +67,8 @@ enabled = false
 collide_with_bodies = false
 
 [node name="CollisionUp" type="RayCast2D" parent="." index="3"]
-position = Vector2(15, 0)
-target_position = Vector2(0, -300)
+position = Vector2(-64, 0)
+target_position = Vector2(240, 0)
 collide_with_bodies = false
 
 [node name="iceCover" parent="." index="5"]

@@ -105,7 +105,7 @@ metadata/_edit_group_ = true
 [node name="towerArea" type="ColorRect" parent="."]
 offset_left = 170.0
 offset_top = 286.0
-offset_right = 390.0
+offset_right = 370.0
 offset_bottom = 318.0
 color = Color(0, 0, 0, 0.313726)
 metadata/_edit_lock_ = true
@@ -155,6 +155,7 @@ offset_right = 789.0
 offset_bottom = 22.0
 
 [node name="choiceCard" parent="." instance=ExtResource("6_qxmrc")]
+visible = false
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 20.0

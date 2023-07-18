@@ -1,5 +1,6 @@
 extends Area2D
 #const MAsk = [[1+16,1+4+16,16],[1+2+16+32],[2+32,2+8+32,32]]
+var type = "aoe"
 const Mod = {"village":0,"all":1,"monster":2} 
 var aoeModel
 var aoeRange
@@ -45,6 +46,7 @@ func _ready():
 			$se/broke.play()
 			$particles/damage.emitting = true
 		"thunder": 
+			collision_mask = 1+4+8+16
 			newRange.size.y = Global.STSData["thunder"]["collBox"].y
 			$se/thunder.volume_db = Global.SeDB
 			$se/thunder.play()

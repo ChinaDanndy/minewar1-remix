@@ -189,19 +189,20 @@
         "description":"每隔2秒连续发射/3发箭矢,存在10/秒"
     },
     "airDefence":{
-        "health":3,
-        "aniSpeedBasic":0.4,
+        "health":4,
+        "aniSpeedBasic":0.3,
         "towKeepTime":6,
-        "damageBasic":[3,0,0],
-        "attRangeBasic":[40,0],
+        "damageBasic":[2,0,0],
+        "attRangeBasic":[220,0],
         "projectile":["firework"],
         "damagerType":[["firework"]],
         "proSpeed":[6],
         "proDir":[0,0,-1],
+        "proPos":[0,0,-20],
         "dropSpeed":-4,
 
         "price":3,
-        "cd":5,
+        "cd":6,
         "type":"tower",
         "animation":{"attack":1,"stop":1,"death":1},
         "souEffValue":{"hurt":"wood1","attack":"launch","death":"towerDeath"},
@@ -211,7 +212,7 @@
         "description":"发射烟花攻击空中/怪物,存在6秒"
     },
     "golder":{
-        "health":2,
+        "health":3,
         "type":"tower",
         
         "price":5,

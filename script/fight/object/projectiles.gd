@@ -42,6 +42,11 @@ func _process(_delta):
 	if position.y >= Global.FightGroundY&&aoeRange != null:#落地物体
 		position.y = Global.FightGroundY-20
 		aoeCreate()
+	if position.y <= Global.FightSkyY&&projectile == "firework":
+		$Sprite2D.texture =  load("res://assets/objects/projectiles/fireworkV.png")
+		proDir = Vector2(1,0)#火箭拐弯
+		$tail.emitting = false
+		pass
 	if position.y < -20: 
 		await get_tree().create_timer(3,false).timeout
 		queue_free()#烟花飞出去销毁,让粒子释放完

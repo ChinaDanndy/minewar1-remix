@@ -326,7 +326,6 @@ func attack():
 			damagerType[ani[attackAni]],giveEffect[ani[attackAni]],effValue[ani[attackAni]],
 			effTime[ani[attackAni]],effTimes[ani[attackAni]])
 			if attackType[ani[attackAni]][Global.AttackType.EXPLODE] == true:
-				
 				$AnimatedSprite2D.visible = false
 				deathAttType = null#防止闪电苦力怕自爆后因为死亡必爆炸又炸一次
 				firstDeathSet()#近战AOE且是爆炸伤害类型->只有自爆

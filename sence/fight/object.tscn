@@ -19,7 +19,6 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 
 [node name="object" type="Area2D"]
-monitoring = false
 script = ExtResource("1_cj46x")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

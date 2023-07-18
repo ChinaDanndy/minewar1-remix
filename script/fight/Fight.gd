@@ -83,11 +83,14 @@ func _on_cave_timer_timeout():
 	if !targetArray.is_empty(): 
 		var target = targetArray[randi_range(0,targetArray.size()-1)]
 		var newIce = Global.Skill.instantiate()
-		newIce.position.x = target.global_position.x+20
+		if target.currentAni == "stop":
+			newIce.position.x = target.global_position.x
+		else: newIce.position.x = target.global_position.x+20
 		newIce.camp = Global.MONSTER
 		Global.root.add_child(newIce)
 		newIce.firstSetting("ice")
-	$Timer/CaveTimer.start(iceTime+randf_range(-iceTimeRand,iceTimeRand))
+		$Timer/CaveTimer.start(iceTime+randf_range(-iceTimeRand,iceTimeRand))
+	else: $Timer/CaveTimer.start(0.5)
 	pass 
 	
 func _on_thundertimer_timeout():
@@ -106,16 +109,18 @@ func _on_thundertimer_timeout():
 		var target1 = targetArray1[randi_range(0,targetArray1.size()-1)]
 		var newtThunder = Global.Skill.instantiate()
 		newtThunder.camp = Global.MONSTER
-		newtThunder.position.x = target1.global_position.x+30
+		if target1.currentAni == "stop":
+			newtThunder.position.x = target1.global_position.x
+		else: newtThunder.position.x = target1.global_position.x+25
 		Global.root.add_child(newtThunder)
 		newtThunder.firstSetting("thunder")
-	
-	$Timer/ThunderTimer.start(thunderTime+
-	randf_range(-thunderTimeRand,thunderTimeRand))
+		$Timer/ThunderTimer.start(thunderTime+
+		randf_range(-thunderTimeRand,thunderTimeRand))
+	else: $Timer/ThunderTimer.start(0.5)
 	pass
 	
 func fightStart():
-#	for i in 50 :
+#	for i in 100 :
 #		var friend = Global.Soldier.instantiate()
 #		friend.camp = Global.VILLAGE
 #		Global.root.add_child(friend)
@@ -143,7 +148,7 @@ func _process(_delta):
 		Global.ContrlType = Global.Con.ALL#全体士兵
 		Global.Contrl = null
 	if Input.is_action_just_pressed("ui_test"):
-		#print(get_tree().get_nodes_in_group("monsterSoldier").size())
+		#print(get_tree().get_nodes_in_group("villageSoldier"))
 		#Global.MonsterBase.health = 0
 		pass
 #	if Input.is_action_just_pressed("contrl1"): Global.Contrl = "shoveler"
@@ -225,6 +230,7 @@ func _on_tree_entered():
 	Global.NowMoney = 0
 	Global.CardBuy = null
 	Global.Contrl = null
+	Global.ContrlType = Global.Con.GROUP
 	Global.LevelOver = false
 	
 	Global.VillageBase = $baseVillage/collBox
