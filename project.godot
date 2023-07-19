@@ -169,8 +169,8 @@ contrl_all={
 2d_physics/layer_4="SeaMon"
 2d_physics/layer_5="BaseVill"
 2d_physics/layer_6="BaseMon"
-2d_physics/layer_7="Death"
-2d_physics/layer_8="Mouse"
+2d_physics/layer_7="VillSound"
+2d_physics/layer_8="MonSound"
 
 [physics]
 

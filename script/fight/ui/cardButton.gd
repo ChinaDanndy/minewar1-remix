@@ -192,6 +192,7 @@ func _on_pressed():
 					match self.button_mask:
 						MOUSE_BUTTON_MASK_LEFT:#左键
 							Global.CardBuy = soldier
+							await get_tree().create_timer(0.1,false).timeout
 							var Area = choiceArea.instantiate()
 							Area.soldier = soldier
 							Area.card = self

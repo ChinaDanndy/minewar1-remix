@@ -1,7 +1,7 @@
 extends "res://script/fight/object.gd"
 var unPeopleFly = true
 var thunderAphla = 0
-var thunderSpeed = 0.015
+var thunderSpeed = 0.01
 
 func firstSetting(soldier):
 	Global.FightSence.reloadSence.connect(reload)

@@ -66,6 +66,7 @@ func _ready():
 					if !Global.AllMonster.has(j): 
 						Global.AllMonster[count] = j
 						count += 1
+			#if Global.NowLevel == 6||Global.NowLevel == 7: Global.AllMonster[5] = "creeper"
 			if Global.LevelData[Global.NowLevel]["set"]["iceTime"] > 0: 
 				Global.AllMonster[6] = "ice"
 			if Global.LevelData[Global.NowLevel]["set"]["thunderTime"] > 0: 
@@ -83,9 +84,9 @@ func _on_cave_timer_timeout():
 	if !targetArray.is_empty(): 
 		var target = targetArray[randi_range(0,targetArray.size()-1)]
 		var newIce = Global.Skill.instantiate()
-		if target.currentAni == "stop":
+		if target.velocity == 0:
 			newIce.position.x = target.global_position.x
-		else: newIce.position.x = target.global_position.x+20
+		else: newIce.position.x = target.global_position.x+50
 		newIce.camp = Global.MONSTER
 		Global.root.add_child(newIce)
 		newIce.firstSetting("ice")
@@ -109,7 +110,7 @@ func _on_thundertimer_timeout():
 		var target1 = targetArray1[randi_range(0,targetArray1.size()-1)]
 		var newtThunder = Global.Skill.instantiate()
 		newtThunder.camp = Global.MONSTER
-		if target1.currentAni == "stop":
+		if target1.velocity == 0:
 			newtThunder.position.x = target1.global_position.x
 		else: newtThunder.position.x = target1.global_position.x+25
 		Global.root.add_child(newtThunder)
@@ -120,7 +121,7 @@ func _on_thundertimer_timeout():
 	pass
 	
 func fightStart():
-#	for i in 100 :
+#	for i in 10:
 #		var friend = Global.Soldier.instantiate()
 #		friend.camp = Global.VILLAGE
 #		Global.root.add_child(friend)
@@ -148,6 +149,7 @@ func _process(_delta):
 		Global.ContrlType = Global.Con.ALL#全体士兵
 		Global.Contrl = null
 	if Input.is_action_just_pressed("ui_test"):
+		#print(Global.test)
 		#print(get_tree().get_nodes_in_group("villageSoldier"))
 		#Global.MonsterBase.health = 0
 		pass

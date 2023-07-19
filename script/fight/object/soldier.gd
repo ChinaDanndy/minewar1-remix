@@ -2,7 +2,8 @@ extends "res://script/fight/object.gd"
 var stopPos
 var stopTime
 var stop = false
-
+var velocity
+var hand = self
 
 @onready var Ani = $AnimatedSprite2D
 
@@ -13,11 +14,18 @@ func firstSetting(soldier):
 	aniSpeedBasic = speedBasic+0.2
 	$Collision1.collide_with_areas = true
 	
+	var newBox = RectangleShape2D.new()
+	newBox.size = collBox-Vector2(collBoxCut,0)
+	$group/groupBox.shape = newBox
+	$group/groupBox.position.x = collBoxPro
+	$group.collision_layer = Global.LAyer[camp+1][3]
+	$group.collision_mask = Global.LAyer[camp+1][3]
 	match camp:
 		Global.VILLAGE: position.x = Global.VillagePoint.x 
 		Global.MONSTER: 
 			position.x = Global.MonsterPoint.x
 			add_to_group("monsterSoldier")
+			if soldierName[0] == "creeper": add_to_group("creeper")#获得苦力怕id给劈闪电用
 	collision_layer = Global.LAyer[camp+1][0]
 	position.y = Global.FightGroundY-(collBox.y/2)
 	if unSee == true: 
@@ -59,44 +67,28 @@ func _process(_delta):
 		#$AnimatedSprite2D.play("attack")
 		pass
 		
-		
-	if camp == Global.MONSTER:
-#		if get_tree().get_nodes_in_group("monsterSoldier").size() > 1:
-#			for i in get_tree().get_nodes_in_group("monsterSoldier"):
-#				if global_position == i.global_position:#防止叠一起音效刺耳
-#					noSound = true
-#					for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
-#				else: noSound = false
-		if abs(Global.MonsterPoint.x - position.x)>60&&soldierName[0] == "creeper"&&!is_in_group("creeper"):
-			add_to_group("creeper")#获得苦力怕id给劈闪电用
+	#if camp == Global.MONSTER:
 	if camp == Global.VILLAGE: 
-#		if get_tree().get_nodes_in_group("villageSoldier").size() > 1:
-#			for i in get_tree().get_nodes_in_group("villageSoldier"):
-#				if global_position == i.global_position:#防止叠一起音效刺耳
-#					noSound = true
-#					for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
-#					else: noSound = false
 		if abs(Global.VillagePoint.x - position.x)>60&&!is_in_group("villageSoldier"): 
-			add_to_group("villageSoldier")
+			add_to_group("villageSoldier")#安全区域
 		if abs(Global.VillagePoint.x - position.x)<=60&&is_in_group("villageSoldier"):
 			remove_from_group("villageSoldier")
 		position.x = clamp(position.x,Global.VillagePoint.x-16,
 		Global.MonsterPoint.x+16)#限制移动范围
 		
-		match Global.ContrlType:
-			Global.Con.ALL: contrlSet()
-			Global.Con.ONE:
-				if Global.Contrl == self&&currentState != State.DEATH&&speed>0: 
-					contrlSet()
-				else: if Ani.material != null: Ani.material = null
-			Global.Con.GROUP:
-				if Global.Contrl == soldierName[0]&&currentState != State.DEATH&&speed>0:
-		#&&currentState != State.FALL: 
-		#if(collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
-					contrlSet()
-				else: if Ani.material != null: Ani.material = null
+		if currentState != State.DEATH&&speed>0:#操控
+			match Global.ContrlType:
+				Global.Con.ALL: contrlSet()
+				Global.Con.ONE:
+					if Global.Contrl == self: contrlSet()
+					else: if Ani.material != null: Ani.material = null
+				Global.Con.GROUP:
+					if Global.Contrl == soldierName[0]: contrlSet()
+					else: if Ani.material != null: Ani.material = null
 	position.x += speed*camp*speedDirection*speedState*Global.GameSpeed#移动控制
-	
+	velocity = speed*camp*speedDirection*speedState*Global.GameSpeed
+			#&&currentState != State.FALL: 
+		#if(collKind!=Global.CollKind.NARESPE)||(collKind==Global.CollKind.NARESPE&&ifFirstEffect==false): 
 	if stopPos != null&&ifOnlyAttBase == false:#敌方的行动与暂停
 		if position.x <= stopPos&&stop == false:
 			stop = true
@@ -178,13 +170,19 @@ func _on_stop_timer_timeout():
 #	changeState("walk",State.PUSH)
 #	pass
 
-func _on_area_entered(area):
-	if area.type == "soldier":
-		if area.noSound == false&&area.camp == camp: 
-			noSound = true
-			for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
+
+
+func _on_group_area_entered(area):
+	if area.get_parent().noSound == false:
+		#if camp == Global.VILLAGE:  print("???")
+		#if noSound == false: Global.test += 1
+		#$group.collision_mask = 0
+		noSound = true
+		for j in souEff: if souEff[j] != null: souEff[j].set_volume_db(-80)
 	pass
 
-func _on_area_exited(area):
-	if area.type == "soldier": noSound = false
-	pass
+
+func _on_group_area_exited(_area):
+	noSound = false
+	#$group.collision_mask = Global.LAyer[camp+1][3]
+	pass 

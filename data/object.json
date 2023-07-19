@@ -144,7 +144,7 @@
     },
     "iron":
     {
-        "health":7,
+        "health":8,
         "speedBasic":0.65,
         "damageBasic":[2.5,0,0],
         "attRangeBasic":[25,0],
@@ -411,14 +411,14 @@
     "ice":{
         "ifAoeHold":false,
         "aoeModel":"village",
-        "aoeRange":60,
-        "effTime":[0,0,0,0,5],
+        "aoeRange":40,
+        "effTime":[0,0,0,0,3],
         "effTimes":[0,0],
         "giveEffect":[0,0,0,0,-1,0,0,0],
-        "dropSpeed":6,
+        "dropSpeed":4,
         "type":"skill",
         "objectName":"冰冻法术",
-        "description":"使范围内我方单位/5秒内无法攻击和/移动"
+        "description":"使范围内我方地面/单位3秒内无法攻/击和移动"
     },
     "thunder":{
         "aoeModel":"village",
@@ -428,7 +428,7 @@
         "giveEffect":[0,0,0,0,0,-1,0,0],
         "type":"skill",
         "objectName":"闪电法术",
-        "description":"对范围内我方单位/造成7点伤害并使/苦力怕变成闪电苦/力怕"
+        "description":"对范围内我方地面/单位造成7点伤害/并使苦力怕变成闪/电苦力怕"
     },
     "creeperKing":{
         "health":40,
@@ -437,6 +437,7 @@
         "aoeRange":[200,null,null,null],
         "protectHealth":6,
         "protectCD":8,
+        "thunderAttTime":2,
 
         "type":"soldier",
         "attackType":[[false,false,true],[false,true,false]],

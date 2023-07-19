@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://q05lgu8j1nu8"]
+[gd_scene load_steps=13 format=3 uid="uid://q05lgu8j1nu8"]
 
 [ext_resource type="PackedScene" uid="uid://cakdgdywehft0" path="res://sence/fight/object.tscn" id="1_p63ko"]
 [ext_resource type="Script" path="res://script/fight/object/soldier.gd" id="2_sxvfl"]
 [ext_resource type="Shader" path="res://rescourse/cover.gdshader" id="3_teba0"]
 [ext_resource type="PackedScene" uid="uid://dfqflpq488a1p" path="res://sence/particles/Explode.tscn" id="4_58kts"]
 [ext_resource type="PackedScene" uid="uid://cdijfduu8yjm6" path="res://sence/particles/smoke.tscn" id="5_13qt8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ahnp0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_at3e2"]
 resource_local_to_scene = true
@@ -15,28 +17,28 @@ shader = ExtResource("3_teba0")
 shader_parameter/change_color = Color(0, 0, 1, 0.392157)
 shader_parameter/threshold = 0.1
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cbwcj"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_iw06r"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yxagh"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kit4d"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mf3ng"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_satsm"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 16
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sdc3a"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mmpxh"]
 resource_local_to_scene = true
 particles_animation = true
 particles_anim_h_frames = 8
@@ -46,15 +48,20 @@ particles_anim_loop = false
 [node name="object" instance=ExtResource("1_p63ko")]
 script = ExtResource("2_sxvfl")
 
-[node name="AnimatedSprite2D" parent="." index="0"]
+[node name="group" type="Area2D" parent="." index="0"]
+
+[node name="groupBox" type="CollisionShape2D" parent="group" index="0"]
+shape = SubResource("RectangleShape2D_ahnp0")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_at3e2")
 
-[node name="iceCover" parent="." index="4"]
+[node name="iceCover" parent="." index="5"]
 material = SubResource("ShaderMaterial_bnrng")
 
-[node name="UsualTimer" type="Timer" parent="." index="7"]
+[node name="UsualTimer" type="Timer" parent="." index="8"]
 
-[node name="stopTimer" type="Timer" parent="." index="8"]
+[node name="stopTimer" type="Timer" parent="." index="9"]
 one_shot = true
 
 [node name="monsterSummon" type="CPUParticles2D" parent="particles" index="0"]
@@ -75,35 +82,35 @@ scale_amount_max = 3.0
 color = Color(0.27451, 0.0784314, 0.313726, 1)
 
 [node name="smallExplode" parent="particles" index="1" instance=ExtResource("4_58kts")]
-material = SubResource("CanvasItemMaterial_cbwcj")
+material = SubResource("CanvasItemMaterial_iw06r")
 position = Vector2(0, -16)
 amount = 20
 emission_shape = 2
 emission_sphere_radius = 26.0
 
 [node name="bigExplode" parent="particles" index="2" instance=ExtResource("4_58kts")]
-material = SubResource("CanvasItemMaterial_yxagh")
+material = SubResource("CanvasItemMaterial_kit4d")
 position = Vector2(0, -30)
 amount = 30
 emission_shape = 2
 emission_sphere_radius = 40.0
 
 [node name="selfExplode" parent="particles" index="3" instance=ExtResource("4_58kts")]
-material = SubResource("CanvasItemMaterial_mf3ng")
+material = SubResource("CanvasItemMaterial_satsm")
 position = Vector2(0, -20)
 amount = 40
 emission_shape = 3
 emission_rect_extents = Vector2(60, 40)
 
 [node name="deathSmoke" parent="particles" index="4" instance=ExtResource("5_13qt8")]
-material = SubResource("CanvasItemMaterial_sdc3a")
+material = SubResource("CanvasItemMaterial_mmpxh")
 emission_shape = 3
 emission_rect_extents = Vector2(1, 1)
 
 [node name="ballonBreak" type="AudioStreamPlayer" parent="se" index="0"]
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="area_entered" from="group" to="." method="_on_group_area_entered"]
+[connection signal="area_exited" from="group" to="." method="_on_group_area_exited"]
 [connection signal="timeout" from="UsualTimer" to="." method="_on_usual_timer_timeout"]
 [connection signal="timeout" from="stopTimer" to="." method="_on_stop_timer_timeout"]

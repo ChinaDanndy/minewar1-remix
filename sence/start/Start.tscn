@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://b0i8w4y6jpddt"]
+[gd_scene load_steps=20 format=3 uid="uid://b0i8w4y6jpddt"]
 
 [ext_resource type="Script" path="res://script/start/Start.gd" id="1_a4fua"]
 [ext_resource type="PackedScene" uid="uid://byp0sfn4apxll" path="res://sence/start/levelChoiceWindow.tscn" id="1_udu2w"]
 [ext_resource type="Texture2D" uid="uid://b14swun08llpd" path="res://assets/UI/others/title.png" id="2_ylkws"]
 [ext_resource type="PackedScene" uid="uid://dsb20dqiimav3" path="res://sence/start/start_button.tscn" id="3_vrnfq"]
 [ext_resource type="Texture2D" uid="uid://s58an2mx1ytm" path="res://assets/backgrounds/map.png" id="3_y1ro5"]
+[ext_resource type="FontFile" uid="uid://ck8rgcys0xfn0" path="res://assets/font/Minecraft AE.ttf" id="4_63gde"]
 [ext_resource type="Material" uid="uid://eslbs4jeusj1" path="res://rescourse/soldierOutLine.tres" id="5_uaiuo"]
 [ext_resource type="PackedScene" uid="uid://bs1fdm6sstmej" path="res://sence/start/buy_card_window.tscn" id="7_llewj"]
 [ext_resource type="PackedScene" uid="uid://dy08r7ufu8nvd" path="res://sence/fight/ui/card_text_window.tscn" id="8_5vv64"]
@@ -82,6 +83,17 @@ offset_right = 792.0
 offset_bottom = 148.0
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_ylkws")
+
+[node name="version" type="Label" parent="."]
+layout_mode = 0
+offset_left = 420.0
+offset_top = 68.0
+offset_right = 448.0
+offset_bottom = 87.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_63gde")
+theme_override_font_sizes/font_size = 0
+text = "V 1.3"
 
 [node name="buttonGroup" type="VBoxContainer" parent="."]
 layout_mode = 0

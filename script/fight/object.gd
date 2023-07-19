@@ -152,17 +152,17 @@ func reSet(soldier):
 	SetAnimationAndCollBox(soldier)
 	collMask()
 	
-	if attDefShield != null:#护盾破碎时伤害溢出霸体
-		effDefence = [true,true,true,true,true,true,true,true]
-		attDefence = [true,true,true]
-		await get_tree().create_timer(0.3,false).timeout
-		effDefence = [false,false,false,false,false,false,false,false]
-		attDefence = [false,false,false]
+#	if attDefShield != null:#护盾破碎时伤害溢出霸体
+#		effDefence = [true,true,true,true,true,true,true,true]
+#		attDefence = [true,true,true]
+#		await get_tree().create_timer(1,false).timeout
+#		effDefence = [false,false,false,false,false,false,false,false]
+#		attDefence = [false,false,false]
 	pass
 	
 func _process(_delta):#每帧执行的部分
 	if currentState == State.FALL:  position.y += dropSpeed
-	#$Label.text = str(health)
+	#$Label.text = str(currentAni)
 	if noSound == false:
 		for i in souEff: 
 			if souEff[i] != null: souEff[i].set_volume_db(Global.SeDB)#时刻保持音量与全局音量一致
@@ -194,7 +194,7 @@ func _process(_delta):#每帧执行的部分
 	if Input.is_action_just_pressed("ui_test"):#测试用
 		if camp == Global.VILLAGE: 
 			#health += 2
-			#print(speedEffect)
+			#print($AnimatedSprite2D.frame)
 			pass
 	pass
 
@@ -340,7 +340,6 @@ func attack():
 		for i in attTimes:
 			if i == 1&&attTimes == 2:  attackAni = "attackSec"
 			var newPro = Projectile.instantiate()
-			newPro.collision_mask = collision_mask
 			newPro.camp = camp
 			newPro.projectile = projectile[ani[attackAni]]
 			newPro.proRange = attRange[ani[attackAni]]
@@ -391,11 +390,6 @@ func finalDeathSet():
 func effectTimer(effName,effKeepTime,effKeepTimes,effDam,GoodOrBad):
 	var this = effName
 	if GoodOrBad == Global.EFFGOOD: this += Global.EffGood
-	if effName == Global.Effect.FREEZE:
-		$Collision1.collide_with_areas = false
-		$Collision2.collide_with_areas = false
-		$iceCover.visible = true
-		$AnimatedSprite2D.pause()
 	var effTimer = Timer.new()
 	effTimer.timeout.connect(effectTimerTimeout.bind(
 		effName,effKeepTimes,effDam,GoodOrBad))
@@ -404,6 +398,12 @@ func effectTimer(effName,effKeepTime,effKeepTimes,effDam,GoodOrBad):
 	add_child(effTimer)
 	effTimer.start(effKeepTime)
 	effTimerId[this] = effTimer
+	if effName == Global.Effect.FREEZE:
+		$Collision1.collide_with_areas = false
+		$Collision2.collide_with_areas = false
+		$iceCover.visible = true
+		await get_tree().create_timer(0.02,false).timeout
+		$AnimatedSprite2D.pause()
 	pass
 	
 func regenerationSet(): $particles/regeneration.emitting = true

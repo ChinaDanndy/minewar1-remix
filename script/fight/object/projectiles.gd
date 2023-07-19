@@ -27,6 +27,7 @@ var effTimes
 func _ready():
 	Global.FightSence.reloadSence.connect(reload)
 	startPos = position.x
+	collision_mask = Global.MAsk[camp+1][0]
 	$Sprite2D.texture = load("res://assets/objects/projectiles/"+projectile+".png")
 	var newBox = RectangleShape2D.new()#碰撞箱自适应
 	newBox.size = $Sprite2D.texture.get_size()

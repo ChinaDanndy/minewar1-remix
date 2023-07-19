@@ -63,17 +63,17 @@ func _ready():
 		await get_tree().create_timer(effTime[Global.Effect.DAMAGE]*effTimes[Global.DamValue.DAMAGE],false).timeout
 		queue_free()
 	else:
-		if damagerType[0] == "power"||damagerType[0] == "weakness"||(
-			damagerType[0] == "thunder")||damagerType[0] == "tnt"||(
-			damagerType[0] == "fireBall")||damagerType[0] == "fireBallDown"||(
-			damagerType[0] == "ice")||damagerType[0] == "firework":
-			await get_tree().create_timer(0.1,false).timeout
-			collision_mask = 0
-			await get_tree().create_timer(0.8,false).timeout
-			queue_free()
-		else:
-			await get_tree().create_timer(0.1,false).timeout
-			queue_free()
+		await get_tree().create_timer(0.1,false).timeout
+		collision_mask = 0
+		await get_tree().create_timer(0.8,false).timeout
+		queue_free()
+#		if damagerType[0] == "power"||damagerType[0] == "weakness"||(
+#			damagerType[0] == "thunder")||damagerType[0] == "tnt"||(
+#			damagerType[0] == "fireBall")||damagerType[0] == "fireBallDown"||(
+#			damagerType[0] == "ice")||damagerType[0] == "firework":
+#		else:
+#			await get_tree().create_timer(0.1,false).timeout
+#			queue_free()
 	pass
 
 func _on_area_entered(area):
@@ -83,7 +83,11 @@ func _on_area_entered(area):
 		effValue,effTime,effTimes)#纯效果
 	else:
 		Global.damage_Calu(area,Global.damCaluType.ATTEFF,attackType,damage,damagerType,
-		giveEffect,effValue,effTime,effTimes)#攻击全部
+		giveEffect,effValue,effTime,effTimes)#攻击全
+	if ifAoeHold == false:
+		collision_mask = 0
+		await get_tree().create_timer(0.8,false).timeout
+		queue_free() 
 	pass
 	
 func _on_hold_timer_timeout():

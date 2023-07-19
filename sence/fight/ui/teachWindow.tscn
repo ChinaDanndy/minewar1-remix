@@ -51,6 +51,7 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="MainTeach" type="Label" parent="text"]
+visible = false
 layout_mode = 0
 offset_left = 310.0
 offset_top = 63.0
@@ -128,7 +129,6 @@ text = "游戏结束时,若分数超过20分,
 "
 
 [node name="Start" type="Label" parent="text"]
-visible = false
 layout_mode = 0
 offset_left = 307.0
 offset_top = 77.0
@@ -141,9 +141,9 @@ text = "按Q截图
  
 制作人员名单:
 编程&主策划: Danndy狙击手
-(China_Danndy)
+(b站id:China_Danndy)
 美术&策划: 钢铁像素点
-美术: 纸飞稽  策划: Eden
+美术: 向导大人  策划: Eden
 (以上均为贴吧id)
  
 测试者:  1639,CTTZB,

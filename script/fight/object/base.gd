@@ -12,6 +12,7 @@ var health = 5
 var healthUp
 var shield =0
 var collBox
+var thunderAttTime = 2.25
 
 func firstSetting():
 	if get_parent().name == "bossProtect": 
@@ -28,6 +29,7 @@ func firstSetting():
 		if camp == Global.MONSTER: 
 			health = Global.LevelData[Global.NowLevel]["set"]["baseMonsterHealth"]
 		if get_parent().name == "baseMonster": 
+			if Global.NowLevel == 7: $RayCast2D.collide_with_areas = true#闪电保护
 			match Global.LevelData[Global.NowLevel]["set"]["levelType"]:
 				"defence": 
 					get_parent().get_node("healthLine").visible = false
@@ -55,7 +57,20 @@ func hurt():
 	get_parent().get_node("cover").visible = false
 	pass
 	
+func _on_attack_timer_timeout():
+	var newthunder = Global.Skill.instantiate()
+	Global.root.add_child(newthunder)
+	newthunder.thunderSpeed = 0.1
+	newthunder.camp = Global.MONSTER
+	newthunder.firstSetting("thunder")
+	newthunder.position.x = global_position.x-collBox.x/2-20
+	pass
+	
 func _process(_delta):
+	if $RayCast2D.is_colliding():
+		if $attackTimer.time_left == 0: $attackTimer.start(thunderAttTime)
+	else: $attackTimer.stop()
+	
 	#if Input.is_action_just_pressed("ui_test"): print(health)
 	if health >0:
 		healthColor.region_rect = Rect2(0,0,originSize*(health/healthUp),10)
@@ -74,3 +89,6 @@ func _process(_delta):
 			emit_signal("ProtectDown")
 	pass
 	
+
+
+

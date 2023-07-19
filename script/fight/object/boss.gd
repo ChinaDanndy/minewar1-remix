@@ -16,6 +16,7 @@ var attackTime = 1
 var bossSkillCut
 var bossUp = 0
 var bossShineSet = 0
+var thunderAttTime
 
 func _ready():
 	super.SetValue("creeperKing")
@@ -50,7 +51,7 @@ func _process(_delta):
 	else: healthColor.region_rect =  Rect2(0,0,0,0)
 	
 	if $RayCast2D.is_colliding():
-		if $attackTimer.time_left == 0: $attackTimer.start(speedBasic)
+		if $attackTimer.time_left == 0: $attackTimer.start(thunderAttTime)
 	else: $attackTimer.stop()
 		
 	if bossLv == 2:
